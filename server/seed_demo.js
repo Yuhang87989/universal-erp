@@ -141,7 +141,7 @@ const dayjs = require('dayjs');
     { supIdx: 0, items: [{ pi: 0, qty: 50, price: 75 }, { pi: 1, qty: 30, price: 120 }], days: 1, status: 'received' },
     { supIdx: 1, items: [{ pi: 4, qty: 100, price: 8 }, { pi: 5, qty: 50, price: 18 }], days: 3, status: 'received' },
     { supIdx: 2, items: [{ pi: 7, qty: 200, price: 3 }, { pi: 8, qty: 40, price: 35 }], days: 5, status: 'received' },
-    { supIdx: 3, items: [{ pi: 11, qty: 10, price: 65 }, { pi: 12, qty: 5, price: 85 }], days: 2, status: 'pending' },
+    { supIdx: 3, items: [{ pi: 11, qty: 10, price: 65 }, { pi: 12, qty: 5, price: 85 }], days: 2, status: 'draft' },
   ];
   for (const pd of scPurchaseData) {
     const orderDate = today.subtract(pd.days, 'day').format('YYYY-MM-DD');
@@ -322,7 +322,7 @@ const dayjs = require('dayjs');
     { supIdx: 0, items: [{ pi: 0, qty: 100, price: 0.8 }, { pi: 1, qty: 50, price: 1.5 }, { pi: 2, qty: 40, price: 1.2 }, { pi: 3, qty: 80, price: 1 }], days: 0, status: 'received' },
     { supIdx: 1, items: [{ pi: 5, qty: 40, price: 3.5 }, { pi: 6, qty: 30, price: 2 }, { pi: 7, qty: 25, price: 2.5 }], days: 0, status: 'received' },
     { supIdx: 2, items: [{ pi: 8, qty: 15, price: 12 }, { pi: 9, qty: 20, price: 10 }, { pi: 10, qty: 8, price: 35 }], days: 0, status: 'received' },
-    { supIdx: 3, items: [{ pi: 11, qty: 20, price: 6 }, { pi: 12, qty: 15, price: 7 }, { pi: 13, qty: 8, price: 25 }], days: 0, status: 'pending' },
+    { supIdx: 3, items: [{ pi: 11, qty: 20, price: 6 }, { pi: 12, qty: 15, price: 7 }, { pi: 13, qty: 8, price: 25 }], days: 0, status: 'draft' },
     { supIdx: 0, items: [{ pi: 4, qty: 30, price: 1.8 }], days: 1, status: 'received' },
   ];
   for (const pd of mvPurchaseData) {
@@ -500,7 +500,7 @@ const dayjs = require('dayjs');
     { supIdx: 2, items: [{ pi: 4, qty: 120, price: 1.5 }], days: 2, status: 'received' },
     { supIdx: 1, items: [{ pi: 7, qty: 50, price: 4 }, { pi: 8, qty: 80, price: 2.5 }, { pi: 9, qty: 40, price: 3.5 }], days: 3, status: 'received' },
     { supIdx: 4, items: [{ pi: 5, qty: 60, price: 2.8 }, { pi: 3, qty: 240, price: 0.8 }], days: 4, status: 'received' },
-    { supIdx: 3, items: [{ pi: 13, qty: 20, price: 14 }, { pi: 14, qty: 48, price: 2.5 }], days: 5, status: 'pending' },
+    { supIdx: 3, items: [{ pi: 13, qty: 20, price: 14 }, { pi: 14, qty: 48, price: 2.5 }], days: 5, status: 'draft' },
     { supIdx: 0, items: [{ pi: 10, qty: 15, price: 18 }, { pi: 11, qty: 12, price: 15 }, { pi: 12, qty: 20, price: 5 }], days: 6, status: 'received' },
   ];
   for (const pd of rsPurchaseData) {
