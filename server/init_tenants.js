@@ -34,8 +34,8 @@ const mysql = require('mysql2/promise');
   // 定义三套帐套
   const tenants = [
     { name: '农村供销社', owner: '邱健军', phone: '13800001001', type: 'supply_coop', desc: '农用供销社，经营农资、农药、化肥、种子等' },
-    { name: '菜市场商户', owner: '邱健军', phone: '13800001002', type: 'market_vendor', desc: '个体菜市场摊位，经营蔬菜、水果、肉禽等' },
-    { name: '个体门店', owner: '邱健军', phone: '13800001003', type: 'retail_store', desc: '个体商户门店，经营日用百货等' },
+    { name: '菜市场商户', owner: '邱健军', phone: '13800001002', type: 'market', desc: '个体菜市场摊位，经营蔬菜、水果、肉禽等' },
+    { name: '个体门店', owner: '邱健军', phone: '13800001003', type: 'retail', desc: '个体商户门店，经营日用百货等' },
   ];
 
   const tenantIds = [];
