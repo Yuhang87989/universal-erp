@@ -34,22 +34,14 @@ const dayjs = require('dayjs');
   tenantRows.forEach(t => { tenantMap[t.business_type] = t.id; });
   console.log('帐套映射:', tenantMap, '\n');
 
-  // 清理已有演示数据（避免重复执行时报 ER_DUP_ENTRY）
-  const tenantIds = tenantRows.map(t => t.id);
-  const tidList = tenantIds.join(',');
-  // 用 JOIN 确保子表全部清空，避免子查询优化导致遗漏
-  await conn.query(`DELETE si FROM sale_items si INNER JOIN sales_orders so ON si.sales_order_id = so.id WHERE so.tenant_id IN (${tidList})`);
-  await conn.query(`DELETE pi FROM purchase_items pi INNER JOIN purchase_orders po ON pi.purchase_order_id = po.id WHERE po.tenant_id IN (${tidList})`);
-  const mainTables = ['ecommerce_platforms','finance_records','purchase_orders','sales_orders','inventory','products','categories','customers','suppliers'];
-  for (const tbl of mainTables) {
-    await conn.query(`DELETE FROM ${tbl} WHERE tenant_id IN (${tidList})`);
+  // 彻底清理：禁用外键检查后 TRUNCATE 所有表，确保干净
+  await conn.query('SET FOREIGN_KEY_CHECKS = 0');
+  const truncateTables = ['sale_items','purchase_items','ecommerce_platforms','finance_records','purchase_orders','sales_orders','inventory','products','categories','customers','suppliers'];
+  for (const tbl of truncateTables) {
+    await conn.query(`TRUNCATE TABLE ${tbl}`);
   }
-  // 重建自增ID
-  const allTables = ['purchase_items','sale_items','ecommerce_platforms','finance_records','purchase_orders','sales_orders','inventory','products','categories','customers','suppliers'];
-  for (const tbl of allTables) {
-    await conn.query(`ALTER TABLE ${tbl} AUTO_INCREMENT = 1`);
-  }
-  console.log('🧹 已清理旧演示数据\n');
+  await conn.query('SET FOREIGN_KEY_CHECKS = 1');
+  console.log('🧹 已清空所有业务表\n');
 
   // 获取每个租户的管理员ID
   const [adminRows] = await conn.query(
