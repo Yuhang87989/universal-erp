@@ -169,25 +169,25 @@ const Customers: React.FC = () => {
           <Form.Item name="name" label="客户名称" rules={[{ required: true, message: '请输入客户名称' }]}>
             <Input placeholder="客户姓名或单位名称" />
           </Form.Item>
-          <Row gutter={16}>
-            <Col span={12}>
+          <Row gutter={[16, 0]}>
+            <Col xs={24} md={12}>
               <Form.Item name="phone" label="联系电话">
                 <Input placeholder="手机号码" />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col xs={24} md={12}>
               <Form.Item name="gender" label="性别" initialValue="unknown">
                 <Select options={genderOptions} />
               </Form.Item>
             </Col>
           </Row>
-          <Row gutter={16}>
-            <Col span={12}>
+          <Row gutter={[16, 0]}>
+            <Col xs={24} md={12}>
               <Form.Item name="level" label="会员等级" initialValue="normal">
                 <Select options={levelOptions} />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col xs={24} md={12}>
               <Form.Item name="birthday" label="生日">
                 <DatePicker style={{ width: '100%' }} />
               </Form.Item>

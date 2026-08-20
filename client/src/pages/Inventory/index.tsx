@@ -74,14 +74,15 @@ const Inventory: React.FC = () => {
     <div>
       <Title level={4}>库存管理</Title>
       <Card>
-        <Space style={{ marginBottom: 16 }}>
+        <Space wrap style={{ marginBottom: 16, width: '100%' }}>
           <Input
             placeholder="搜索商品名/条码"
             prefix={<SearchOutlined />}
             value={keyword}
             onChange={e => setKeyword(e.target.value)}
             onPressEnter={loadInventory}
-            style={{ width: 240 }}
+            style={{ width: '100%', maxWidth: 280 }}
+            allowClear
           />
           <Button type={lowStockOnly ? 'primary' : 'default'} icon={<WarningOutlined />}
             onClick={() => { setLowStockOnly(!lowStockOnly); setPagination({ ...pagination, current: 1 }); }}>
@@ -94,6 +95,7 @@ const Inventory: React.FC = () => {
           dataSource={items}
           rowKey="id"
           loading={loading}
+          scroll={{ x: 800 }}
           pagination={{ current: pagination.current, pageSize: pagination.pageSize, total, showTotal: t => `共 ${t} 条` }}
           onChange={p => setPagination({ current: p.current || 1, pageSize: p.pageSize || 20 })}
           size="small"

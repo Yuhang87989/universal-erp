@@ -127,18 +127,18 @@ const Reports: React.FC = () => {
 
   // 利润卡片
   const profitCards = profitData ? (
-    <Row gutter={16}>
-      <Col span={6}>
+    <Row gutter={[12, 12]}>
+      <Col xs={12} sm={12} md={6}>
         <Card size="small">
           <Statistic title="总营收" value={profitData.totalRevenue} precision={2} prefix="¥" valueStyle={{ color: '#1677ff' }} />
         </Card>
       </Col>
-      <Col span={6}>
+      <Col xs={12} sm={12} md={6}>
         <Card size="small">
           <Statistic title="总成本" value={profitData.totalCost} precision={2} prefix="¥" valueStyle={{ color: '#ff4d4f' }} />
         </Card>
       </Col>
-      <Col span={6}>
+      <Col xs={12} sm={12} md={6}>
         <Card size="small">
           <Statistic title="毛利润" value={profitData.grossProfit} precision={2} prefix="¥"
             valueStyle={{ color: profitData.grossProfit >= 0 ? '#52c41a' : '#ff4d4f' }}
@@ -146,7 +146,7 @@ const Reports: React.FC = () => {
           />
         </Card>
       </Col>
-      <Col span={6}>
+      <Col xs={12} sm={12} md={6}>
         <Card size="small">
           <Statistic title="利润率" value={profitData.profitMargin} precision={1} suffix="%"
             valueStyle={{ color: profitData.profitMargin >= 20 ? '#52c41a' : profitData.profitMargin >= 10 ? '#fa8c16' : '#ff4d4f' }}
@@ -248,8 +248,8 @@ const Reports: React.FC = () => {
         </Tabs.TabPane>
 
         <Tabs.TabPane tab={<span><ShoppingCartOutlined /> 分类统计</span>} key="category">
-          <Row gutter={16}>
-            <Col span={14}>
+          <Row gutter={[16, 16]}>
+            <Col xs={24} lg={14}>
               <Card title="分类销售统计">
                 <Table
                   columns={categoryColumns}
@@ -257,10 +257,11 @@ const Reports: React.FC = () => {
                   rowKey="id"
                   pagination={false}
                   size="small"
+                  scroll={{ x: 500 }}
                 />
               </Card>
             </Col>
-            <Col span={10}>
+            <Col xs={24} lg={10}>
               <Card title="支付方式分布">
                 <Table
                   columns={paymentColumns}
@@ -268,6 +269,7 @@ const Reports: React.FC = () => {
                   rowKey="payment_method"
                   pagination={false}
                   size="small"
+                  scroll={{ x: 300 }}
                 />
               </Card>
             </Col>

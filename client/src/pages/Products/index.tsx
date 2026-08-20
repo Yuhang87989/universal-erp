@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Table, Button, Input, Space, Modal, Form, Select, InputNumber, message, Tag, Typography, Tabs, Tree } from 'antd';
+import { Card, Table, Button, Input, Space, Modal, Form, Select, InputNumber, message, Tag, Typography, Tabs, Tree, Row, Col } from 'antd';
 import { PlusOutlined, SearchOutlined, EditOutlined, DeleteOutlined, AppstoreOutlined } from '@ant-design/icons';
 import request from '../../api/request';
 
@@ -212,14 +212,14 @@ const Products: React.FC = () => {
       <Tabs activeKey={activeTab} onChange={setActiveTab}>
         <Tabs.TabPane tab="商品档案" key="products">
           <Card size="small" style={{ marginBottom: 12 }}>
-            <Space wrap>
+            <Space wrap style={{ width: '100%' }}>
               <Input
                 placeholder="搜索商品名/条码"
                 prefix={<SearchOutlined />}
                 value={keyword}
                 onChange={e => setKeyword(e.target.value)}
                 onPressEnter={() => { setPagination({ ...pagination, current: 1 }); loadProducts(); }}
-                style={{ width: 200 }}
+                style={{ width: '100%', maxWidth: 220 }}
                 allowClear
               />
               <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>添加商品</Button>
@@ -253,6 +253,7 @@ const Products: React.FC = () => {
             loading={catLoading}
             pagination={false}
             size="small"
+            scroll={{ x: 500 }}
           />
         </Tabs.TabPane>
       </Tabs>
@@ -275,22 +276,28 @@ const Products: React.FC = () => {
           <Form.Item name="barcode" label="条形码">
             <Input placeholder="扫码或手动输入" />
           </Form.Item>
-          <Space style={{ width: '100%' }}>
-            <Form.Item name="unit" label="单位" initialValue="个">
-              <Select style={{ width: 100 }} options={[
-                { label: '个', value: '个' }, { label: '斤', value: '斤' },
-                { label: '公斤', value: '公斤' }, { label: '箱', value: '箱' },
-                { label: '袋', value: '袋' }, { label: '瓶', value: '瓶' },
-                { label: '包', value: '包' }, { label: '份', value: '份' }
-              ]} />
-            </Form.Item>
-            <Form.Item name="costPrice" label="成本价">
-              <InputNumber min={0} precision={2} placeholder="0.00" />
-            </Form.Item>
-            <Form.Item name="sellPrice" label="售价" rules={[{ required: true, message: '请输入售价' }]}>
-              <InputNumber min={0} precision={2} placeholder="0.00" />
-            </Form.Item>
-          </Space>
+          <Row gutter={[16, 0]}>
+            <Col xs={8}>
+              <Form.Item name="unit" label="单位" initialValue="个">
+                <Select style={{ width: '100%' }} options={[
+                  { label: '个', value: '个' }, { label: '斤', value: '斤' },
+                  { label: '公斤', value: '公斤' }, { label: '箱', value: '箱' },
+                  { label: '袋', value: '袋' }, { label: '瓶', value: '瓶' },
+                  { label: '包', value: '包' }, { label: '份', value: '份' }
+                ]} />
+              </Form.Item>
+            </Col>
+            <Col xs={8}>
+              <Form.Item name="costPrice" label="成本价">
+                <InputNumber min={0} precision={2} placeholder="0.00" style={{ width: '100%' }} />
+              </Form.Item>
+            </Col>
+            <Col xs={8}>
+              <Form.Item name="sellPrice" label="售价" rules={[{ required: true, message: '请输入售价' }]}>
+                <InputNumber min={0} precision={2} placeholder="0.00" style={{ width: '100%' }} />
+              </Form.Item>
+            </Col>
+          </Row>
           <Form.Item name="minStock" label="库存预警值">
             <InputNumber min={0} placeholder="低于此值时提醒补货" />
           </Form.Item>

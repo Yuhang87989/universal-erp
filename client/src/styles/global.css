@@ -14,24 +14,26 @@ body {
   min-height: 100vh;
 }
 
-/* 登录页 */
+/* ========== 登录页 ========== */
 .login-container {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 16px;
 }
 
 .login-card {
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
   border-radius: 12px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
 }
 
 .login-title {
   text-align: center;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
   margin-bottom: 8px;
   color: #1a1a1a;
@@ -41,34 +43,35 @@ body {
   text-align: center;
   color: #666;
   margin-bottom: 32px;
+  font-size: 14px;
 }
 
-/* Dashboard */
+/* ========== Dashboard ========== */
 .dashboard-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 12px;
   margin-bottom: 24px;
 }
 
 .stat-card {
-  padding: 20px;
+  padding: 16px;
   border-radius: 12px;
   color: white;
 }
 
 .stat-card .stat-value {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: 700;
   margin: 8px 0;
 }
 
 .stat-card .stat-label {
-  font-size: 14px;
+  font-size: 13px;
   opacity: 0.85;
 }
 
-/* POS */
+/* ========== POS收银 ========== */
 .pos-container {
   display: grid;
   grid-template-columns: 1fr 380px;
@@ -120,4 +123,118 @@ body {
 .pos-product-item .product-price {
   color: #ff4d4f;
   font-weight: 600;
+}
+
+/* ========== 响应式适配 ========== */
+
+/* 平板 (<=1024px) */
+@media (max-width: 1024px) {
+  .pos-container {
+    grid-template-columns: 1fr 320px;
+  }
+  .pos-product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+}
+
+/* 手机 (<=768px) */
+@media (max-width: 768px) {
+  /* POS: 左右布局改为上下堆叠 */
+  .pos-container {
+    grid-template-columns: 1fr;
+    height: auto;
+    gap: 12px;
+  }
+  .pos-products {
+    max-height: 50vh;
+  }
+  .pos-product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 8px;
+  }
+  .pos-product-item {
+    padding: 8px;
+  }
+  .pos-product-item .product-name {
+    font-size: 12px;
+  }
+
+  /* 表格缩小字体 */
+  .ant-table {
+    font-size: 12px;
+  }
+  .ant-table-thead > tr > th,
+  .ant-table-tbody > tr > td {
+    padding: 8px 6px !important;
+  }
+
+  /* 统计卡片自适应 */
+  .dashboard-stats {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  .stat-card {
+    padding: 12px;
+  }
+  .stat-card .stat-value {
+    font-size: 20px;
+  }
+
+  /* Modal 在手机端全宽 */
+  .ant-modal {
+    max-width: calc(100vw - 16px);
+    margin: 8px auto;
+  }
+  .ant-modal-body {
+    max-height: 65vh;
+    overflow-y: auto;
+  }
+
+  /* Tabs 紧凑 */
+  .ant-tabs-nav {
+    margin-bottom: 12px !important;
+  }
+
+  /* Card 间距缩小 */
+  .ant-card-body {
+    padding: 12px !important;
+  }
+
+  /* 筛选区域按钮/输入框自适应 */
+  .ant-space {
+    flex-wrap: wrap;
+  }
+
+  /* Descriptions 单列 */
+  .ant-descriptions-bordered .ant-descriptions-row > th,
+  .ant-descriptions-bordered .ant-descriptions-row > td {
+    display: block;
+    width: 100% !important;
+  }
+}
+
+/* 小手机 (<=480px) */
+@media (max-width: 480px) {
+  .pos-product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 6px;
+  }
+  .pos-product-item {
+    padding: 6px;
+  }
+  .pos-product-item .product-name {
+    font-size: 11px;
+  }
+  .pos-product-item .product-price {
+    font-size: 12px;
+  }
+  .dashboard-stats {
+    grid-template-columns: 1fr;
+  }
+  .login-card {
+    max-width: 100%;
+  }
+  .login-title {
+    font-size: 18px;
+  }
 }

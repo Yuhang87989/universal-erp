@@ -180,16 +180,16 @@ const Purchase: React.FC = () => {
         pagination={{ current: pagination.current, pageSize: pagination.pageSize, total: pagination.total, showTotal: t => `共 ${t} 条`, onChange: p => loadOrders(p) }} />
 
       {/* 新建采购单 */}
-      <Modal title="新建采购单" open={orderModal} onOk={handleCreateOrder} onCancel={() => setOrderModal(false)} width={700} okText="提交">
+      <Modal title="新建采购单" open={orderModal} onOk={handleCreateOrder} onCancel={() => setOrderModal(false)} width={700} okText="提交" style={{ top: 20 }}>
         <Form form={orderForm} layout="vertical">
-          <Row gutter={16}>
-            <Col span={12}>
+          <Row gutter={[16, 0]}>
+            <Col xs={24} md={12}>
               <Form.Item name="supplierId" label="供应商" rules={[{ required: true, message: '请选择供应商' }]}>
                 <Select placeholder="选择供应商" showSearch optionFilterProp="label"
                   options={suppliers.map((s: any) => ({ label: s.name, value: s.id }))} />
               </Form.Item>
             </Col>
-            <Col span={12}>
+            <Col xs={24} md={12}>
               <Form.Item name="orderDate" label="采购日期">
                 <DatePicker style={{ width: '100%' }} />
               </Form.Item>
@@ -199,22 +199,24 @@ const Purchase: React.FC = () => {
           <div style={{ border: '1px solid #f0f0f0', borderRadius: 8, padding: 12, marginBottom: 16 }}>
             <div style={{ marginBottom: 8, fontWeight: 500 }}>商品明细</div>
             {orderItems.map((item, index) => (
-              <Row gutter={8} key={index} align="middle" style={{ marginBottom: 8 }}>
-                <Col span={10}>
-                  <Select style={{ width: '100%' }} placeholder="选择商品" showSearch optionFilterProp="label"
-                    value={item.productId} onChange={v => updateItem(index, 'productId', v)}
-                    options={products.map((p: any) => ({ label: `${p.name} (¥${p.cost_price})`, value: p.id }))} />
-                </Col>
-                <Col span={5}>
-                  <InputNumber style={{ width: '100%' }} min={1} placeholder="数量" value={item.quantity} onChange={v => updateItem(index, 'quantity', v)} />
-                </Col>
-                <Col span={6}>
-                  <InputNumber style={{ width: '100%' }} min={0} precision={2} placeholder="进价" prefix="¥" value={item.costPrice} onChange={v => updateItem(index, 'costPrice', v)} />
-                </Col>
-                <Col span={3}>
-                  {orderItems.length > 1 && <Button danger size="small" onClick={() => removeItem(index)}>删除</Button>}
-                </Col>
-              </Row>
+              <div key={index} style={{ marginBottom: 8, padding: 8, background: '#fafafa', borderRadius: 6 }}>
+                <Row gutter={[8, 8]} align="middle">
+                  <Col xs={24} md={10}>
+                    <Select style={{ width: '100%' }} placeholder="选择商品" showSearch optionFilterProp="label"
+                      value={item.productId} onChange={v => updateItem(index, 'productId', v)}
+                      options={products.map((p: any) => ({ label: `${p.name} (¥${p.cost_price})`, value: p.id }))} />
+                  </Col>
+                  <Col xs={12} md={5}>
+                    <InputNumber style={{ width: '100%' }} min={1} placeholder="数量" value={item.quantity} onChange={v => updateItem(index, 'quantity', v)} />
+                  </Col>
+                  <Col xs={12} md={6}>
+                    <InputNumber style={{ width: '100%' }} min={0} precision={2} placeholder="进价" prefix="¥" value={item.costPrice} onChange={v => updateItem(index, 'costPrice', v)} />
+                  </Col>
+                  <Col xs={24} md={3} style={{ textAlign: 'center' }}>
+                    {orderItems.length > 1 && <Button danger size="small" onClick={() => removeItem(index)}>删除</Button>}
+                  </Col>
+                </Row>
+              </div>
             ))}
             <Button type="dashed" block onClick={addItem} icon={<PlusOutlined />}>添加商品</Button>
             <div style={{ textAlign: 'right', marginTop: 8, fontWeight: 600 }}>

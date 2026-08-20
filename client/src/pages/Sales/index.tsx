@@ -151,21 +151,21 @@ const Sales: React.FC = () => {
         pagination={{ current: pagination.current, pageSize: pagination.pageSize, total: pagination.total, showTotal: t => `共 ${t} 条`, onChange: p => loadOrders(p) }} />
 
       {/* 新建销售单 */}
-      <Modal title="新建销售单" open={orderModal} onOk={handleCreateOrder} onCancel={() => setOrderModal(false)} width={700} okText="提交">
+      <Modal title="新建销售单" open={orderModal} onOk={handleCreateOrder} onCancel={() => setOrderModal(false)} width={700} okText="提交" style={{ top: 20 }}>
         <Form form={orderForm} layout="vertical">
-          <Row gutter={16}>
-            <Col span={12}>
+          <Row gutter={[16, 0]}>
+            <Col xs={24} md={12}>
               <Form.Item name="customerId" label="客户">
                 <Select placeholder="选择客户（可选）" allowClear showSearch optionFilterProp="label"
                   options={customers.map((c: any) => ({ label: `${c.name} (${c.phone || ''})`, value: c.id }))} />
               </Form.Item>
             </Col>
-            <Col span={6}>
+            <Col xs={12} md={6}>
               <Form.Item name="orderType" label="类型" initialValue="pos">
                 <Select options={[{ value: 'pos', label: 'POS' }, { value: 'online', label: '线上' }, { value: 'wholesale', label: '批发' }, { value: 'phone', label: '电话' }]} />
               </Form.Item>
             </Col>
-            <Col span={6}>
+            <Col xs={12} md={6}>
               <Form.Item name="paymentMethod" label="支付方式" initialValue="cash">
                 <Select options={[{ value: 'cash', label: '现金' }, { value: 'wechat', label: '微信' }, { value: 'alipay', label: '支付宝' }, { value: 'card', label: '银行卡' }]} />
               </Form.Item>
@@ -174,30 +174,32 @@ const Sales: React.FC = () => {
           <div style={{ border: '1px solid #f0f0f0', borderRadius: 8, padding: 12, marginBottom: 16 }}>
             <div style={{ marginBottom: 8, fontWeight: 500 }}>商品明细</div>
             {orderItems.map((item, index) => (
-              <Row gutter={8} key={index} align="middle" style={{ marginBottom: 8 }}>
-                <Col span={10}>
-                  <Select style={{ width: '100%' }} placeholder="选择商品" showSearch optionFilterProp="label"
-                    value={item.productId} onChange={v => updateItem(index, 'productId', v)}
-                    options={products.map((p: any) => ({ label: `${p.name} (¥${p.sell_price})`, value: p.id }))} />
-                </Col>
-                <Col span={5}>
-                  <InputNumber style={{ width: '100%' }} min={1} placeholder="数量" value={item.quantity} onChange={v => updateItem(index, 'quantity', v)} />
-                </Col>
-                <Col span={6}>
-                  <InputNumber style={{ width: '100%' }} min={0} precision={2} placeholder="单价" prefix="¥" value={item.unitPrice} onChange={v => updateItem(index, 'unitPrice', v)} />
-                </Col>
-                <Col span={3}>
-                  {orderItems.length > 1 && <Button danger size="small" onClick={() => removeItem(index)}>删除</Button>}
-                </Col>
-              </Row>
+              <div key={index} style={{ marginBottom: 8, padding: 8, background: '#fafafa', borderRadius: 6 }}>
+                <Row gutter={[8, 8]} align="middle">
+                  <Col xs={24} md={10}>
+                    <Select style={{ width: '100%' }} placeholder="选择商品" showSearch optionFilterProp="label"
+                      value={item.productId} onChange={v => updateItem(index, 'productId', v)}
+                      options={products.map((p: any) => ({ label: `${p.name} (¥${p.sell_price})`, value: p.id }))} />
+                  </Col>
+                  <Col xs={12} md={5}>
+                    <InputNumber style={{ width: '100%' }} min={1} placeholder="数量" value={item.quantity} onChange={v => updateItem(index, 'quantity', v)} />
+                  </Col>
+                  <Col xs={12} md={6}>
+                    <InputNumber style={{ width: '100%' }} min={0} precision={2} placeholder="单价" prefix="¥" value={item.unitPrice} onChange={v => updateItem(index, 'unitPrice', v)} />
+                  </Col>
+                  <Col xs={24} md={3} style={{ textAlign: 'center' }}>
+                    {orderItems.length > 1 && <Button danger size="small" onClick={() => removeItem(index)}>删除</Button>}
+                  </Col>
+                </Row>
+              </div>
             ))}
             <Button type="dashed" block onClick={addItem} icon={<PlusOutlined />}>添加商品</Button>
             <div style={{ textAlign: 'right', marginTop: 8, fontWeight: 600 }}>
               合计：¥{orderItems.reduce((sum, i) => sum + (i.quantity || 0) * (i.unitPrice || 0), 0).toFixed(2)}
             </div>
           </div>
-          <Row gutter={16}>
-            <Col span={12}>
+          <Row gutter={[16, 0]}>
+            <Col xs={24} md={12}>
               <Form.Item name="discountAmount" label="优惠金额">
                 <InputNumber min={0} precision={2} placeholder="0.00" prefix="¥" style={{ width: '100%' }} />
               </Form.Item>
