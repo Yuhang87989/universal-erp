@@ -23,7 +23,7 @@ const dayjs = require('dayjs');
 
   // 获取三个租户ID
   const [tenantRows] = await conn.query(
-    "SELECT id, name, business_type FROM tenants WHERE business_type IN ('supply_coop','market_vendor','retail_store')"
+    "SELECT id, name, business_type FROM tenants WHERE business_type IN ('supply_coop','market','retail')"
   );
   if (tenantRows.length < 3) {
     console.error('❌ 缺少帐套，请先执行 init_tenants.js');
@@ -36,7 +36,7 @@ const dayjs = require('dayjs');
 
   // 获取每个租户的管理员ID
   const [adminRows] = await conn.query(
-    "SELECT id, tenant_id FROM users WHERE username IN ('supply_coop_admin','market_vendor_admin','retail_store_admin')"
+    "SELECT id, tenant_id FROM users WHERE username IN ('supply_coop_admin','market_admin','retail_admin')"
   );
   const adminMap = {};
   adminRows.forEach(a => {
@@ -235,8 +235,8 @@ const dayjs = require('dayjs');
   // ============================================================
   //  2. 菜市场商户 (market_vendor)
   // ============================================================
-  const MV = tenantMap.market_vendor;
-  const mvAdmin = adminMap.market_vendor;
+  const MV = tenantMap.market;
+  const mvAdmin = adminMap.market;
   console.log('🥬 [菜市场商户] 生成演示数据...');
 
   const mvCats = [
@@ -412,8 +412,8 @@ const dayjs = require('dayjs');
   // ============================================================
   //  3. 个体门店 (retail_store)
   // ============================================================
-  const RS = tenantMap.retail_store;
-  const rsAdmin = adminMap.retail_store;
+  const RS = tenantMap.retail;
+  const rsAdmin = adminMap.retail;
   console.log('🏪 [个体门店] 生成演示数据...');
 
   const rsCats = [
