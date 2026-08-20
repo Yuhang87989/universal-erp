@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Card, Table, Button, Modal, Form, Input, Select, DatePicker, Space, Tag, message, Typography } from 'antd';
-import { PlusOutlined, SearchOutlined, EditOutlined, UserOutlined } from '@ant-design/icons';
+import { Card, Table, Button, Modal, Form, Input, Select, DatePicker, Space, Tag, message, Typography, Tabs, Row, Col, Statistic } from 'antd';
+import { PlusOutlined, SearchOutlined, EditOutlined, UserOutlined, TeamOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import request from '../../api/request';
 
@@ -20,38 +20,55 @@ const genderOptions = [
 ];
 
 const Customers: React.FC = () => {
+  const [activeTab, setActiveTab] = useState('customers');
+
+  // 客户相关
   const [customers, setCustomers] = useState<any[]>([]);
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(20);
   const [loading, setLoading] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState<any>(null);
   const [keyword, setKeyword] = useState('');
   const [form] = Form.useForm();
 
-  const loadData = useCallback(async () => {
+  // 供应商相关
+  const [suppliers, setSuppliers] = useState<any[]>([]);
+  const [supplierTotal, setSupplierTotal] = useState(0);
+  const [supplierPage, setSupplierPage] = useState(1);
+  const [supplierLoading, setSupplierLoading] = useState(false);
+
+  const loadCustomers = useCallback(async (p = 1) => {
     setLoading(true);
     try {
-      const res = await request.get('/customers', { params: { page, pageSize, keyword } });
-      setCustomers(res.data?.list || []);
+      const params: any = { page: p, pageSize: 20 };
+      if (keyword) params.keyword = keyword;
+      const res = await request.get('/customers', { params });
+      setCustomers(res.data?.list || res.data || []);
       setTotal(res.data?.total || 0);
     } catch (err) {
       console.error(err);
     } finally {
       setLoading(false);
     }
-  }, [page, pageSize, keyword]);
+  }, [keyword]);
 
-  useEffect(() => { loadData(); }, [loadData]);
+  const loadSuppliers = useCallback(async (p = 1) => {
+    setSupplierLoading(true);
+    try {
+      const res = await request.get('/suppliers', { params: { page: p, pageSize: 20 } });
+      setSuppliers(res.data?.list || []);
+      setSupplierTotal(res.data?.total || 0);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setSupplierLoading(false);
+    }
+  }, []);
 
-  const handleAdd = () => {
-    setEditing(null);
-    form.resetFields();
-    form.setFieldsValue({ gender: 'unknown', level: 'normal' });
-    setModalOpen(true);
-  };
+  useEffect(() => { loadCustomers(); loadSuppliers(); }, [loadCustomers, loadSuppliers]);
 
+  const handleAdd = () => { setEditing(null); form.resetFields(); setModalOpen(true); };
   const handleEdit = (record: any) => {
     setEditing(record);
     form.setFieldsValue({
@@ -64,10 +81,7 @@ const Customers: React.FC = () => {
   const handleSave = async () => {
     try {
       const values = await form.validateFields();
-      const payload = {
-        ...values,
-        birthday: values.birthday ? values.birthday.format('YYYY-MM-DD') : null,
-      };
+      const payload = { ...values, birthday: values.birthday?.format('YYYY-MM-DD') };
       if (editing) {
         await request.put(`/customers/${editing.id}`, payload);
         message.success('客户更新成功');
@@ -76,117 +90,111 @@ const Customers: React.FC = () => {
         message.success('客户添加成功');
       }
       setModalOpen(false);
-      loadData();
+      loadCustomers();
     } catch (err: any) {
-      if (err.response?.data?.message) message.error(err.response.data.message);
+      if (err.errorFields) return;
+      message.error(err.response?.data?.message || '操作失败');
     }
   };
 
-  const columns = [
-    { title: '姓名', dataIndex: 'name', key: 'name', width: 100 },
-    { title: '手机号', dataIndex: 'phone', key: 'phone', width: 130 },
-    {
-      title: '性别', dataIndex: 'gender', key: 'gender', width: 60,
-      render: (v: string) => genderOptions.find(g => g.value === v)?.label || '未知',
-    },
+  const customerColumns = [
+    { title: '客户名称', dataIndex: 'name', key: 'name', width: 120 },
+    { title: '电话', dataIndex: 'phone', key: 'phone', width: 130, render: (v: string) => v || '-' },
+    { title: '性别', dataIndex: 'gender', key: 'gender', width: 70, render: (v: string) => genderOptions.find(g => g.value === v)?.label || '-' },
     {
       title: '等级', dataIndex: 'level', key: 'level', width: 100,
-      render: (v: string) => {
-        const opt = levelOptions.find(l => l.value === v);
-        return <Tag color={opt?.color}>{opt?.label || '普通'}</Tag>;
-      },
+      render: (v: string) => { const opt = levelOptions.find(l => l.value === v); return opt ? <Tag color={opt.color}>{opt.label}</Tag> : v || '普通'; }
     },
+    { title: '累计消费', dataIndex: 'total_spent', key: 'total_spent', width: 100, render: (v: number) => v ? `¥${Number(v).toFixed(2)}` : '¥0.00' },
+    { title: '生日', dataIndex: 'birthday', key: 'birthday', width: 100, render: (v: string) => v?.slice(0, 10) || '-' },
+    { title: '备注', dataIndex: 'notes', key: 'notes', ellipsis: true, render: (v: string) => v || '-' },
     {
-      title: '累计消费', dataIndex: 'total_spent', key: 'total_spent', width: 110,
-      render: (v: number) => `¥${parseFloat(v || 0).toFixed(2)}`,
-      sorter: (a: any, b: any) => parseFloat(a.total_spent || 0) - parseFloat(b.total_spent || 0),
-    },
-    { title: '积分', dataIndex: 'points', key: 'points', width: 80 },
-    {
-      title: '生日', dataIndex: 'birthday', key: 'birthday', width: 110,
-      render: (v: string) => v ? dayjs(v).format('YYYY-MM-DD') : '-',
-    },
+      title: '操作', key: 'action', width: 100,
+      render: (_: any, record: any) => (
+        <Button type="link" size="small" icon={<EditOutlined />} onClick={() => handleEdit(record)}>编辑</Button>
+      )
+    }
+  ];
+
+  const supplierColumns = [
+    { title: '供应商名称', dataIndex: 'name', key: 'name', width: 140 },
+    { title: '联系人', dataIndex: 'contact_name', key: 'contact_name', width: 100, render: (v: string) => v || '-' },
+    { title: '电话', dataIndex: 'phone', key: 'phone', width: 130, render: (v: string) => v || '-' },
+    { title: '地址', dataIndex: 'address', key: 'address', ellipsis: true, render: (v: string) => v || '-' },
     {
       title: '操作', key: 'action', width: 80,
-      render: (_: any, record: any) => (
-        <Button type="link" icon={<EditOutlined />} size="small" onClick={() => handleEdit(record)}>编辑</Button>
-      ),
-    },
+      render: () => <Tag>去供应商管理页编辑</Tag>
+    }
   ];
 
   return (
     <div>
-      <Title level={4} style={{ marginBottom: 16 }}>客户会员</Title>
+      <Title level={4} style={{ marginBottom: 16 }}>往来单位</Title>
 
-      <Card size="small" style={{ marginBottom: 16 }}>
-        <Space wrap>
-          <Input
-            placeholder="搜索姓名/手机号"
-            prefix={<SearchOutlined />}
-            value={keyword}
-            onChange={e => setKeyword(e.target.value)}
-            onPressEnter={() => { setPage(1); loadData(); }}
-            style={{ width: 200 }}
-            allowClear
-          />
-          <Select
-            placeholder="会员等级"
-            allowClear
-            style={{ width: 130 }}
-            options={levelOptions}
-            onChange={v => { setPage(1); setKeyword(k => k); /* reload handled by useEffect */ }}
-          />
-          <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>新增客户</Button>
-        </Space>
-      </Card>
+      <Tabs activeKey={activeTab} onChange={setActiveTab}>
+        <Tabs.TabPane tab={<span><UserOutlined />客户档案</span>} key="customers">
+          <Card size="small" style={{ marginBottom: 12 }}>
+            <Space wrap>
+              <Input
+                placeholder="搜索客户名称/电话"
+                prefix={<SearchOutlined />}
+                value={keyword}
+                onChange={e => setKeyword(e.target.value)}
+                onPressEnter={() => { setPage(1); loadCustomers(); }}
+                style={{ width: 200 }}
+                allowClear
+              />
+              <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>新增客户</Button>
+            </Space>
+          </Card>
+          <Table columns={customerColumns} dataSource={customers} rowKey="id" loading={loading} size="small" scroll={{ x: 800 }}
+            pagination={{ current: page, total, showTotal: t => `共 ${t} 位客户`, onChange: p => setPage(p) }} />
+        </Tabs.TabPane>
 
-      <Table
-        rowKey="id"
-        columns={columns}
-        dataSource={customers}
-        loading={loading}
-        size="small"
-        scroll={{ x: 800 }}
-        pagination={{
-          current: page,
-          pageSize,
-          total,
-          showSizeChanger: true,
-          showTotal: t => `共 ${t} 位客户`,
-          onChange: (p, ps) => { setPage(p); setPageSize(ps); },
-        }}
-      />
+        <Tabs.TabPane tab={<span><TeamOutlined />供应商档案</span>} key="suppliers">
+          <Card size="small" style={{ marginBottom: 12 }}>
+            <Space>
+              <Tag color="blue">共 {supplierTotal} 家供应商</Tag>
+              <Button type="primary" href="/suppliers" icon={<TeamOutlined />}>去供应商管理</Button>
+            </Space>
+          </Card>
+          <Table columns={supplierColumns} dataSource={suppliers} rowKey="id" loading={supplierLoading} size="small" scroll={{ x: 600 }}
+            pagination={{ current: supplierPage, total: supplierTotal, showTotal: t => `共 ${t} 家`, onChange: p => { setSupplierPage(p); loadSuppliers(p); } }} />
+        </Tabs.TabPane>
+      </Tabs>
 
-      <Modal
-        title={editing ? '编辑客户' : '新增客户'}
-        open={modalOpen}
-        onOk={handleSave}
-        onCancel={() => setModalOpen(false)}
-        destroyOnClose
-      >
+      {/* 客户弹窗 */}
+      <Modal title={editing ? '编辑客户' : '新增客户'} open={modalOpen} onOk={handleSave} onCancel={() => setModalOpen(false)} destroyOnClose>
         <Form form={form} layout="vertical" style={{ marginTop: 16 }}>
-          <Form.Item name="name" label="姓名" rules={[{ required: true, message: '请输入姓名' }]}>
-            <Input prefix={<UserOutlined />} placeholder="客户姓名" />
+          <Form.Item name="name" label="客户名称" rules={[{ required: true, message: '请输入客户名称' }]}>
+            <Input placeholder="客户姓名或单位名称" />
           </Form.Item>
-          <Form.Item name="phone" label="手机号">
-            <Input placeholder="手机号" />
-          </Form.Item>
-          <Space size="large">
-            <Form.Item name="gender" label="性别">
-              <Select options={genderOptions} style={{ width: 100 }} />
-            </Form.Item>
-            <Form.Item name="level" label="会员等级">
-              <Select options={levelOptions} style={{ width: 130 }} />
-            </Form.Item>
-          </Space>
-          <Form.Item name="birthday" label="生日">
-            <DatePicker style={{ width: '100%' }} />
-          </Form.Item>
-          <Form.Item name="address" label="地址">
-            <Input placeholder="地址" />
-          </Form.Item>
-          <Form.Item name="remark" label="备注">
-            <Input.TextArea rows={2} placeholder="备注信息" />
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item name="phone" label="联系电话">
+                <Input placeholder="手机号码" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item name="gender" label="性别" initialValue="unknown">
+                <Select options={genderOptions} />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item name="level" label="会员等级" initialValue="normal">
+                <Select options={levelOptions} />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item name="birthday" label="生日">
+                <DatePicker style={{ width: '100%' }} />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Form.Item name="notes" label="备注">
+            <Input.TextArea rows={2} placeholder="偏好、结算方式等" />
           </Form.Item>
         </Form>
       </Modal>

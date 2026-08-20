@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Table, Button, Input, Space, Modal, Form, Select, InputNumber, message, Tag, Typography } from 'antd';
-import { PlusOutlined, SearchOutlined, EditOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Card, Table, Button, Input, Space, Modal, Form, Select, InputNumber, message, Tag, Typography, Tabs, Tree } from 'antd';
+import { PlusOutlined, SearchOutlined, EditOutlined, DeleteOutlined, AppstoreOutlined } from '@ant-design/icons';
 import request from '../../api/request';
 
 const { Title } = Typography;
 
 const Products: React.FC = () => {
+  const [activeTab, setActiveTab] = useState('products');
+
+  // 商品相关
   const [products, setProducts] = useState<any[]>([]);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -15,6 +18,12 @@ const Products: React.FC = () => {
   const [pagination, setPagination] = useState({ current: 1, pageSize: 20 });
   const [keyword, setKeyword] = useState('');
   const [form] = Form.useForm();
+
+  // 分类相关
+  const [catModalVisible, setCatModalVisible] = useState(false);
+  const [editingCat, setEditingCat] = useState<any>(null);
+  const [catForm] = Form.useForm();
+  const [catLoading, setCatLoading] = useState(false);
 
   useEffect(() => {
     loadProducts();
@@ -27,8 +36,8 @@ const Products: React.FC = () => {
       const res = await request.get('/products', {
         params: { page: pagination.current, pageSize: pagination.pageSize, keyword }
       });
-      setProducts(res.data.list);
-      setTotal(res.data.total);
+      setProducts(res.data.list || []);
+      setTotal(res.data.total || 0);
     } catch (err) {
       console.error(err);
     } finally {
@@ -37,11 +46,14 @@ const Products: React.FC = () => {
   };
 
   const loadCategories = async () => {
+    setCatLoading(true);
     try {
       const res = await request.get('/categories');
-      setCategories(res.data);
+      setCategories(res.data || []);
     } catch (err) {
       console.error(err);
+    } finally {
+      setCatLoading(false);
     }
   };
 
@@ -94,24 +106,65 @@ const Products: React.FC = () => {
     });
   };
 
+  // 分类操作
+  const handleAddCat = () => {
+    setEditingCat(null);
+    catForm.resetFields();
+    setCatModalVisible(true);
+  };
+
+  const handleEditCat = (cat: any) => {
+    setEditingCat(cat);
+    catForm.setFieldsValue({ name: cat.name, parentId: cat.parent_id, sort_order: cat.sort_order });
+    setCatModalVisible(true);
+  };
+
+  const handleSaveCat = async () => {
+    try {
+      const values = await catForm.validateFields();
+      if (editingCat) {
+        await request.put(`/categories/${editingCat.id}`, values);
+        message.success('分类更新成功');
+      } else {
+        await request.post('/categories', values);
+        message.success('分类添加成功');
+      }
+      setCatModalVisible(false);
+      loadCategories();
+    } catch (err: any) {
+      message.error(err.message || '操作失败');
+    }
+  };
+
+  const handleDeleteCat = (id: number) => {
+    Modal.confirm({
+      title: '确认删除',
+      content: '确定要删除该分类吗？其下子分类也会被删除。',
+      onOk: async () => {
+        await request.delete(`/categories/${id}`);
+        message.success('已删除');
+        loadCategories();
+      }
+    });
+  };
+
   const columns = [
-    { title: '商品名称', dataIndex: 'name', width: 160 },
+    { title: '商品名称', dataIndex: 'name', width: 140 },
     { title: '分类', dataIndex: 'category_name', width: 80 },
-    { title: '条码', dataIndex: 'barcode', width: 120 },
+    { title: '条码', dataIndex: 'barcode', width: 110, render: (v: string) => v || '-' },
     { title: '售价', dataIndex: 'sell_price', width: 80, render: (v: number) => `¥${v?.toFixed(2)}` },
     { title: '成本', dataIndex: 'cost_price', width: 80, render: (v: number) => `¥${v?.toFixed(2)}` },
     { title: '库存', dataIndex: 'stock_quantity', width: 80, render: (v: number, r: any) => (
       <Tag color={v <= r.min_stock ? 'red' : 'green'}>{v} {r.unit}</Tag>
     )},
-    { title: '操作', width: 120, render: (_: any, record: any) => (
+    { title: '操作', width: 100, render: (_: any, record: any) => (
       <Space>
-        <Button type="link" icon={<EditOutlined />} onClick={() => handleEdit(record)} />
-        <Button type="link" danger icon={<DeleteOutlined />} onClick={() => handleDelete(record.id)} />
+        <Button type="link" size="small" icon={<EditOutlined />} onClick={() => handleEdit(record)} />
+        <Button type="link" size="small" danger icon={<DeleteOutlined />} onClick={() => handleDelete(record.id)} />
       </Space>
     )}
   ];
 
-  // 扁平化分类树
   const flattenCategories = (items: any[], level = 0): any[] => {
     return items.reduce((acc: any[], item: any) => {
       acc.push({ ...item, label: ' '.repeat(level) + item.name, value: item.id });
@@ -122,39 +175,89 @@ const Products: React.FC = () => {
     }, []);
   };
 
+  // 将分类树转换为表格数据
+  const flattenCatsForTable = (items: any[], level = 0): any[] => {
+    return items.reduce((acc: any[], item: any) => {
+      acc.push({ ...item, level, key: item.id });
+      if (item.children?.length) {
+        acc.push(...flattenCatsForTable(item.children, level + 1));
+      }
+      return acc;
+    }, []);
+  };
+
+  const catColumns = [
+    {
+      title: '分类名称', dataIndex: 'name', key: 'name',
+      render: (text: string, record: any) => (
+        <span style={{ paddingLeft: record.level * 20 }}>{' '.repeat(record.level * 2)}{text}</span>
+      )
+    },
+    { title: '排序', dataIndex: 'sort_order', key: 'sort_order', width: 80 },
+    {
+      title: '操作', key: 'action', width: 150,
+      render: (_: any, record: any) => (
+        <Space>
+          <Button type="link" size="small" icon={<EditOutlined />} onClick={() => handleEditCat(record)}>编辑</Button>
+          <Button type="link" size="small" danger icon={<DeleteOutlined />} onClick={() => handleDeleteCat(record.id)}>删除</Button>
+        </Space>
+      )
+    }
+  ];
+
   return (
     <div>
-      <Title level={4}>商品管理</Title>
-      <Card>
-        <Space style={{ marginBottom: 16 }}>
-          <Input
-            placeholder="搜索商品名/条码"
-            prefix={<SearchOutlined />}
-            value={keyword}
-            onChange={e => setKeyword(e.target.value)}
-            onPressEnter={() => { setPagination({ ...pagination, current: 1 }); loadProducts(); }}
-            style={{ width: 240 }}
+      <Title level={4} style={{ marginBottom: 16 }}>商品管理</Title>
+
+      <Tabs activeKey={activeTab} onChange={setActiveTab}>
+        <Tabs.TabPane tab="商品档案" key="products">
+          <Card size="small" style={{ marginBottom: 12 }}>
+            <Space wrap>
+              <Input
+                placeholder="搜索商品名/条码"
+                prefix={<SearchOutlined />}
+                value={keyword}
+                onChange={e => setKeyword(e.target.value)}
+                onPressEnter={() => { setPagination({ ...pagination, current: 1 }); loadProducts(); }}
+                style={{ width: 200 }}
+                allowClear
+              />
+              <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>添加商品</Button>
+            </Space>
+          </Card>
+          <Table
+            columns={columns}
+            dataSource={products}
+            rowKey="id"
+            loading={loading}
+            scroll={{ x: 700 }}
+            pagination={{
+              current: pagination.current,
+              pageSize: pagination.pageSize,
+              total,
+              showSizeChanger: true,
+              showTotal: t => `共 ${t} 个商品`
+            }}
+            onChange={p => setPagination({ current: p.current || 1, pageSize: p.pageSize || 20 })}
+            size="small"
           />
-          <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>添加商品</Button>
-        </Space>
+        </Tabs.TabPane>
 
-        <Table
-          columns={columns}
-          dataSource={products}
-          rowKey="id"
-          loading={loading}
-          pagination={{
-            current: pagination.current,
-            pageSize: pagination.pageSize,
-            total,
-            showSizeChanger: true,
-            showTotal: t => `共 ${t} 个商品`
-          }}
-          onChange={p => setPagination({ current: p.current || 1, pageSize: p.pageSize || 20 })}
-          size="small"
-        />
-      </Card>
+        <Tabs.TabPane tab="商品分类" key="categories">
+          <Card size="small" style={{ marginBottom: 12 }}>
+            <Button type="primary" icon={<AppstoreOutlined />} onClick={handleAddCat}>新增分类</Button>
+          </Card>
+          <Table
+            columns={catColumns}
+            dataSource={flattenCatsForTable(categories)}
+            loading={catLoading}
+            pagination={false}
+            size="small"
+          />
+        </Tabs.TabPane>
+      </Tabs>
 
+      {/* 商品弹窗 */}
       <Modal
         title={editingProduct ? '编辑商品' : '添加商品'}
         open={modalVisible}
@@ -190,6 +293,26 @@ const Products: React.FC = () => {
           </Space>
           <Form.Item name="minStock" label="库存预警值">
             <InputNumber min={0} placeholder="低于此值时提醒补货" />
+          </Form.Item>
+        </Form>
+      </Modal>
+
+      {/* 分类弹窗 */}
+      <Modal
+        title={editingCat ? '编辑分类' : '新增分类'}
+        open={catModalVisible}
+        onOk={handleSaveCat}
+        onCancel={() => setCatModalVisible(false)}
+      >
+        <Form form={catForm} layout="vertical" style={{ marginTop: 16 }}>
+          <Form.Item name="name" label="分类名称" rules={[{ required: true, message: '请输入分类名称' }]}>
+            <Input placeholder="如：蔬菜" />
+          </Form.Item>
+          <Form.Item name="parentId" label="上级分类">
+            <Select placeholder="无（顶级分类）" options={flattenCategories(categories)} allowClear />
+          </Form.Item>
+          <Form.Item name="sort_order" label="排序" initialValue={0}>
+            <InputNumber min={0} placeholder="数字越小越靠前" />
           </Form.Item>
         </Form>
       </Modal>
