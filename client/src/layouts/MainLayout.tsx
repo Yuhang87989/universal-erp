@@ -8,6 +8,7 @@ import {
   ApiOutlined, AccountBookOutlined
 } from '@ant-design/icons';
 import { useAuth } from '../context/AuthContext';
+import HelpGuide from '../components/HelpGuide';
 
 const { Header, Sider, Content } = Layout;
 const { Text } = Typography;
@@ -80,6 +81,7 @@ const MainLayout: React.FC = () => {
         </Header>
         <Content style={{ margin: 16, padding: 24, background: '#f5f5f5', minHeight: 280 }}>
           <Outlet />
+          <HelpGuide />
         </Content>
       </Layout>
     </Layout>
