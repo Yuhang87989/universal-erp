@@ -81,7 +81,7 @@ const dayjs = require('dayjs');
   const scSupIds = [];
   for (const s of scSuppliers) {
     const [r] = await conn.query(
-      `INSERT INTO suppliers (tenant_id, name, contact_name, phone, address, bank_name, bank_account, notes, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'active')`,
+      `INSERT INTO suppliers (tenant_id, name, contact_name, phone, address, bank_name, bank_account, remarks) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
       [SC, s.name, s.contact, s.phone, s.addr, s.bank, s.account, s.notes]
     );
     scSupIds.push(r.insertId);
@@ -148,13 +148,13 @@ const dayjs = require('dayjs');
     const total = pd.items.reduce((s, i) => s + i.qty * i.price, 0);
     const orderNo = `PO${orderDate.replace(/-/g, '')}${String(scProductIds.length + scPurchaseData.indexOf(pd) + 1).padStart(4, '0')}`;
     const [or] = await conn.query(
-      `INSERT INTO purchase_orders (tenant_id, order_no, supplier_id, order_date, total_amount, status, creator_id) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO purchase_orders (tenant_id, order_no, supplier_id, order_date, total_amount, status, created_by) VALUES (?, ?, ?, ?, ?, ?, ?)`,
       [SC, orderNo, scSupIds[pd.supIdx], orderDate, total, pd.status, scAdmin]
     );
     for (const it of pd.items) {
       await conn.query(
-        'INSERT INTO purchase_items (purchase_order_id, product_id, quantity, cost_price) VALUES (?, ?, ?, ?)',
-        [or.insertId, scProductIds[it.pi], it.qty, it.price]
+        'INSERT INTO purchase_items (order_id, product_id, quantity, cost_price, subtotal) VALUES (?, ?, ?, ?, ?)',
+        [or.insertId, scProductIds[it.pi], it.qty, it.price, it.qty * it.price]
       );
     }
   }
@@ -177,12 +177,12 @@ const dayjs = require('dayjs');
     const [or] = await conn.query(
       `INSERT INTO sales_orders (tenant_id, order_no, order_type, customer_id, total_amount, discount_amount, actual_amount, paid_amount, payment_method, status, order_date, operator_id)
        VALUES (?, ?, ?, ?, ?, 0, ?, ?, ?, 'completed', ?, ?)`,
-      [SC, orderNo, sd.type, scProductIds[sd.custIdx] ? null : null, total, total, total, sd.pay, orderDate, scAdmin]
+      [SC, orderNo, sd.type, null, total, total, total, sd.pay, orderDate, scAdmin]
     );
     for (const it of sd.items) {
       await conn.query(
-        'INSERT INTO sale_items (sales_order_id, product_id, quantity, unit_price) VALUES (?, ?, ?, ?)',
-        [or.insertId, scProductIds[it.pi], it.qty, it.price]
+        'INSERT INTO sale_items (sales_order_id, product_id, quantity, unit_price, discount) VALUES (?, ?, ?, ?, ?)',
+        [or.insertId, scProductIds[it.pi], it.qty, it.price, 0]
       );
     }
   }
@@ -267,7 +267,7 @@ const dayjs = require('dayjs');
   const mvSupIds = [];
   for (const s of mvSuppliers) {
     const [r] = await conn.query(
-      `INSERT INTO suppliers (tenant_id, name, contact_name, phone, address, notes, status) VALUES (?, ?, ?, ?, ?, ?, 'active')`,
+      `INSERT INTO suppliers (tenant_id, name, contact_name, phone, address, remarks) VALUES (?, ?, ?, ?, ?, ?)`,
       [MV, s.name, s.contact, s.phone, s.addr, s.notes]
     );
     mvSupIds.push(r.insertId);
@@ -330,12 +330,12 @@ const dayjs = require('dayjs');
     const total = pd.items.reduce((s, i) => s + i.qty * i.price, 0);
     const orderNo = `PO${orderDate.replace(/-/g, '')}${String(mvSupIds.length + pd.days + 1).padStart(4, '0')}`;
     const [or] = await conn.query(
-      'INSERT INTO purchase_orders (tenant_id, order_no, supplier_id, order_date, total_amount, status, creator_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      'INSERT INTO purchase_orders (tenant_id, order_no, supplier_id, order_date, total_amount, status, created_by) VALUES (?, ?, ?, ?, ?, ?, ?)',
       [MV, orderNo, mvSupIds[pd.supIdx], orderDate, total, pd.status, mvAdmin]
     );
     for (const it of pd.items) {
-      await conn.query('INSERT INTO purchase_items (purchase_order_id, product_id, quantity, cost_price) VALUES (?, ?, ?, ?)',
-        [or.insertId, mvProductIds[it.pi], it.qty, it.price]);
+      await conn.query('INSERT INTO purchase_items (order_id, product_id, quantity, cost_price, subtotal) VALUES (?, ?, ?, ?, ?)',
+        [or.insertId, mvProductIds[it.pi], it.qty, it.price, it.qty * it.price]);
     }
   }
   console.log('  ✓ 采购单');
@@ -361,8 +361,8 @@ const dayjs = require('dayjs');
       [MV, orderNo, sd.type, total, total, total, sd.pay, orderDate, mvAdmin]
     );
     for (const it of sd.items) {
-      await conn.query('INSERT INTO sale_items (sales_order_id, product_id, quantity, unit_price) VALUES (?, ?, ?, ?)',
-        [or.insertId, mvProductIds[it.pi], it.qty, it.price]);
+      await conn.query('INSERT INTO sale_items (sales_order_id, product_id, quantity, unit_price, discount) VALUES (?, ?, ?, ?, ?)',
+        [or.insertId, mvProductIds[it.pi], it.qty, it.price, 0]);
     }
   }
   console.log('  ✓ 销售单');
@@ -444,7 +444,7 @@ const dayjs = require('dayjs');
   const rsSupIds = [];
   for (const s of rsSuppliers) {
     const [r] = await conn.query(
-      `INSERT INTO suppliers (tenant_id, name, contact_name, phone, address, bank_name, bank_account, notes, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'active')`,
+      `INSERT INTO suppliers (tenant_id, name, contact_name, phone, address, bank_name, bank_account, remarks) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
       [RS, s.name, s.contact, s.phone, s.addr, s.bank || null, s.account || null, s.notes]
     );
     rsSupIds.push(r.insertId);
@@ -508,12 +508,12 @@ const dayjs = require('dayjs');
     const total = pd.items.reduce((s, i) => s + i.qty * i.price, 0);
     const orderNo = `PO${orderDate.replace(/-/g, '')}${String(rsSupIds.length + pd.days + 1).padStart(4, '0')}`;
     const [or] = await conn.query(
-      'INSERT INTO purchase_orders (tenant_id, order_no, supplier_id, order_date, total_amount, status, creator_id) VALUES (?, ?, ?, ?, ?, ?, ?)',
+      'INSERT INTO purchase_orders (tenant_id, order_no, supplier_id, order_date, total_amount, status, created_by) VALUES (?, ?, ?, ?, ?, ?, ?)',
       [RS, orderNo, rsSupIds[pd.supIdx], orderDate, total, pd.status, rsAdmin]
     );
     for (const it of pd.items) {
-      await conn.query('INSERT INTO purchase_items (purchase_order_id, product_id, quantity, cost_price) VALUES (?, ?, ?, ?)',
-        [or.insertId, rsProductIds[it.pi], it.qty, it.price]);
+      await conn.query('INSERT INTO purchase_items (order_id, product_id, quantity, cost_price, subtotal) VALUES (?, ?, ?, ?, ?)',
+        [or.insertId, rsProductIds[it.pi], it.qty, it.price, it.qty * it.price]);
     }
   }
   console.log('  ✓ 采购单');
@@ -540,8 +540,8 @@ const dayjs = require('dayjs');
       [RS, orderNo, sd.type, total, total, total, sd.pay, orderDate, rsAdmin]
     );
     for (const it of sd.items) {
-      await conn.query('INSERT INTO sale_items (sales_order_id, product_id, quantity, unit_price) VALUES (?, ?, ?, ?)',
-        [or.insertId, rsProductIds[it.pi], it.qty, it.price]);
+      await conn.query('INSERT INTO sale_items (sales_order_id, product_id, quantity, unit_price, discount) VALUES (?, ?, ?, ?, ?)',
+        [or.insertId, rsProductIds[it.pi], it.qty, it.price, 0]);
     }
   }
   console.log('  ✓ 销售单');
