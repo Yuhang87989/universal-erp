@@ -20,15 +20,23 @@ const Settings: React.FC = () => {
 
   const loadTenant = async () => {
     try {
-      const res = await request.get('/tenants/current');
-      setTenant(res.data.data || res.data);
-      form.setFieldsValue({
-        name: res.data.data?.name,
-        ownerName: res.data.data?.owner_name,
-        phone: res.data.data?.phone,
-        address: res.data.data?.address,
-        businessType: res.data.data?.business_type,
-      });
+      // 获取帐套列表，找到当前帐套
+      const res = await request.get('/tenants');
+      const list = res.data?.data || res.data || [];
+      const stored = localStorage.getItem('user');
+      const currentTenantId = stored ? JSON.parse(stored).tenantId : null;
+      const current = list.find((t: any) => t.id === currentTenantId) || list[0];
+      if (current) {
+        setTenant(current);
+        form.setFieldsValue({
+          name: current.name,
+          ownerName: current.owner_name,
+          phone: current.phone,
+          address: current.address,
+          businessType: current.business_type,
+          businessDesc: current.business_desc,
+        });
+      }
     } catch (e) { /* ignore */ }
   };
 
@@ -42,11 +50,12 @@ const Settings: React.FC = () => {
   useEffect(() => { loadTenant(); loadUsers(); }, []);
 
   const handleSaveStore = async () => {
+    if (!tenant?.id) { message.error('未找到当前帐套'); return; }
     setLoading(true);
     try {
       const values = await form.validateFields();
-      await request.put('/tenants/current', values);
-      message.success('门店信息保存成功');
+      await request.put(`/tenants/${tenant.id}`, values);
+      message.success('帐套信息保存成功');
       loadTenant();
     } catch (e: any) {
       message.error(e.response?.data?.message || '保存失败');
@@ -120,29 +129,38 @@ const Settings: React.FC = () => {
 
       <Tabs activeKey={activeTab} onChange={setActiveTab}>
         {/* 门店信息 */}
-        <Tabs.TabPane tab={<span><ShopOutlined />门店信息</span>} key="store">
+        <Tabs.TabPane tab={<span><ShopOutlined />帐套信息</span>} key="store">
           <Card>
+            {tenant && (
+              <div style={{ marginBottom: 16 }}>
+                <Tag color="blue">当前帐套ID: {tenant.id}</Tag>
+                <Text type="secondary">切换帐套请在左侧边栏顶部操作</Text>
+              </div>
+            )}
             <Form form={form} layout="vertical" style={{ maxWidth: 600 }}>
-              <Form.Item name="name" label="门店名称" rules={[{ required: true }]}>
+              <Form.Item name="name" label="帐套名称" rules={[{ required: true }]}>
                 <Input placeholder="如：宇航蔬果超市" />
               </Form.Item>
               <Form.Item name="ownerName" label="经营者">
                 <Input placeholder="经营者姓名" />
               </Form.Item>
               <Form.Item name="phone" label="联系电话">
-                <Input placeholder="门店联系电话" />
+                <Input placeholder="联系电话" />
               </Form.Item>
-              <Form.Item name="address" label="门店地址">
+              <Form.Item name="address" label="地址">
                 <Input placeholder="详细地址" />
               </Form.Item>
-              <Form.Item name="businessType" label="经营类型">
+              <Form.Item name="businessType" label="行业类型">
                 <Select options={[
-                  { value: 'market', label: '菜市场/蔬果店' },
-                  { value: 'supply_coop', label: '供销社' },
-                  { value: 'ecommerce', label: '电商' },
-                  { value: 'retail', label: '零售门店' },
+                  { value: 'supply_coop', label: '🏘️ 农村供销社' },
+                  { value: 'market_vendor', label: '🥬 个体菜市场商户' },
+                  { value: 'retail_store', label: '🏪 个体门店' },
+                  { value: 'ecommerce', label: '🛒 电商' },
                   { value: 'other', label: '其他' }
                 ]} />
+              </Form.Item>
+              <Form.Item name="businessDesc" label="业务描述">
+                <Input.TextArea rows={3} placeholder="描述该帐套的业务范围、特点等" />
               </Form.Item>
               <Button type="primary" icon={<SaveOutlined />} onClick={handleSaveStore} loading={loading}>
                 保存设置

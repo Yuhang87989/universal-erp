@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { Layout, Menu, Avatar, Dropdown, Space, Typography, Button, Drawer, Tooltip, Alert } from 'antd';
+import { Layout, Menu, Avatar, Dropdown, Space, Typography, Button, Drawer, Tooltip, Alert, Select, Divider, Tag } from 'antd';
 import {
   DashboardOutlined, ShoppingCartOutlined, ShoppingOutlined,
   DatabaseOutlined, UserOutlined, LogoutOutlined, SettingOutlined,
   BarChartOutlined, ApiOutlined, AccountBookOutlined,
-  MenuOutlined, TeamOutlined, BankOutlined
+  MenuOutlined, TeamOutlined, BankOutlined, SwapOutlined, BankFilled
 } from '@ant-design/icons';
 import { useAuth } from '../context/AuthContext';
 import HelpGuide from '../components/HelpGuide';
@@ -15,6 +15,13 @@ const { Text } = Typography;
 
 const roleNames: Record<string, string> = {
   owner: '老板', manager: '店长', cashier: '收银员', warehouse: '仓管'
+};
+
+// 帐套图标映射
+const tenantIcons: Record<string, string> = {
+  supply_coop: '🏘️',
+  market_vendor: '🥬',
+  retail_store: '🏪',
 };
 
 // 每个菜单项附带操作指引说明
@@ -88,7 +95,7 @@ const injectTooltips = (items: any[]): any[] => {
 const MainLayout: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const { user, logout } = useAuth();
+  const { user, logout, tenants, switchTenant, loadTenants } = useAuth();
   const [isMobile, setIsMobile] = useState(false);
   const [drawerVisible, setDrawerVisible] = useState(false);
 
@@ -99,12 +106,28 @@ const MainLayout: React.FC = () => {
     return () => window.removeEventListener('resize', check);
   }, []);
 
+  // 登录后加载帐套列表
+  useEffect(() => {
+    if (user) loadTenants();
+  }, [user?.id]);
+
   const handleLogout = () => { logout(); navigate('/login'); };
 
   const handleMenuClick = ({ key }: { key: string }) => {
     if (key.startsWith('/')) {
       navigate(key);
       if (isMobile) setDrawerVisible(false);
+    }
+  };
+
+  const handleSwitchTenant = async (tenantId: number) => {
+    if (tenantId === user?.tenantId) return;
+    try {
+      await switchTenant(tenantId);
+      // 切换帐套后回到工作台
+      navigate('/dashboard');
+    } catch (err) {
+      console.error('切换帐套失败:', err);
     }
   };
 
@@ -123,11 +146,43 @@ const MainLayout: React.FC = () => {
 
   const currentGuide = guideMap[location.pathname];
 
+  // 帐套切换器
+  const tenantSwitcher = (
+    <div style={{ padding: '8px 12px', borderBottom: '1px solid #f0f0f0', flexShrink: 0 }}>
+      <div style={{ marginBottom: 4, display: 'flex', alignItems: 'center', gap: 4 }}>
+        <SwapOutlined style={{ fontSize: 12, color: '#1677ff' }} />
+        <Text type="secondary" style={{ fontSize: 11 }}>当前帐套</Text>
+      </div>
+      {tenants.length > 0 ? (
+        <Select
+          value={user?.tenantId}
+          onChange={handleSwitchTenant}
+          style={{ width: '100%' }}
+          size="small"
+          options={tenants.map(t => ({
+            value: t.id,
+            label: (
+              <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span>{tenantIcons[t.business_type] || '🏢'}</span>
+                <span>{t.name}</span>
+              </span>
+            ),
+          }))}
+        />
+      ) : (
+        <Text style={{ fontSize: 13 }}>
+          {tenantIcons[user?.tenantId ? '' : ''] || '🏢'} {user?.tenantName || '默认帐套'}
+        </Text>
+      )}
+    </div>
+  );
+
   const sidebarContent = (
     <>
-      <div style={{ height: 56, display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #f0f0f0', flexShrink: 0 }}>
+      <div style={{ height: 48, display: 'flex', alignItems: 'center', justifyContent: 'center', borderBottom: '1px solid #f0f0f0', flexShrink: 0 }}>
         <Text strong style={{ fontSize: 15 }}>📦 通用电商ERP</Text>
       </div>
+      {tenantSwitcher}
       <div style={{ flex: 1, overflow: 'auto' }}>
         <Menu
           mode="inline"
@@ -165,7 +220,12 @@ const MainLayout: React.FC = () => {
             {isMobile && (
               <Button type="text" icon={<MenuOutlined style={{ fontSize: 18 }} />} onClick={() => setDrawerVisible(true)} />
             )}
-            {isMobile && <Text strong style={{ fontSize: 14 }}>电商ERP</Text>}
+            {!isMobile && user?.tenantName && (
+              <Tag color="blue" style={{ marginRight: 0 }}>
+                {tenantIcons[tenants.find(t => t.id === user?.tenantId)?.business_type || ''] || '🏢'} {user.tenantName}
+              </Tag>
+            )}
+            {isMobile && <Text strong style={{ fontSize: 14 }}>{user?.tenantName || 'ERP'}</Text>}
           </div>
           <Dropdown menu={userMenu} placement="bottomRight">
             <Space style={{ cursor: 'pointer' }}>

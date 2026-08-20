@@ -1,15 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Row, Col, Statistic, Typography, Alert } from 'antd';
+import { Card, Row, Col, Statistic, Typography, Alert, Tag } from 'antd';
 import {
   DollarOutlined, ShoppingCartOutlined, WarningOutlined,
   RiseOutlined, FallOutlined, AppstoreOutlined
 } from '@ant-design/icons';
 import ReactECharts from 'echarts-for-react';
 import request from '../../api/request';
+import { useAuth } from '../../context/AuthContext';
 
 const { Title } = Typography;
 
+const tenantIcons: Record<string, string> = {
+  supply_coop: '🏘️', market_vendor: '🥬', retail_store: '🏪', ecommerce: '🛒'
+};
+
 const Dashboard: React.FC = () => {
+  const { user } = useAuth();
   const [data, setData] = useState<any>({});
   const [trend, setTrend] = useState<any[]>([]);
   const [topProducts, setTopProducts] = useState<any[]>([]);
@@ -52,7 +58,14 @@ const Dashboard: React.FC = () => {
 
   return (
     <div>
-      <Title level={4} style={{ marginBottom: 16 }}>工作台</Title>
+      <Title level={4} style={{ marginBottom: 16 }}>
+        工作台
+        {user?.tenantName && (
+          <Tag color="blue" style={{ marginLeft: 8, fontSize: 12, verticalAlign: 'middle' }}>
+            {user.tenantName}
+          </Tag>
+        )}
+      </Title>
 
       {data.stockAlertCount > 0 && (
         <Alert
