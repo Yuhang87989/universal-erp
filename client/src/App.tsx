@@ -10,6 +10,9 @@ import Inventory from './pages/Inventory';
 import POS from './pages/POS';
 import Purchase from './pages/Purchase';
 import Reports from './pages/Reports';
+import Customers from './pages/Customers';
+import Ecommerce from './pages/Ecommerce';
+import Settings from './pages/Settings';
 
 const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user, loading } = useAuth();
@@ -30,6 +33,9 @@ const App: React.FC = () => {
         <Route path="pos" element={<POS />} />
         <Route path="purchase" element={<Purchase />} />
         <Route path="reports" element={<Reports />} />
+        <Route path="customers" element={<Customers />} />
+        <Route path="ecommerce" element={<Ecommerce />} />
+        <Route path="settings" element={<Settings />} />
       </Route>
     </Routes>
   );

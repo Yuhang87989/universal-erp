@@ -13,6 +13,8 @@ const salesRoutes = require('./routes/sales');
 const customerRoutes = require('./routes/customers');
 const dashboardRoutes = require('./routes/dashboard');
 const reportRoutes = require('./routes/reports');
+const ecommerceRoutes = require('./routes/ecommerce');
+const tenantRoutes = require('./routes/tenants');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -34,6 +36,8 @@ app.use('/api/sales', salesRoutes);
 app.use('/api/customers', customerRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/reports', reportRoutes);
+app.use('/api/ecommerce', ecommerceRoutes);
+app.use('/api/tenants', tenantRoutes);
 
 // 健康检查
 app.get('/api/health', (req, res) => {
