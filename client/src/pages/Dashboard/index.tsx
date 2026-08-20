@@ -64,22 +64,22 @@ const Dashboard: React.FC = () => {
       )}
 
       <Row gutter={[16, 16]} style={{ marginBottom: 24 }}>
-        <Col xs={12} sm={6}>
+        <Col xs={24} sm={12} md={6}>
           <Card>
             <Statistic title="今日销售额" value={data.todaySales || 0} precision={2} prefix={<DollarOutlined />} valueStyle={{ color: '#3f8600' }} />
           </Card>
         </Col>
-        <Col xs={12} sm={6}>
+        <Col xs={24} sm={12} md={6}>
           <Card>
             <Statistic title="今日订单数" value={data.todaySalesCount || 0} prefix={<ShoppingCartOutlined />} />
           </Card>
         </Col>
-        <Col xs={12} sm={6}>
+        <Col xs={24} sm={12} md={6}>
           <Card>
             <Statistic title="今日采购额" value={data.todayPurchase || 0} precision={2} prefix={<FallOutlined />} valueStyle={{ color: '#cf1322' }} />
           </Card>
         </Col>
-        <Col xs={12} sm={6}>
+        <Col xs={24} sm={12} md={6}>
           <Card>
             <Statistic title="商品总数" value={data.productCount || 0} prefix={<AppstoreOutlined />} />
           </Card>
