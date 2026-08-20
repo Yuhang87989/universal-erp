@@ -37,8 +37,9 @@ const dayjs = require('dayjs');
   // 清理已有演示数据（避免重复执行时报 ER_DUP_ENTRY）
   const tenantIds = tenantRows.map(t => t.id);
   const tidList = tenantIds.join(',');
-  await conn.query(`DELETE FROM purchase_items WHERE purchase_order_id IN (SELECT id FROM purchase_orders WHERE tenant_id IN (${tidList}))`);
-  await conn.query(`DELETE FROM sale_items WHERE sales_order_id IN (SELECT id FROM sales_orders WHERE tenant_id IN (${tidList}))`);
+  // 用 JOIN 确保子表全部清空，避免子查询优化导致遗漏
+  await conn.query(`DELETE si FROM sale_items si INNER JOIN sales_orders so ON si.sales_order_id = so.id WHERE so.tenant_id IN (${tidList})`);
+  await conn.query(`DELETE pi FROM purchase_items pi INNER JOIN purchase_orders po ON pi.purchase_order_id = po.id WHERE po.tenant_id IN (${tidList})`);
   const mainTables = ['ecommerce_platforms','finance_records','purchase_orders','sales_orders','inventory','products','categories','customers','suppliers'];
   for (const tbl of mainTables) {
     await conn.query(`DELETE FROM ${tbl} WHERE tenant_id IN (${tidList})`);
