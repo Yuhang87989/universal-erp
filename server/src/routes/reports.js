@@ -8,7 +8,7 @@ router.use(authenticate);
 // 综合报表 - 营收趋势
 router.get('/revenue', async (req, res) => {
   try {
-    const tenantId = req.user.tenantId;
+    const tenantId = req.tenantId;
     const { startDate, endDate, groupBy = 'day' } = req.query;
 
     let dateFormat;
@@ -23,7 +23,6 @@ router.get('/revenue', async (req, res) => {
     if (startDate) { dateFilter += ' AND DATE(so.created_at) >= ?'; params.push(startDate); }
     if (endDate) { dateFilter += ' AND DATE(so.created_at) <= ?'; params.push(endDate); }
     if (!startDate && !endDate) {
-      // 默认近30天
       dateFilter = ' AND so.created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)';
     }
 
@@ -31,13 +30,8 @@ router.get('/revenue', async (req, res) => {
       `SELECT DATE_FORMAT(so.created_at, ?) as period,
               COUNT(*) as orderCount,
               SUM(so.total_amount) as revenue,
-              SUM(so.total_amount - COALESCE(si.total_cost, 0)) as profit,
               AVG(so.total_amount) as avgOrderAmount
        FROM sales_orders so
-       LEFT JOIN (
-         SELECT order_id, SUM(cost_price * quantity) as total_cost
-         FROM sale_items GROUP BY order_id
-       ) si ON so.id = si.order_id
        WHERE so.tenant_id = ? ${dateFilter}
        GROUP BY period ORDER BY period`,
       [dateFormat, ...params]
@@ -53,7 +47,7 @@ router.get('/revenue', async (req, res) => {
 // 商品销售排行
 router.get('/top-products', async (req, res) => {
   try {
-    const tenantId = req.user.tenantId;
+    const tenantId = req.tenantId;
     const { startDate, endDate, limit = 20 } = req.query;
 
     let dateFilter = '';
@@ -67,12 +61,11 @@ router.get('/top-products', async (req, res) => {
     const [rows] = await db.query(
       `SELECT p.id, p.name, p.barcode, p.category_id, c.name as category_name,
               SUM(si.quantity) as totalQty,
-              SUM(si.quantity * si.sell_price) as totalRevenue,
-              SUM(si.quantity * (si.sell_price - si.cost_price)) as totalProfit,
-              AVG(si.sell_price) as avgPrice,
+              SUM(si.quantity * si.unit_price) as totalRevenue,
+              AVG(si.unit_price) as avgPrice,
               COUNT(DISTINCT so.id) as orderCount
        FROM sale_items si
-       JOIN sales_orders so ON si.order_id = so.id
+       JOIN sales_orders so ON si.sales_order_id = so.id
        JOIN products p ON si.product_id = p.id
        LEFT JOIN categories c ON p.category_id = c.id
        WHERE so.tenant_id = ? ${dateFilter}
@@ -90,7 +83,7 @@ router.get('/top-products', async (req, res) => {
 // 分类销售统计
 router.get('/category-stats', async (req, res) => {
   try {
-    const tenantId = req.user.tenantId;
+    const tenantId = req.tenantId;
     const { startDate, endDate } = req.query;
 
     let dateFilter = '';
@@ -105,10 +98,9 @@ router.get('/category-stats', async (req, res) => {
       `SELECT c.id, c.name,
               COUNT(DISTINCT p.id) as productCount,
               SUM(si.quantity) as totalQty,
-              SUM(si.quantity * si.sell_price) as totalRevenue,
-              SUM(si.quantity * (si.sell_price - si.cost_price)) as totalProfit
+              SUM(si.quantity * si.unit_price) as totalRevenue
        FROM sale_items si
-       JOIN sales_orders so ON si.order_id = so.id
+       JOIN sales_orders so ON si.sales_order_id = so.id
        JOIN products p ON si.product_id = p.id
        LEFT JOIN categories c ON p.category_id = c.id
        WHERE so.tenant_id = ? ${dateFilter}
@@ -126,7 +118,7 @@ router.get('/category-stats', async (req, res) => {
 // 客户消费分析
 router.get('/customer-stats', async (req, res) => {
   try {
-    const tenantId = req.user.tenantId;
+    const tenantId = req.tenantId;
     const { startDate, endDate, limit = 50 } = req.query;
 
     let dateFilter = '';
@@ -161,7 +153,7 @@ router.get('/customer-stats', async (req, res) => {
 // 支付方式统计
 router.get('/payment-stats', async (req, res) => {
   try {
-    const tenantId = req.user.tenantId;
+    const tenantId = req.tenantId;
     const { startDate, endDate } = req.query;
 
     let dateFilter = '';
@@ -192,13 +184,13 @@ router.get('/payment-stats', async (req, res) => {
 // 库存周转分析
 router.get('/inventory-turnover', async (req, res) => {
   try {
-    const tenantId = req.user.tenantId;
+    const tenantId = req.tenantId;
 
     const [rows] = await db.query(
       `SELECT p.id, p.name, p.barcode, c.name as category_name,
               i.quantity as stockQty,
-              i.cost_price,
-              i.quantity * i.cost_price as stockValue,
+              p.cost_price,
+              i.quantity * p.cost_price as stockValue,
               COALESCE(sold.totalSold, 0) as soldQty30d,
               CASE WHEN i.quantity > 0 THEN COALESCE(sold.totalSold, 0) / i.quantity ELSE 0 END as turnoverRate,
               CASE
@@ -214,7 +206,7 @@ router.get('/inventory-turnover', async (req, res) => {
        LEFT JOIN (
          SELECT si.product_id, SUM(si.quantity) as totalSold
          FROM sale_items si
-         JOIN sales_orders so ON si.order_id = so.id
+         JOIN sales_orders so ON si.sales_order_id = so.id
          WHERE so.tenant_id = ? AND so.created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
          GROUP BY si.product_id
        ) sold ON p.id = sold.product_id
@@ -233,7 +225,7 @@ router.get('/inventory-turnover', async (req, res) => {
 // 利润分析
 router.get('/profit', async (req, res) => {
   try {
-    const tenantId = req.user.tenantId;
+    const tenantId = req.tenantId;
     const { startDate, endDate } = req.query;
 
     let dateFilter = ' AND so.created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)';
@@ -247,17 +239,19 @@ router.get('/profit', async (req, res) => {
       params
     );
 
-    // 总成本
+    // 总销售成本（用商品成本价计算）
     const [[cost]] = await db.query(
-      `SELECT IFNULL(SUM(si.quantity * si.cost_price), 0) as total
-       FROM sale_items si JOIN sales_orders so ON si.order_id = so.id
+      `SELECT IFNULL(SUM(si.quantity * p.cost_price), 0) as total
+       FROM sale_items si
+       JOIN sales_orders so ON si.sales_order_id = so.id
+       JOIN products p ON si.product_id = p.id
        WHERE so.tenant_id = ? ${dateFilter}`,
       params
     );
 
-    // 总采购成本
+    // 总采购金额
     const [[purchaseCost]] = await db.query(
-      `SELECT IFNULL(SUM(total_amount), 0) as total FROM purchase_orders WHERE tenant_id = ? AND status = 'received' AND received_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)`,
+      `SELECT IFNULL(SUM(total_amount), 0) as total FROM purchase_orders WHERE tenant_id = ? AND status = 'received'`,
       [tenantId]
     );
 

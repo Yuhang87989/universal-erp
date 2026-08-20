@@ -10,16 +10,16 @@ router.use(authenticate);
 // 供应商列表
 router.get('/suppliers', async (req, res) => {
   try {
-    const tenantId = req.user.tenantId;
+    const tenantId = req.tenantId;
     const { keyword, page = 1, pageSize = 20 } = req.query;
-    let sql = `SELECT * FROM suppliers WHERE tenant_id = ? AND is_active = 1`;
+    let sql = `SELECT * FROM suppliers WHERE tenant_id = ? AND status = 'active'`;
     const params = [tenantId];
 
     if (keyword) {
       sql += ` AND (name LIKE ? OR contact_name LIKE ? OR phone LIKE ?)`;
       params.push(`%${keyword}%`, `%${keyword}%`, `%${keyword}%`);
     }
-    sql += ` ORDER BY updated_at DESC LIMIT ? OFFSET ?`;
+    sql += ` ORDER BY created_at DESC LIMIT ? OFFSET ?`;
     params.push(Number(pageSize), (Number(page) - 1) * Number(pageSize));
 
     const [rows] = await db.query(sql, params);
@@ -36,7 +36,7 @@ router.get('/suppliers', async (req, res) => {
 
     // 总数
     const [[{ total }]] = await db.query(
-      `SELECT COUNT(*) as total FROM suppliers WHERE tenant_id = ? AND is_active = 1`,
+      `SELECT COUNT(*) as total FROM suppliers WHERE tenant_id = ? AND status = 'active'`,
       [tenantId]
     );
 
@@ -50,20 +50,20 @@ router.get('/suppliers', async (req, res) => {
 // 新增供应商
 router.post('/suppliers', async (req, res) => {
   try {
-    const tenantId = req.user.tenantId;
-    const { name, contactName, phone, email, address, bankAccount, notes } = req.body;
+    const tenantId = req.tenantId;
+    const { name, contactName, phone, address, bankName, bankAccount, notes } = req.body;
 
     if (!name) return res.status(400).json({ message: '供应商名称不能为空' });
 
     const [result] = await db.query(
-      `INSERT INTO suppliers (tenant_id, name, contact_name, phone, email, address, bank_account, notes) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-      [tenantId, name, contactName || null, phone || null, email || null, address || null, bankAccount || null, notes || null]
+      `INSERT INTO suppliers (tenant_id, name, contact_name, phone, address, bank_name, bank_account, remark) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [tenantId, name, contactName || null, phone || null, address || null, bankName || null, bankAccount || null, notes || null]
     );
 
     // 记录操作日志
     await db.query(
-      `INSERT INTO operation_logs (tenant_id, user_id, action, target_type, target_id, details) VALUES (?, ?, ?, ?, ?, ?)`,
-      [tenantId, req.user.id, 'create', 'supplier', result.insertId, `新增供应商: ${name}`]
+      `INSERT INTO operation_logs (tenant_id, user_id, module, action, target_type, target_id) VALUES (?, ?, ?, ?, ?, ?)`,
+      [tenantId, req.user.id, 'supplier', 'create', 'supplier', result.insertId]
     );
 
     res.json({ message: '供应商添加成功', id: result.insertId });
@@ -76,12 +76,12 @@ router.post('/suppliers', async (req, res) => {
 // 编辑供应商
 router.put('/suppliers/:id', async (req, res) => {
   try {
-    const tenantId = req.user.tenantId;
-    const { name, contactName, phone, email, address, bankAccount, notes } = req.body;
+    const tenantId = req.tenantId;
+    const { name, contactName, phone, address, bankName, bankAccount, notes } = req.body;
 
     await db.query(
-      `UPDATE suppliers SET name=?, contact_name=?, phone=?, email=?, address=?, bank_account=?, notes=? WHERE id=? AND tenant_id=?`,
-      [name, contactName || null, phone || null, email || null, address || null, bankAccount || null, notes || null, req.params.id, tenantId]
+      `UPDATE suppliers SET name=?, contact_name=?, phone=?, address=?, bank_name=?, bank_account=?, remark=? WHERE id=? AND tenant_id=?`,
+      [name, contactName || null, phone || null, address || null, bankName || null, bankAccount || null, notes || null, req.params.id, tenantId]
     );
 
     res.json({ message: '供应商更新成功' });
@@ -94,7 +94,7 @@ router.put('/suppliers/:id', async (req, res) => {
 // 删除供应商（软删除）
 router.delete('/suppliers/:id', async (req, res) => {
   try {
-    const tenantId = req.user.tenantId;
+    const tenantId = req.tenantId;
     // 检查是否有关联的采购单
     const [[count]] = await db.query(
       `SELECT COUNT(*) as cnt FROM purchase_orders WHERE supplier_id = ? AND tenant_id = ?`,
@@ -105,7 +105,7 @@ router.delete('/suppliers/:id', async (req, res) => {
     }
 
     await db.query(
-      `UPDATE suppliers SET is_active = 0 WHERE id=? AND tenant_id=?`,
+      `UPDATE suppliers SET status = 'disabled' WHERE id=? AND tenant_id=?`,
       [req.params.id, tenantId]
     );
 
@@ -121,12 +121,12 @@ router.delete('/suppliers/:id', async (req, res) => {
 // 采购单列表
 router.get('/orders', async (req, res) => {
   try {
-    const tenantId = req.user.tenantId;
+    const tenantId = req.tenantId;
     const { status, keyword, startDate, endDate, page = 1, pageSize = 20 } = req.query;
-    let sql = `SELECT po.*, s.name as supplier_name, u.real_name as creator_name
+    let sql = `SELECT po.*, s.name as supplier_name, u.real_name as operator_name
                FROM purchase_orders po
                LEFT JOIN suppliers s ON po.supplier_id = s.id
-               LEFT JOIN users u ON po.created_by = u.id
+               LEFT JOIN users u ON po.operator_id = u.id
                WHERE po.tenant_id = ?`;
     const params = [tenantId];
 
@@ -150,7 +150,7 @@ router.get('/orders', async (req, res) => {
     // 获取每个采购单的商品明细
     for (const order of rows) {
       const [items] = await db.query(
-        `SELECT pi.*, p.name as product_name, p.barcode FROM purchase_items pi LEFT JOIN products p ON pi.product_id = p.id WHERE pi.order_id = ?`,
+        `SELECT pi.*, p.name as product_name, p.barcode FROM purchase_items pi LEFT JOIN products p ON pi.product_id = p.id WHERE pi.purchase_order_id = ?`,
         [order.id]
       );
       order.items = items;
@@ -167,7 +167,7 @@ router.get('/orders', async (req, res) => {
 // 采购单详情
 router.get('/orders/:id', async (req, res) => {
   try {
-    const tenantId = req.user.tenantId;
+    const tenantId = req.tenantId;
     const [[order]] = await db.query(
       `SELECT po.*, s.name as supplier_name, s.contact_name as supplier_contact, s.phone as supplier_phone
        FROM purchase_orders po
@@ -183,7 +183,7 @@ router.get('/orders/:id', async (req, res) => {
        FROM purchase_items pi
        LEFT JOIN products p ON pi.product_id = p.id
        LEFT JOIN categories c ON p.category_id = c.id
-       WHERE pi.order_id = ?`,
+       WHERE pi.purchase_order_id = ?`,
       [order.id]
     );
     order.items = items;
@@ -199,7 +199,7 @@ router.get('/orders/:id', async (req, res) => {
 router.post('/orders', async (req, res) => {
   const conn = await db.getConnection();
   try {
-    const tenantId = req.user.tenantId;
+    const tenantId = req.tenantId;
     const { supplierId, orderDate, items, notes } = req.body;
 
     if (!supplierId || !items || items.length === 0) {
@@ -224,7 +224,7 @@ router.post('/orders', async (req, res) => {
 
     // 插入采购单
     const [result] = await conn.query(
-      `INSERT INTO purchase_orders (tenant_id, order_no, supplier_id, order_date, total_amount, status, notes, created_by) VALUES (?, ?, ?, ?, ?, 'pending', ?, ?)`,
+      `INSERT INTO purchase_orders (tenant_id, order_no, supplier_id, order_date, total_amount, status, remark, operator_id) VALUES (?, ?, ?, ?, ?, 'draft', ?, ?)`,
       [tenantId, orderNo, supplierId, orderDate || new Date(), totalAmount, notes || null, req.user.id]
     );
     const orderId = result.insertId;
@@ -232,15 +232,15 @@ router.post('/orders', async (req, res) => {
     // 插入采购商品明细
     for (const item of items) {
       await conn.query(
-        `INSERT INTO purchase_items (order_id, product_id, quantity, cost_price, subtotal) VALUES (?, ?, ?, ?, ?)`,
-        [orderId, item.productId, item.quantity, item.costPrice, item.quantity * item.costPrice]
+        `INSERT INTO purchase_items (purchase_order_id, product_id, quantity, unit_cost) VALUES (?, ?, ?, ?)`,
+        [orderId, item.productId, item.quantity, item.costPrice]
       );
     }
 
     // 记录操作日志
     await conn.query(
-      `INSERT INTO operation_logs (tenant_id, user_id, action, target_type, target_id, details) VALUES (?, ?, ?, ?, ?, ?)`,
-      [tenantId, req.user.id, 'create', 'purchase_order', orderId, `创建采购单: ${orderNo}`]
+      `INSERT INTO operation_logs (tenant_id, user_id, module, action, target_type, target_id) VALUES (?, ?, ?, ?, ?, ?)`,
+      [tenantId, req.user.id, 'purchase', 'create', 'purchase_order', orderId]
     );
 
     await conn.commit();
@@ -258,19 +258,19 @@ router.post('/orders', async (req, res) => {
 router.post('/orders/:id/receive', async (req, res) => {
   const conn = await db.getConnection();
   try {
-    const tenantId = req.user.tenantId;
+    const tenantId = req.tenantId;
     const { actualItems } = req.body; // 可选：实际到货数量（允许部分到货）
 
     // 查采购单
     const [[order]] = await conn.query(
-      `SELECT * FROM purchase_orders WHERE id = ? AND tenant_id = ? AND status = 'pending'`,
+      `SELECT * FROM purchase_orders WHERE id = ? AND tenant_id = ? AND status = 'draft'`,
       [req.params.id, tenantId]
     );
     if (!order) return res.status(400).json({ message: '采购单不存在或已入库' });
 
     // 查采购明细
     const [items] = await conn.query(
-      `SELECT * FROM purchase_items WHERE order_id = ?`,
+      `SELECT * FROM purchase_items WHERE purchase_order_id = ?`,
       [order.id]
     );
 
@@ -284,8 +284,8 @@ router.post('/orders/:id/receive', async (req, res) => {
 
       // 增加库存
       await conn.query(
-        `UPDATE inventory SET quantity = quantity + ?, cost_price = ?, updated_at = NOW() WHERE product_id = ? AND tenant_id = ?`,
-        [actualQty, item.cost_price, item.product_id, tenantId]
+        `UPDATE inventory SET quantity = quantity + ? WHERE product_id = ? AND tenant_id = ?`,
+        [actualQty, item.product_id, tenantId]
       );
 
       // 如果inventory不存在则创建
@@ -295,34 +295,41 @@ router.post('/orders/:id/receive', async (req, res) => {
       );
       if (invResult.length === 0) {
         await conn.query(
-          `INSERT INTO inventory (tenant_id, product_id, quantity, cost_price, alert_quantity) VALUES (?, ?, ?, ?, 10)`,
-          [tenantId, item.product_id, actualQty, item.cost_price]
+          `INSERT INTO inventory (tenant_id, product_id, quantity) VALUES (?, ?, ?)`,
+          [tenantId, item.product_id, actualQty]
         );
       }
 
       // 记录库存流水
+      const [curInv] = await conn.query(
+        `SELECT quantity FROM inventory WHERE product_id = ? AND tenant_id = ?`,
+        [item.product_id, tenantId]
+      );
+      const afterQty = curInv.length ? parseFloat(curInv[0].quantity) : 0;
+      const beforeQty = afterQty - parseFloat(actualQty);
+
       await conn.query(
-        `INSERT INTO inventory_logs (tenant_id, product_id, type, quantity, before_qty, after_qty, cost_price, reference_type, reference_id, operator_id, notes) VALUES (?, ?, 'in', ?, (SELECT quantity FROM inventory WHERE product_id = ? AND tenant_id = ?) - ?, (SELECT quantity FROM inventory WHERE product_id = ? AND tenant_id = ?), ?, 'purchase', ?, ?, ?)`,
-        [tenantId, item.product_id, actualQty, item.product_id, tenantId, actualQty, item.product_id, tenantId, item.cost_price, order.id, req.user.id, `采购入库 - 单号: ${order.order_no}`]
+        `INSERT INTO inventory_logs (tenant_id, product_id, change_type, quantity, before_quantity, after_quantity, unit_cost, reference_type, reference_id, operator_id, remark) VALUES (?, ?, 'purchase', ?, ?, ?, ?, 'purchase_order', ?, ?, ?)`,
+        [tenantId, item.product_id, actualQty, beforeQty, afterQty, item.unit_cost, order.id, req.user.id, `采购入库 - 单号: ${order.order_no}`]
       );
 
       // 更新商品成本价
       await conn.query(
         `UPDATE products SET cost_price = ? WHERE id = ? AND tenant_id = ?`,
-        [item.cost_price, item.product_id, tenantId]
+        [item.unit_cost, item.product_id, tenantId]
       );
     }
 
     // 更新采购单状态
     await conn.query(
-      `UPDATE purchase_orders SET status = 'received', received_at = NOW(), received_by = ? WHERE id = ?`,
+      `UPDATE purchase_orders SET status = 'received', operator_id = ? WHERE id = ?`,
       [req.user.id, order.id]
     );
 
     // 记录操作日志
     await conn.query(
-      `INSERT INTO operation_logs (tenant_id, user_id, action, target_type, target_id, details) VALUES (?, ?, ?, ?, ?, ?)`,
-      [tenantId, req.user.id, 'receive', 'purchase_order', order.id, `采购入库: ${order.order_no}`]
+      `INSERT INTO operation_logs (tenant_id, user_id, module, action, target_type, target_id) VALUES (?, ?, ?, ?, ?, ?)`,
+      [tenantId, req.user.id, 'purchase', 'receive', 'purchase_order', order.id]
     );
 
     await conn.commit();
@@ -336,17 +343,17 @@ router.post('/orders/:id/receive', async (req, res) => {
   }
 });
 
-// 删除采购单（仅待入库可删）
+// 删除采购单（仅草稿可删）
 router.delete('/orders/:id', async (req, res) => {
   try {
-    const tenantId = req.user.tenantId;
+    const tenantId = req.tenantId;
     const [[order]] = await db.query(
-      `SELECT * FROM purchase_orders WHERE id = ? AND tenant_id = ? AND status = 'pending'`,
+      `SELECT * FROM purchase_orders WHERE id = ? AND tenant_id = ? AND status = 'draft'`,
       [req.params.id, tenantId]
     );
     if (!order) return res.status(400).json({ message: '采购单不存在或已入库，无法删除' });
 
-    await db.query(`DELETE FROM purchase_items WHERE order_id = ?`, [order.id]);
+    await db.query(`DELETE FROM purchase_items WHERE purchase_order_id = ?`, [order.id]);
     await db.query(`DELETE FROM purchase_orders WHERE id = ?`, [order.id]);
 
     res.json({ message: '采购单已删除' });

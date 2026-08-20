@@ -76,7 +76,7 @@ router.post('/', async (req, res) => {
     if (!name) throw new Error('供应商名称不能为空');
 
     const [result] = await pool.query(
-      `INSERT INTO suppliers (tenant_id, name, contact_name, phone, address, bank_name, bank_account, remarks)
+      `INSERT INTO suppliers (tenant_id, name, contact_name, phone, address, bank_name, bank_account, remark)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
       [req.tenantId, name, contactName || null, phone || null, address || null, bankName || null, bankAccount || null, notes || null]
     );
@@ -91,7 +91,7 @@ router.put('/:id', async (req, res) => {
   try {
     const { name, contactName, phone, address, bankName, bankAccount, notes } = req.body;
     await pool.query(
-      `UPDATE suppliers SET name=?, contact_name=?, phone=?, address=?, bank_name=?, bank_account=?, remarks=?
+      `UPDATE suppliers SET name=?, contact_name=?, phone=?, address=?, bank_name=?, bank_account=?, remark=?
        WHERE id=? AND tenant_id=?`,
       [name, contactName, phone, address, bankName, bankAccount, notes, req.params.id, req.tenantId]
     );

@@ -206,28 +206,28 @@ const dayjs = require('dayjs');
 
   // 财务记录（近30天，按平台）
   const scFinanceData = [
-    { type: 'income', cat: '销售收入', amount: 3580, days: 0, remark: '线下门店今日销售收入' },
-    { type: 'income', cat: '销售收入', amount: 1260, days: 0, remark: '微信小程序商城订单' },
-    { type: 'expense', cat: '采购支出', amount: 4500, days: 1, remark: '采购化肥尿素50袋' },
-    { type: 'expense', cat: '运费支出', amount: 200, days: 1, remark: '化肥配送运费' },
-    { type: 'income', cat: '销售收入', amount: 2890, days: 2, remark: '线下批发收入' },
-    { type: 'income', cat: '销售收入', amount: 860, days: 2, remark: '拼多多农资店铺收入' },
-    { type: 'expense', cat: '房租水电', amount: 1500, days: 3, remark: '本月店面租金分摊' },
-    { type: 'income', cat: '销售收入', amount: 2100, days: 3, remark: '抖音直播间卖种子' },
-    { type: 'expense', cat: '推广费用', amount: 300, days: 4, remark: '抖音DOU+推广费' },
-    { type: 'income', cat: '销售收入', amount: 4200, days: 5, remark: '张庄村合作社采购' },
-    { type: 'expense', cat: '采购支出', amount: 2800, days: 5, remark: '采购农药一批' },
-    { type: 'income', cat: '平台收入', amount: 680, days: 6, remark: '微信小程序订单' },
-    { type: 'expense', cat: '人工支出', amount: 3500, days: 7, remark: '员工半月工资' },
-    { type: 'income', cat: '销售收入', amount: 5600, days: 10, remark: '大额批发-李大户' },
-    { type: 'income', cat: '销售收入', amount: 1350, days: 12, remark: '淘宝农资店收入' },
-    { type: 'expense', cat: '采购支出', amount: 6200, days: 15, remark: '批量采购复合肥' },
+    { type: 'income', cat: '销售收入', ref: 'offline', amount: 3580, days: 0, remark: '线下门店今日销售收入' },
+    { type: 'income', cat: '销售收入', ref: 'wechat_shop', amount: 1260, days: 0, remark: '微信小程序商城订单' },
+    { type: 'expense', cat: '采购支出', ref: 'offline', amount: 4500, days: 1, remark: '采购化肥尿素50袋' },
+    { type: 'expense', cat: '运费支出', ref: 'offline', amount: 200, days: 1, remark: '化肥配送运费' },
+    { type: 'income', cat: '销售收入', ref: 'offline', amount: 2890, days: 2, remark: '线下批发收入' },
+    { type: 'income', cat: '销售收入', ref: 'pinduoduo', amount: 860, days: 2, remark: '拼多多农资店铺收入' },
+    { type: 'expense', cat: '房租水电', ref: 'offline', amount: 1500, days: 3, remark: '本月店面租金分摊' },
+    { type: 'income', cat: '销售收入', ref: 'douyin', amount: 2100, days: 3, remark: '抖音直播间卖种子' },
+    { type: 'expense', cat: '推广费用', ref: 'douyin', amount: 300, days: 4, remark: '抖音DOU+推广费' },
+    { type: 'income', cat: '销售收入', ref: 'offline', amount: 4200, days: 5, remark: '张庄村合作社采购' },
+    { type: 'expense', cat: '采购支出', ref: 'offline', amount: 2800, days: 5, remark: '采购农药一批' },
+    { type: 'income', cat: '平台收入', ref: 'wechat_shop', amount: 680, days: 6, remark: '微信小程序订单' },
+    { type: 'expense', cat: '人工支出', ref: 'offline', amount: 3500, days: 7, remark: '员工半月工资' },
+    { type: 'income', cat: '销售收入', ref: 'offline', amount: 5600, days: 10, remark: '大额批发-李大户' },
+    { type: 'income', cat: '销售收入', ref: 'taobao', amount: 1350, days: 12, remark: '淘宝农资店收入' },
+    { type: 'expense', cat: '采购支出', ref: 'offline', amount: 6200, days: 15, remark: '批量采购复合肥' },
   ];
   for (const f of scFinanceData) {
     await conn.query(
-      `INSERT INTO finance_records (tenant_id, type, category, amount, payment_method, remark, record_date, operator_id)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-      [SC, f.type, f.cat, f.amount, f.type === 'income' ? 'wechat' : 'bank', f.remark, today.subtract(f.days, 'day').format('YYYY-MM-DD'), scAdmin]
+      `INSERT INTO finance_records (tenant_id, type, category, amount, reference_type, payment_method, remark, record_date, operator_id)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [SC, f.type, f.cat, f.amount, f.ref, f.type === 'income' ? 'wechat' : 'bank', f.remark, today.subtract(f.days, 'day').format('YYYY-MM-DD'), scAdmin]
     );
   }
   console.log('  ✓ 财务记录');
@@ -385,27 +385,27 @@ const dayjs = require('dayjs');
 
   // 财务记录
   const mvFinanceData = [
-    { type: 'income', cat: '销售收入', amount: 1280, days: 0, remark: '今日摊位销售收入' },
-    { type: 'expense', cat: '采购支出', amount: 650, days: 0, remark: '白沙洲蔬菜进货' },
-    { type: 'expense', cat: '采购支出', amount: 420, days: 0, remark: '水果进货-黄陂果园' },
-    { type: 'income', cat: '销售收入', amount: 980, days: 1, remark: '昨日销售收入' },
-    { type: 'expense', cat: '采购支出', amount: 380, days: 1, remark: '猪肉进货-江夏肉联厂' },
-    { type: 'income', cat: '销售收入', amount: 1560, days: 2, remark: '小张餐饮店批发收入' },
-    { type: 'expense', cat: '摊位租金', amount: 2000, days: 3, remark: '本月菜市场摊位租金' },
-    { type: 'income', cat: '销售收入', amount: 320, days: 3, remark: '微信社区团购订单' },
-    { type: 'expense', cat: '运费支出', amount: 50, days: 3, remark: '社区团购配送费' },
-    { type: 'income', cat: '销售收入', amount: 680, days: 4, remark: '抖音直播卖货收入' },
-    { type: 'expense', cat: '推广费用', amount: 100, days: 5, remark: '抖音推广费' },
-    { type: 'income', cat: '销售收入', amount: 1100, days: 5, remark: '周末零售收入' },
-    { type: 'income', cat: '销售收入', amount: 450, days: 6, remark: '快手短视频带货' },
-    { type: 'expense', cat: '人工支出', amount: 2500, days: 7, remark: '帮工半月工资' },
-    { type: 'income', cat: '销售收入', amount: 1350, days: 8, remark: '日常销售收入' },
-    { type: 'expense', cat: '水电费', amount: 300, days: 10, remark: '本月水电费' },
+    { type: 'income', cat: '销售收入', ref: 'offline', amount: 1280, days: 0, remark: '今日摊位销售收入' },
+    { type: 'expense', cat: '采购支出', ref: 'offline', amount: 650, days: 0, remark: '白沙洲蔬菜进货' },
+    { type: 'expense', cat: '采购支出', ref: 'offline', amount: 420, days: 0, remark: '水果进货-黄陂果园' },
+    { type: 'income', cat: '销售收入', ref: 'offline', amount: 980, days: 1, remark: '昨日销售收入' },
+    { type: 'expense', cat: '采购支出', ref: 'offline', amount: 380, days: 1, remark: '猪肉进货-江夏肉联厂' },
+    { type: 'income', cat: '销售收入', ref: 'offline', amount: 1560, days: 2, remark: '小张餐饮店批发收入' },
+    { type: 'expense', cat: '摊位租金', ref: 'offline', amount: 2000, days: 3, remark: '本月菜市场摊位租金' },
+    { type: 'income', cat: '销售收入', ref: 'wechat_shop', amount: 320, days: 3, remark: '微信社区团购订单' },
+    { type: 'expense', cat: '运费支出', ref: 'wechat_shop', amount: 50, days: 3, remark: '社区团购配送费' },
+    { type: 'income', cat: '销售收入', ref: 'douyin', amount: 680, days: 4, remark: '抖音直播卖货收入' },
+    { type: 'expense', cat: '推广费用', ref: 'douyin', amount: 100, days: 5, remark: '抖音推广费' },
+    { type: 'income', cat: '销售收入', ref: 'offline', amount: 1100, days: 5, remark: '周末零售收入' },
+    { type: 'income', cat: '销售收入', ref: 'kuaishou', amount: 450, days: 6, remark: '快手短视频带货' },
+    { type: 'expense', cat: '人工支出', ref: 'offline', amount: 2500, days: 7, remark: '帮工半月工资' },
+    { type: 'income', cat: '销售收入', ref: 'offline', amount: 1350, days: 8, remark: '日常销售收入' },
+    { type: 'expense', cat: '水电费', ref: 'offline', amount: 300, days: 10, remark: '本月水电费' },
   ];
   for (const f of mvFinanceData) {
     await conn.query(
-      'INSERT INTO finance_records (tenant_id, type, category, amount, payment_method, remark, record_date, operator_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-      [MV, f.type, f.cat, f.amount, f.type === 'income' ? 'wechat' : 'cash', f.remark, today.subtract(f.days, 'day').format('YYYY-MM-DD'), mvAdmin]
+      'INSERT INTO finance_records (tenant_id, type, category, amount, reference_type, payment_method, remark, record_date, operator_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [MV, f.type, f.cat, f.amount, f.ref, f.type === 'income' ? 'wechat' : 'cash', f.remark, today.subtract(f.days, 'day').format('YYYY-MM-DD'), mvAdmin]
     );
   }
   console.log('  ✓ 财务记录');
@@ -564,29 +564,29 @@ const dayjs = require('dayjs');
 
   // 财务记录
   const rsFinanceData = [
-    { type: 'income', cat: '销售收入', amount: 860, days: 0, remark: '今日门店零售收入' },
-    { type: 'income', cat: '销售收入', amount: 245, days: 0, remark: '微信小程序外卖订单' },
-    { type: 'expense', cat: '采购支出', amount: 580, days: 1, remark: '中百仓储日用品进货' },
-    { type: 'income', cat: '销售收入', amount: 720, days: 1, remark: '昨日零售收入' },
-    { type: 'expense', cat: '采购支出', amount: 360, days: 2, remark: '可口可乐进货' },
-    { type: 'income', cat: '销售收入', amount: 180, days: 2, remark: '抖音小店零食订单' },
-    { type: 'expense', cat: '房租水电', amount: 3000, days: 3, remark: '本月店面租金' },
-    { type: 'income', cat: '销售收入', amount: 950, days: 3, remark: '零售收入' },
-    { type: 'expense', cat: '采购支出', amount: 420, days: 4, remark: '旺旺零食进货' },
-    { type: 'income', cat: '销售收入', amount: 380, days: 4, remark: '外卖平台收入' },
-    { type: 'expense', cat: '推广费用', amount: 60, days: 5, remark: '外卖平台推广费' },
-    { type: 'income', cat: '销售收入', amount: 1100, days: 5, remark: '周末零售收入' },
-    { type: 'income', cat: '平台收入', amount: 150, days: 6, remark: '小程序订单' },
-    { type: 'expense', cat: '人工支出', amount: 2800, days: 7, remark: '店员半月工资' },
-    { type: 'income', cat: '销售收入', amount: 680, days: 8, remark: '日常零售' },
-    { type: 'expense', cat: '水电费', amount: 450, days: 10, remark: '本月水电费' },
-    { type: 'income', cat: '销售收入', amount: 220, days: 12, remark: '外卖平台收入' },
-    { type: 'expense', cat: '采购支出', amount: 1200, days: 15, remark: '批量进货-日用品' },
+    { type: 'income', cat: '销售收入', ref: 'offline', amount: 860, days: 0, remark: '今日门店零售收入' },
+    { type: 'income', cat: '销售收入', ref: 'wechat_shop', amount: 245, days: 0, remark: '微信小程序外卖订单' },
+    { type: 'expense', cat: '采购支出', ref: 'offline', amount: 580, days: 1, remark: '中百仓储日用品进货' },
+    { type: 'income', cat: '销售收入', ref: 'offline', amount: 720, days: 1, remark: '昨日零售收入' },
+    { type: 'expense', cat: '采购支出', ref: 'offline', amount: 360, days: 2, remark: '可口可乐进货' },
+    { type: 'income', cat: '销售收入', ref: 'douyin', amount: 180, days: 2, remark: '抖音小店零食订单' },
+    { type: 'expense', cat: '房租水电', ref: 'offline', amount: 3000, days: 3, remark: '本月店面租金' },
+    { type: 'income', cat: '销售收入', ref: 'offline', amount: 950, days: 3, remark: '零售收入' },
+    { type: 'expense', cat: '采购支出', ref: 'offline', amount: 420, days: 4, remark: '旺旺零食进货' },
+    { type: 'income', cat: '销售收入', ref: 'other', amount: 380, days: 4, remark: '外卖平台收入' },
+    { type: 'expense', cat: '推广费用', ref: 'other', amount: 60, days: 5, remark: '外卖平台推广费' },
+    { type: 'income', cat: '销售收入', ref: 'offline', amount: 1100, days: 5, remark: '周末零售收入' },
+    { type: 'income', cat: '平台收入', ref: 'wechat_shop', amount: 150, days: 6, remark: '小程序订单' },
+    { type: 'expense', cat: '人工支出', ref: 'offline', amount: 2800, days: 7, remark: '店员半月工资' },
+    { type: 'income', cat: '销售收入', ref: 'offline', amount: 680, days: 8, remark: '日常零售' },
+    { type: 'expense', cat: '水电费', ref: 'offline', amount: 450, days: 10, remark: '本月水电费' },
+    { type: 'income', cat: '销售收入', ref: 'other', amount: 220, days: 12, remark: '外卖平台收入' },
+    { type: 'expense', cat: '采购支出', ref: 'offline', amount: 1200, days: 15, remark: '批量进货-日用品' },
   ];
   for (const f of rsFinanceData) {
     await conn.query(
-      'INSERT INTO finance_records (tenant_id, type, category, amount, payment_method, remark, record_date, operator_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-      [RS, f.type, f.cat, f.amount, f.type === 'income' ? 'wechat' : 'bank', f.remark, today.subtract(f.days, 'day').format('YYYY-MM-DD'), rsAdmin]
+      'INSERT INTO finance_records (tenant_id, type, category, amount, reference_type, payment_method, remark, record_date, operator_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [RS, f.type, f.cat, f.amount, f.ref, f.type === 'income' ? 'wechat' : 'bank', f.remark, today.subtract(f.days, 'day').format('YYYY-MM-DD'), rsAdmin]
     );
   }
   console.log('  ✓ 财务记录');

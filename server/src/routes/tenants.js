@@ -6,29 +6,20 @@ const { authenticate } = require('../middleware/auth');
 const router = express.Router();
 router.use(authenticate);
 
-// 获取当前用户可访问的租户列表
+// 获取当前用户可访问的租户列表（当前角色为owner/manager的可看到所有帐套）
 router.get('/', async (req, res) => {
   try {
-    // 查询用户的可切换租户
-    const [users] = await pool.query(
-      'SELECT switchable_tenants FROM users WHERE id = ?',
-      [req.user.id]
-    );
-    let tenantIds = [req.tenantId]; // 至少有当前租户
-    if (users[0] && users[0].switchable_tenants) {
-      const st = users[0].switchable_tenants;
-      // MySQL JSON 字段可能是字符串或数组
-      if (typeof st === 'string') {
-        try { tenantIds = JSON.parse(st); } catch { tenantIds = [req.tenantId]; }
-      } else if (Array.isArray(st)) {
-        tenantIds = st;
-      }
+    // owner可以看到所有帐套，其他角色只能看到自己的
+    let query, params;
+    if (req.user.role === 'owner') {
+      query = 'SELECT id, name, owner_name, phone, business_type FROM tenants WHERE status = ? ORDER BY id';
+      params = ['active'];
+    } else {
+      query = 'SELECT id, name, owner_name, phone, business_type FROM tenants WHERE id = ? AND status = ?';
+      params = [req.tenantId, 'active'];
     }
 
-    const [tenants] = await pool.query(
-      'SELECT id, name, owner_name, phone, business_type, business_desc FROM tenants WHERE id IN (?)',
-      [tenantIds]
-    );
+    const [tenants] = await pool.query(query, params);
     res.json({ code: 0, data: tenants });
   } catch (err) {
     console.error(err);
@@ -36,7 +27,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// 切换租户
+// 切换帐套
 router.post('/switch', async (req, res) => {
   try {
     const { tenantId } = req.body;
@@ -44,35 +35,21 @@ router.post('/switch', async (req, res) => {
       return res.status(400).json({ code: 400, message: '请选择要切换的帐套' });
     }
 
-    // 验证用户是否有权切换到该租户
-    const [users] = await pool.query(
-      'SELECT switchable_tenants FROM users WHERE id = ?',
-      [req.user.id]
-    );
-    let allowedIds = [req.tenantId];
-    if (users[0] && users[0].switchable_tenants) {
-      const st = users[0].switchable_tenants;
-      if (typeof st === 'string') {
-        try { allowedIds = JSON.parse(st); } catch { allowedIds = [req.tenantId]; }
-      } else if (Array.isArray(st)) {
-        allowedIds = st;
-      }
-    }
-
-    if (!allowedIds.includes(tenantId)) {
-      return res.status(403).json({ code: 403, message: '无权切换到该帐套' });
-    }
-
-    // 获取目标租户信息
+    // 验证目标帐套存在且激活
     const [tenants] = await pool.query(
-      'SELECT id, name, owner_name, business_type FROM tenants WHERE id = ?',
-      [tenantId]
+      'SELECT id, name, owner_name, business_type FROM tenants WHERE id = ? AND status = ?',
+      [tenantId, 'active']
     );
     if (!tenants.length) {
       return res.status(404).json({ code: 404, message: '目标帐套不存在' });
     }
 
-    // 更新用户的当前 tenant_id
+    // owner角色可以切换到任意帐套
+    if (req.user.role !== 'owner' && req.tenantId !== tenantId) {
+      return res.status(403).json({ code: 403, message: '无权切换到该帐套' });
+    }
+
+    // 更新用户的 tenant_id
     await pool.query('UPDATE users SET tenant_id = ? WHERE id = ?', [tenantId, req.user.id]);
 
     // 生成新的 Token
@@ -108,8 +85,8 @@ router.post('/switch', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const [rows] = await pool.query(
-      'SELECT * FROM tenants WHERE id = ? AND id = ?',
-      [req.params.id, req.tenantId]
+      'SELECT * FROM tenants WHERE id = ?',
+      [req.params.id]
     );
     if (!rows.length) return res.status(404).json({ code: 404, message: '租户不存在' });
     res.json({ code: 0, data: rows[0] });
@@ -121,11 +98,11 @@ router.get('/:id', async (req, res) => {
 // 更新租户信息
 router.put('/:id', async (req, res) => {
   try {
-    const { name, owner_name, phone, address, business_type, business_desc } = req.body;
+    const { name, owner_name, phone, address, business_type } = req.body;
     await pool.query(
-      `UPDATE tenants SET name=?, owner_name=?, phone=?, address=?, business_type=?, business_desc=?
-       WHERE id=? AND id=?`,
-      [name, owner_name, phone, address, business_type, business_desc, req.params.id, req.tenantId]
+      `UPDATE tenants SET name=?, owner_name=?, phone=?, address=?, business_type=?
+       WHERE id=?`,
+      [name, owner_name, phone, address, business_type, req.params.id]
     );
     res.json({ code: 0, message: '租户信息更新成功' });
   } catch (err) {
