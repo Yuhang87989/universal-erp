@@ -11,7 +11,7 @@ async function migrate() {
   });
 
   try {
-    console.log('开始数据库迁移...');
+    console.log('开始数据库迁移 Phase 3...');
 
     // 1. 创建finance_records表
     await pool.query(`
@@ -33,7 +33,25 @@ async function migrate() {
     `);
     console.log('✓ finance_records 表创建/已存在');
 
-    // 2. 给suppliers表补字段（安全的try-catch方式）
+    // 2. 给finance_records添加platform字段
+    try {
+      await pool.query('ALTER TABLE finance_records ADD COLUMN platform VARCHAR(20) AFTER category');
+      console.log('✓ finance_records.platform 字段已添加');
+    } catch (e) {
+      if (e.code === 'ER_DUP_FIELDNAME') console.log('  finance_records.platform 已存在，跳过');
+      else throw e;
+    }
+
+    // 3. 给finance_records的platform加索引
+    try {
+      await pool.query('ALTER TABLE finance_records ADD INDEX idx_platform (platform)');
+      console.log('✓ finance_records.platform 索引已添加');
+    } catch (e) {
+      if (e.code === 'ER_DUP_KEYNAME') console.log('  idx_platform 索引已存在，跳过');
+      else throw e;
+    }
+
+    // 4. 给suppliers表补字段
     try {
       await pool.query('ALTER TABLE suppliers ADD COLUMN bank_name VARCHAR(100) AFTER address');
       console.log('✓ suppliers.bank_name 字段已添加');

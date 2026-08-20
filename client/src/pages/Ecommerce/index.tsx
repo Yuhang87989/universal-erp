@@ -6,12 +6,13 @@ import request from '../../api/request';
 const { Title } = Typography;
 
 const platformOptions = [
+  { value: 'douyin', label: '抖音', color: '#111' },
+  { value: 'xiaohongshu', label: '小红书', color: '#fe2c55' },
+  { value: 'kuaishou', label: '快手', color: '#ff4900' },
+  { value: 'wechat_shop', label: '微信小程序', color: '#07c160' },
   { value: 'pinduoduo', label: '拼多多', color: '#e02020' },
   { value: 'taobao', label: '淘宝', color: '#ff5000' },
   { value: 'tmall', label: '天猫', color: '#ff0036' },
-  { value: 'douyin', label: '抖音', color: '#111' },
-  { value: 'kuaishou', label: '快手', color: '#ff4900' },
-  { value: 'wechat_shop', label: '微信小商店', color: '#07c160' },
   { value: 'other', label: '其他', color: '#888' },
 ];
 

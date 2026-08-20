@@ -9,12 +9,13 @@ router.use(authenticate);
 // 获取收支记录列表
 router.get('/', async (req, res) => {
   try {
-    const { page = 1, pageSize = 20, type, startDate, endDate, category } = req.query;
+    const { page = 1, pageSize = 20, type, platform, startDate, endDate, category } = req.query;
     const offset = (page - 1) * pageSize;
     let where = 'WHERE tenant_id = ?';
     const params = [req.tenantId];
 
     if (type) { where += ' AND type = ?'; params.push(type); }
+    if (platform) { where += ' AND platform = ?'; params.push(platform); }
     if (category) { where += ' AND category = ?'; params.push(category); }
     if (startDate) { where += ' AND record_date >= ?'; params.push(startDate); }
     if (endDate) { where += ' AND record_date <= ?'; params.push(endDate); }
@@ -28,14 +29,19 @@ router.get('/', async (req, res) => {
       [...params, parseInt(pageSize), offset]
     );
 
-    // 汇总
+    // 汇总（带平台筛选）
+    let sumWhere = 'WHERE tenant_id = ?';
+    const sumParams = [req.tenantId];
+    if (platform) { sumWhere += ' AND platform = ?'; sumParams.push(platform); }
+    if (type) { sumWhere += ' AND type = ?'; sumParams.push(type); }
+
     const [incomeSum] = await pool.query(
-      `SELECT COALESCE(SUM(amount), 0) as total FROM finance_records WHERE tenant_id = ? AND type = 'income'`,
-      [req.tenantId]
+      `SELECT COALESCE(SUM(amount), 0) as total FROM finance_records ${sumWhere.replace(/type = \?/g, "type = 'income'").replace(/ AND type = \?/g, '')} AND type = 'income'`,
+      [req.tenantId, ...(platform ? [platform] : [])]
     );
     const [expenseSum] = await pool.query(
-      `SELECT COALESCE(SUM(amount), 0) as total FROM finance_records WHERE tenant_id = ? AND type = 'expense'`,
-      [req.tenantId]
+      `SELECT COALESCE(SUM(amount), 0) as total FROM finance_records WHERE tenant_id = ? AND type = 'expense'${platform ? ' AND platform = ?' : ''}`,
+      [req.tenantId, ...(platform ? [platform] : [])]
     );
 
     res.json({
@@ -60,13 +66,13 @@ router.get('/', async (req, res) => {
 // 新增收支记录
 router.post('/', async (req, res) => {
   try {
-    const { type, category, amount, paymentMethod, remark, recordDate } = req.body;
+    const { type, category, amount, platform, paymentMethod, remark, recordDate } = req.body;
     if (!type || !category || !amount) throw new Error('类型、类别和金额不能为空');
 
     const [result] = await pool.query(
-      `INSERT INTO finance_records (tenant_id, type, category, amount, payment_method, remark, record_date, operator_id)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-      [req.tenantId, type, category, amount, paymentMethod || null, remark || null, recordDate || dayjs().format('YYYY-MM-DD'), req.user.id]
+      `INSERT INTO finance_records (tenant_id, type, category, amount, platform, payment_method, remark, record_date, operator_id)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [req.tenantId, type, category, amount, platform || null, paymentMethod || null, remark || null, recordDate || dayjs().format('YYYY-MM-DD'), req.user.id]
     );
     res.json({ code: 0, message: '记录添加成功', data: { id: result.insertId } });
   } catch (err) {
@@ -77,11 +83,11 @@ router.post('/', async (req, res) => {
 // 更新收支记录
 router.put('/:id', async (req, res) => {
   try {
-    const { type, category, amount, paymentMethod, remark, recordDate } = req.body;
+    const { type, category, amount, platform, paymentMethod, remark, recordDate } = req.body;
     await pool.query(
-      `UPDATE finance_records SET type=?, category=?, amount=?, payment_method=?, remark=?, record_date=?
+      `UPDATE finance_records SET type=?, category=?, amount=?, platform=?, payment_method=?, remark=?, record_date=?
        WHERE id=? AND tenant_id=?`,
-      [type, category, amount, paymentMethod, remark, recordDate, req.params.id, req.tenantId]
+      [type, category, amount, platform || null, paymentMethod, remark, recordDate, req.params.id, req.tenantId]
     );
     res.json({ code: 0, message: '记录更新成功' });
   } catch (err) {
@@ -99,21 +105,51 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+// 各平台收支汇总（用于总帐目页面）
+router.get('/platform-summary', async (req, res) => {
+  try {
+    const [rows] = await pool.query(
+      `SELECT
+        COALESCE(platform, 'other') as platform,
+        COALESCE(SUM(CASE WHEN type='income' THEN amount ELSE 0 END), 0) as income,
+        COALESCE(SUM(CASE WHEN type='expense' THEN amount ELSE 0 END), 0) as expense,
+        COUNT(*) as record_count
+       FROM finance_records
+       WHERE tenant_id = ?
+       GROUP BY platform
+       ORDER BY income DESC`,
+      [req.tenantId]
+    );
+    res.json({ code: 0, data: rows });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ code: 500, message: '获取平台汇总失败' });
+  }
+});
+
 // 获取收支汇总（按类别/月份）
 router.get('/summary', async (req, res) => {
   try {
-    const { groupBy = 'category' } = req.query;
+    const { groupBy = 'category', platform } = req.query;
+    let baseWhere = 'WHERE tenant_id = ?';
+    const baseParams = [req.tenantId];
+    if (platform) { baseWhere += ' AND platform = ?'; baseParams.push(platform); }
+
     let sql;
     if (groupBy === 'month') {
       sql = `SELECT DATE_FORMAT(record_date, '%Y-%m') as period, type, SUM(amount) as total
-             FROM finance_records WHERE tenant_id = ?
+             FROM finance_records ${baseWhere}
              GROUP BY period, type ORDER BY period DESC`;
+    } else if (groupBy === 'platform') {
+      sql = `SELECT COALESCE(platform, 'other') as platform, type, SUM(amount) as total, COUNT(*) as count
+             FROM finance_records ${baseWhere}
+             GROUP BY platform, type ORDER BY total DESC`;
     } else {
       sql = `SELECT category, type, SUM(amount) as total, COUNT(*) as count
-             FROM finance_records WHERE tenant_id = ?
+             FROM finance_records ${baseWhere}
              GROUP BY category, type ORDER BY total DESC`;
     }
-    const [rows] = await pool.query(sql, [req.tenantId]);
+    const [rows] = await pool.query(sql, baseParams);
     res.json({ code: 0, data: rows });
   } catch (err) {
     res.status(500).json({ code: 500, message: '获取汇总失败' });
