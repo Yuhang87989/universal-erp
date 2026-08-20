@@ -13,21 +13,21 @@ const Purchase: React.FC = () => {
   const [activeTab, setActiveTab] = useState('orders');
 
   // 供应商相关
-  const [suppliers, setSuppliers] = useState([]);
+  const [suppliers, setSuppliers] = useState<any[]>([]);
   const [supplierLoading, setSupplierLoading] = useState(false);
   const [supplierModal, setSupplierModal] = useState(false);
-  const [editingSupplier, setEditingSupplier] = useState(null);
+  const [editingSupplier, setEditingSupplier] = useState<any>(null);
   const [supplierForm] = Form.useForm();
 
   // 采购单相关
-  const [orders, setOrders] = useState([]);
+  const [orders, setOrders] = useState<any[]>([]);
   const [orderLoading, setOrderLoading] = useState(false);
   const [orderModal, setOrderModal] = useState(false);
   const [detailModal, setDetailModal] = useState(false);
-  const [currentOrder, setCurrentOrder] = useState(null);
+  const [currentOrder, setCurrentOrder] = useState<any>(null);
   const [orderForm] = Form.useForm();
   const [orderItems, setOrderItems] = useState([{ productId: null, quantity: 1, costPrice: 0 }]);
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<any[]>([]);
   const [pagination, setPagination] = useState({ current: 1, pageSize: 20, total: 0 });
 
   // 加载供应商
