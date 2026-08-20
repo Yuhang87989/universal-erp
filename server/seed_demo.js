@@ -36,12 +36,16 @@ const dayjs = require('dayjs');
 
   // 清理已有演示数据（避免重复执行时报 ER_DUP_ENTRY）
   const tenantIds = tenantRows.map(t => t.id);
-  const tables = ['ecommerce_platforms','finance_records','purchase_items','purchase_orders','sale_items','sales_orders','inventory','products','categories','customers','suppliers'];
-  for (const tbl of tables) {
-    await conn.query(`DELETE FROM ${tbl} WHERE tenant_id IN (${tenantIds.join(',')})`);
+  const tidList = tenantIds.join(',');
+  await conn.query(`DELETE FROM purchase_items WHERE purchase_order_id IN (SELECT id FROM purchase_orders WHERE tenant_id IN (${tidList}))`);
+  await conn.query(`DELETE FROM sale_items WHERE sales_order_id IN (SELECT id FROM sales_orders WHERE tenant_id IN (${tidList}))`);
+  const mainTables = ['ecommerce_platforms','finance_records','purchase_orders','sales_orders','inventory','products','categories','customers','suppliers'];
+  for (const tbl of mainTables) {
+    await conn.query(`DELETE FROM ${tbl} WHERE tenant_id IN (${tidList})`);
   }
   // 重建自增ID
-  for (const tbl of tables) {
+  const allTables = ['purchase_items','sale_items','ecommerce_platforms','finance_records','purchase_orders','sales_orders','inventory','products','categories','customers','suppliers'];
+  for (const tbl of allTables) {
     await conn.query(`ALTER TABLE ${tbl} AUTO_INCREMENT = 1`);
   }
   console.log('🧹 已清理旧演示数据\n');
