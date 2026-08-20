@@ -12,6 +12,7 @@ const purchaseRoutes = require('./routes/purchases');
 const salesRoutes = require('./routes/sales');
 const customerRoutes = require('./routes/customers');
 const dashboardRoutes = require('./routes/dashboard');
+const reportRoutes = require('./routes/reports');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -32,6 +33,7 @@ app.use('/api/purchases', purchaseRoutes);
 app.use('/api/sales', salesRoutes);
 app.use('/api/customers', customerRoutes);
 app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/reports', reportRoutes);
 
 // 健康检查
 app.get('/api/health', (req, res) => {
