@@ -34,6 +34,18 @@ const dayjs = require('dayjs');
   tenantRows.forEach(t => { tenantMap[t.business_type] = t.id; });
   console.log('帐套映射:', tenantMap, '\n');
 
+  // 清理已有演示数据（避免重复执行时报 ER_DUP_ENTRY）
+  const tenantIds = tenantRows.map(t => t.id);
+  const tables = ['ecommerce_platforms','finance_records','purchase_items','purchase_orders','sale_items','sales_orders','inventory','products','categories','customers','suppliers'];
+  for (const tbl of tables) {
+    await conn.query(`DELETE FROM ${tbl} WHERE tenant_id IN (${tenantIds.join(',')})`);
+  }
+  // 重建自增ID
+  for (const tbl of tables) {
+    await conn.query(`ALTER TABLE ${tbl} AUTO_INCREMENT = 1`);
+  }
+  console.log('🧹 已清理旧演示数据\n');
+
   // 获取每个租户的管理员ID
   const [adminRows] = await conn.query(
     "SELECT id, tenant_id FROM users WHERE username IN ('supply_coop_admin','market_admin','retail_admin')"
