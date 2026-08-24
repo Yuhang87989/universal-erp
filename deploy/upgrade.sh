@@ -76,7 +76,6 @@ echo "✅ .env 已配置"
 echo ""
 echo "========== [5/7] ERP：前端构建 =========="
 cd "$APP_DIR/client"
-export NODE_OPTIONS=--openssl-legacy-provider
 npm install 2>&1 | tail -3 || echo '⚠️ npm install有警告，继续'
 npm run build 2>&1 | tail -5 || { echo '❌ 前端构建失败'; exit 1; }
 echo "✅ 前端构建完成"
