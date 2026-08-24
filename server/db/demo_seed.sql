@@ -8,6 +8,37 @@
 -- ============================================
 USE erp_db;
 
+-- 清理旧演示数据（可重复执行）
+SET FOREIGN_KEY_CHECKS=0;
+DELETE FROM inventory_logs WHERE tenant_id IN (2,3,4,5);
+DELETE FROM stock_transfer_items WHERE transfer_id IN (SELECT id FROM stock_transfers WHERE tenant_id IN (2,3,4,5));
+DELETE FROM stock_transfers WHERE tenant_id IN (2,3,4,5);
+DELETE FROM stock_out_items WHERE order_id IN (SELECT id FROM stock_out_orders WHERE tenant_id IN (2,3,4,5));
+DELETE FROM stock_out_orders WHERE tenant_id IN (2,3,4,5);
+DELETE FROM stock_in_items WHERE order_id IN (SELECT id FROM stock_in_orders WHERE tenant_id IN (2,3,4,5));
+DELETE FROM stock_in_orders WHERE tenant_id IN (2,3,4,5);
+DELETE FROM payment_channels WHERE tenant_id IN (2,3,4,5);
+DELETE FROM stock_alerts WHERE tenant_id IN (2,3,4,5);
+DELETE FROM voucher_items WHERE voucher_id IN (SELECT id FROM vouchers WHERE tenant_id IN (2,3,4,5));
+DELETE FROM vouchers WHERE tenant_id IN (2,3,4,5);
+DELETE FROM seals WHERE book_id IN (SELECT id FROM accounting_books WHERE tenant_id IN (2,3,4,5));
+DELETE FROM accounting_accounts WHERE tenant_id IN (2,3,4,5);
+DELETE FROM accounting_books WHERE tenant_id IN (2,3,4,5);
+DELETE FROM finance_records WHERE tenant_id IN (2,3,4,5);
+DELETE FROM sale_items WHERE order_id IN (SELECT id FROM sales_orders WHERE tenant_id IN (2,3,4,5));
+DELETE FROM sales_orders WHERE tenant_id IN (2,3,4,5);
+DELETE FROM purchase_items WHERE order_id IN (SELECT id FROM purchase_orders WHERE tenant_id IN (2,3,4,5));
+DELETE FROM purchase_orders WHERE tenant_id IN (2,3,4,5);
+DELETE FROM inventory WHERE tenant_id IN (2,3,4,5);
+DELETE FROM customers WHERE tenant_id IN (2,3,4,5);
+DELETE FROM suppliers WHERE tenant_id IN (2,3,4,5);
+DELETE FROM warehouses WHERE tenant_id IN (2,3,4,5);
+DELETE FROM products WHERE tenant_id IN (2,3,4,5);
+DELETE FROM categories WHERE tenant_id IN (2,3,4,5);
+DELETE FROM users WHERE tenant_id IN (2,3,4,5);
+DELETE FROM tenants WHERE id IN (2,3,4,5);
+SET FOREIGN_KEY_CHECKS=1;
+
 -- 管理员密码统一：admin123 的 bcrypt hash（与schema.sql一致）
 SET @demo_hash = '$2b$10$rQiWJLk/mXcYGjV8zVwqQeJq7vZ.aB1kZ3pR5cY6dF8gH0jK2mN4u';
 
