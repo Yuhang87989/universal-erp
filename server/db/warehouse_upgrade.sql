@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS warehouses (
 ) COMMENT='仓库管理';
 
 -- 默认主仓库
-INSERT INTO warehouses (tenant_id, code, name, address, is_default, sort_order) VALUES
+INSERT IGNORE INTO warehouses (tenant_id, code, name, address, is_default, sort_order) VALUES
 (1, 'WH001', '主仓库', NULL, TRUE, 1);
 
 -- -------------------------------------------

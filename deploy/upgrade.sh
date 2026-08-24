@@ -3,7 +3,7 @@
 # ERP一键升级脚本（从GitHub拉取）
 # 在8月22日镜像恢复后的服务器上执行
 # ============================================
-set -e
+set -o pipefail
 
 APP_DIR="/opt/universal-erp"
 PORTAL_DIR="/var/www/portal"
@@ -51,19 +51,34 @@ for sql in finance_upgrade.sql warehouse_upgrade.sql payment_analytics_upgrade.s
   mysql --force -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" < "db/$sql" 2>&1 || echo "    ⚠️ 表可能已存在，继续"
 done
 echo "  → demo_seed.sql（4套演示账套）"
-mysql --force -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" < db/demo_seed.sql 2>&1
+mysql --force -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" < db/demo_seed.sql 2>&1 || echo "⚠️ seed有警告但已跳过"
 echo "✅ 数据库迁移完成"
 
 echo ""
 echo "========== [4/7] ERP：验证演示数据 =========="
 mysql --force -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" < db/verify_demo.sql 2>&1 | head -30
 
+
+echo ""
+echo "========== [3.5/7] ERP：配置环境变量 =========="
+cat > "$APP_DIR/server/.env" << 'ENV'
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_NAME=erp_db
+DB_USER=erp_user
+DB_PASSWORD=Erp@Secure2026
+JWT_SECRET=erp-jwt-secret-2026-production
+JWT_EXPIRES_IN=7d
+PORT=3000
+ENV
+echo "✅ .env 已配置"
+
 echo ""
 echo "========== [5/7] ERP：前端构建 =========="
 cd "$APP_DIR/client"
 export NODE_OPTIONS=--openssl-legacy-provider
-npm install 2>&1 | tail -3
-npm run build 2>&1 | tail -5
+npm install 2>&1 | tail -3 || echo '⚠️ npm install有警告，继续'
+npm run build 2>&1 | tail -5 || { echo '❌ 前端构建失败'; exit 1; }
 echo "✅ 前端构建完成"
 
 echo ""

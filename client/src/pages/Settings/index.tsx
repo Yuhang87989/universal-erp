@@ -66,7 +66,7 @@ const Settings: React.FC = () => {
   const handleChangePwd = async () => {
     try {
       const values = await pwdForm.validateFields();
-      await request.post('/auth/change-password', values);
+      await request.put('/auth/password', values);
       message.success('密码修改成功');
       pwdForm.resetFields();
     } catch (e: any) {
@@ -152,9 +152,9 @@ const Settings: React.FC = () => {
               </Form.Item>
               <Form.Item name="businessType" label="行业类型">
                 <Select options={[
+                  { value: 'retail', label: '🏪 零售门店' },
                   { value: 'supply_coop', label: '🏘️ 农村供销社' },
-                  { value: 'market_vendor', label: '🥬 个体菜市场商户' },
-                  { value: 'retail_store', label: '🏪 个体门店' },
+                  { value: 'market', label: '🥬 菜市场商户' },
                   { value: 'ecommerce', label: '🛒 电商' },
                   { value: 'other', label: '其他' }
                 ]} />

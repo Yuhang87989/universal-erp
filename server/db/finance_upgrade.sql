@@ -51,11 +51,11 @@ CREATE TABLE IF NOT EXISTS accounting_accounts (
 ) COMMENT='会计科目表（按账套隔离）';
 
 -- 默认账套（宇航智荟电商营业部）
-INSERT INTO accounting_books (tenant_id, book_name, entity_name, credit_code, entity_type) VALUES
+INSERT IGNORE INTO accounting_books (tenant_id, book_name, entity_name, credit_code, entity_type) VALUES
 (1, '宇航智荟电商', '武汉市江岸区宇航智荟电商营业部', '92420102MAKJME5F3R', 'individual');
 
 -- 默认科目数据（账套ID=1，适用于个体工商户/小微企业）
-INSERT INTO accounting_accounts (book_id, code, name, category, direction, level, parent_id) VALUES
+INSERT IGNORE INTO accounting_accounts (book_id, code, name, category, direction, level, parent_id) VALUES
 -- 资产类
 (1, '1001', '库存现金', 'asset', 'debit', 1, NULL),
 (1, '1002', '银行存款', 'asset', 'debit', 1, NULL),
@@ -187,7 +187,7 @@ CREATE TABLE IF NOT EXISTS voucher_seals (
 -- -------------------------------------------
 -- 初始化印章数据（武汉市江岸区宇航智荟电商营业部 - 引用公安备案编号）
 -- -------------------------------------------
-INSERT INTO seals (book_id, seal_type, seal_name, seal_code, is_filed) VALUES
+INSERT IGNORE INTO seals (book_id, seal_type, seal_name, seal_code, is_filed) VALUES
 (1, 'company', '武汉市江岸区宇航智荟电商营业部（个体工商户）', '42010210450802', TRUE),
 (1, 'financial', '武汉市江岸区宇航智荟电商营业部财务专用章', '42010210452483', TRUE),
 (1, 'legal_rep', '邱健军印', '42010210450803', TRUE);

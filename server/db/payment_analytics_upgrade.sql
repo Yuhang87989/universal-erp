@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS payment_channels (
 ) COMMENT='支付渠道配置（微信/支付宝/银行预留接口）';
 
 -- 默认支付渠道
-INSERT INTO payment_channels (tenant_id, channel_code, channel_name, channel_type, is_enabled, is_default, sort_order) VALUES
+INSERT IGNORE INTO payment_channels (tenant_id, channel_code, channel_name, channel_type, is_enabled, is_default, sort_order) VALUES
 (1, 'cash', '现金', 'offline', TRUE, TRUE, 1),
 (1, 'wechat_pay', '微信支付', 'online', FALSE, FALSE, 2),
 (1, 'alipay', '支付宝', 'online', FALSE, FALSE, 3),
