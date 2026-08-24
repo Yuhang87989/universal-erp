@@ -52,6 +52,8 @@ for sql in finance_upgrade.sql warehouse_upgrade.sql payment_analytics_upgrade.s
 done
 echo "  → demo_seed.sql（4套演示账套）"
 mysql --force -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" < db/demo_seed.sql 2>&1 || echo "⚠️ seed有警告但已跳过"
+echo "  → fix_password.sql（重置admin密码）"
+mysql --force -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" < db/fix_password.sql 2>&1
 echo "✅ 数据库迁移完成"
 
 echo ""
@@ -111,6 +113,8 @@ fi
 rm -rf "${PORTAL_DIR:?}"/*
 cd "$APP_DIR/deploy"
 unzip -o cognitive-training-h5-noai.zip -d "$PORTAL_DIR" > /dev/null 2>&1
+chmod -R 755 "$PORTAL_DIR"
+chown -R nginx:nginx "$PORTAL_DIR" 2>/dev/null || chown -R apache:apache "$PORTAL_DIR" 2>/dev/null || true
 echo "✅ 认知小站已还原"
 
 # 确保nginx配置

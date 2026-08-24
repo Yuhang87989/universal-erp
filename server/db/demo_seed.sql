@@ -46,7 +46,7 @@ DELETE FROM tenants WHERE id IN (2,3,4,5);
 SET FOREIGN_KEY_CHECKS=1;
 
 -- 管理员密码统一：admin123 的 bcrypt hash（与schema.sql一致）
-SET @demo_hash = '$2b$10$rQiWJLk/mXcYGjV8zVwqQeJq7vZ.aB1kZ3pR5cY6dF8gH0jK2mN4u';
+SET @demo_hash = '$2b$10$2sTR6jUQtg6ClG2wg5ucP.h.qLmPgZM75ICuZwWaSJ/YMtQKYeOLi';
 
 -- ---------- 1. 租户 ----------
 INSERT IGNORE INTO tenants (id, name, owner_name, phone, business_type, address) VALUES
