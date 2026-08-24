@@ -48,15 +48,15 @@ echo "========== [3/7] ERP：数据库迁移 =========="
 cd "$APP_DIR/server"
 for sql in finance_upgrade.sql warehouse_upgrade.sql payment_analytics_upgrade.sql; do
   echo "  → $sql"
-  mysql -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" < "db/$sql" 2>&1 || echo "    ⚠️ 表可能已存在，继续"
+  mysql --force -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" < "db/$sql" 2>&1 || echo "    ⚠️ 表可能已存在，继续"
 done
 echo "  → demo_seed.sql（4套演示账套）"
-mysql -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" < db/demo_seed.sql 2>&1
+mysql --force -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" < db/demo_seed.sql 2>&1
 echo "✅ 数据库迁移完成"
 
 echo ""
 echo "========== [4/7] ERP：验证演示数据 =========="
-mysql -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" < db/verify_demo.sql 2>&1 | head -30
+mysql --force -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" < db/verify_demo.sql 2>&1 | head -30
 
 echo ""
 echo "========== [5/7] ERP：前端构建 =========="
