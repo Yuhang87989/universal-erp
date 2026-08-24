@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Table, Button, Input, Space, Tag, Typography, Modal, InputNumber, message } from 'antd';
+import { Card, Table, Button, Input, Space, Tag, Typography, Modal, InputNumber, message, Select } from 'antd';
 import { SearchOutlined, EditOutlined, WarningOutlined } from '@ant-design/icons';
 import request from '../../api/request';
 
@@ -15,14 +15,20 @@ const Inventory: React.FC = () => {
   const [adjustProduct, setAdjustProduct] = useState<any>(null);
   const [newQuantity, setNewQuantity] = useState<number>(0);
   const [pagination, setPagination] = useState({ current: 1, pageSize: 20 });
+  const [warehouseId, setWarehouseId] = useState<number | undefined>(undefined);
+  const [warehouses, setWarehouses] = useState<any[]>([]);
 
-  useEffect(() => { loadInventory(); }, [pagination.current, pagination.pageSize, lowStockOnly]);
+  useEffect(() => { loadInventory(); }, [pagination.current, pagination.pageSize, lowStockOnly, warehouseId]);
+
+  useEffect(() => {
+    request.get('/warehouses').then(r => setWarehouses(r.data?.data || r.data || [])).catch(() => {});
+  }, []);
 
   const loadInventory = async () => {
     setLoading(true);
     try {
       const res = await request.get('/inventory', {
-        params: { page: pagination.current, pageSize: pagination.pageSize, keyword, lowStock: lowStockOnly }
+        params: { page: pagination.current, pageSize: pagination.pageSize, keyword, lowStock: lowStockOnly, warehouse_id: warehouseId }
       });
       setItems(res.data.list);
       setTotal(res.data.total);
@@ -75,6 +81,14 @@ const Inventory: React.FC = () => {
       <Title level={4}>库存管理</Title>
       <Card>
         <Space wrap style={{ marginBottom: 16, width: '100%' }}>
+          <Select
+            placeholder="全部仓库"
+            allowClear
+            style={{ minWidth: 140 }}
+            value={warehouseId}
+            onChange={(v) => { setWarehouseId(v); setPagination(p => ({ ...p, current: 1 })); }}
+            options={warehouses.map((w: any) => ({ label: w.name, value: w.id }))}
+          />
           <Input
             placeholder="搜索商品名/条码"
             prefix={<SearchOutlined />}

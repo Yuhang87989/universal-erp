@@ -15,6 +15,19 @@ import Reports from './pages/Reports';
 import Customers from './pages/Customers';
 import Ecommerce from './pages/Ecommerce';
 import Settings from './pages/Settings';
+import VoucherList from './pages/Finance/VoucherList';
+import Accounts from './pages/Finance/Accounts';
+import TrialBalance from './pages/Finance/TrialBalance';
+import SealManagement from './pages/Finance/Seals';
+import Stocktake from './pages/Inventory/Stocktake';
+import Warehouses from './pages/Warehouse/Warehouses';
+import StockIn from './pages/Warehouse/StockIn';
+import StockOut from './pages/Warehouse/StockOut';
+import StockTransfer from './pages/Warehouse/StockTransfer';
+import PaymentSettings from './pages/Finance/PaymentSettings';
+import Analytics from './pages/Analytics';
+import Alerts from './pages/Alerts';
+import AICenter from './pages/AI';
 
 const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user, loading } = useAuth();
@@ -34,7 +47,20 @@ const App: React.FC = () => {
         <Route path="sales" element={<Sales />} />
         <Route path="pos" element={<POS />} />
         <Route path="inventory" element={<Inventory />} />
+        <Route path="stocktake" element={<Stocktake />} />
         <Route path="finance" element={<Finance />} />
+        <Route path="vouchers" element={<VoucherList />} />
+        <Route path="accounts" element={<Accounts />} />
+        <Route path="trial-balance" element={<TrialBalance />} />
+        <Route path="seals" element={<SealManagement />} />
+        <Route path="payment-settings" element={<PaymentSettings />} />
+        <Route path="warehouses" element={<Warehouses />} />
+        <Route path="stock-in" element={<StockIn />} />
+        <Route path="stock-out" element={<StockOut />} />
+        <Route path="transfers" element={<StockTransfer />} />
+        <Route path="analytics" element={<Analytics />} />
+        <Route path="alerts" element={<Alerts />} />
+        <Route path="ai" element={<AICenter />} />
         <Route path="products" element={<Products />} />
         <Route path="customers" element={<Customers />} />
         <Route path="reports" element={<Reports />} />

@@ -17,6 +17,18 @@ const ecommerceRoutes = require('./routes/ecommerce');
 const tenantRoutes = require('./routes/tenants');
 const suppliersRoutes = require('./routes/suppliers');
 const financeRoutes = require('./routes/finance');
+const accountingAccountsRoutes = require('./routes/accounting_accounts');
+const voucherRoutes = require('./routes/vouchers');
+const sealRoutes = require('./routes/seals');
+const stocktakeRoutes = require('./routes/stocktakes');
+const warehouseRoutes = require('./routes/warehouses');
+const stockInRoutes = require('./routes/stock_in');
+const stockOutRoutes = require('./routes/stock_out');
+const stockTransferRoutes = require('./routes/stock_transfer');
+const paymentRoutes = require('./routes/payment');
+const analyticsRoutes = require('./routes/analytics');
+const alertRoutes = require('./routes/alerts');
+const aiRoutes = require('./routes/ai');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -42,6 +54,18 @@ app.use('/api/ecommerce', ecommerceRoutes);
 app.use('/api/tenants', tenantRoutes);
 app.use('/api/suppliers', suppliersRoutes);
 app.use('/api/finance', financeRoutes);
+app.use('/api/accounts', accountingAccountsRoutes);
+app.use('/api/vouchers', voucherRoutes);
+app.use('/api/seals', sealRoutes);
+app.use('/api/inventory/stocktake', stocktakeRoutes);
+app.use('/api/warehouses', warehouseRoutes);
+app.use('/api/stock-in', stockInRoutes);
+app.use('/api/stock-out', stockOutRoutes);
+app.use('/api/transfers', stockTransferRoutes);
+app.use('/api/payment', paymentRoutes);
+app.use('/api/analytics', analyticsRoutes);
+app.use('/api/alerts', alertRoutes);
+app.use('/api/ai', aiRoutes);
 
 // 健康检查
 app.get('/api/health', (req, res) => {

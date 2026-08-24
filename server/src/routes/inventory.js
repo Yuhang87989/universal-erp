@@ -8,11 +8,15 @@ router.use(authenticate);
 // 获取库存列表
 router.get('/', async (req, res) => {
   try {
-    const { page = 1, pageSize = 20, keyword, lowStock } = req.query;
+    const { page = 1, pageSize = 20, keyword, lowStock, warehouse_id } = req.query;
     const offset = (page - 1) * pageSize;
     let where = 'WHERE i.tenant_id = ?';
     const params = [req.tenantId];
 
+    if (warehouse_id) {
+      where += ' AND i.warehouse_id = ?';
+      params.push(warehouse_id);
+    }
     if (keyword) {
       where += ' AND (p.name LIKE ? OR p.barcode LIKE ?)';
       params.push(`%${keyword}%`, `%${keyword}%`);

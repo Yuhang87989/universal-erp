@@ -5,7 +5,9 @@ import {
   DashboardOutlined, ShoppingCartOutlined, ShoppingOutlined,
   DatabaseOutlined, UserOutlined, LogoutOutlined, SettingOutlined,
   BarChartOutlined, ApiOutlined, AccountBookOutlined,
-  MenuOutlined, TeamOutlined, BankOutlined, SwapOutlined, BankFilled
+  MenuOutlined, TeamOutlined, BankOutlined, SwapOutlined,
+  RobotOutlined, WarningOutlined, HomeOutlined, InboxOutlined,
+  ImportOutlined, ExportOutlined, ThunderboltOutlined, LineChartOutlined, CreditCardOutlined
 } from '@ant-design/icons';
 import { useAuth } from '../context/AuthContext';
 import HelpGuide from '../components/HelpGuide';
@@ -28,19 +30,31 @@ const tenantIcons: Record<string, string> = {
 const guideMap: Record<string, string> = {
   '/dashboard': '查看今日经营数据、待办事项，一目了然掌握门店运营情况',
   '/purchase': '录入采购订单，到货后点"入库"自动增加库存',
-  '/suppliers': '管理供应商信息：联系方式、结算方式、历史采购记录',
+  '/suppliers': '管理供应商信息：联系方式、银行账户、历史采购记录',
   '/sales': '创建销售订单，支持POS/线上/批发/电话等多种类型',
   '/pos': '触屏收银：搜索商品→加入购物车→选择支付方式→结账',
-  '/inventory': '查看实时库存，红色标记低于预警值的商品，及时补货',
-  '/finance': '按平台分开记账（抖音/小红书/快手/微信小程序/线下），总帐目自动汇总所有平台收支',
-  '/products': '管理商品档案（名称、条码、售价）和商品分类',
+  '/inventory': '查看实时库存，按仓库筛选，红色标记低于预警值的商品',
+  '/stock-in': '独立入库单管理：采购入库/退货入库/生产入库/调拨入库/其他入库，确认后自动加库存',
+  '/stock-out': '独立出库单管理：销售出库/退货出库/生产领料/报损出库，确认后自动扣库存',
+  '/transfers': '仓库间库存调拨，一步完成调出仓扣减+调入仓增加',
+  '/warehouses': '管理多个仓库，查看各仓库SKU数和库存价值',
+  '/stocktake': '库存盘点：支持全盘、抽盘、循环盘，自动计算盘盈盘亏差异',
+  '/analytics': '数据分析中心：销售趋势、采购对比、利润分析、库存价值、商品排行等图表',
+  '/alerts': '预警中心：自动扫描低库存/零库存/负库存异常，支持语音播报提醒',
+  '/finance': '按平台分开记账，总帐目自动汇总所有平台收支',
+  '/vouchers': '用友风格记账凭证，借贷必相等，支持审核流程与盖章',
+  '/accounts': '会计科目表管理，支持多级科目，预置42个常用科目',
+  '/trial-balance': '试算平衡表，自动汇总各科目的期初、本期、期末借贷方余额',
+  '/seals': '印章管理：引用公安备案编号，支持新增自定义印章，可在凭证上盖章',
+  '/payment-settings': '支付渠道配置：微信支付、支付宝、银行转账（预留接口），配置后可启用',
+  '/ai': 'AI智能中心：对话问答、经营诊断、智能补货建议、AI文案生成',
+  '/products': '管理商品档案（名称、条码、售价、成本价、预警值）和商品分类',
   '/customers': '管理客户和会员信息：积分、等级、消费记录',
   '/reports': '查看经营日报、利润分析、销售排行等数据报表',
   '/ecommerce': '管理多平台电商店铺，汇总各平台订单和销售额',
   '/settings': '设置门店信息、员工账号权限、基础参数等',
 };
 
-// 菜单数据 - 带指引
 const menuItems = [
   { type: 'group' as const, label: '业务管理', children: [
     { key: '/dashboard', icon: <DashboardOutlined />, label: '工作台' },
@@ -52,15 +66,34 @@ const menuItems = [
       { key: '/sales', label: '销售订单' },
       { key: '/pos', label: 'POS收银' },
     ]},
-    { key: '/inventory', icon: <DatabaseOutlined />, label: '库存管理' },
-    { key: 'finance-group', icon: <BankOutlined />, label: '财务管理', children: [
-      { key: '/finance', label: '收支管理' },
-    ]},
+  ]},
+  { type: 'group' as const, label: '仓库管理', children: [
+    { key: '/warehouses', icon: <HomeOutlined />, label: '仓库设置' },
+    { key: '/inventory', icon: <DatabaseOutlined />, label: '库存查询' },
+    { key: '/stock-in', icon: <ImportOutlined />, label: '入库管理' },
+    { key: '/stock-out', icon: <ExportOutlined />, label: '出库管理' },
+    { key: '/transfers', icon: <SwapOutlined />, label: '库存调拨' },
+    { key: '/stocktake', icon: <InboxOutlined />, label: '库存盘点' },
+    { key: '/alerts', icon: <WarningOutlined />, label: <span>预警中心</span> },
+  ]},
+  { type: 'group' as const, label: '财务管理', children: [
+    { key: '/finance', icon: <BarChartOutlined />, label: '收支管理' },
+    { key: '/vouchers', icon: <AccountBookOutlined />, label: '记账凭证' },
+    { key: '/accounts', icon: <BankOutlined />, label: '会计科目' },
+    { key: '/trial-balance', icon: <LineChartOutlined />, label: '试算平衡' },
+    { key: '/seals', icon: <CreditCardOutlined />, label: '印章管理' },
+    { key: '/payment-settings', icon: <CreditCardOutlined />, label: '支付渠道' },
+  ]},
+  { type: 'group' as const, label: '数据分析', children: [
+    { key: '/analytics', icon: <BarChartOutlined />, label: '数据分析中心' },
+    { key: '/reports', icon: <BarChartOutlined />, label: '数据报表' },
+  ]},
+  { type: 'group' as const, label: 'AI智能', children: [
+    { key: '/ai', icon: <RobotOutlined />, label: 'AI智能中心' },
   ]},
   { type: 'group' as const, label: '基础数据', children: [
     { key: '/products', icon: <ShoppingOutlined />, label: '商品管理' },
     { key: '/customers', icon: <TeamOutlined />, label: '往来单位' },
-    { key: '/reports', icon: <BarChartOutlined />, label: '数据报表' },
     { key: '/ecommerce', icon: <ApiOutlined />, label: '电商管理' },
   ]},
   { type: 'group' as const, label: '系统', children: [

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, Input, Button, List, Tag, Space, Typography, InputNumber, message, Modal, Select } from 'antd';
 import { SearchOutlined, PlusOutlined, MinusOutlined, DeleteOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import request from '../../api/request';
+import { voiceService } from '../../services/voiceService';
 
 const { Title, Text } = Typography;
 
@@ -86,7 +87,8 @@ const POS: React.FC = () => {
           unitPrice: item.price
         }))
       });
-      message.success(`收款成功！共 ¥${res.data.actualAmount.toFixed(2)}`);
+      message.success(`收款成功！共 ¥${res.data?.actualAmount.toFixed(2)}`);
+      voiceService.speakSale(res.data?.actualAmount, paymentMethod);
       setCart([]);
       setPaymentVisible(false);
       loadProducts();
