@@ -74,11 +74,15 @@ ENV
 echo "✅ .env 已配置"
 
 echo ""
-echo "========== [5/7] ERP：前端构建 =========="
-cd "$APP_DIR/client"
-npm install 2>&1 | tail -3 || echo '⚠️ npm install有警告，继续'
-npm run build 2>&1 | tail -5 || { echo '❌ 前端构建失败'; exit 1; }
-echo "✅ 前端构建完成"
+echo "========== [5/7] ERP：前端文件（预构建） =========="
+if [ -f "$APP_DIR/client/dist/index.html" ]; then
+  echo "✅ 预构建dist已就绪，跳过npm install/build"
+else
+  echo "⚠️ dist不存在，尝试本地构建..."
+  cd "$APP_DIR/client"
+  npm install 2>&1 | tail -3 || echo '⚠️ npm install有警告，继续'
+  npm run build 2>&1 | tail -5 || { echo '❌ 前端构建失败'; exit 1; }
+fi
 
 echo ""
 echo "========== [6/7] ERP：配置环境变量+重启 =========="

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Table, DatePicker, Tag, Typography, Row, Col, Statistic, Divider } from 'antd';
-import { BalanceScaleOutlined } from '@ant-design/icons';
+import { CalculatorOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import request from '../../api/request';
 
@@ -72,7 +72,7 @@ const TrialBalance: React.FC = () => {
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
         <Title level={4} style={{ margin: 0 }}>
-          <BalanceScaleOutlined style={{ marginRight: 8 }} />
+          <CalculatorOutlined style={{ marginRight: 8 }} />
           试算平衡表
         </Title>
         <DatePicker picker="month" value={period} onChange={handlePeriodChange} allowClear={false} />
