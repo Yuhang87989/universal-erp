@@ -263,6 +263,17 @@ const Settings: React.FC = () => {
     }
   };
 
+  // 删除/禁用员工
+  const handleDeleteUser = async (user: any) => {
+    try {
+      await request.delete(`/tenants/users/${user.id}`);
+      message.success('员工已删除');
+      loadUsers();
+    } catch (e: any) {
+      message.error(e.response?.data?.message || '删除失败');
+    }
+  };
+
   const userColumns = [
     { title: '姓名', dataIndex: 'real_name', key: 'real_name', render: (v: string) => v || '-' },
     { title: '账号', dataIndex: 'username', key: 'username' },
@@ -270,12 +281,17 @@ const Settings: React.FC = () => {
     { title: '电话', dataIndex: 'phone', key: 'phone', render: (v: string) => v || '-' },
     { title: '状态', dataIndex: 'status', key: 'status', render: (v: string) => <Tag color={statusMap[v]?.color}>{statusMap[v]?.text}</Tag> },
     {
-      title: '操作', key: 'action', width: 180,
+      title: '操作', key: 'action', width: 200, fixed: 'right' as const,
       render: (_: any, record: any) => (
-        <Space>
+        <Space size={0}>
           <Button type="link" size="small" onClick={() => { setEditingUser(record); userForm.setFieldsValue(record); setUserModal(true); }}>编辑</Button>
           {record.role !== 'owner' && (
             <Button type="link" size="small" icon={<SafetyOutlined />} onClick={() => openPermModal(record)}>权限</Button>
+          )}
+          {record.role !== 'owner' && (
+            <Popconfirm title="确定删除该员工？" onConfirm={() => handleDeleteUser(record)} okText="删除" cancelText="取消">
+              <Button type="link" size="small" danger>删除</Button>
+            </Popconfirm>
           )}
         </Space>
       )
