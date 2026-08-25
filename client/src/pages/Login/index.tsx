@@ -4,7 +4,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
-const { Title, Text } = Typography;
+const { Text } = Typography;
 
 const Login: React.FC = () => {
   const [loading, setLoading] = useState(false);
@@ -27,17 +27,19 @@ const Login: React.FC = () => {
   return (
     <div className="login-container">
       <Card className="login-card">
-        <div className="login-title">📦 通用电商ERP</div>
-        <div className="login-subtitle">门店进销存 · 电商账目 · AI助手</div>
+        <div className="login-logo">📦</div>
+        <div className="login-title">企业ERP管理系统</div>
+        <div className="login-subtitle">进销存 · 财务 · AI助手</div>
         <Form onFinish={onFinish} size="large">
           <Form.Item name="username" rules={[{ required: true, message: '请输入账号' }]}>
-            <Input prefix={<UserOutlined />} placeholder="账号" />
+            <Input prefix={<UserOutlined style={{ color: '#bfbfbf' }} />} placeholder="账号" />
           </Form.Item>
           <Form.Item name="password" rules={[{ required: true, message: '请输入密码' }]}>
-            <Input.Password prefix={<LockOutlined />} placeholder="密码" />
+            <Input.Password prefix={<LockOutlined style={{ color: '#bfbfbf' }} />} placeholder="密码" />
           </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="submit" loading={loading} block>
+          <Form.Item style={{ marginBottom: 12 }}>
+            <Button type="primary" htmlType="submit" loading={loading} block
+              style={{ height: 44, fontSize: 16, fontWeight: 600, borderRadius: 8 }}>
               登 录
             </Button>
           </Form.Item>

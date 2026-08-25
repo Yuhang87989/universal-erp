@@ -38,8 +38,15 @@ const PORT = process.env.PORT || 3000;
 app.use(helmet());
 app.use(cors());
 app.use(morgan('combined'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// 静态文件服务：上传的印章图片等
+const path = require('path');
+app.use('/uploads', express.static(path.join(__dirname, '../uploads'), {
+  maxAge: '7d',
+  setHeaders: (res) => { res.setHeader('Access-Control-Allow-Origin', '*'); }
+}));
 
 // 路由
 app.use('/api/auth', authRoutes);
