@@ -131,7 +131,7 @@ router.get('/users', async (req, res) => {
   try {
     const [rows] = await pool.query(
       'SELECT id, username, real_name, role, phone, status, created_at FROM users WHERE tenant_id = ? ORDER BY id',
-      [req.user.tenantId]
+      [req.user.tenant_id]
     );
     res.json({ code: 0, data: rows });
   } catch (err) {
@@ -151,7 +151,7 @@ router.post('/users', async (req, res) => {
     const hash = await bcrypt.hash(password, 10);
     const [result] = await pool.query(
       'INSERT INTO users (tenant_id, username, password_hash, real_name, phone, role) VALUES (?, ?, ?, ?, ?, ?)',
-      [req.user.tenantId, username, hash, realName || null, phone || null, role || 'cashier']
+      [req.user.tenant_id, username, hash, realName || null, phone || null, role || 'cashier']
     );
     res.json({ code: 0, data: { id: result.insertId }, message: '员工添加成功' });
   } catch (err) {
@@ -180,7 +180,7 @@ router.put('/users/:id', async (req, res) => {
       params.push(hash);
     }
     if (!updates.length) return res.json({ code: 0, message: '无更新' });
-    params.push(req.params.id, req.user.tenantId);
+    params.push(req.params.id, req.user.tenant_id);
     await pool.query(`UPDATE users SET ${updates.join(', ')} WHERE id=? AND tenant_id=?`, params);
     res.json({ code: 0, message: '员工信息更新成功' });
   } catch (err) {
@@ -195,7 +195,7 @@ router.delete('/users/:id', async (req, res) => {
     if (parseInt(req.params.id) === req.user.id) {
       return res.status(400).json({ code: 400, message: '不能删除自己' });
     }
-    await pool.query('DELETE FROM users WHERE id=? AND tenant_id=?', [req.params.id, req.user.tenantId]);
+    await pool.query('DELETE FROM users WHERE id=? AND tenant_id=?', [req.params.id, req.user.tenant_id]);
     res.json({ code: 0, message: '员工已删除' });
   } catch (err) {
     console.error(err);
