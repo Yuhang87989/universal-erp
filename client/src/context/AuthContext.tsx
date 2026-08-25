@@ -8,6 +8,7 @@ interface User {
   role: string;
   tenantId: number;
   tenantName: string;
+  permissions: string[] | null; // null=全部权限
 }
 
 interface Tenant {
@@ -42,6 +43,20 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 export const useAuth = () => useContext(AuthContext);
+
+// 检查权限的hook
+export const useHasPermission = () => {
+  const { user } = useAuth();
+  return (moduleKey: string): boolean => {
+    if (!user) return false;
+    if (user.permissions === null || user.permissions === undefined) return true; // owner全部
+    if (user.permissions.includes(moduleKey)) return true;
+    // 检查父模块
+    const parent = moduleKey.split(':')[0];
+    if (parent !== moduleKey && user.permissions.includes(parent)) return true;
+    return false;
+  };
+};
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);

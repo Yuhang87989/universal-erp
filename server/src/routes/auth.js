@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const pool = require('../config/db');
 const { authenticate } = require('../middleware/auth');
+const { getUserPermissions } = require('./permissions');
 
 const router = express.Router();
 
@@ -40,6 +41,9 @@ router.post('/login', async (req, res) => {
       { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
     );
 
+    // 获取权限
+    const permissions = await getUserPermissions(user.id, user.role);
+
     // 更新最后登录时间
     await pool.query('UPDATE users SET last_login_at = NOW() WHERE id = ?', [user.id]);
 
@@ -53,7 +57,8 @@ router.post('/login', async (req, res) => {
           realName: user.real_name,
           role: user.role,
           tenantId: user.tenant_id,
-          tenantName: user.tenant_name
+          tenantName: user.tenant_name,
+          permissions
         }
       }
     });
@@ -65,17 +70,23 @@ router.post('/login', async (req, res) => {
 
 // 获取当前用户信息
 router.get('/me', authenticate, async (req, res) => {
-  res.json({
-    code: 0,
-    data: {
-      id: req.user.id,
-      username: req.user.username,
-      realName: req.user.real_name,
-      role: req.user.role,
-      tenantId: req.user.tenant_id,
-      tenantName: req.user.tenant_name
-    }
-  });
+  try {
+    const permissions = await getUserPermissions(req.user.id, req.user.role);
+    res.json({
+      code: 0,
+      data: {
+        id: req.user.id,
+        username: req.user.username,
+        realName: req.user.real_name,
+        role: req.user.role,
+        tenantId: req.user.tenant_id,
+        tenantName: req.user.tenant_name,
+        permissions
+      }
+    });
+  } catch (err) {
+    res.status(500).json({ code: 500, message: '服务器错误' });
+  }
 });
 
 // 修改密码

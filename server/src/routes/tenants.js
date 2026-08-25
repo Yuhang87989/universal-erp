@@ -2,6 +2,7 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const pool = require('../config/db');
 const { authenticate } = require('../middleware/auth');
+const { getUserPermissions } = require('./permissions');
 
 const router = express.Router();
 router.use(authenticate);
@@ -59,6 +60,10 @@ router.post('/switch', async (req, res) => {
       { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
     );
 
+    // 获取目标账套的权限
+    const [targetUser] = await pool.query('SELECT role FROM users WHERE id = ?', [req.user.id]);
+    const permissions = await getUserPermissions(req.user.id, targetUser[0].role);
+
     res.json({
       code: 0,
       data: {
@@ -69,9 +74,10 @@ router.post('/switch', async (req, res) => {
           id: req.user.id,
           username: req.user.username,
           realName: req.user.real_name,
-          role: req.user.role,
+          role: targetUser[0].role,
           tenantId: tenantId,
-          tenantName: tenants[0].name
+          tenantName: tenants[0].name,
+          permissions
         }
       }
     });
@@ -99,6 +105,7 @@ router.post('/demo-switch', async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
     );
+    const permissions = await getUserPermissions(u.id, u.role);
     res.json({
       code: 0, data: {
         token,
@@ -106,7 +113,8 @@ router.post('/demo-switch', async (req, res) => {
         tenantName: tenants[0].name,
         user: {
           id: u.id, username: u.username, realName: u.real_name,
-          role: u.role, tenantId: tenantId, tenantName: tenants[0].name
+          role: u.role, tenantId: tenantId, tenantName: tenants[0].name,
+          permissions
         }
       }
     });

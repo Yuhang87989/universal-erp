@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from './context/AuthContext';
 import MainLayout from './layouts/MainLayout';
 import Login from './pages/Login';
@@ -29,10 +29,55 @@ import Analytics from './pages/Analytics';
 import Alerts from './pages/Alerts';
 import AICenter from './pages/AI';
 
+// 路由权限映射
+const routePermMap: Record<string, string> = {
+  '/dashboard': 'dashboard',
+  '/purchase': 'purchase:order',
+  '/suppliers': 'purchase:suppliers',
+  '/sales': 'sales:order',
+  '/pos': 'sales:pos',
+  '/warehouses': 'warehouse:warehouses',
+  '/inventory': 'warehouse:inventory',
+  '/stock-in': 'warehouse:stock-in',
+  '/stock-out': 'warehouse:stock-out',
+  '/transfers': 'warehouse:transfers',
+  '/stocktake': 'warehouse:stocktake',
+  '/alerts': 'warehouse:alerts',
+  '/finance': 'finance:records',
+  '/vouchers': 'finance:vouchers',
+  '/accounts': 'finance:accounts',
+  '/trial-balance': 'finance:trial-balance',
+  '/seals': 'finance:seals',
+  '/payment-settings': 'finance:payment',
+  '/analytics': 'analytics:overview',
+  '/reports': 'analytics:reports',
+  '/ai': 'ai:chat',
+  '/products': 'data:products',
+  '/customers': 'data:customers',
+  '/ecommerce': 'data:ecommerce',
+  '/settings': 'system:settings',
+};
+
+const hasRoutePerm = (user: any, path: string): boolean => {
+  if (!user) return false;
+  if (user.permissions === null || user.permissions === undefined) return true;
+  const perm = routePermMap[path];
+  if (!perm) return true;
+  if (user.permissions.includes(perm)) return true;
+  const parent = perm.split(':')[0];
+  return user.permissions.includes(parent);
+};
+
 const PrivateRoute: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { user, loading } = useAuth();
+  const location = useLocation();
   if (loading) return null;
-  return user ? <>{children}</> : <Navigate to="/login" />;
+  if (!user) return <Navigate to="/login" />;
+  // 检查路由权限
+  if (!hasRoutePerm(user, location.pathname)) {
+    return <Navigate to="/dashboard" replace />;
+  }
+  return <>{children}</>;
 };
 
 const App: React.FC = () => {

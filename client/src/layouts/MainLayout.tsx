@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { Layout, Menu, Avatar, Dropdown, Space, Typography, Button, Drawer, Tooltip, Alert, Select, Tag } from 'antd';
 import {
@@ -55,7 +55,36 @@ const guideMap: Record<string, string> = {
   '/settings': '设置门店信息、员工账号权限、基础参数等',
 };
 
-const menuItems = [
+// 路由key到权限key的映射
+const routePermMap: Record<string, string> = {
+  '/dashboard': 'dashboard',
+  '/purchase': 'purchase:order',
+  '/suppliers': 'purchase:suppliers',
+  '/sales': 'sales:order',
+  '/pos': 'sales:pos',
+  '/warehouses': 'warehouse:warehouses',
+  '/inventory': 'warehouse:inventory',
+  '/stock-in': 'warehouse:stock-in',
+  '/stock-out': 'warehouse:stock-out',
+  '/transfers': 'warehouse:transfers',
+  '/stocktake': 'warehouse:stocktake',
+  '/alerts': 'warehouse:alerts',
+  '/finance': 'finance:records',
+  '/vouchers': 'finance:vouchers',
+  '/accounts': 'finance:accounts',
+  '/trial-balance': 'finance:trial-balance',
+  '/seals': 'finance:seals',
+  '/payment-settings': 'finance:payment',
+  '/analytics': 'analytics:overview',
+  '/reports': 'analytics:reports',
+  '/ai': 'ai:chat',
+  '/products': 'data:products',
+  '/customers': 'data:customers',
+  '/ecommerce': 'data:ecommerce',
+  '/settings': 'system:settings',
+};
+
+const allMenuItems = [
   { type: 'group' as const, label: '业务管理', children: [
     { key: '/dashboard', icon: <DashboardOutlined />, label: '工作台' },
     { key: 'purchase-group', icon: <AccountBookOutlined />, label: '采购管理', children: [
@@ -101,6 +130,35 @@ const menuItems = [
   ]}
 ];
 
+// 权限过滤：根据用户权限过滤菜单项
+const filterMenuByPerm = (items: any[], perms: string[] | null | undefined): any[] => {
+  if (perms === null || perms === undefined) return items; // owner全部
+  const has = (key: string) => {
+    if (key.startsWith('/')) {
+      const pk = routePermMap[key];
+      if (!pk) return true;
+      if (perms.includes(pk)) return true;
+      const parent = pk.split(':')[0];
+      return perms.includes(parent);
+    }
+    return true; // group key不过滤
+  };
+  return items
+    .map(item => {
+      if (item.type === 'group') {
+        const children = filterMenuByPerm(item.children || [], perms);
+        return children.length ? { ...item, children } : null;
+      }
+      if (item.children) {
+        // 子菜单（采购管理、销售管理）
+        const children = item.children.filter((c: any) => has(c.key));
+        return children.length ? { ...item, children } : null;
+      }
+      return has(item.key) ? item : null;
+    })
+    .filter(Boolean);
+};
+
 const injectTooltips = (items: any[]): any[] => {
   return items.map(item => {
     if (item.type === 'group') {
@@ -128,6 +186,7 @@ const MainLayout: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user, logout, tenants, switchTenant, loadTenants } = useAuth();
+  const menuItems = useMemo(() => filterMenuByPerm(allMenuItems, user?.permissions), [user?.permissions]);
   const [isMobile, setIsMobile] = useState(false);
   const [drawerVisible, setDrawerVisible] = useState(false);
 
