@@ -10,15 +10,21 @@ const router = express.Router();
 // 登录
 router.post('/login', async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { username, password, tenantId } = req.body;
     if (!username || !password) {
       return res.status(400).json({ code: 400, message: '请输入账号和密码' });
     }
 
-    const [users] = await pool.query(
-      'SELECT u.*, t.name as tenant_name FROM users u LEFT JOIN tenants t ON u.tenant_id = t.id WHERE u.username = ?',
-      [username]
-    );
+    // 按账套过滤用户（同一账号可能在多个账套存在）
+    let sql = 'SELECT u.*, t.name as tenant_name FROM users u LEFT JOIN tenants t ON u.tenant_id = t.id WHERE u.username = ?';
+    const params = [username];
+    if (tenantId) {
+      sql += ' AND u.tenant_id = ?';
+      params.push(tenantId);
+    }
+    sql += ' ORDER BY u.tenant_id ASC LIMIT 1';
+
+    const [users] = await pool.query(sql, params);
 
     if (!users.length) {
       return res.status(401).json({ code: 401, message: '账号或密码错误' });
