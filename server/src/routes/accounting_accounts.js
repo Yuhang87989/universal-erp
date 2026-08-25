@@ -34,6 +34,202 @@ router.get('/books', async (req, res) => {
   }
 });
 
+// 创建新账套（自动复制默认科目模板）
+router.post('/books', async (req, res) => {
+  const conn = await pool.getConnection();
+  try {
+    await conn.beginTransaction();
+    const { book_name, fiscal_year, accounting_standard, currency, start_date } = req.body;
+    if (!book_name) throw new Error('账套名称不能为空');
+
+    // 1. 创建账套
+    const [result] = await conn.query(
+      `INSERT INTO accounting_books (tenant_id, book_name, entity_name, credit_code, entity_type, fiscal_year_start, accounting_standard, currency, is_active)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, TRUE)`,
+      [req.tenantId, book_name, req.body.entity_name || book_name, req.body.credit_code || null,
+       req.body.entity_type || 'individual', req.body.fiscal_year_start || 1,
+       accounting_standard || 'small_enterprise', currency || 'CNY']
+    );
+    const newBookId = result.insertId;
+
+    // 2. 从该租户第一个账套复制科目模板（如果有），否则用内置标准科目
+    const [existingBooks] = await conn.query(
+      'SELECT id FROM accounting_books WHERE tenant_id = ? AND id != ? AND is_active = TRUE ORDER BY id ASC LIMIT 1',
+      [req.tenantId, newBookId]
+    );
+
+    if (existingBooks.length) {
+      // 从已有账套复制科目
+      await conn.query(
+        `INSERT INTO accounting_accounts (book_id, code, name, category, parent_id, direction, level, is_enabled, sort_order)
+         SELECT ?, code, name, category, parent_id, direction, level, is_enabled, sort_order
+         FROM accounting_accounts WHERE book_id = ?`,
+        [newBookId, existingBooks[0].id]
+      );
+    } else {
+      // 内置小企业会计准则标准科目
+      const standardAccounts = [
+        // 资产类
+        ['1001','库存现金','asset',null,'debit',1],
+        ['1002','银行存款','asset',null,'debit',1],
+        ['1002.01','基本户','asset',null,'debit',2],
+        ['1002.02','一般户','asset',null,'debit',2],
+        ['1012','其他货币资金','asset',null,'debit',1],
+        ['1101','交易性金融资产','asset',null,'debit',1],
+        ['1121','应收票据','asset',null,'debit',1],
+        ['1122','应收账款','asset',null,'debit',1],
+        ['1123','预付账款','asset',null,'debit',1],
+        ['1131','应收股利','asset',null,'debit',1],
+        ['1132','应收利息','asset',null,'debit',1],
+        ['1221','其他应收款','asset',null,'debit',1],
+        ['1231','坏账准备','asset',null,'credit',1],
+        ['1241','库存商品','asset',null,'debit',1],
+        ['1241.01','库存商品-采购','asset',null,'debit',2],
+        ['1241.02','库存商品-销售','asset',null,'debit',2],
+        ['1401','存货','asset',null,'debit',1],
+        ['1402','在途物资','asset',null,'debit',1],
+        ['1403','原材料','asset',null,'debit',1],
+        ['1405','库存商品','asset',null,'debit',1],
+        ['1411','周转材料','asset',null,'debit',1],
+        ['1601','固定资产','asset',null,'debit',1],
+        ['1602','累计折旧','asset',null,'credit',1],
+        ['1606','固定资产清理','asset',null,'debit',1],
+        ['1701','无形资产','asset',null,'debit',1],
+        ['1702','累计摊销','asset',null,'credit',1],
+        ['1801','长期待摊费用','asset',null,'debit',1],
+        ['1901','待处理财产损溢','asset',null,'debit',1],
+        // 负债类
+        ['2001','短期借款','liability',null,'credit',1],
+        ['2201','应付票据','liability',null,'credit',1],
+        ['2202','应付账款','liability',null,'credit',1],
+        ['2203','预收账款','liability',null,'credit',1],
+        ['2211','应付职工薪酬','liability',null,'credit',1],
+        ['2221','应交税费','liability',null,'credit',1],
+        ['2221.01','应交增值税','liability',null,'credit',2],
+        ['2221.01.01','进项税额','liability',null,'debit',3],
+        ['2221.01.02','销项税额','liability',null,'credit',3],
+        ['2221.01.03','已交税金','liability',null,'debit',3],
+        ['2221.02','应交所得税','liability',null,'credit',2],
+        ['2221.03','应交个人所得税','liability',null,'credit',2],
+        ['2221.04','应交城建税','liability',null,'credit',2],
+        ['2221.05','教育费附加','liability',null,'credit',2],
+        ['2231','应付利息','liability',null,'credit',1],
+        ['2232','应付股利','liability',null,'credit',1],
+        ['2241','其他应付款','liability',null,'credit',1],
+        ['2501','长期借款','liability',null,'credit',1],
+        ['2502','长期应付款','liability',null,'credit',1],
+        // 权益类
+        ['3001','实收资本','equity',null,'credit',1],
+        ['3002','资本公积','equity',null,'credit',1],
+        ['3101','盈余公积','equity',null,'credit',1],
+        ['3103','本年利润','equity',null,'credit',1],
+        ['3104','利润分配','equity',null,'credit',1],
+        // 收入类
+        ['5001','主营业务收入','revenue',null,'credit',1],
+        ['5001.01','商品销售收入','revenue',null,'credit',2],
+        ['5051','其他业务收入','revenue',null,'credit',2],
+        ['5301','营业外收入','revenue',null,'credit',1],
+        // 成本/费用类
+        ['5401','主营业务成本','expense',null,'debit',1],
+        ['5402','其他业务成本','expense',null,'debit',1],
+        ['5403','税金及附加','expense',null,'debit',1],
+        ['5601','销售费用','expense',null,'debit',1],
+        ['5601.01','广告费','expense',null,'debit',2],
+        ['5601.02','运费','expense',null,'debit',2],
+        ['5601.03','工资','expense',null,'debit',2],
+        ['5601.04','办公费','expense',null,'debit',2],
+        ['5602','管理费用','expense',null,'debit',1],
+        ['5602.01','工资','expense',null,'debit',2],
+        ['5602.02','办公费','expense',null,'debit',2],
+        ['5602.03','差旅费','expense',null,'debit',2],
+        ['5602.04','折旧费','expense',null,'debit',2],
+        ['5602.05','业务招待费','expense',null,'debit',2],
+        ['5603','财务费用','expense',null,'debit',1],
+        ['5603.01','利息支出','expense',null,'debit',2],
+        ['5603.02','手续费','expense',null,'debit',2],
+        ['5711','营业外支出','expense',null,'debit',1],
+        ['5801','所得税费用','expense',null,'debit',1],
+      ];
+      // 先处理无parent_id的科目
+      const idMap = {};
+      // 先插顶级科目
+      for (const [code, name, cat, parent, dir, level] of standardAccounts.filter(a => !a[3])) {
+        const [r] = await conn.query(
+          'INSERT INTO accounting_accounts (book_id, code, name, category, parent_id, direction, level) VALUES (?, ?, ?, ?, NULL, ?, ?)',
+          [newBookId, code, name, cat, dir, level]
+        );
+        idMap[code] = r.insertId;
+      }
+      // 再插子科目（用code前缀匹配parent）
+      for (const [code, name, cat, parent, dir, level] of standardAccounts.filter(a => a[3])) {
+        // parent字段存储的是null在过滤后，这里用code前缀找parent
+        const parts = code.split('.');
+        const parentCode = parts.slice(0, parts.length - 1).join('.');
+        const parentId = idMap[parentCode];
+        if (parentId) {
+          const [r] = await conn.query(
+            'INSERT INTO accounting_accounts (book_id, code, name, category, parent_id, direction, level) VALUES (?, ?, ?, ?, ?, ?, ?)',
+            [newBookId, code, name, cat, parentId, dir, level]
+          );
+          idMap[code] = r.insertId;
+        }
+      }
+    }
+
+    await conn.commit();
+    res.json({ code: 0, message: '账套创建成功', data: { id: newBookId, book_name } });
+  } catch (err) {
+    await conn.rollback();
+    res.status(400).json({ code: 400, message: err.message });
+  } finally {
+    conn.release();
+  }
+});
+
+// 修改账套信息
+router.put('/books/:id', async (req, res) => {
+  try {
+    const { book_name, entity_name, credit_code, entity_type, fiscal_year_start, accounting_standard, currency, is_active } = req.body;
+    await pool.query(
+      `UPDATE accounting_books SET
+        book_name = COALESCE(?, book_name),
+        entity_name = COALESCE(?, entity_name),
+        credit_code = COALESCE(?, credit_code),
+        entity_type = COALESCE(?, entity_type),
+        fiscal_year_start = COALESCE(?, fiscal_year_start),
+        accounting_standard = COALESCE(?, accounting_standard),
+        currency = COALESCE(?, currency),
+        is_active = COALESCE(?, is_active)
+       WHERE id = ? AND tenant_id = ?`,
+      [book_name || null, entity_name || null, credit_code || null, entity_type || null,
+       fiscal_year_start || null, accounting_standard || null, currency || null,
+       is_active !== undefined ? is_active : null,
+       req.params.id, req.tenantId]
+    );
+    res.json({ code: 0, message: '账套更新成功' });
+  } catch (err) {
+    res.status(400).json({ code: 400, message: err.message });
+  }
+});
+
+// 删除账套（仅停用，不物理删除）
+router.delete('/books/:id', async (req, res) => {
+  try {
+    const [books] = await pool.query(
+      'SELECT COUNT(*) as cnt FROM accounting_books WHERE tenant_id = ? AND is_active = TRUE',
+      [req.tenantId]
+    );
+    if (books[0].cnt <= 1) throw new Error('至少保留一个账套');
+    await pool.query(
+      'UPDATE accounting_books SET is_active = FALSE WHERE id = ? AND tenant_id = ?',
+      [req.params.id, req.tenantId]
+    );
+    res.json({ code: 0, message: '账套已停用' });
+  } catch (err) {
+    res.status(400).json({ code: 400, message: err.message });
+  }
+});
+
 // 获取科目列表
 router.get('/', async (req, res) => {
   try {
