@@ -42,11 +42,18 @@ router.post('/books', async (req, res) => {
     const { book_name, fiscal_year, accounting_standard, currency, start_date } = req.body;
     if (!book_name) throw new Error('账套名称不能为空');
 
-    // 1. 创建账套
+    // 1. 创建账套（自动从租户表带入主体名称）
+    const [tenants] = await conn.query(
+      'SELECT name, owner_name, phone FROM tenants WHERE id = ?',
+      [req.tenantId]
+    );
+    const tenantName = tenants.length ? tenants[0].name : '';
+    const entityName = req.body.entity_name || tenantName || book_name;
+
     const [result] = await conn.query(
       `INSERT INTO accounting_books (tenant_id, book_name, entity_name, credit_code, entity_type, fiscal_year_start, accounting_standard, currency, is_active)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, TRUE)`,
-      [req.tenantId, book_name, req.body.entity_name || book_name, req.body.credit_code || null,
+      [req.tenantId, book_name, entityName, req.body.credit_code || null,
        req.body.entity_type || 'individual', req.body.fiscal_year_start || 1,
        accounting_standard || 'small_enterprise', currency || 'CNY']
     );

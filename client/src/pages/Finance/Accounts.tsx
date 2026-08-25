@@ -260,7 +260,7 @@ const Accounts: React.FC = () => {
             <Input placeholder="如：龚集供销社2026账套" />
           </Form.Item>
           <Form.Item name="entity_name" label="经营主体名称">
-            <Input placeholder="如：武汉市江岸区宇航智荟电商营业部" />
+            <Input placeholder="留空则自动使用当前租户名称" />
           </Form.Item>
           <Form.Item name="credit_code" label="统一社会信用代码">
             <Input placeholder="18位信用代码（选填）" />
