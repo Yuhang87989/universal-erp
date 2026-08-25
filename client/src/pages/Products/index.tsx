@@ -153,8 +153,8 @@ const Products: React.FC = () => {
     { title: '商品名称', dataIndex: 'name', width: 140 },
     { title: '分类', dataIndex: 'category_name', width: 80 },
     { title: '条码', dataIndex: 'barcode', width: 110, render: (v: string) => v || '-' },
-    { title: '售价', dataIndex: 'sell_price', width: 80, render: (v: number) => `¥${v?.toFixed(2)}` },
-    { title: '成本', dataIndex: 'cost_price', width: 80, render: (v: number) => `¥${v?.toFixed(2)}` },
+    { title: '售价', dataIndex: 'sell_price', width: 80, render: (v: any) => `¥${Number(v || 0).toFixed(2)}` },
+    { title: '成本', dataIndex: 'cost_price', width: 80, render: (v: any) => `¥${Number(v || 0).toFixed(2)}` },
     { title: '库存', dataIndex: 'stock_quantity', width: 80, render: (v: number, r: any) => (
       <Tag color={v <= r.min_stock ? 'red' : 'green'}>{v} {r.unit}</Tag>
     )},

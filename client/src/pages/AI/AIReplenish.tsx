@@ -40,7 +40,7 @@ const AIReplenish: React.FC = () => {
     { title: '预警值', dataIndex: 'min_stock', width: 80, align: 'right' as const },
     { title: '7日销量', dataIndex: 'sold_7d', width: 90, align: 'right' as const, render: (v: number) => <Text type="success">{v}</Text> },
     { title: '30日销量', dataIndex: 'sold_30d', width: 90, align: 'right' as const },
-    { title: '日均销量', dataIndex: 'daily_rate', width: 90, align: 'right' as const, render: (v: number) => v.toFixed(1) },
+    { title: '日均销量', dataIndex: 'daily_rate', width: 90, align: 'right' as const, render: (v: any) => Number(v || 0).toFixed(1) },
     { title: '可售天数', dataIndex: 'stock_days', width: 90, align: 'center' as const,
       render: (v: number | null) => v === null ? <Tag>滞销</Tag> : <Tag color={v <= 3 ? 'red' : v <= 7 ? 'orange' : 'green'}>{v}天</Tag> },
     { title: '建议补货', dataIndex: 'suggest_qty', width: 100, align: 'right' as const,

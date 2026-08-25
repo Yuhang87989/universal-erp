@@ -70,8 +70,8 @@ const Inventory: React.FC = () => {
       <Tag color={v <= r.min_stock && r.min_stock > 0 ? 'red' : 'green'}>{v}</Tag>
     )},
     { title: '预警值', dataIndex: 'min_stock', width: 80 },
-    { title: '成本价', dataIndex: 'cost_price', width: 80, render: (v: number) => `¥${v?.toFixed(2)}` },
-    { title: '库存价值', width: 100, render: (_: any, r: any) => `¥${(r.quantity * r.cost_price).toFixed(2)}` },
+    { title: '成本价', dataIndex: 'cost_price', width: 80, render: (v: any) => `¥${Number(v || 0).toFixed(2)}` },
+    { title: '库存价值', width: 100, render: (_: any, r: any) => `¥${(Number(r.quantity) * Number(r.cost_price)).toFixed(2)}` },
     { title: '操作', width: 80, render: (_: any, record: any) => (
       <Button type="link" icon={<EditOutlined />} onClick={() => handleAdjust(record)}>调整</Button>
     )}

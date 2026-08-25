@@ -36,8 +36,8 @@ const Ecommerce: React.FC = () => {
         request.get('/ecommerce'),
         request.get('/ecommerce/summary'),
       ]);
-      setPlatforms(platRes.data || []);
-      setSummary(sumRes.data || []);
+      setPlatforms(platRes.data?.data || platRes.data || []);
+      setSummary(Array.isArray(sumRes.data?.data) ? sumRes.data.data : (sumRes.data?.data ? [sumRes.data.data] : []) );
     } catch (err) {
       console.error(err);
     } finally {
