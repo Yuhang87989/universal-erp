@@ -116,35 +116,6 @@ router.post('/demo-switch', async (req, res) => {
   }
 });
 
-// 获取单个租户信息
-router.get('/:id', async (req, res) => {
-  try {
-    const [rows] = await pool.query(
-      'SELECT * FROM tenants WHERE id = ?',
-      [req.params.id]
-    );
-    if (!rows.length) return res.status(404).json({ code: 404, message: '租户不存在' });
-    res.json({ code: 0, data: rows[0] });
-  } catch (err) {
-    res.status(500).json({ code: 500, message: '获取租户信息失败' });
-  }
-});
-
-// 更新租户信息
-router.put('/:id', async (req, res) => {
-  try {
-    const { name, owner_name, phone, address, business_type } = req.body;
-    await pool.query(
-      `UPDATE tenants SET name=?, owner_name=?, phone=?, address=?, business_type=?
-       WHERE id=?`,
-      [name, owner_name, phone, address, business_type, req.params.id]
-    );
-    res.json({ code: 0, message: '租户信息更新成功' });
-  } catch (err) {
-    res.status(400).json({ code: 400, message: err.message });
-  }
-});
-
 
 // ========== 员工管理 ==========
 // 获取当前账套员工列表
@@ -223,5 +194,35 @@ router.delete('/users/:id', async (req, res) => {
     res.status(500).json({ code: 500, message: '删除员工失败' });
   }
 });
+
+// 获取单个租户信息
+router.get('/:id', async (req, res) => {
+  try {
+    const [rows] = await pool.query(
+      'SELECT * FROM tenants WHERE id = ?',
+      [req.params.id]
+    );
+    if (!rows.length) return res.status(404).json({ code: 404, message: '租户不存在' });
+    res.json({ code: 0, data: rows[0] });
+  } catch (err) {
+    res.status(500).json({ code: 500, message: '获取租户信息失败' });
+  }
+});
+
+// 更新租户信息
+router.put('/:id', async (req, res) => {
+  try {
+    const { name, owner_name, phone, address, business_type } = req.body;
+    await pool.query(
+      `UPDATE tenants SET name=?, owner_name=?, phone=?, address=?, business_type=?
+       WHERE id=?`,
+      [name, owner_name, phone, address, business_type, req.params.id]
+    );
+    res.json({ code: 0, message: '租户信息更新成功' });
+  } catch (err) {
+    res.status(400).json({ code: 400, message: err.message });
+  }
+});
+
 
 module.exports = router;
