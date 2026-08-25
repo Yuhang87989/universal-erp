@@ -30,8 +30,9 @@ const Inventory: React.FC = () => {
       const res = await request.get('/inventory', {
         params: { page: pagination.current, pageSize: pagination.pageSize, keyword, lowStock: lowStockOnly, warehouse_id: warehouseId }
       });
-      setItems(res.data.list);
-      setTotal(res.data.total);
+      const payload = res.data?.data || res.data || {};
+      setItems(payload.list || []);
+      setTotal(payload.total || 0);
     } catch (err) {
       console.error(err);
     } finally {

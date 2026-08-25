@@ -16,7 +16,7 @@ const Warehouses: React.FC = () => {
     setLoading(true);
     try {
       const res = await request.get('/warehouses');
-      setList(Array.isArray(res.data) ? res.data : (res.data?.list || res.data?.data || []));
+      const d = res.data?.data || res.data; setList(Array.isArray(d) ? d : (d?.list || []));
     } catch (e) { /* ignore */ }
     setLoading(false);
   };

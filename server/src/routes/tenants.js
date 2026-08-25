@@ -81,6 +81,41 @@ router.post('/switch', async (req, res) => {
   }
 });
 
+// 演示账套快速切换（直接用目标账套admin账号签发token）
+router.post('/demo-switch', async (req, res) => {
+  try {
+    const { tenantId } = req.body;
+    if (!tenantId) return res.status(400).json({ code: 400, message: '请选择账套' });
+    const [users] = await pool.query(
+      'SELECT id, username, real_name, role FROM users WHERE tenant_id=? AND username=? LIMIT 1',
+      [tenantId, 'admin']
+    );
+    if (!users.length) return res.status(404).json({ code: 404, message: '目标账套未找到admin账号' });
+    const [tenants] = await pool.query('SELECT id, name FROM tenants WHERE id=?', [tenantId]);
+    if (!tenants.length) return res.status(404).json({ code: 404, message: '账套不存在' });
+    const u = users[0];
+    const token = jwt.sign(
+      { userId: u.id, tenantId: tenantId, role: u.role },
+      process.env.JWT_SECRET,
+      { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
+    );
+    res.json({
+      code: 0, data: {
+        token,
+        tenantId: tenantId,
+        tenantName: tenants[0].name,
+        user: {
+          id: u.id, username: u.username, realName: u.real_name,
+          role: u.role, tenantId: tenantId, tenantName: tenants[0].name
+        }
+      }
+    });
+  } catch (err) {
+    console.error('演示切换失败:', err);
+    res.status(500).json({ code: 500, message: '切换失败' });
+  }
+});
+
 // 获取单个租户信息
 router.get('/:id', async (req, res) => {
   try {

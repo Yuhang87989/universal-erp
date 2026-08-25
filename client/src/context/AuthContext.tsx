@@ -87,7 +87,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const switchTenant = async (tenantId: number) => {
-    const res = await request.post('/tenants/switch', { tenantId });
+    const res = await request.post('/tenants/demo-switch', { tenantId });
     const data = res.data?.data || res.data;
     const newToken = data.token;
     const newUser = data.user;
@@ -95,8 +95,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setUser(newUser);
     localStorage.setItem('token', newToken);
     localStorage.setItem('user', JSON.stringify(newUser));
-    // 切换帐套后刷新帐套列表
-    await loadTenants();
+    // 切换账套后强制刷新页面，确保所有组件重新加载数据
+    window.location.href = '/';
   };
 
   const logout = () => {

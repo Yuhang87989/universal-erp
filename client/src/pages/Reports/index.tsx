@@ -39,9 +39,9 @@ const Reports: React.FC = () => {
     setLoading(true);
     try {
       const res = await request.get('/reports/revenue', { params: { ...getDateParams(), groupBy } });
-      setRevenueData(res.data.data || []);
+      setRevenueData(res.data?.data || res.data || [] || []);
       // 渲染图表
-      setTimeout(() => renderRevenueChart(res.data.data || []), 100);
+      setTimeout(() => renderRevenueChart(res.data?.data || res.data || [] || []), 100);
     } catch (e) { /* ignore */ }
     setLoading(false);
   };
@@ -50,7 +50,7 @@ const Reports: React.FC = () => {
   const loadTopProducts = async () => {
     try {
       const res = await request.get('/reports/top-products', { params: { ...getDateParams(), limit: 20 } });
-      setTopProducts(res.data.data || []);
+      setTopProducts(res.data?.data || res.data || [] || []);
     } catch (e) { /* ignore */ }
   };
 
@@ -58,7 +58,7 @@ const Reports: React.FC = () => {
   const loadCategoryStats = async () => {
     try {
       const res = await request.get('/reports/category-stats', { params: getDateParams() });
-      setCategoryStats(res.data.data || []);
+      setCategoryStats(res.data?.data || res.data || [] || []);
     } catch (e) { /* ignore */ }
   };
 
@@ -66,7 +66,7 @@ const Reports: React.FC = () => {
   const loadPaymentStats = async () => {
     try {
       const res = await request.get('/reports/payment-stats', { params: getDateParams() });
-      setPaymentStats(res.data.data || []);
+      setPaymentStats(res.data?.data || res.data || [] || []);
     } catch (e) { /* ignore */ }
   };
 
@@ -74,7 +74,7 @@ const Reports: React.FC = () => {
   const loadProfit = async () => {
     try {
       const res = await request.get('/reports/profit', { params: getDateParams() });
-      setProfitData(res.data.data);
+      setProfitData(res.data?.data || res.data || []);
     } catch (e) { /* ignore */ }
   };
 

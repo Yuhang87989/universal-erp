@@ -23,7 +23,7 @@ const Suppliers: React.FC = () => {
       const params: any = { page: p, pageSize: 20 };
       if (keyword) params.keyword = keyword;
       const res = await request.get('/suppliers', { params });
-      const data = res.data;
+      const data = res.data?.data || res.data || {};
       setSuppliers(data?.list || data?.data || data || []);
       setTotal(data?.total || 0);
     } catch (err) {

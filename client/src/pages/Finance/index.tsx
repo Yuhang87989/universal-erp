@@ -75,7 +75,7 @@ const Finance: React.FC = () => {
       if (typeFilter) params.type = typeFilter;
       if (currentPlatform) params.platform = currentPlatform;
       const res = await request.get('/finance', { params });
-      const data = res.data;
+      const data = res.data?.data || res.data || {};
       setRecords(data?.list || data?.records || []);
       setTotal(data?.total || 0);
       if (data?.summary) {

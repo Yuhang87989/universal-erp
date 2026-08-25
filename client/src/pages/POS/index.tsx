@@ -27,7 +27,9 @@ const POS: React.FC = () => {
   const loadProducts = async () => {
     try {
       const res = await request.get('/products', { params: { pageSize: 200, keyword } });
-      setProducts(res.data.list.filter((p: any) => p.stock_quantity > 0));
+      const payload = res.data?.data || res.data || {};
+      const list = payload.list || payload || [];
+      setProducts(list.filter((p: any) => p.stock_quantity > 0));
     } catch (err) {
       console.error(err);
     }

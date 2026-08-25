@@ -14,14 +14,15 @@ request.interceptors.request.use(config => {
   return config;
 });
 
-// 响应拦截器：统一错误处理
+// 响应拦截器：统一错误处理，返回原始response对象
 request.interceptors.response.use(
   response => {
     const data = response.data;
-    if (data.code !== 0) {
+    // 业务错误（code不为0）
+    if (data && typeof data === 'object' && 'code' in data && data.code !== 0) {
       return Promise.reject(new Error(data.message || '请求失败'));
     }
-    return data;
+    return response;
   },
   error => {
     if (error.response?.status === 401) {

@@ -24,7 +24,7 @@ const TrialBalance: React.FC = () => {
     try {
       const periodStr = (p || period).format('YYYY-MM');
       const res = await request.get('/vouchers/report/trial-balance', { params: { period: periodStr } });
-      setData(res.data);
+      setData(res.data?.data || res.data || {});
     } catch (err) {
       console.error(err);
     } finally {

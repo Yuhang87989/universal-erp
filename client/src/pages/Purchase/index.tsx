@@ -28,7 +28,8 @@ const Purchase: React.FC = () => {
   const loadSuppliers = async () => {
     try {
       const res = await request.get('/suppliers', { params: { pageSize: 200 } });
-      setSuppliers(res.data?.list || res.data?.data || []);
+      const sd = res.data?.data || res.data || {};
+      setSuppliers(sd.list || sd || []);
     } catch (e) { /* ignore */ }
   };
 
@@ -39,8 +40,9 @@ const Purchase: React.FC = () => {
       const params: any = { page, pageSize: 20 };
       if (status) params.status = status;
       const res = await request.get('/purchases/orders', { params });
-      setOrders(res.data?.data || res.data?.list || []);
-      setPagination({ current: page, pageSize: 20, total: res.data?.total || 0 });
+      const od = res.data?.data || res.data || {};
+      setOrders(od.list || od || []);
+      setPagination({ current: page, pageSize: 20, total: od.total || 0 });
     } catch (e) { /* ignore */ }
     setOrderLoading(false);
   };
@@ -49,7 +51,8 @@ const Purchase: React.FC = () => {
   const loadProducts = async () => {
     try {
       const res = await request.get('/products', { params: { pageSize: 200 } });
-      setProducts(res.data?.data || res.data || []);
+      const pd = res.data?.data || res.data || {};
+      setProducts(pd.list || pd || []);
     } catch (e) { /* ignore */ }
   };
 

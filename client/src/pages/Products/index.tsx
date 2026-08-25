@@ -36,8 +36,9 @@ const Products: React.FC = () => {
       const res = await request.get('/products', {
         params: { page: pagination.current, pageSize: pagination.pageSize, keyword }
       });
-      setProducts(res.data.list || []);
-      setTotal(res.data.total || 0);
+      const payload = res.data?.data || res.data || {};
+      setProducts(payload.list || payload || []);
+      setTotal(payload.total || 0);
     } catch (err) {
       console.error(err);
     } finally {
@@ -49,7 +50,7 @@ const Products: React.FC = () => {
     setCatLoading(true);
     try {
       const res = await request.get('/categories');
-      setCategories(res.data || []);
+      setCategories(res.data?.data || res.data || []);
     } catch (err) {
       console.error(err);
     } finally {

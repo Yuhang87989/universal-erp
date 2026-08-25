@@ -36,12 +36,12 @@ router.get('/', async (req, res) => {
     if (type) { sumWhere += ' AND type = ?'; sumParams.push(type); }
 
     const [incomeSum] = await pool.query(
-      `SELECT COALESCE(SUM(amount), 0) as total FROM finance_records ${sumWhere} AND type = 'income'`,
-      [...sumParams]
+      `SELECT COALESCE(SUM(amount), 0) as total FROM finance_records ${sumWhere} AND type = ?`,
+      [...sumParams, 'income']
     );
     const [expenseSum] = await pool.query(
-      `SELECT COALESCE(SUM(amount), 0) as total FROM finance_records WHERE tenant_id = ? AND type = 'expense'${referenceType ? ' AND reference_type = ?' : ''}`,
-      [req.tenantId, ...(referenceType ? [referenceType] : [])]
+      `SELECT COALESCE(SUM(amount), 0) as total FROM finance_records ${sumWhere} AND type = ?`,
+      [...sumParams, 'expense']
     );
 
     res.json({

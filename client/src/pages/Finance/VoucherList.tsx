@@ -52,7 +52,7 @@ const VoucherList: React.FC = () => {
       if (filterStatus) params.status = filterStatus;
       if (filterType) params.voucher_type = filterType;
       const res = await request.get('/vouchers', { params });
-      const data = res.data;
+      const data = res.data?.data || res.data || {};
       setVouchers(data?.list || []);
       setTotal(data?.total || 0);
       if (data?.summary) setSummary(data.summary);
@@ -66,7 +66,7 @@ const VoucherList: React.FC = () => {
   const loadAccounts = async () => {
     try {
       const res = await request.get('/accounts');
-      setAccounts(res.data || []);
+      setAccounts(res.data?.data || res.data || []);
     } catch (err) {
       console.error(err);
     }
@@ -86,7 +86,7 @@ const VoucherList: React.FC = () => {
   const handleEdit = async (record: any) => {
     try {
       const res = await request.get(`/vouchers/${record.id}`);
-      const data = res.data;
+      const data = res.data?.data || res.data || {};
       setEditing(data);
       form.setFieldsValue({
         voucher_type: data.voucher_type,
@@ -110,7 +110,7 @@ const VoucherList: React.FC = () => {
   const handleViewDetail = async (record: any) => {
     try {
       const res = await request.get(`/vouchers/${record.id}`);
-      setDetail(res.data);
+      setDetail(res.data?.data || res.data);
       setDetailOpen(true);
     } catch (err) {
       message.error('获取凭证详情失败');

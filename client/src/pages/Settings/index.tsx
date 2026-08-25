@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Card, Form, Input, Button, Select, message, Typography, Divider, Row, Col, Tag, Tabs, Table, Space, Modal, Popconfirm, Switch } from 'antd';
-import { SaveOutlined, ShopOutlined, DatabaseOutlined, LockOutlined, UserOutlined, TeamOutlined, FileTextOutlined, SettingOutlined } from '@ant-design/icons';
+import { SaveOutlined, ShopOutlined, DatabaseOutlined, LockOutlined, UserOutlined, TeamOutlined, FileTextOutlined, SettingOutlined, CloudSyncOutlined, ReloadOutlined, CheckCircleOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import request from '../../api/request';
 
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 const Settings: React.FC = () => {
   const [activeTab, setActiveTab] = useState('store');
@@ -17,6 +17,48 @@ const Settings: React.FC = () => {
   const [userModal, setUserModal] = useState(false);
   const [editingUser, setEditingUser] = useState<any>(null);
   const [userForm] = Form.useForm();
+
+  // 系统更新
+  const [sysInfo, setSysInfo] = useState<any>(null);
+  const [updateInfo, setUpdateInfo] = useState<any>(null);
+  const [updating, setUpdating] = useState(false);
+  const [dbCheck, setDbCheck] = useState<any>(null);
+
+  const loadSysInfo = async () => {
+    try {
+      const res = await request.get('/system/info');
+      setSysInfo(res.data?.data || res.data);
+    } catch {}
+  };
+
+  const checkUpdate = async () => {
+    try {
+      const res = await request.get('/system/check');
+      setUpdateInfo(res.data?.data || res.data);
+    } catch (e: any) {
+      message.error('检查更新失败: ' + (e.response?.data?.message || e.message));
+    }
+  };
+
+  const doUpdate = async () => {
+    setUpdating(true);
+    try {
+      const res = await request.post('/system/update');
+      message.success('更新完成，服务将重启');
+      setTimeout(() => window.location.reload(), 3000);
+    } catch (e: any) {
+      message.error(e.response?.data?.message || '更新失败');
+    } finally {
+      setUpdating(false);
+    }
+  };
+
+  const loadDbCheck = async () => {
+    try {
+      const res = await request.get('/system/db-check');
+      setDbCheck(res.data?.data || res.data);
+    } catch {}
+  };
 
   const loadTenant = async () => {
     try {
@@ -43,11 +85,12 @@ const Settings: React.FC = () => {
   const loadUsers = async () => {
     try {
       const res = await request.get('/tenants/users');
-      setUsers(res.data?.list || res.data || []);
+      const ud = res.data?.data || res.data || {};
+      setUsers(ud.list || ud || []);
     } catch (e) { /* ignore */ }
   };
 
-  useEffect(() => { loadTenant(); loadUsers(); }, []);
+  useEffect(() => { loadTenant(); loadUsers(); loadSysInfo(); }, []);
 
   const handleSaveStore = async () => {
     if (!tenant?.id) { message.error('未找到当前帐套'); return; }
@@ -226,6 +269,73 @@ const Settings: React.FC = () => {
         <Tabs.TabPane tab={<span><FileTextOutlined />操作日志</span>} key="logs">
           <Card>
             <Text type="secondary">操作日志功能将在后续版本中提供，届时将记录所有关键操作（登录、采购、销售、库存变动等）供查询追溯。</Text>
+          </Card>
+        </Tabs.TabPane>
+
+        {/* 系统更新 */}
+        <Tabs.TabPane tab={<span><CloudSyncOutlined />系统更新</span>} key="update">
+          <Card>
+            <Row gutter={[16, 16]}>
+              <Col span={24}>
+                <Text strong>当前版本</Text>
+                <div style={{ marginTop: 8 }}>
+                  <Tag color="blue">v{sysInfo?.version || '2.0.0'}</Tag>
+                  <Text type="secondary" style={{ fontSize: 12 }}>Node {sysInfo?.nodeVersion || '未知'}</Text>
+                </div>
+              </Col>
+              <Col span={24}>
+                <Space>
+                  <Button icon={<ReloadOutlined />} onClick={checkUpdate}>检查更新</Button>
+                  {updateInfo?.hasUpdate && (
+                    <Popconfirm title="确认更新到最新版本？更新期间系统短暂不可用。" onConfirm={doUpdate}>
+                      <Button type="primary" danger icon={<CloudSyncOutlined />} loading={updating}>立即更新</Button>
+                    </Popconfirm>
+                  )}
+                  <Button icon={<DatabaseOutlined />} onClick={loadDbCheck}>数据库自检</Button>
+                </Space>
+              </Col>
+            </Row>
+            {updateInfo && (
+              <Card size="small" style={{ marginTop: 16, background: updateInfo.hasUpdate ? '#fffbe6' : '#f6ffed' }}>
+                {updateInfo.hasUpdate ? (
+                  <div>
+                    <ExclamationCircleOutlined style={{ color: '#faad14' }} />
+                    <Text strong style={{ marginLeft: 8 }}>发现新版本</Text>
+                    <div style={{ marginTop: 8 }}>
+                      <div>当前: {updateInfo.current?.hash} - {updateInfo.current?.subject}</div>
+                      <div>最新: {updateInfo.latest?.hash} - {updateInfo.latest?.subject}</div>
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    <CheckCircleOutlined style={{ color: '#52c41a' }} />
+                    <Text style={{ marginLeft: 8 }}>已是最新版本 ({updateInfo.current?.hash})</Text>
+                  </div>
+                )}
+              </Card>
+            )}
+            {dbCheck && (
+              <Card size="small" title="数据库自检" style={{ marginTop: 16 }}>
+                <Row gutter={[8, 8]}>
+                  {Object.entries(dbCheck.tables || {}).map(([table, count]: [string, any]) => (
+                    <Col span={8} key={table}>
+                      <Tag>{table}: {count}</Tag>
+                    </Col>
+                  ))}
+                </Row>
+                <Divider />
+                <Text strong>各账套数据：</Text>
+                <Table
+                  size="small" rowKey="tenant_id" pagination={false}
+                  dataSource={dbCheck.tenants || []}
+                  columns={[
+                    { title: 'ID', dataIndex: 'tenant_id', width: 50 },
+                    { title: '账套名称', dataIndex: 'name' },
+                    { title: '账套数', dataIndex: 'book_count', width: 80, render: (v: number) => <Tag color={v > 0 ? 'green' : 'red'}>{v}</Tag> }
+                  ]}
+                />
+              </Card>
+            )}
           </Card>
         </Tabs.TabPane>
       </Tabs>

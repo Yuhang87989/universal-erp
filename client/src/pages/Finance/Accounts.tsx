@@ -27,7 +27,7 @@ const Accounts: React.FC = () => {
       const params: any = {};
       if (filterCategory) params.category = filterCategory;
       const res = await request.get('/accounts', { params });
-      setAccounts(res.data || []);
+      setAccounts(res.data?.data || res.data || []);
     } catch (err) {
       console.error(err);
     } finally {

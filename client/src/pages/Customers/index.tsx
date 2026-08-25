@@ -44,8 +44,8 @@ const Customers: React.FC = () => {
       const params: any = { page: p, pageSize: 20 };
       if (keyword) params.keyword = keyword;
       const res = await request.get('/customers', { params });
-      setCustomers(res.data?.list || res.data || []);
-      setTotal(res.data?.total || 0);
+      const d = res.data?.data || res.data || {}; setCustomers(d.list || d || []);
+      setTotal(d?.total || 0);
     } catch (err) {
       console.error(err);
     } finally {
@@ -57,8 +57,8 @@ const Customers: React.FC = () => {
     setSupplierLoading(true);
     try {
       const res = await request.get('/suppliers', { params: { page: p, pageSize: 20 } });
-      setSuppliers(res.data?.list || []);
-      setSupplierTotal(res.data?.total || 0);
+      const sd = res.data?.data || res.data || {}; setSuppliers(sd.list || sd || []);
+      setSupplierTotal(sd?.total || 0);
     } catch (err) {
       console.error(err);
     } finally {

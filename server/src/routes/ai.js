@@ -1,4 +1,6 @@
 const express = require('express');
+const https = require('https');
+const { URL } = require('url');
 const pool = require('../config/db');
 const { authenticate } = require('../middleware/auth');
 const dayjs = require('dayjs');
@@ -29,28 +31,51 @@ async function getTenantAIConfig(tenantId) {
   }
 }
 
-// 调用DeepSeek
+// 调用DeepSeek（使用Node内置https，兼容Node16）
+function httpPostJSON(urlStr, headers, bodyObj) {
+  return new Promise((resolve, reject) => {
+    const u = new URL(urlStr);
+    const body = JSON.stringify(bodyObj);
+    const req = https.request({
+      hostname: u.hostname, port: u.port || 443, path: u.pathname + u.search,
+      method: 'POST',
+      headers: { ...headers, 'Content-Type': 'application/json', 'Content-Length': Buffer.byteLength(body) }
+    }, (res) => {
+      let data = '';
+      res.on('data', c => data += c);
+      res.on('end', () => {
+        try { resolve({ ok: res.statusCode >= 200 && res.statusCode < 300, status: res.statusCode, json: () => JSON.parse(data), text: () => data }); }
+        catch (e) { reject(e); }
+      });
+    });
+    req.on('error', reject);
+    req.setTimeout(60000, () => { req.destroy(new Error('AI请求超时')); });
+    req.write(body);
+    req.end();
+  });
+}
+
 async function callDeepSeek(messages, options = {}) {
   const cfg = options.config || { api_key: DEFAULT_API_KEY, api_url: DEFAULT_API_URL, model: DEFAULT_MODEL };
   if (!cfg.api_key) {
     throw new Error('AI服务未配置，请在"AI设置"中填写DeepSeek API Key');
   }
-  const response = await fetch(cfg.api_url || DEFAULT_API_URL, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${cfg.api_key}` },
-    body: JSON.stringify({
+  const response = await httpPostJSON(
+    cfg.api_url || DEFAULT_API_URL,
+    { 'Authorization': `Bearer ${cfg.api_key}` },
+    {
       model: options.model || cfg.model || DEFAULT_MODEL,
       messages,
       temperature: options.temperature ?? 0.7,
       max_tokens: options.max_tokens || 2000,
       stream: false
-    })
-  });
+    }
+  );
   if (!response.ok) {
-    const err = await response.text();
+    const err = response.text();
     throw new Error(`AI服务调用失败: ${response.status} ${err}`);
   }
-  const data = await response.json();
+  const data = response.json();
   return data.choices?.[0]?.message?.content || '';
 }
 
@@ -364,6 +389,145 @@ router.post('/test', async (req, res) => {
     res.json({ code: 0, message: '连接成功', data: { reply } });
   } catch (err) {
     res.status(400).json({ code: 400, message: err.message });
+  }
+});
+
+// ========== AI 自然语言快速录入 ==========
+router.post('/quick-entry', async (req, res) => {
+  try {
+    const { text } = req.body;
+    if (!text || !text.trim()) return res.status(400).json({ code: 400, message: '请输入业务描述' });
+
+    // 获取租户商品和供应商列表用于匹配
+    const [products] = await pool.query('SELECT id, name, unit, cost_price, sell_price FROM products WHERE tenant_id=? AND status="active"', [req.tenantId]);
+    const [suppliers] = await pool.query('SELECT id, name FROM suppliers WHERE tenant_id=?', [req.tenantId]);
+
+    const prompt = `你是电商ERP数据录入助手。根据以下自然语言描述，识别业务类型并提取结构化数据，只返回JSON。
+
+可用商品：${products.map(p => `${p.name}(${p.unit},进价${p.cost_price},售价${p.sell_price})`).join('、') || '无'}
+可用供应商：${suppliers.map(s => s.name).join('、') || '无'}
+
+业务描述："${text}"
+
+判断类型并返回对应JSON（三选一）：
+
+采购单：
+{"type":"purchase","supplier_name":"供应商名（无则null）","items":[{"name":"商品名","quantity":数量,"unit":"单位","cost_price":单价}],"total_amount":总金额,"order_date":"YYYY-MM-DD（无则今天）"}
+
+销售单：
+{"type":"sale","customer_name":"客户名（无则散客）","items":[{"name":"商品名","quantity":数量,"unit":"单位","price":单价}],"total_amount":总金额,"payment_method":"wechat/alipay/cash/bank","order_date":"YYYY-MM-DD"}
+
+收支记录：
+{"type":"finance","finance_type":"income/expense","category":"类别（如采购支出、房租、工资、销售收入等）","amount":金额,"remark":"备注","record_date":"YYYY-MM-DD","payment_method":"wechat/alipay/cash/bank"}
+
+只返回JSON，不要任何其他文字。如果描述无法识别，返回{"type":"unknown","message":"无法识别业务类型"}。`;
+
+    const reply = await callDeepSeek(
+      [{ role: 'user', content: prompt }],
+      { temperature: 0.1, max_tokens: 800, config: await getTenantAIConfig(req.tenantId) }
+    );
+
+    let parsed;
+    try {
+      const jsonMatch = reply.match(/\{[\s\S]*\}/);
+      parsed = jsonMatch ? JSON.parse(jsonMatch[0]) : { type: 'unknown', raw: reply };
+    } catch {
+      return res.status(400).json({ code: 400, message: 'AI解析结果格式异常，请重新描述' });
+    }
+
+    if (parsed.type === 'unknown') {
+      return res.status(400).json({ code: 400, message: parsed.message || '无法识别业务类型，请更详细描述' });
+    }
+
+    // 对采购/销售单，匹配商品ID
+    if (parsed.items && Array.isArray(parsed.items)) {
+      parsed.items = parsed.items.map(item => {
+        const matched = products.find(p => p.name.includes(item.name) || item.name.includes(p.name));
+        return { ...item, product_id: matched?.id || null, unit: item.unit || matched?.unit || '件' };
+      });
+    }
+    if (parsed.supplier_name) {
+      const matchedSupplier = suppliers.find(s => s.name.includes(parsed.supplier_name) || parsed.supplier_name.includes(s.name));
+      if (matchedSupplier) parsed.supplier_id = matchedSupplier.id;
+    }
+
+    res.json({ code: 0, data: parsed });
+  } catch (err) {
+    console.error('AI快速录入失败:', err);
+    res.status(500).json({ code: 500, message: err.message });
+  }
+});
+
+// 确认AI录入
+router.post('/quick-entry/confirm', async (req, res) => {
+  const conn = await pool.getConnection();
+  try {
+    const { parsed, text } = req.body;
+    if (!parsed || !parsed.type) return res.status(400).json({ code: 400, message: '数据不完整' });
+    await conn.beginTransaction();
+
+    if (parsed.type === 'purchase') {
+      // 创建采购单
+      const orderNo = 'PO' + Date.now().toString().slice(-10);
+      const [result] = await conn.query(
+        'INSERT INTO purchase_orders (tenant_id, supplier_id, order_no, order_date, total_amount, status, remark, operator_id, created_at) VALUES (?, ?, ?, ?, ?, "draft", ?, ?, NOW())',
+        [req.tenantId, parsed.supplier_id || null, orderNo, parsed.order_date || new Date().toISOString().slice(0, 10), parsed.total_amount || 0, text || 'AI录入', req.user.id]
+      );
+      const orderId = result.insertId;
+      // 插入明细
+      for (const item of parsed.items || []) {
+        if (!item.product_id) continue;
+        const product = await conn.query('SELECT cost_price FROM products WHERE id=?', [item.product_id]);
+        const cost = item.cost_price || product[0]?.[0]?.cost_price || 0;
+        await conn.query(
+          'INSERT INTO purchase_items (purchase_order_id, product_id, quantity, unit_cost) VALUES (?, ?, ?, ?)',
+          [orderId, item.product_id, item.quantity, cost]
+        );
+      }
+      await conn.commit();
+      return res.json({ code: 0, message: '采购单已创建（待入库）', data: { id: orderId, type: 'purchase' } });
+    }
+
+    if (parsed.type === 'sale') {
+      const orderNo = 'SO' + Date.now().toString().slice(-10);
+      const orderDate = parsed.order_date ? parsed.order_date + ' 12:00:00' : new Date().toISOString().slice(0, 19).replace('T', ' ');
+      const [result] = await conn.query(
+        'INSERT INTO sales_orders (tenant_id, order_no, order_date, total_amount, actual_amount, payment_method, status, remark, operator_id, created_at) VALUES (?, ?, ?, ?, ?, ?, "completed", ?, ?, NOW())',
+        [req.tenantId, orderNo, orderDate, parsed.total_amount || 0, parsed.total_amount || 0, parsed.payment_method || 'cash', text || 'AI录入', req.user.id]
+      );
+      const orderId = result.insertId;
+      for (const item of parsed.items || []) {
+        if (!item.product_id) continue;
+        const [prods] = await conn.query('SELECT sell_price FROM products WHERE id=?', [item.product_id]);
+        const price = item.price || prods[0]?.sell_price || 0;
+        await conn.query(
+          'INSERT INTO sale_items (sales_order_id, product_id, quantity, unit_price) VALUES (?, ?, ?, ?)',
+          [orderId, item.product_id, item.quantity, price]
+        );
+        // 扣减库存
+        await conn.query('UPDATE inventory SET quantity = quantity - ? WHERE product_id=? AND tenant_id=?', [item.quantity, item.product_id, req.tenantId]);
+      }
+      await conn.commit();
+      return res.json({ code: 0, message: '销售单已创建', data: { id: orderId, type: 'sale' } });
+    }
+
+    if (parsed.type === 'finance') {
+      await conn.query(
+        'INSERT INTO finance_records (tenant_id, type, category, amount, payment_method, remark, record_date, operator_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+        [req.tenantId, parsed.finance_type || 'expense', parsed.category || '其他', parsed.amount, parsed.payment_method || null, parsed.remark || text, parsed.record_date || new Date().toISOString().slice(0, 10), req.user.id]
+      );
+      await conn.commit();
+      return res.json({ code: 0, message: '收支记录已录入', data: { type: 'finance' } });
+    }
+
+    await conn.rollback();
+    res.status(400).json({ code: 400, message: '不支持的类型' });
+  } catch (err) {
+    await conn.rollback();
+    console.error('确认录入失败:', err);
+    res.status(500).json({ code: 500, message: '录入失败: ' + err.message });
+  } finally {
+    conn.release();
   }
 });
 

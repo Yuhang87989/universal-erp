@@ -35,8 +35,8 @@ const StockOut: React.FC = () => {
     setLoading(true);
     try {
       const res = await request.get('/stock-out', { params: { page, pageSize: 20, ...filters } });
-      setList(res.data?.list || []);
-      setPagination(p => ({ ...p, current: page, total: res.data?.total || 0 }));
+      const d = res.data?.data || res.data || {}; setList(d.list || []);
+      setPagination(p => ({ ...p, current: page, total: (res.data?.data || res.data || {}).total || 0 }));
     } catch (e) { /* ignore */ }
     setLoading(false);
   };
@@ -52,9 +52,9 @@ const StockOut: React.FC = () => {
 
   useEffect(() => {
     load(1);
-    request.get('/products', { params: { pageSize: 500 } }).then(r => setProducts(r.data?.list || r.data?.data?.list || r.data || []));
-    request.get('/warehouses').then(r => setWarehouses(r.data?.list || r.data || []));
-    request.get('/customers', { params: { pageSize: 200 } }).then(r => setCustomers(r.data?.list || r.data?.data?.list || r.data || []));
+    request.get('/products', { params: { pageSize: 500 } }).then(r => setProducts((r.data?.data || r.data || {}).list || r.data?.data || r.data || []));
+    request.get('/warehouses').then(r => setWarehouses((r.data?.data || r.data || {}).list || r.data?.data || r.data || []));
+    request.get('/customers', { params: { pageSize: 200 } }).then(r => setCustomers((r.data?.data || r.data || {}).list || r.data?.data || r.data || []));
   }, []);
 
   const handleCreate = async () => {
@@ -104,7 +104,7 @@ const StockOut: React.FC = () => {
   };
 
   const viewDetail = async (id: number) => {
-    try { const res = await request.get(`/stock-out/${id}`); setCurrent(res.data || {}); setDetailOpen(true); }
+    try { const res = await request.get(`/stock-out/${id}`); setCurrent(res.data?.data || res.data || {}); setDetailOpen(true); }
     catch (e) { message.error('获取详情失败'); }
   };
 

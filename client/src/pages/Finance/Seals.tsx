@@ -34,7 +34,7 @@ const SealManagement: React.FC = () => {
     setLoading(true);
     try {
       const res = await request.get('/seals');
-      setSeals(res.data || []);
+      setSeals(res.data?.data || res.data || []);
     } catch (err) {
       console.error(err);
     } finally {

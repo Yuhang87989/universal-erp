@@ -28,8 +28,9 @@ const Sales: React.FC = () => {
     try {
       const params: any = { page, pageSize: 20, ...filters, ...extraFilters };
       const res = await request.get('/sales', { params });
-      setOrders(res.data?.data || res.data || []);
-      setPagination({ current: page, pageSize: 20, total: res.data?.total || res.data?.length || 0 });
+      const payload = res.data?.data || res.data || {};
+      setOrders(payload.list || payload || []);
+      setPagination({ current: page, pageSize: 20, total: payload.total || 0 });
     } catch (e) { /* ignore */ }
     setLoading(false);
   };
@@ -37,14 +38,16 @@ const Sales: React.FC = () => {
   const loadProducts = async () => {
     try {
       const res = await request.get('/products', { params: { pageSize: 200 } });
-      setProducts((res.data?.data || res.data || []));
+      const d = res.data?.data || res.data || {};
+      setProducts(d.list || d || []);
     } catch (e) { /* ignore */ }
   };
 
   const loadCustomers = async () => {
     try {
       const res = await request.get('/customers', { params: { pageSize: 200 } });
-      setCustomers(res.data?.list || res.data || []);
+      const d = res.data?.data || res.data || {};
+      setCustomers(d.list || d || []);
     } catch (e) { /* ignore */ }
   };
 

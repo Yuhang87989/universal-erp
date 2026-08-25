@@ -32,9 +32,10 @@ const Alerts: React.FC = () => {
         request.get('/alerts', { params: { page, pageSize: 20, ...filters } }),
         request.get('/alerts/stats')
       ]);
-      setList(listRes.data?.list || []);
-      setPagination(p => ({ ...p, current: page, total: listRes.data?.total || 0 }));
-      setStats(statsRes.data || { total: 0, breakdown: [] });
+      const listData = listRes.data?.data || listRes.data || {};
+      setList(listData.list || []);
+      setPagination(p => ({ ...p, current: page, total: listData.total || 0 }));
+      setStats(statsRes.data?.data || statsRes.data || { total: 0, breakdown: [] });
     } catch (e) { /* ignore */ }
     setLoading(false);
   };
@@ -48,7 +49,7 @@ const Alerts: React.FC = () => {
       message.success(res.message || '扫描完成');
       load(1);
       // 语音播报
-      const critical = (res.data?.active_alerts || 0);
+      const critical = ((res.data?.data || res.data || {}).active_alerts || 0);
       if (critical > 0) voiceService.speak(`库存预警扫描完成，当前有${critical}条预警需要处理`, { rate: 0.9 });
     } catch (e: any) { message.error(e.response?.data?.message || '扫描失败'); }
     setScanning(false);
