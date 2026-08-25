@@ -64,7 +64,7 @@ router.post('/upload', express.raw({ type: ['image/png', 'image/jpeg', 'image/we
     fs.writeFileSync(filePath, req.body);
 
     // 返回可访问URL（通过nginx或express静态服务）
-    const url = `/uploads/seals/${fileName}`;
+    const url = `/api/uploads/seals/${fileName}`;
     res.json({ code: 0, data: { url, fileName } });
   } catch (err) {
     res.status(500).json({ code: 500, message: '上传失败: ' + err.message });
@@ -152,7 +152,9 @@ router.delete('/:id', async (req, res) => {
     // 同时删除图片文件
     const [rows] = await pool.query('SELECT image_url FROM seals WHERE id = ?', [req.params.id]);
     if (rows[0]?.image_url) {
-      const imgPath = path.join(__dirname, '../../', rows[0].image_url);
+      // image_url形如 /api/uploads/seals/xxx.png，映射到本地 uploads/ 目录
+      const imgName = path.basename(rows[0].image_url);
+      const imgPath = path.join(__dirname, '../../uploads/seals', imgName);
       if (fs.existsSync(imgPath)) fs.unlinkSync(imgPath);
     }
     await pool.query('DELETE FROM seals WHERE id = ?', [req.params.id]);
