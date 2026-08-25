@@ -1,1 +1,20 @@
-aW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0JzsKaW1wb3J0IFJlYWN0RE9NIGZyb20gJ3JlYWN0LWRvbS9jbGllbnQnOwppbXBvcnQgeyBCcm93c2VyUm91dGVyIH0gZnJvbSAncmVhY3Qtcm91dGVyLWRvbSc7CmltcG9ydCB7IENvbmZpZ1Byb3ZpZGVyIH0gZnJvbSAnYW50ZCc7CmltcG9ydCB6aENOIGZyb20gJ2FudGQvbG9jYWxlL3poX0NOJzsKaW1wb3J0IEFwcCBmcm9tICcuL0FwcCc7CmltcG9ydCB7IEF1dGhQcm92aWRlciB9IGZyb20gJy4vY29udGV4dC9BdXRoQ29udGV4dCc7CmltcG9ydCAnLi9zdHlsZXMvZ2xvYmFsLmNzcyc7CgpSZWFjdERPTS5jcmVhdGVSb290KGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdyb290JykhKS5yZW5kZXIoCiAgPFJlYWN0LlN0cmljdE1vZGU+CiAgICA8QnJvd3NlclJvdXRlcj4KICAgICAgPENvbmZpZ1Byb3ZpZGVyIGxvY2FsZT17emhDTn0gdGhlbWU9e3sgdG9rZW46IHsgY29sb3JQcmltYXJ5OiAnIzE2NzdmZicgfSB9fT4KICAgICAgICA8QXV0aFByb3ZpZGVyPgogICAgICAgICAgPEFwcCAvPgogICAgICAgIDwvQXV0aFByb3ZpZGVyPgogICAgICA8L0NvbmZpZ1Byb3ZpZGVyPgogICAgPC9Ccm93c2VyUm91dGVyPgogIDwvUmVhY3QuU3RyaWN0TW9kZT4KKTsK
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
+import { ConfigProvider } from 'antd';
+import zhCN from 'antd/locale/zh_CN';
+import App from './App';
+import { AuthProvider } from './context/AuthContext';
+import './styles/global.css';
+
+ReactDOM.createRoot(document.getElementById('root')!).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <ConfigProvider locale={zhCN} theme={{ token: { colorPrimary: '#1677ff' } }}>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </ConfigProvider>
+    </BrowserRouter>
+  </React.StrictMode>
+);

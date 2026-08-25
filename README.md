@@ -1,1 +1,96 @@
-IyDpgJrnlKjnlLXllYZFUlAKCumdouWQkeS4quS9k+mXqOW6l+OAgeiPnOW4guWcuuOAgeWGnOeUqOS+m+mUgOekvueahOi9u+mHj+e6p+i/m+mUgOWtmOeuoeeQhuezu+e7n+OAggoKIyMg5Yqf6IO95qih5Z2XCgotIPCfk4ogKirlt6XkvZzlj7AqKiDigJQg5LuK5pel5qaC6KeI44CB6ZSA5ZSu6LaL5Yq/44CB54Ot6ZSA5o6S6KGM44CB5bqT5a2Y6aKE6K2mCi0g8J+bkiAqKlBPU+aUtumTtioqIOKAlCDop6blsY/lv6vpgJ/nu5PotKbjgIHmlK/mjIHnjrDph5Ev5b6u5L+hL+aUr+S7mOWunQotIPCfk6YgKirllYblk4HnrqHnkIYqKiDigJQg5ZWG5ZOB5aKe5Yig5pS55p+l44CB5p2h56CB566h55CG44CB5YiG57G7562b6YCJCi0g8J+Xgu+4jyAqKuWVhuWTgeWIhuexuyoqIOKAlCDmoJHlvaLliIbnsbvnrqHnkIYKLSDwn5OKICoq5bqT5a2Y566h55CGKiog4oCUIOWunuaXtuW6k+WtmOOAgeebmOeCueiwg+aVtOOAgeW6k+WtmOmihOitpuOAgeWPmOWKqOa1geawtAotIPCfk50gKirph4fotK3nrqHnkIYqKiDigJQg6YeH6LSt5LiL5Y2V44CB5YWl5bqT56Gu6K6k44CB5L6b5bqU5ZWG566h55CGCi0g8J+RpSAqKuWuouaIt+S8muWRmCoqIOKAlCDkvJrlkZjnrYnnuqfjgIHmtojotLnorrDlvZXjgIHnp6/liIbnrqHnkIYKLSDwn5OIICoq5pWw5o2u5oql6KGoKiog4oCUIOmUgOWUrue7n+iuoeOAgeWIqea2puWIhuaekOOAgee7j+iQpeaKpeihqAotIPCfjJAgKirnlLXllYbotKbnm64qKiDigJQg5aSa5bmz5Y+w6K6i5Y2V5rGH5oC744CB6Ieq5Yqo5a+56LSm44CB5bqT5a2Y6IGU5YqoCi0g8J+kliAqKkFJ5Yqp5omLKiog4oCUIOiHqueEtuivreiogOafpeivouOAgeaZuuiDveihpei0p+W7uuiuruOAgee7j+iQpeaXpeaKpQoKIyMg5oqA5pyv5qCICgp8IOWxgiB8IOaKgOacryB8CnwtLS18LS0tfAp8IOWJjeerryB8IFJlYWN0IDE4ICsgVHlwZVNjcmlwdCArIEFudCBEZXNpZ24gNSArIEVDaGFydHMgfAp8IOWQjuerryB8IE5vZGUuanMgKyBFeHByZXNzICsgSldUIHwKfCDmlbDmja7lupMgfCBNeVNRTCA4LjAgfAp8IEFJIHwgRGVlcFNlZWsgQVBJIHwKfCDpg6jnvbIgfCBEb2NrZXIgLyDoh6rmnInmnI3liqHlmaggfAoKIyMg5b+r6YCf5ZCv5YqoCgojIyMg5pa55byP5LiA77yaRG9ja2Vy77yI5o6o6I2Q77yJCgpgYGBiYXNoCiMg5L+u5pS55pWw5o2u5bqT5a+G56CBCmNwIGRvY2tlci1jb21wb3NlLnltbCBkb2NrZXItY29tcG9zZS5vdmVycmlkZS55bWwKIyDnvJbovpHlr4bnoIHlkI7lkK/liqgKZG9ja2VyLWNvbXBvc2UgdXAgLWQKYGBgCgrorr/pl64gaHR0cDovL2xvY2FsaG9zdDozMDAw77yM6buY6K6k6LSm5Y+3IGFkbWluIC8gYWRtaW4xMjMKCiMjIyDmlrnlvI/kuozvvJrmnKzlnLDlvIDlj5EKCmBgYGJhc2gKIyAxLiDliJ3lp4vljJbmlbDmja7lupMKbXlzcWwgLXUgcm9vdCAtcCA8IHNlcnZlci9wcmlzbWEvc2NoZW1hLnNxbAoKIyAyLiDlkK/liqjlkI7nq68KY2Qgc2VydmVyCmNwIC5lbnYuZXhhbXBsZSAuZW52ICAjIOS/ruaUuemFjee9rgpucG0gaW5zdGFsbApucG0gcnVuIGRldgoKIyAzLiDlkK/liqjliY3nq68KY2QgY2xpZW50Cm5wbSBpbnN0YWxsCm5wbSBydW4gZGV2CmBgYAoK5YmN56uvIGh0dHA6Ly9sb2NhbGhvc3Q6NTE3M++8iOiHquWKqOS7o+eQhkFQSeWIsDMwMDDnq6/lj6PvvIkKCiMjIOmhueebrue7k+aehAoKYGBgCnByb2plY3QvCuKUnOKUgOKUgCBzZXJ2ZXIvICAgICAgICAgICAgICAjIOWQjuerrwrilIIgICDilJzilIDilIAgc3JjLwrilIIgICDilIIgICDilJzilIDilIAgY29uZmlnLyAgICAgICMg5pWw5o2u5bqT6YWN572uCuKUgiAgIOKUgiAgIOKUnOKUgOKUgCBtaWRkbGV3YXJlLyAgICMg6K6k6K+B44CB5p2D6ZmQ5Lit6Ze05Lu2CuKUgiAgIOKUgiAgIOKUnOKUgOKUgCByb3V0ZXMvICAgICAgIyBBUEnot6/nlLEK4pSCICAg4pSCICAg4pSU4pSA4pSAIGluZGV4LmpzICAgICAjIOWFpeWPowrilIIgICDilJTilIDilIAgcHJpc21hLwrilIIgICAgICAg4pSU4pSA4pSAIHNjaGVtYS5zcWwgICAjIOaVsOaNruW6k+W7uuihqOiEmuacrArilJzilIDilIAgY2xpZW50LyAgICAgICAgICAgICAgIyDliY3nq68K4pSCICAg4pSc4pSA4pSAIHNyYy8K4pSCICAg4pSCICAg4pSc4pSA4pSAIGFwaS8gICAgICAgICAjIEhUVFDor7fmsYLlsIHoo4UK4pSCICAg4pSCICAg4pSc4pSA4pSAIGNvbnRleHQvICAgICAjIOWFqOWxgOeKtuaAge+8iOiupOivge+8iQrilIIgICDilIIgICDilJzilIDilIAgbGF5b3V0cy8gICAgICMg6aG16Z2i5biD5bGACuKUgiAgIOKUgiAgIOKUnOKUgOKUgCBwYWdlcy8gICAgICAgIyDpobXpnaLnu4Tku7YK4pSCICAg4pSCICAg4pSU4pSA4pSAIHN0eWxlcy8gICAgICAjIOWFqOWxgOagt+W8jwrilIIgICDilJTilIDilIAgaW5kZXguaHRtbArilJzilIDilIAgZG9ja2VyLyAgICAgICAgICAgICAgIyBEb2NrZXLphY3nva4K4pSU4pSA4pSAIGRvY2tlci1jb21wb3NlLnltbApgYGAKCiMjIOinkuiJsuadg+mZkAoKfCDop5LoibIgfCDmnYPpmZAgfAp8LS0tfC0tLXwKfCDogIHmnb8vb3duZXIgfCDlhajpg6jmnYPpmZAgfAp8IOW6l+mVvy9tYW5hZ2VyIHwg5ZWG5ZOB566h55CG44CB6YeH6LSt44CB5oql6KGo44CB5a6i5oi3566h55CGIHwKfCDmlLbpk7blkZgvY2FzaGllciB8IFBPU+aUtumTtuOAgeafpeeci+WVhuWTgSB8Cnwg5LuT566hL3dhcmVob3VzZSB8IOW6k+WtmOeuoeeQhuOAgemHh+i0reWFpeW6kyB8CgojIyDlvIDmupDljY/orq4KCk1JVAo=
+# 通用电商ERP
+
+面向个体门店、菜市场、农用供销社的轻量级进销存管理系统。
+
+## 功能模块
+
+- 📊 **工作台** — 今日概览、销售趋势、热销排行、库存预警
+- 🛒 **POS收银** — 触屏快速结账、支持现金/微信/支付宝
+- 📦 **商品管理** — 商品增删改查、条码管理、分类筛选
+- 🗂️ **商品分类** — 树形分类管理
+- 📊 **库存管理** — 实时库存、盘点调整、库存预警、变动流水
+- 📝 **采购管理** — 采购下单、入库确认、供应商管理
+- 👥 **客户会员** — 会员等级、消费记录、积分管理
+- 📈 **数据报表** — 销售统计、利润分析、经营报表
+- 🌐 **电商账目** — 多平台订单汇总、自动对账、库存联动
+- 🤖 **AI助手** — 自然语言查询、智能补货建议、经营日报
+
+## 技术栈
+
+| 层 | 技术 |
+|---|---|
+| 前端 | React 18 + TypeScript + Ant Design 5 + ECharts |
+| 后端 | Node.js + Express + JWT |
+| 数据库 | MySQL 8.0 |
+| AI | DeepSeek API |
+| 部署 | Docker / 自有服务器 |
+
+## 快速启动
+
+### 方式一：Docker（推荐）
+
+```bash
+# 修改数据库密码
+cp docker-compose.yml docker-compose.override.yml
+# 编辑密码后启动
+docker-compose up -d
+```
+
+访问 http://localhost:3000，默认账号 admin / admin123
+
+### 方式二：本地开发
+
+```bash
+# 1. 初始化数据库
+mysql -u root -p < server/prisma/schema.sql
+
+# 2. 启动后端
+cd server
+cp .env.example .env  # 修改配置
+npm install
+npm run dev
+
+# 3. 启动前端
+cd client
+npm install
+npm run dev
+```
+
+前端 http://localhost:5173（自动代理API到3000端口）
+
+## 项目结构
+
+```
+project/
+├── server/              # 后端
+│   ├── src/
+│   │   ├── config/      # 数据库配置
+│   │   ├── middleware/   # 认证、权限中间件
+│   │   ├── routes/      # API路由
+│   │   └── index.js     # 入口
+│   └── prisma/
+│       └── schema.sql   # 数据库建表脚本
+├── client/              # 前端
+│   ├── src/
+│   │   ├── api/         # HTTP请求封装
+│   │   ├── context/     # 全局状态（认证）
+│   │   ├── layouts/     # 页面布局
+│   │   ├── pages/       # 页面组件
+│   │   └── styles/      # 全局样式
+│   └── index.html
+├── docker/              # Docker配置
+└── docker-compose.yml
+```
+
+## 角色权限
+
+| 角色 | 权限 |
+|---|---|
+| 老板/owner | 全部权限 |
+| 店长/manager | 商品管理、采购、报表、客户管理 |
+| 收银员/cashier | POS收银、查看商品 |
+| 仓管/warehouse | 库存管理、采购入库 |
+
+## 开源协议
+
+MIT

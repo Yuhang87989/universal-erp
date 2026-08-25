@@ -1,1 +1,99 @@
-Y29uc3QgZXhwcmVzcyA9IHJlcXVpcmUoJ2V4cHJlc3MnKTsKY29uc3QgcG9vbCA9IHJlcXVpcmUoJy4uL2NvbmZpZy9kYicpOwpjb25zdCB7IGF1dGhlbnRpY2F0ZSwgcmVxdWlyZVJvbGUgfSA9IHJlcXVpcmUoJy4uL21pZGRsZXdhcmUvYXV0aCcpOwoKY29uc3Qgcm91dGVyID0gZXhwcmVzcy5Sb3V0ZXIoKTsKcm91dGVyLnVzZShhdXRoZW50aWNhdGUpOwoKLy8g5LuT5bqT5YiX6KGoCnJvdXRlci5nZXQoJy8nLCBhc3luYyAocmVxLCByZXMpID0+IHsKICB0cnkgewogICAgY29uc3QgeyBrZXl3b3JkLCBzdGF0dXMgfSA9IHJlcS5xdWVyeTsKICAgIGxldCB3aGVyZSA9ICdXSEVSRSB0ZW5hbnRfaWQgPSA/JzsKICAgIGNvbnN0IHBhcmFtcyA9IFtyZXEudGVuYW50SWRdOwogICAgaWYgKGtleXdvcmQpIHsgd2hlcmUgKz0gJyBBTkQgKG5hbWUgTElLRSA/IE9SIGNvZGUgTElLRSA/KSc7IHBhcmFtcy5wdXNoKGAlJHtrZXl3b3JkfSVgLCBgJSR7a2V5d29yZH0lYCk7IH0KICAgIGlmIChzdGF0dXMpIHsgd2hlcmUgKz0gJyBBTkQgc3RhdHVzID0gPyc7IHBhcmFtcy5wdXNoKHN0YXR1cyk7IH0KICAgIGNvbnN0IFtyb3dzXSA9IGF3YWl0IHBvb2wucXVlcnkoYFNFTEVDVCAqIEZST00gd2FyZWhvdXNlcyAke3doZXJlfSBPUkRFUiBCWSBpc19kZWZhdWx0IERFU0MsIHNvcnRfb3JkZXIgQVNDLCBpZCBBU0NgLCBwYXJhbXMpOwoKICAgIC8vIOe7n+iuoeavj+S4quS7k+W6k+eahOW6k+WtmOWTgeenjeaVsOWSjOaAu+S7t+WAvAogICAgZm9yIChjb25zdCB3IG9mIHJvd3MpIHsKICAgICAgY29uc3QgW3N0YXRzXSA9IGF3YWl0IHBvb2wucXVlcnkoCiAgICAgICAgYFNFTEVDVCBDT1VOVCgqKSBhcyBza3VfY291bnQsIENPQUxFU0NFKFNVTShpLnF1YW50aXR5ICogcC5jb3N0X3ByaWNlKSwgMCkgYXMgdG90YWxfdmFsdWUKICAgICAgICAgRlJPTSBpbnZlbnRvcnkgaSBKT0lOIHByb2R1Y3RzIHAgT04gaS5wcm9kdWN0X2lkID0gcC5pZAogICAgICAgICBXSEVSRSBpLnRlbmFudF9pZCA9ID8gQU5EIGkud2FyZWhvdXNlX2lkID0gP2AsCiAgICAgICAgW3JlcS50ZW5hbnRJZCwgdy5pZF0KICAgICAgKTsKICAgICAgdy5za3VfY291bnQgPSBzdGF0c1swXS5za3VfY291bnQ7CiAgICAgIHcudG90YWxfdmFsdWUgPSBzdGF0c1swXS50b3RhbF92YWx1ZTsKICAgIH0KCiAgICByZXMuanNvbih7IGNvZGU6IDAsIGRhdGE6IHJvd3MgfSk7CiAgfSBjYXRjaCAoZXJyKSB7CiAgICBjb25zb2xlLmVycm9yKCfojrflj5bku5PlupPliJfooajlpLHotKU6JywgZXJyKTsKICAgIHJlcy5zdGF0dXMoNTAwKS5qc29uKHsgY29kZTogNTAwLCBtZXNzYWdlOiAn6I635Y+W5LuT5bqT5YiX6KGo5aSx6LSlJyB9KTsKICB9Cn0pOwoKLy8g5paw5aKe5LuT5bqTCnJvdXRlci5wb3N0KCcvJywgcmVxdWlyZVJvbGUoJ293bmVyJywgJ21hbmFnZXInKSwgYXN5bmMgKHJlcSwgcmVzKSA9PiB7CiAgY29uc3QgY29ubiA9IGF3YWl0IHBvb2wuZ2V0Q29ubmVjdGlvbigpOwogIHRyeSB7CiAgICBjb25zdCB7IGNvZGUsIG5hbWUsIGFkZHJlc3MsIG1hbmFnZXIsIHBob25lLCBpc19kZWZhdWx0LCByZW1hcmsgfSA9IHJlcS5ib2R5OwogICAgaWYgKCFjb2RlIHx8ICFuYW1lKSByZXR1cm4gcmVzLnN0YXR1cyg0MDApLmpzb24oeyBjb2RlOiA0MDAsIG1lc3NhZ2U6ICfku5PlupPnvJbnoIHlkozlkI3np7DkuI3og73kuLrnqbonIH0pOwoKICAgIGF3YWl0IGNvbm4uYmVnaW5UcmFuc2FjdGlvbigpOwogICAgaWYgKGlzX2RlZmF1bHQpIHsKICAgICAgYXdhaXQgY29ubi5xdWVyeSgnVVBEQVRFIHdhcmVob3VzZXMgU0VUIGlzX2RlZmF1bHQgPSBGQUxTRSBXSEVSRSB0ZW5hbnRfaWQgPSA/JywgW3JlcS50ZW5hbnRJZF0pOwogICAgfQogICAgY29uc3QgW3Jlc3VsdF0gPSBhd2FpdCBjb25uLnF1ZXJ5KAogICAgICBgSU5TRVJUIElOVE8gd2FyZWhvdXNlcyAodGVuYW50X2lkLCBjb2RlLCBuYW1lLCBhZGRyZXNzLCBtYW5hZ2VyLCBwaG9uZSwgaXNfZGVmYXVsdCwgcmVtYXJrKQogICAgICAgVkFMVUVTICg/LCA/LCA/LCA/LCA/LCA/LCA/LCA/KWAsCiAgICAgIFtyZXEudGVuYW50SWQsIGNvZGUsIG5hbWUsIGFkZHJlc3MgfHwgbnVsbCwgbWFuYWdlciB8fCBudWxsLCBwaG9uZSB8fCBudWxsLCBpc19kZWZhdWx0IHx8IGZhbHNlLCByZW1hcmsgfHwgbnVsbF0KICAgICk7CiAgICBhd2FpdCBjb25uLmNvbW1pdCgpOwogICAgcmVzLmpzb24oeyBjb2RlOiAwLCBtZXNzYWdlOiAn5LuT5bqT5Yib5bu65oiQ5YqfJywgZGF0YTogeyBpZDogcmVzdWx0Lmluc2VydElkIH0gfSk7CiAgfSBjYXRjaCAoZXJyKSB7CiAgICBhd2FpdCBjb25uLnJvbGxiYWNrKCk7CiAgICBpZiAoZXJyLmNvZGUgPT09ICdFUl9EVVBfRU5UUlknKSByZXR1cm4gcmVzLnN0YXR1cyg0MDApLmpzb24oeyBjb2RlOiA0MDAsIG1lc3NhZ2U6ICfku5PlupPnvJbnoIHlt7LlrZjlnKgnIH0pOwogICAgcmVzLnN0YXR1cyg1MDApLmpzb24oeyBjb2RlOiA1MDAsIG1lc3NhZ2U6IGVyci5tZXNzYWdlIH0pOwogIH0gZmluYWxseSB7IGNvbm4ucmVsZWFzZSgpOyB9Cn0pOwoKLy8g5L+u5pS55LuT5bqTCnJvdXRlci5wdXQoJy86aWQnLCByZXF1aXJlUm9sZSgnb3duZXInLCAnbWFuYWdlcicpLCBhc3luYyAocmVxLCByZXMpID0+IHsKICBjb25zdCBjb25uID0gYXdhaXQgcG9vbC5nZXRDb25uZWN0aW9uKCk7CiAgdHJ5IHsKICAgIGNvbnN0IHsgY29kZSwgbmFtZSwgYWRkcmVzcywgbWFuYWdlciwgcGhvbmUsIGlzX2RlZmF1bHQsIHN0YXR1cywgcmVtYXJrIH0gPSByZXEuYm9keTsKICAgIGF3YWl0IGNvbm4uYmVnaW5UcmFuc2FjdGlvbigpOwogICAgaWYgKGlzX2RlZmF1bHQpIHsKICAgICAgYXdhaXQgY29ubi5xdWVyeSgnVVBEQVRFIHdhcmVob3VzZXMgU0VUIGlzX2RlZmF1bHQgPSBGQUxTRSBXSEVSRSB0ZW5hbnRfaWQgPSA/IEFORCBpZCAhPSA/JywgW3JlcS50ZW5hbnRJZCwgcmVxLnBhcmFtcy5pZF0pOwogICAgfQogICAgYXdhaXQgY29ubi5xdWVyeSgKICAgICAgYFVQREFURSB3YXJlaG91c2VzIFNFVCBjb2RlPT8sIG5hbWU9PywgYWRkcmVzcz0/LCBtYW5hZ2VyPT8sIHBob25lPT8sIGlzX2RlZmF1bHQ9Pywgc3RhdHVzPT8sIHJlbWFyaz0/CiAgICAgICBXSEVSRSBpZD0/IEFORCB0ZW5hbnRfaWQ9P2AsCiAgICAgIFtjb2RlLCBuYW1lLCBhZGRyZXNzIHx8IG51bGwsIG1hbmFnZXIgfHwgbnVsbCwgcGhvbmUgfHwgbnVsbCwgaXNfZGVmYXVsdCB8fCBmYWxzZSwgc3RhdHVzIHx8ICdhY3RpdmUnLCByZW1hcmsgfHwgbnVsbCwgcmVxLnBhcmFtcy5pZCwgcmVxLnRlbmFudElkXQogICAgKTsKICAgIGF3YWl0IGNvbm4uY29tbWl0KCk7CiAgICByZXMuanNvbih7IGNvZGU6IDAsIG1lc3NhZ2U6ICfku5PlupPmm7TmlrDmiJDlip8nIH0pOwogIH0gY2F0Y2ggKGVycikgewogICAgYXdhaXQgY29ubi5yb2xsYmFjaygpOwogICAgcmVzLnN0YXR1cyg1MDApLmpzb24oeyBjb2RlOiA1MDAsIG1lc3NhZ2U6IGVyci5tZXNzYWdlIH0pOwogIH0gZmluYWxseSB7IGNvbm4ucmVsZWFzZSgpOyB9Cn0pOwoKLy8g5Yig6Zmk5LuT5bqT77yI6ZyA5peg5bqT5a2Y77yJCnJvdXRlci5kZWxldGUoJy86aWQnLCByZXF1aXJlUm9sZSgnb3duZXInKSwgYXN5bmMgKHJlcSwgcmVzKSA9PiB7CiAgdHJ5IHsKICAgIGNvbnN0IFtpbnZdID0gYXdhaXQgcG9vbC5xdWVyeSgKICAgICAgJ1NFTEVDVCBDT1VOVCgqKSBhcyBjbnQgRlJPTSBpbnZlbnRvcnkgV0hFUkUgdGVuYW50X2lkID0gPyBBTkQgd2FyZWhvdXNlX2lkID0gPyBBTkQgcXVhbnRpdHkgPiAwJywKICAgICAgW3JlcS50ZW5hbnRJZCwgcmVxLnBhcmFtcy5pZF0KICAgICk7CiAgICBpZiAoaW52WzBdLmNudCA+IDApIHJldHVybiByZXMuc3RhdHVzKDQwMCkuanNvbih7IGNvZGU6IDQwMCwgbWVzc2FnZTogJ+ivpeS7k+W6k+i/mOacieW6k+WtmO+8jOaXoOazleWIoOmZpCcgfSk7CiAgICBhd2FpdCBwb29sLnF1ZXJ5KCdERUxFVEUgRlJPTSB3YXJlaG91c2VzIFdIRVJFIGlkID0gPyBBTkQgdGVuYW50X2lkID0gPyBBTkQgaXNfZGVmYXVsdCA9IEZBTFNFJywgW3JlcS5wYXJhbXMuaWQsIHJlcS50ZW5hbnRJZF0pOwogICAgcmVzLmpzb24oeyBjb2RlOiAwLCBtZXNzYWdlOiAn5LuT5bqT5bey5Yig6ZmkJyB9KTsKICB9IGNhdGNoIChlcnIpIHsKICAgIHJlcy5zdGF0dXMoNTAwKS5qc29uKHsgY29kZTogNTAwLCBtZXNzYWdlOiBlcnIubWVzc2FnZSB9KTsKICB9Cn0pOwoKbW9kdWxlLmV4cG9ydHMgPSByb3V0ZXI7Cg==
+const express = require('express');
+const pool = require('../config/db');
+const { authenticate, requireRole } = require('../middleware/auth');
+
+const router = express.Router();
+router.use(authenticate);
+
+// 仓库列表
+router.get('/', async (req, res) => {
+  try {
+    const { keyword, status } = req.query;
+    let where = 'WHERE tenant_id = ?';
+    const params = [req.tenantId];
+    if (keyword) { where += ' AND (name LIKE ? OR code LIKE ?)'; params.push(`%${keyword}%`, `%${keyword}%`); }
+    if (status) { where += ' AND status = ?'; params.push(status); }
+    const [rows] = await pool.query(`SELECT * FROM warehouses ${where} ORDER BY is_default DESC, sort_order ASC, id ASC`, params);
+
+    // 统计每个仓库的库存品种数和总价值
+    for (const w of rows) {
+      const [stats] = await pool.query(
+        `SELECT COUNT(*) as sku_count, COALESCE(SUM(i.quantity * p.cost_price), 0) as total_value
+         FROM inventory i JOIN products p ON i.product_id = p.id
+         WHERE i.tenant_id = ? AND i.warehouse_id = ?`,
+        [req.tenantId, w.id]
+      );
+      w.sku_count = stats[0].sku_count;
+      w.total_value = stats[0].total_value;
+    }
+
+    res.json({ code: 0, data: rows });
+  } catch (err) {
+    console.error('获取仓库列表失败:', err);
+    res.status(500).json({ code: 500, message: '获取仓库列表失败' });
+  }
+});
+
+// 新增仓库
+router.post('/', requireRole('owner', 'manager'), async (req, res) => {
+  const conn = await pool.getConnection();
+  try {
+    const { code, name, address, manager, phone, is_default, remark } = req.body;
+    if (!code || !name) return res.status(400).json({ code: 400, message: '仓库编码和名称不能为空' });
+
+    await conn.beginTransaction();
+    if (is_default) {
+      await conn.query('UPDATE warehouses SET is_default = FALSE WHERE tenant_id = ?', [req.tenantId]);
+    }
+    const [result] = await conn.query(
+      `INSERT INTO warehouses (tenant_id, code, name, address, manager, phone, is_default, remark)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [req.tenantId, code, name, address || null, manager || null, phone || null, is_default || false, remark || null]
+    );
+    await conn.commit();
+    res.json({ code: 0, message: '仓库创建成功', data: { id: result.insertId } });
+  } catch (err) {
+    await conn.rollback();
+    if (err.code === 'ER_DUP_ENTRY') return res.status(400).json({ code: 400, message: '仓库编码已存在' });
+    res.status(500).json({ code: 500, message: err.message });
+  } finally { conn.release(); }
+});
+
+// 修改仓库
+router.put('/:id', requireRole('owner', 'manager'), async (req, res) => {
+  const conn = await pool.getConnection();
+  try {
+    const { code, name, address, manager, phone, is_default, status, remark } = req.body;
+    await conn.beginTransaction();
+    if (is_default) {
+      await conn.query('UPDATE warehouses SET is_default = FALSE WHERE tenant_id = ? AND id != ?', [req.tenantId, req.params.id]);
+    }
+    await conn.query(
+      `UPDATE warehouses SET code=?, name=?, address=?, manager=?, phone=?, is_default=?, status=?, remark=?
+       WHERE id=? AND tenant_id=?`,
+      [code, name, address || null, manager || null, phone || null, is_default || false, status || 'active', remark || null, req.params.id, req.tenantId]
+    );
+    await conn.commit();
+    res.json({ code: 0, message: '仓库更新成功' });
+  } catch (err) {
+    await conn.rollback();
+    res.status(500).json({ code: 500, message: err.message });
+  } finally { conn.release(); }
+});
+
+// 删除仓库（需无库存）
+router.delete('/:id', requireRole('owner'), async (req, res) => {
+  try {
+    const [inv] = await pool.query(
+      'SELECT COUNT(*) as cnt FROM inventory WHERE tenant_id = ? AND warehouse_id = ? AND quantity > 0',
+      [req.tenantId, req.params.id]
+    );
+    if (inv[0].cnt > 0) return res.status(400).json({ code: 400, message: '该仓库还有库存，无法删除' });
+    await pool.query('DELETE FROM warehouses WHERE id = ? AND tenant_id = ? AND is_default = FALSE', [req.params.id, req.tenantId]);
+    res.json({ code: 0, message: '仓库已删除' });
+  } catch (err) {
+    res.status(500).json({ code: 500, message: err.message });
+  }
+});
+
+module.exports = router;

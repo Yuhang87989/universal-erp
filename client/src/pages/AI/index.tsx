@@ -1,1 +1,64 @@
-aW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0JzsKaW1wb3J0IHsgVGFicywgVHlwb2dyYXBoeSB9IGZyb20gJ2FudGQnOwppbXBvcnQgeyBNZXNzYWdlT3V0bGluZWQsIFRodW5kZXJib2x0T3V0bGluZWQsIFNob3BwaW5nQ2FydE91dGxpbmVkLCBFZGl0T3V0bGluZWQsIExpbmVDaGFydE91dGxpbmVkLCBTY2FuT3V0bGluZWQsIFNldHRpbmdPdXRsaW5lZCB9IGZyb20gJ0BhbnQtZGVzaWduL2ljb25zJzsKaW1wb3J0IEFJQ2hhdCBmcm9tICcuL0FJQ2hhdCc7CmltcG9ydCBBSURpYWdub3NpcyBmcm9tICcuL0FJRGlhZ25vc2lzJzsKaW1wb3J0IEFJUmVwbGVuaXNoIGZyb20gJy4vQUlSZXBsZW5pc2gnOwppbXBvcnQgQUlDb3B5d3JpdGluZyBmcm9tICcuL0FJQ29weXdyaXRpbmcnOwppbXBvcnQgQUlTZXR0aW5ncyBmcm9tICcuL0FJU2V0dGluZ3MnOwoKY29uc3QgeyBUaXRsZSB9ID0gVHlwb2dyYXBoeTsKCmNvbnN0IEFJQ2VudGVyOiBSZWFjdC5GQyA9ICgpID0+IHsKICBjb25zdCBpdGVtcyA9IFsKICAgIHsKICAgICAga2V5OiAnY2hhdCcsCiAgICAgIGxhYmVsOiA8c3Bhbj48TWVzc2FnZU91dGxpbmVkIC8+IEFJ5Yqp5omL5a+56K+dPC9zcGFuPiwKICAgICAgY2hpbGRyZW46IDxBSUNoYXQgLz4KICAgIH0sCiAgICB7CiAgICAgIGtleTogJ2RpYWdub3NpcycsCiAgICAgIGxhYmVsOiA8c3Bhbj48VGh1bmRlcmJvbHRPdXRsaW5lZCAvPiDmmbrog73nu4/okKXor4rmlq08L3NwYW4+LAogICAgICBjaGlsZHJlbjogPEFJRGlhZ25vc2lzIC8+CiAgICB9LAogICAgewogICAgICBrZXk6ICdyZXBsZW5pc2gnLAogICAgICBsYWJlbDogPHNwYW4+PFNob3BwaW5nQ2FydE91dGxpbmVkIC8+IOaZuuiDveihpei0p+W7uuiurjwvc3Bhbj4sCiAgICAgIGNoaWxkcmVuOiA8QUlSZXBsZW5pc2ggLz4KICAgIH0sCiAgICB7CiAgICAgIGtleTogJ2NvcHl3cml0aW5nJywKICAgICAgbGFiZWw6IDxzcGFuPjxFZGl0T3V0bGluZWQgLz4gQUnmlofmoYjnlJ/miJA8L3NwYW4+LAogICAgICBjaGlsZHJlbjogPEFJQ29weXdyaXRpbmcgLz4KICAgIH0sCiAgICB7CiAgICAgIGtleTogJ2ZvcmVjYXN0JywKICAgICAgbGFiZWw6IDxzcGFuPjxMaW5lQ2hhcnRPdXRsaW5lZCAvPiDplIDllK7pooTmtYs8L3NwYW4+LAogICAgICBkaXNhYmxlZDogdHJ1ZSwKICAgICAgY2hpbGRyZW46IDxkaXYgc3R5bGU9e3sgcGFkZGluZzogNDAsIHRleHRBbGlnbjogJ2NlbnRlcicsIGNvbG9yOiAnIzk5OScgfX0+6ZSA5ZSu6aKE5rWL5Yqf6IO95byA5Y+R5Lit77yM5pWs6K+35pyf5b6FPC9kaXY+CiAgICB9LAogICAgewogICAgICBrZXk6ICdvY3InLAogICAgICBsYWJlbDogPHNwYW4+PFNjYW5PdXRsaW5lZCAvPiDnpajmja7or4bliKs8L3NwYW4+LAogICAgICBkaXNhYmxlZDogdHJ1ZSwKICAgICAgY2hpbGRyZW46IDxkaXYgc3R5bGU9e3sgcGFkZGluZzogNDAsIHRleHRBbGlnbjogJ2NlbnRlcicsIGNvbG9yOiAnIzk5OScgfX0+T0NS56Wo5o2u6K+G5Yir5Yqf6IO95byA5Y+R5Lit77yM5pWs6K+35pyf5b6FPC9kaXY+CiAgICB9LAogICAgewogICAgICBrZXk6ICdzZXR0aW5ncycsCiAgICAgIGxhYmVsOiA8c3Bhbj48U2V0dGluZ091dGxpbmVkIC8+IEFJ6K6+572uPC9zcGFuPiwKICAgICAgY2hpbGRyZW46IDxBSVNldHRpbmdzIC8+CiAgICB9CiAgXTsKCiAgcmV0dXJuICgKICAgIDxkaXY+CiAgICAgIDxUaXRsZSBsZXZlbD17NH0gc3R5bGU9e3sgbWFyZ2luQm90dG9tOiAxNiB9fT4KICAgICAgICDwn6SWIEFJ5pm66IO95Lit5b+DCiAgICAgIDwvVGl0bGU+CiAgICAgIDxUYWJzIGl0ZW1zPXtpdGVtc30gZGVmYXVsdEFjdGl2ZUtleT0iY2hhdCIgc2l6ZT0ibGFyZ2UiCiAgICAgICAgdGFiQmFyU3R5bGU9e3sgbWFyZ2luQm90dG9tOiAxNiB9fSAvPgogICAgPC9kaXY+CiAgKTsKfTsKCmV4cG9ydCBkZWZhdWx0IEFJQ2VudGVyOwo=
+import React from 'react';
+import { Tabs, Typography } from 'antd';
+import { MessageOutlined, ThunderboltOutlined, ShoppingCartOutlined, EditOutlined, LineChartOutlined, ScanOutlined, SettingOutlined } from '@ant-design/icons';
+import AIChat from './AIChat';
+import AIDiagnosis from './AIDiagnosis';
+import AIReplenish from './AIReplenish';
+import AICopywriting from './AICopywriting';
+import AISettings from './AISettings';
+
+const { Title } = Typography;
+
+const AICenter: React.FC = () => {
+  const items = [
+    {
+      key: 'chat',
+      label: <span><MessageOutlined /> AI助手对话</span>,
+      children: <AIChat />
+    },
+    {
+      key: 'diagnosis',
+      label: <span><ThunderboltOutlined /> 智能经营诊断</span>,
+      children: <AIDiagnosis />
+    },
+    {
+      key: 'replenish',
+      label: <span><ShoppingCartOutlined /> 智能补货建议</span>,
+      children: <AIReplenish />
+    },
+    {
+      key: 'copywriting',
+      label: <span><EditOutlined /> AI文案生成</span>,
+      children: <AICopywriting />
+    },
+    {
+      key: 'forecast',
+      label: <span><LineChartOutlined /> 销售预测</span>,
+      disabled: true,
+      children: <div style={{ padding: 40, textAlign: 'center', color: '#999' }}>销售预测功能开发中，敬请期待</div>
+    },
+    {
+      key: 'ocr',
+      label: <span><ScanOutlined /> 票据识别</span>,
+      disabled: true,
+      children: <div style={{ padding: 40, textAlign: 'center', color: '#999' }}>OCR票据识别功能开发中，敬请期待</div>
+    },
+    {
+      key: 'settings',
+      label: <span><SettingOutlined /> AI设置</span>,
+      children: <AISettings />
+    }
+  ];
+
+  return (
+    <div>
+      <Title level={4} style={{ marginBottom: 16 }}>
+        🤖 AI智能中心
+      </Title>
+      <Tabs items={items} defaultActiveKey="chat" size="large"
+        tabBarStyle={{ marginBottom: 16 }} />
+    </div>
+  );
+};
+
+export default AICenter;

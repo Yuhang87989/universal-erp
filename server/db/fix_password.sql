@@ -1,1 +1,4 @@
-LS0g6YeN572u5omA5pyJYWRtaW7nlKjmiLflr4bnoIHkuLphZG1pbjEyMwpTRVQgQG5ld19oYXNoID0gJyQyYiQxMCQyc1RSNmpVUXRnNkNsRzJ3ZzV1Y1AuaC5xTG1QZ1pNNzVJQ3Vad1dhU0ovWU10UUtZZU9MaSc7ClVQREFURSB1c2VycyBTRVQgcGFzc3dvcmRfaGFzaCA9IEBuZXdfaGFzaCBXSEVSRSB1c2VybmFtZSA9ICdhZG1pbic7ClNFTEVDVCBpZCwgdXNlcm5hbWUsIHRlbmFudF9pZCwgcmVhbF9uYW1lLCBzdGF0dXMgRlJPTSB1c2VyczsK
+-- 重置所有admin用户密码为admin123
+SET @new_hash = '$2b$10$2sTR6jUQtg6ClG2wg5ucP.h.qLmPgZM75ICuZwWaSJ/YMtQKYeOLi';
+UPDATE users SET password_hash = @new_hash WHERE username = 'admin';
+SELECT id, username, tenant_id, real_name, status FROM users;

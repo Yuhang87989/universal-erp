@@ -1,1 +1,139 @@
-aW1wb3J0IFJlYWN0LCB7IHVzZVN0YXRlLCB1c2VFZmZlY3QgfSBmcm9tICdyZWFjdCc7CmltcG9ydCB7IENhcmQsIEZvcm0sIElucHV0LCBCdXR0b24sIFR5cG9ncmFwaHksIEFsZXJ0LCBTcGFjZSwgbWVzc2FnZSwgRGl2aWRlciwgVGFnIH0gZnJvbSAnYW50ZCc7CmltcG9ydCB7IEtleU91dGxpbmVkLCBBcGlPdXRsaW5lZCwgVGh1bmRlcmJvbHRPdXRsaW5lZCwgQ2hlY2tDaXJjbGVGaWxsZWQsIEV4Y2xhbWF0aW9uQ2lyY2xlRmlsbGVkIH0gZnJvbSAnQGFudC1kZXNpZ24vaWNvbnMnOwppbXBvcnQgcmVxdWVzdCBmcm9tICcuLi8uLi9hcGkvcmVxdWVzdCc7Cgpjb25zdCB7IFRpdGxlLCBUZXh0LCBQYXJhZ3JhcGggfSA9IFR5cG9ncmFwaHk7Cgpjb25zdCBBSVNldHRpbmdzOiBSZWFjdC5GQyA9ICgpID0+IHsKICBjb25zdCBbZm9ybV0gPSBGb3JtLnVzZUZvcm0oKTsKICBjb25zdCBbbG9hZGluZywgc2V0TG9hZGluZ10gPSB1c2VTdGF0ZShmYWxzZSk7CiAgY29uc3QgW3Rlc3RpbmcsIHNldFRlc3RpbmddID0gdXNlU3RhdGUoZmFsc2UpOwogIGNvbnN0IFtjb25maWcsIHNldENvbmZpZ10gPSB1c2VTdGF0ZTxhbnk+KG51bGwpOwoKICBjb25zdCBsb2FkID0gYXN5bmMgKCkgPT4gewogICAgdHJ5IHsKICAgICAgY29uc3QgcmVzID0gYXdhaXQgcmVxdWVzdC5nZXQoJy9haS9jb25maWcnKTsKICAgICAgY29uc3QgZGF0YSA9IHJlcy5kYXRhPy5kYXRhIHx8IHJlcy5kYXRhIHx8IHt9OwogICAgICBzZXRDb25maWcoZGF0YSk7CiAgICAgIGZvcm0uc2V0RmllbGRzVmFsdWUoewogICAgICAgIGFwaV91cmw6IGRhdGEuYXBpX3VybCB8fCAnaHR0cHM6Ly9hcGkuZGVlcHNlZWsuY29tL3YxL2NoYXQvY29tcGxldGlvbnMnLAogICAgICAgIG1vZGVsOiBkYXRhLm1vZGVsIHx8ICdkZWVwc2Vlay1jaGF0JywKICAgICAgICBhcGlfa2V5OiAnJwogICAgICB9KTsKICAgIH0gY2F0Y2ggKGUpIHsgLyogaWdub3JlICovIH0KICB9OwoKICB1c2VFZmZlY3QoKCkgPT4geyBsb2FkKCk7IH0sIFtdKTsKCiAgY29uc3QgaGFuZGxlU2F2ZSA9IGFzeW5jICgpID0+IHsKICAgIHRyeSB7CiAgICAgIGNvbnN0IHZhbHVlcyA9IGF3YWl0IGZvcm0udmFsaWRhdGVGaWVsZHMoKTsKICAgICAgc2V0TG9hZGluZyh0cnVlKTsKICAgICAgY29uc3QgcGF5bG9hZDogYW55ID0gewogICAgICAgIGFwaV91cmw6IHZhbHVlcy5hcGlfdXJsLAogICAgICAgIG1vZGVsOiB2YWx1ZXMubW9kZWwKICAgICAgfTsKICAgICAgLy8gQVBJIEtleSDnlZnnqbrliJnkuI3kv67mlLkKICAgICAgaWYgKHZhbHVlcy5hcGlfa2V5ICYmIHZhbHVlcy5hcGlfa2V5LnRyaW0oKSkgewogICAgICAgIHBheWxvYWQuYXBpX2tleSA9IHZhbHVlcy5hcGlfa2V5LnRyaW0oKTsKICAgICAgfQogICAgICBhd2FpdCByZXF1ZXN0LnB1dCgnL2FpL2NvbmZpZycsIHBheWxvYWQpOwogICAgICBtZXNzYWdlLnN1Y2Nlc3MoJ0FJ6YWN572u5bey5L+d5a2YJyk7CiAgICAgIGZvcm0uc2V0RmllbGRWYWx1ZSgnYXBpX2tleScsICcnKTsKICAgICAgbG9hZCgpOwogICAgfSBjYXRjaCAoZTogYW55KSB7CiAgICAgIGlmIChlLmVycm9yRmllbGRzKSByZXR1cm47CiAgICAgIG1lc3NhZ2UuZXJyb3IoZS5yZXNwb25zZT8uZGF0YT8ubWVzc2FnZSB8fCAn5L+d5a2Y5aSx6LSlJyk7CiAgICB9CiAgICBzZXRMb2FkaW5nKGZhbHNlKTsKICB9OwoKICBjb25zdCBoYW5kbGVUZXN0ID0gYXN5bmMgKCkgPT4gewogICAgc2V0VGVzdGluZyh0cnVlKTsKICAgIHRyeSB7CiAgICAgIC8vIOWFiOS/neWtmOWGjea1i+ivle+8jOehruS/neacgOaWsOmFjee9rueUn+aViAogICAgICBjb25zdCB2YWx1ZXMgPSBhd2FpdCBmb3JtLnZhbGlkYXRlRmllbGRzKCk7CiAgICAgIGNvbnN0IHBheWxvYWQ6IGFueSA9IHsgYXBpX3VybDogdmFsdWVzLmFwaV91cmwsIG1vZGVsOiB2YWx1ZXMubW9kZWwgfTsKICAgICAgaWYgKHZhbHVlcy5hcGlfa2V5ICYmIHZhbHVlcy5hcGlfa2V5LnRyaW0oKSkgcGF5bG9hZC5hcGlfa2V5ID0gdmFsdWVzLmFwaV9rZXkudHJpbSgpOwogICAgICBhd2FpdCByZXF1ZXN0LnB1dCgnL2FpL2NvbmZpZycsIHBheWxvYWQpOwogICAgICBjb25zdCByZXMgPSBhd2FpdCByZXF1ZXN0LnBvc3QoJy9haS90ZXN0Jyk7CiAgICAgIG1lc3NhZ2Uuc3VjY2VzcyhyZXMubWVzc2FnZSB8fCAn6L+e5o6l5oiQ5YqfJyk7CiAgICAgIGxvYWQoKTsKICAgIH0gY2F0Y2ggKGU6IGFueSkgewogICAgICBtZXNzYWdlLmVycm9yKGUucmVzcG9uc2U/LmRhdGE/Lm1lc3NhZ2UgfHwgJ+i/nuaOpeWksei0pe+8jOivt+ajgOafpUFQSSBLZXknKTsKICAgIH0KICAgIHNldFRlc3RpbmcoZmFsc2UpOwogIH07CgogIHJldHVybiAoCiAgICA8ZGl2PgogICAgICA8VGl0bGUgbGV2ZWw9ezR9IHN0eWxlPXt7IG1hcmdpbkJvdHRvbTogMTYgfX0+CiAgICAgICAgPEFwaU91dGxpbmVkIHN0eWxlPXt7IGNvbG9yOiAnIzcyMmVkMScgfX0gLz4gQUnmjqXlj6Porr7nva4KICAgICAgPC9UaXRsZT4KCiAgICAgIHtjb25maWc/Lmhhc19hcGlfa2V5ID8gKAogICAgICAgIDxBbGVydAogICAgICAgICAgdHlwZT0ic3VjY2VzcyIKICAgICAgICAgIHNob3dJY29uCiAgICAgICAgICBpY29uPXs8Q2hlY2tDaXJjbGVGaWxsZWQgLz59CiAgICAgICAgICBtZXNzYWdlPSJBSeacjeWKoeW3sumFjee9riIKICAgICAgICAgIGRlc2NyaXB0aW9uPXsKICAgICAgICAgICAgPFNwYWNlIGRpcmVjdGlvbj0idmVydGljYWwiIHNpemU9ezJ9PgogICAgICAgICAgICAgIDxUZXh0PuW9k+WJjUtlee+8mjxUYWcgY29sb3I9ImdyZWVuIj57Y29uZmlnLmFwaV9rZXlfcHJldmlld308L1RhZz57Y29uZmlnLnVzaW5nX2VudiAmJiA8VGFnPuezu+e7n+m7mOiupDwvVGFnPn08L1RleHQ+CiAgICAgICAgICAgICAgPFRleHQgdHlwZT0ic2Vjb25kYXJ5Ij7mqKHlnovvvJp7Y29uZmlnLm1vZGVsfeOAgOaOpeWPo++8mntjb25maWcuYXBpX3VybH08L1RleHQ+CiAgICAgICAgICAgIDwvU3BhY2U+CiAgICAgICAgICB9CiAgICAgICAgICBzdHlsZT17eyBtYXJnaW5Cb3R0b206IDE2IH19CiAgICAgICAgLz4KICAgICAgKSA6ICgKICAgICAgICA8QWxlcnQKICAgICAgICAgIHR5cGU9Indhcm5pbmciCiAgICAgICAgICBzaG93SWNvbgogICAgICAgICAgaWNvbj17PEV4Y2xhbWF0aW9uQ2lyY2xlRmlsbGVkIC8+fQogICAgICAgICAgbWVzc2FnZT0i5bCa5pyq6YWN572uQVBJIEtleSIKICAgICAgICAgIGRlc2NyaXB0aW9uPSLor7fliY3lvoAgcGxhdGZvcm0uZGVlcHNlZWsuY29tIOazqOWGjOW5tuiOt+WPlkFQSSBLZXnvvIzloavlhaXkuIvmlrnkv53lrZjlkI7ljbPlj6/kvb/nlKhBSeWKn+iDveOAgiIKICAgICAgICAgIHN0eWxlPXt7IG1hcmdpbkJvdHRvbTogMTYgfX0KICAgICAgICAvPgogICAgICApfQoKICAgICAgPENhcmQgdGl0bGU9IkRlZXBTZWVrIOaOpeWPo+mFjee9riIgc2l6ZT0ic21hbGwiPgogICAgICAgIDxGb3JtIGZvcm09e2Zvcm19IGxheW91dD0idmVydGljYWwiIHN0eWxlPXt7IG1heFdpZHRoOiA2MDAgfX0+CiAgICAgICAgICA8Rm9ybS5JdGVtIG5hbWU9ImFwaV91cmwiIGxhYmVsPSLmjqXlj6PlnLDlnYAiIHJ1bGVzPXtbeyByZXF1aXJlZDogdHJ1ZSwgbWVzc2FnZTogJ+ivt+i+k+WFpeaOpeWPo+WcsOWdgCcgfV19PgogICAgICAgICAgICA8SW5wdXQgcHJlZml4PXs8QXBpT3V0bGluZWQgLz59IHBsYWNlaG9sZGVyPSJodHRwczovL2FwaS5kZWVwc2Vlay5jb20vdjEvY2hhdC9jb21wbGV0aW9ucyIgLz4KICAgICAgICAgIDwvRm9ybS5JdGVtPgogICAgICAgICAgPEZvcm0uSXRlbSBuYW1lPSJtb2RlbCIgbGFiZWw9IuaooeWei+WQjeensCIgcnVsZXM9e1t7IHJlcXVpcmVkOiB0cnVlLCBtZXNzYWdlOiAn6K+36L6T5YWl5qih5Z6L5ZCN56ewJyB9XX0+CiAgICAgICAgICAgIDxJbnB1dCBwcmVmaXg9ezxUaHVuZGVyYm9sdE91dGxpbmVkIC8+fSBwbGFjZWhvbGRlcj0iZGVlcHNlZWstY2hhdCIgLz4KICAgICAgICAgIDwvRm9ybS5JdGVtPgogICAgICAgICAgPEZvcm0uSXRlbSBuYW1lPSJhcGlfa2V5IiBsYWJlbD0iQVBJIEtleSIKICAgICAgICAgICAgdG9vbHRpcD0i5aGr5YaZ5paw55qES2V55bCG6KaG55uW5Y6f5pyJ6YWN572u77yb55WZ56m65YiZ5LiN5L+u5pS544CC5riF56m66K+35L2/55So5LiL5pa55oyJ6ZKu44CCIj4KICAgICAgICAgICAgPElucHV0LlBhc3N3b3JkIHByZWZpeD17PEtleU91dGxpbmVkIC8+fSBwbGFjZWhvbGRlcj0ic2stLi4uIiBhdXRvQ29tcGxldGU9Im5ldy1wYXNzd29yZCIgLz4KICAgICAgICAgIDwvRm9ybS5JdGVtPgogICAgICAgICAgPFNwYWNlPgogICAgICAgICAgICA8QnV0dG9uIHR5cGU9InByaW1hcnkiIG9uQ2xpY2s9e2hhbmRsZVNhdmV9IGxvYWRpbmc9e2xvYWRpbmd9PuS/neWtmOmFjee9rjwvQnV0dG9uPgogICAgICAgICAgICA8QnV0dG9uIG9uQ2xpY2s9e2hhbmRsZVRlc3R9IGxvYWRpbmc9e3Rlc3Rpbmd9Pua1i+ivlei/nuaOpTwvQnV0dG9uPgogICAgICAgICAgPC9TcGFjZT4KICAgICAgICA8L0Zvcm0+CgogICAgICAgIDxEaXZpZGVyIC8+CgogICAgICAgIDxBbGVydAogICAgICAgICAgdHlwZT0iaW5mbyIKICAgICAgICAgIHNob3dJY29uCiAgICAgICAgICBtZXNzYWdlPSLkvb/nlKjor7TmmI4iCiAgICAgICAgICBkZXNjcmlwdGlvbj17CiAgICAgICAgICAgIDx1bCBzdHlsZT17eyBtYXJnaW5Cb3R0b206IDAsIHBhZGRpbmdMZWZ0OiAyMCB9fT4KICAgICAgICAgICAgICA8bGk+QVBJIEtleSDkv53lrZjlnKjmgqjnmoTnp5/miLfphY3nva7kuK3vvIzliqDlr4blrZjlgqjvvIzkuI3kvJrmmI7mlofov5Tlm57liY3nq688L2xpPgogICAgICAgICAgICAgIDxsaT7mlK/mjIHpmo/ml7bmm7TmjaLkuLrmgqjoh6rlt7HnmoREZWVwU2Vla+i0puWPt0tlee+8jOi0ueeUqOeUseaCqOeahERlZXBTZWVr6LSm5oi35om/5ouFPC9saT4KICAgICAgICAgICAgICA8bGk+5Lmf5Y+v5pu05o2i5YW85a65T3BlbkFJ5qC85byP55qE5YW25LuW5o6l5Y+j5Zyw5Z2A5ZKM5qih5Z6L5ZCN56ewPC9saT4KICAgICAgICAgICAgICA8bGk+5aaC5pyN5Yqh5Zmo5bey6YWN572u57O757uf57qnS2V577yI546v5aKD5Y+Y6YeP77yJ77yM5LiN5aGr5YiZ6buY6K6k5L2/55So57O757ufS2V5PC9saT4KICAgICAgICAgICAgICA8bGk+6I635Y+WQVBJIEtlee+8mjxhIGhyZWY9Imh0dHBzOi8vcGxhdGZvcm0uZGVlcHNlZWsuY29tIiB0YXJnZXQ9Il9ibGFuayIgcmVsPSJub3JlZmVycmVyIj5wbGF0Zm9ybS5kZWVwc2Vlay5jb208L2E+PC9saT4KICAgICAgICAgICAgPC91bD4KICAgICAgICAgIH0KICAgICAgICAvPgogICAgICA8L0NhcmQ+CiAgICA8L2Rpdj4KICApOwp9OwoKZXhwb3J0IGRlZmF1bHQgQUlTZXR0aW5nczsK
+import React, { useState, useEffect } from 'react';
+import { Card, Form, Input, Button, Typography, Alert, Space, message, Divider, Tag } from 'antd';
+import { KeyOutlined, ApiOutlined, ThunderboltOutlined, CheckCircleFilled, ExclamationCircleFilled } from '@ant-design/icons';
+import request from '../../api/request';
+
+const { Title, Text, Paragraph } = Typography;
+
+const AISettings: React.FC = () => {
+  const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
+  const [testing, setTesting] = useState(false);
+  const [config, setConfig] = useState<any>(null);
+
+  const load = async () => {
+    try {
+      const res = await request.get('/ai/config');
+      const data = res.data?.data || res.data || {};
+      setConfig(data);
+      form.setFieldsValue({
+        api_url: data.api_url || 'https://api.deepseek.com/v1/chat/completions',
+        model: data.model || 'deepseek-chat',
+        api_key: ''
+      });
+    } catch (e) { /* ignore */ }
+  };
+
+  useEffect(() => { load(); }, []);
+
+  const handleSave = async () => {
+    try {
+      const values = await form.validateFields();
+      setLoading(true);
+      const payload: any = {
+        api_url: values.api_url,
+        model: values.model
+      };
+      // API Key 留空则不修改
+      if (values.api_key && values.api_key.trim()) {
+        payload.api_key = values.api_key.trim();
+      }
+      await request.put('/ai/config', payload);
+      message.success('AI配置已保存');
+      form.setFieldValue('api_key', '');
+      load();
+    } catch (e: any) {
+      if (e.errorFields) return;
+      message.error(e.response?.data?.message || '保存失败');
+    }
+    setLoading(false);
+  };
+
+  const handleTest = async () => {
+    setTesting(true);
+    try {
+      // 先保存再测试，确保最新配置生效
+      const values = await form.validateFields();
+      const payload: any = { api_url: values.api_url, model: values.model };
+      if (values.api_key && values.api_key.trim()) payload.api_key = values.api_key.trim();
+      await request.put('/ai/config', payload);
+      const res = await request.post('/ai/test');
+      message.success(res.message || '连接成功');
+      load();
+    } catch (e: any) {
+      message.error(e.response?.data?.message || '连接失败，请检查API Key');
+    }
+    setTesting(false);
+  };
+
+  return (
+    <div>
+      <Title level={4} style={{ marginBottom: 16 }}>
+        <ApiOutlined style={{ color: '#722ed1' }} /> AI接口设置
+      </Title>
+
+      {config?.has_api_key ? (
+        <Alert
+          type="success"
+          showIcon
+          icon={<CheckCircleFilled />}
+          message="AI服务已配置"
+          description={
+            <Space direction="vertical" size={2}>
+              <Text>当前Key：<Tag color="green">{config.api_key_preview}</Tag>{config.using_env && <Tag>系统默认</Tag>}</Text>
+              <Text type="secondary">模型：{config.model}　接口：{config.api_url}</Text>
+            </Space>
+          }
+          style={{ marginBottom: 16 }}
+        />
+      ) : (
+        <Alert
+          type="warning"
+          showIcon
+          icon={<ExclamationCircleFilled />}
+          message="尚未配置API Key"
+          description="请前往 platform.deepseek.com 注册并获取API Key，填入下方保存后即可使用AI功能。"
+          style={{ marginBottom: 16 }}
+        />
+      )}
+
+      <Card title="DeepSeek 接口配置" size="small">
+        <Form form={form} layout="vertical" style={{ maxWidth: 600 }}>
+          <Form.Item name="api_url" label="接口地址" rules={[{ required: true, message: '请输入接口地址' }]}>
+            <Input prefix={<ApiOutlined />} placeholder="https://api.deepseek.com/v1/chat/completions" />
+          </Form.Item>
+          <Form.Item name="model" label="模型名称" rules={[{ required: true, message: '请输入模型名称' }]}>
+            <Input prefix={<ThunderboltOutlined />} placeholder="deepseek-chat" />
+          </Form.Item>
+          <Form.Item name="api_key" label="API Key"
+            tooltip="填写新的Key将覆盖原有配置；留空则不修改。清空请使用下方按钮。">
+            <Input.Password prefix={<KeyOutlined />} placeholder="sk-..." autoComplete="new-password" />
+          </Form.Item>
+          <Space>
+            <Button type="primary" onClick={handleSave} loading={loading}>保存配置</Button>
+            <Button onClick={handleTest} loading={testing}>测试连接</Button>
+          </Space>
+        </Form>
+
+        <Divider />
+
+        <Alert
+          type="info"
+          showIcon
+          message="使用说明"
+          description={
+            <ul style={{ marginBottom: 0, paddingLeft: 20 }}>
+              <li>API Key 保存在您的租户配置中，加密存储，不会明文返回前端</li>
+              <li>支持随时更换为您自己的DeepSeek账号Key，费用由您的DeepSeek账户承担</li>
+              <li>也可更换兼容OpenAI格式的其他接口地址和模型名称</li>
+              <li>如服务器已配置系统级Key（环境变量），不填则默认使用系统Key</li>
+              <li>获取API Key：<a href="https://platform.deepseek.com" target="_blank" rel="noreferrer">platform.deepseek.com</a></li>
+            </ul>
+          }
+        />
+      </Card>
+    </div>
+  );
+};
+
+export default AISettings;

@@ -1,1 +1,38 @@
-dmVyc2lvbjogJzMuOCcKCnNlcnZpY2VzOgogIG15c3FsOgogICAgaW1hZ2U6IG15c3FsOjguMAogICAgY29udGFpbmVyX25hbWU6IGVycC1teXNxbAogICAgZW52aXJvbm1lbnQ6CiAgICAgIE1ZU1FMX1JPT1RfUEFTU1dPUkQ6IHJvb3RfcGFzc3dvcmRfaGVyZQogICAgICBNWVNRTF9EQVRBQkFTRTogZXJwX2RiCiAgICAgIE1ZU1FMX1VTRVI6IGVycF91c2VyCiAgICAgIE1ZU1FMX1BBU1NXT1JEOiBlcnBfcGFzc3dvcmRfaGVyZQogICAgcG9ydHM6CiAgICAgIC0gIjMzMDY6MzMwNiIKICAgIHZvbHVtZXM6CiAgICAgIC0gbXlzcWxfZGF0YTovdmFyL2xpYi9teXNxbAogICAgICAtIC4vc2VydmVyL3ByaXNtYS9zY2hlbWEuc3FsOi9kb2NrZXItZW50cnlwb2ludC1pbml0ZGIuZC9pbml0LnNxbAogICAgY29tbWFuZDogLS1jaGFyYWN0ZXItc2V0LXNlcnZlcj11dGY4bWI0IC0tY29sbGF0aW9uLXNlcnZlcj11dGY4bWI0X3VuaWNvZGVfY2kKCiAgYXBwOgogICAgYnVpbGQ6CiAgICAgIGNvbnRleHQ6IC4KICAgICAgZG9ja2VyZmlsZTogZG9ja2VyL0RvY2tlcmZpbGUKICAgIGNvbnRhaW5lcl9uYW1lOiBlcnAtYXBwCiAgICBwb3J0czoKICAgICAgLSAiMzAwMDozMDAwIgogICAgZW52aXJvbm1lbnQ6CiAgICAgIERCX0hPU1Q6IG15c3FsCiAgICAgIERCX1BPUlQ6IDMzMDYKICAgICAgREJfTkFNRTogZXJwX2RiCiAgICAgIERCX1VTRVI6IGVycF91c2VyCiAgICAgIERCX1BBU1NXT1JEOiBlcnBfcGFzc3dvcmRfaGVyZQogICAgICBKV1RfU0VDUkVUOiBjaGFuZ2VfdGhpc190b19hX3JhbmRvbV9zdHJpbmcKICAgICAgTk9ERV9FTlY6IHByb2R1Y3Rpb24KICAgIGRlcGVuZHNfb246CiAgICAgIC0gbXlzcWwKCnZvbHVtZXM6CiAgbXlzcWxfZGF0YToK
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: erp-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password_here
+      MYSQL_DATABASE: erp_db
+      MYSQL_USER: erp_user
+      MYSQL_PASSWORD: erp_password_here
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./server/prisma/schema.sql:/docker-entrypoint-initdb.d/init.sql
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: erp-app
+    ports:
+      - "3000:3000"
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: erp_db
+      DB_USER: erp_user
+      DB_PASSWORD: erp_password_here
+      JWT_SECRET: change_this_to_a_random_string
+      NODE_ENV: production
+    depends_on:
+      - mysql
+
+volumes:
+  mysql_data:

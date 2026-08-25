@@ -1,1 +1,115 @@
-aW1wb3J0IFJlYWN0LCB7IGNyZWF0ZUNvbnRleHQsIHVzZUNvbnRleHQsIHVzZVN0YXRlLCB1c2VFZmZlY3QsIHVzZUNhbGxiYWNrIH0gZnJvbSAncmVhY3QnOwppbXBvcnQgcmVxdWVzdCBmcm9tICcuLi9hcGkvcmVxdWVzdCc7CgppbnRlcmZhY2UgVXNlciB7CiAgaWQ6IG51bWJlcjsKICB1c2VybmFtZTogc3RyaW5nOwogIHJlYWxOYW1lOiBzdHJpbmc7CiAgcm9sZTogc3RyaW5nOwogIHRlbmFudElkOiBudW1iZXI7CiAgdGVuYW50TmFtZTogc3RyaW5nOwp9CgppbnRlcmZhY2UgVGVuYW50IHsKICBpZDogbnVtYmVyOwogIG5hbWU6IHN0cmluZzsKICBvd25lcl9uYW1lOiBzdHJpbmc7CiAgcGhvbmU6IHN0cmluZzsKICBidXNpbmVzc190eXBlOiBzdHJpbmc7CiAgYnVzaW5lc3NfZGVzYzogc3RyaW5nOwp9CgppbnRlcmZhY2UgQXV0aENvbnRleHRUeXBlIHsKICB1c2VyOiBVc2VyIHwgbnVsbDsKICB0b2tlbjogc3RyaW5nIHwgbnVsbDsKICB0ZW5hbnRzOiBUZW5hbnRbXTsKICBsb2dpbjogKHVzZXJuYW1lOiBzdHJpbmcsIHBhc3N3b3JkOiBzdHJpbmcpID0+IFByb21pc2U8dm9pZD47CiAgbG9nb3V0OiAoKSA9PiB2b2lkOwogIHN3aXRjaFRlbmFudDogKHRlbmFudElkOiBudW1iZXIpID0+IFByb21pc2U8dm9pZD47CiAgbG9hZFRlbmFudHM6ICgpID0+IFByb21pc2U8dm9pZD47CiAgbG9hZGluZzogYm9vbGVhbjsKfQoKY29uc3QgQXV0aENvbnRleHQgPSBjcmVhdGVDb250ZXh0PEF1dGhDb250ZXh0VHlwZT4oewogIHVzZXI6IG51bGwsCiAgdG9rZW46IG51bGwsCiAgdGVuYW50czogW10sCiAgbG9naW46IGFzeW5jICgpID0+IHt9LAogIGxvZ291dDogKCkgPT4ge30sCiAgc3dpdGNoVGVuYW50OiBhc3luYyAoKSA9PiB7fSwKICBsb2FkVGVuYW50czogYXN5bmMgKCkgPT4ge30sCiAgbG9hZGluZzogdHJ1ZQp9KTsKCmV4cG9ydCBjb25zdCB1c2VBdXRoID0gKCkgPT4gdXNlQ29udGV4dChBdXRoQ29udGV4dCk7CgpleHBvcnQgY29uc3QgQXV0aFByb3ZpZGVyOiBSZWFjdC5GQzx7IGNoaWxkcmVuOiBSZWFjdC5SZWFjdE5vZGUgfT4gPSAoeyBjaGlsZHJlbiB9KSA9PiB7CiAgY29uc3QgW3VzZXIsIHNldFVzZXJdID0gdXNlU3RhdGU8VXNlciB8IG51bGw+KG51bGwpOwogIGNvbnN0IFt0b2tlbiwgc2V0VG9rZW5dID0gdXNlU3RhdGU8c3RyaW5nIHwgbnVsbD4obnVsbCk7CiAgY29uc3QgW3RlbmFudHMsIHNldFRlbmFudHNdID0gdXNlU3RhdGU8VGVuYW50W10+KFtdKTsKICBjb25zdCBbbG9hZGluZywgc2V0TG9hZGluZ10gPSB1c2VTdGF0ZSh0cnVlKTsKCiAgdXNlRWZmZWN0KCgpID0+IHsKICAgIGNvbnN0IHNhdmVkVG9rZW4gPSBsb2NhbFN0b3JhZ2UuZ2V0SXRlbSgndG9rZW4nKTsKICAgIGNvbnN0IHNhdmVkVXNlciA9IGxvY2FsU3RvcmFnZS5nZXRJdGVtKCd1c2VyJyk7CiAgICBpZiAoc2F2ZWRUb2tlbiAmJiBzYXZlZFVzZXIpIHsKICAgICAgc2V0VG9rZW4oc2F2ZWRUb2tlbik7CiAgICAgIHRyeSB7CiAgICAgICAgc2V0VXNlcihKU09OLnBhcnNlKHNhdmVkVXNlcikpOwogICAgICB9IGNhdGNoIHsKICAgICAgICBsb2NhbFN0b3JhZ2UucmVtb3ZlSXRlbSgndXNlcicpOwogICAgICB9CiAgICB9CiAgICBzZXRMb2FkaW5nKGZhbHNlKTsKICB9LCBbXSk7CgogIGNvbnN0IGxvYWRUZW5hbnRzID0gdXNlQ2FsbGJhY2soYXN5bmMgKCkgPT4gewogICAgdHJ5IHsKICAgICAgY29uc3QgcmVzID0gYXdhaXQgcmVxdWVzdC5nZXQoJy90ZW5hbnRzJyk7CiAgICAgIGNvbnN0IGxpc3QgPSByZXMuZGF0YT8uZGF0YSB8fCByZXMuZGF0YSB8fCBbXTsKICAgICAgc2V0VGVuYW50cyhsaXN0KTsKICAgIH0gY2F0Y2ggKGVycikgewogICAgICBjb25zb2xlLmVycm9yKCfliqDovb3luJDlpZfliJfooajlpLHotKU6JywgZXJyKTsKICAgIH0KICB9LCBbXSk7CgogIGNvbnN0IGxvZ2luID0gYXN5bmMgKHVzZXJuYW1lOiBzdHJpbmcsIHBhc3N3b3JkOiBzdHJpbmcpID0+IHsKICAgIGNvbnN0IHJlcyA9IGF3YWl0IHJlcXVlc3QucG9zdCgnL2F1dGgvbG9naW4nLCB7IHVzZXJuYW1lLCBwYXNzd29yZCB9KTsKICAgIGNvbnN0IGRhdGEgPSByZXMuZGF0YT8uZGF0YSB8fCByZXMuZGF0YTsKICAgIGNvbnN0IG5ld1Rva2VuID0gZGF0YS50b2tlbjsKICAgIGNvbnN0IG5ld1VzZXIgPSBkYXRhLnVzZXI7CiAgICBzZXRUb2tlbihuZXdUb2tlbik7CiAgICBzZXRVc2VyKG5ld1VzZXIpOwogICAgbG9jYWxTdG9yYWdlLnNldEl0ZW0oJ3Rva2VuJywgbmV3VG9rZW4pOwogICAgbG9jYWxTdG9yYWdlLnNldEl0ZW0oJ3VzZXInLCBKU09OLnN0cmluZ2lmeShuZXdVc2VyKSk7CiAgICAvLyDnmbvlvZXmiJDlip/lkI7liqDovb3luJDlpZfliJfooagKICAgIHNldFRpbWVvdXQoKCkgPT4gbG9hZFRlbmFudHMoKSwgMTAwKTsKICB9OwoKICBjb25zdCBzd2l0Y2hUZW5hbnQgPSBhc3luYyAodGVuYW50SWQ6IG51bWJlcikgPT4gewogICAgY29uc3QgcmVzID0gYXdhaXQgcmVxdWVzdC5wb3N0KCcvdGVuYW50cy9kZW1vLXN3aXRjaCcsIHsgdGVuYW50SWQgfSk7CiAgICBjb25zdCBkYXRhID0gcmVzLmRhdGE/LmRhdGEgfHwgcmVzLmRhdGE7CiAgICBjb25zdCBuZXdUb2tlbiA9IGRhdGEudG9rZW47CiAgICBjb25zdCBuZXdVc2VyID0gZGF0YS51c2VyOwogICAgc2V0VG9rZW4obmV3VG9rZW4pOwogICAgc2V0VXNlcihuZXdVc2VyKTsKICAgIGxvY2FsU3RvcmFnZS5zZXRJdGVtKCd0b2tlbicsIG5ld1Rva2VuKTsKICAgIGxvY2FsU3RvcmFnZS5zZXRJdGVtKCd1c2VyJywgSlNPTi5zdHJpbmdpZnkobmV3VXNlcikpOwogICAgLy8g5YiH5o2i6LSm5aWX5ZCO5by65Yi25Yi35paw6aG16Z2i77yM56Gu5L+d5omA5pyJ57uE5Lu26YeN5paw5Yqg6L295pWw5o2uCiAgICB3aW5kb3cubG9jYXRpb24uaHJlZiA9ICcvJzsKICB9OwoKICBjb25zdCBsb2dvdXQgPSAoKSA9PiB7CiAgICBzZXRUb2tlbihudWxsKTsKICAgIHNldFVzZXIobnVsbCk7CiAgICBzZXRUZW5hbnRzKFtdKTsKICAgIGxvY2FsU3RvcmFnZS5yZW1vdmVJdGVtKCd0b2tlbicpOwogICAgbG9jYWxTdG9yYWdlLnJlbW92ZUl0ZW0oJ3VzZXInKTsKICB9OwoKICByZXR1cm4gKAogICAgPEF1dGhDb250ZXh0LlByb3ZpZGVyIHZhbHVlPXt7IHVzZXIsIHRva2VuLCB0ZW5hbnRzLCBsb2dpbiwgbG9nb3V0LCBzd2l0Y2hUZW5hbnQsIGxvYWRUZW5hbnRzLCBsb2FkaW5nIH19PgogICAgICB7Y2hpbGRyZW59CiAgICA8L0F1dGhDb250ZXh0LlByb3ZpZGVyPgogICk7Cn07Cg==
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import request from '../api/request';
+
+interface User {
+  id: number;
+  username: string;
+  realName: string;
+  role: string;
+  tenantId: number;
+  tenantName: string;
+}
+
+interface Tenant {
+  id: number;
+  name: string;
+  owner_name: string;
+  phone: string;
+  business_type: string;
+  business_desc: string;
+}
+
+interface AuthContextType {
+  user: User | null;
+  token: string | null;
+  tenants: Tenant[];
+  login: (username: string, password: string) => Promise<void>;
+  logout: () => void;
+  switchTenant: (tenantId: number) => Promise<void>;
+  loadTenants: () => Promise<void>;
+  loading: boolean;
+}
+
+const AuthContext = createContext<AuthContextType>({
+  user: null,
+  token: null,
+  tenants: [],
+  login: async () => {},
+  logout: () => {},
+  switchTenant: async () => {},
+  loadTenants: async () => {},
+  loading: true
+});
+
+export const useAuth = () => useContext(AuthContext);
+
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [user, setUser] = useState<User | null>(null);
+  const [token, setToken] = useState<string | null>(null);
+  const [tenants, setTenants] = useState<Tenant[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const savedToken = localStorage.getItem('token');
+    const savedUser = localStorage.getItem('user');
+    if (savedToken && savedUser) {
+      setToken(savedToken);
+      try {
+        setUser(JSON.parse(savedUser));
+      } catch {
+        localStorage.removeItem('user');
+      }
+    }
+    setLoading(false);
+  }, []);
+
+  const loadTenants = useCallback(async () => {
+    try {
+      const res = await request.get('/tenants');
+      const list = res.data?.data || res.data || [];
+      setTenants(list);
+    } catch (err) {
+      console.error('加载帐套列表失败:', err);
+    }
+  }, []);
+
+  const login = async (username: string, password: string) => {
+    const res = await request.post('/auth/login', { username, password });
+    const data = res.data?.data || res.data;
+    const newToken = data.token;
+    const newUser = data.user;
+    setToken(newToken);
+    setUser(newUser);
+    localStorage.setItem('token', newToken);
+    localStorage.setItem('user', JSON.stringify(newUser));
+    // 登录成功后加载帐套列表
+    setTimeout(() => loadTenants(), 100);
+  };
+
+  const switchTenant = async (tenantId: number) => {
+    const res = await request.post('/tenants/demo-switch', { tenantId });
+    const data = res.data?.data || res.data;
+    const newToken = data.token;
+    const newUser = data.user;
+    setToken(newToken);
+    setUser(newUser);
+    localStorage.setItem('token', newToken);
+    localStorage.setItem('user', JSON.stringify(newUser));
+    // 切换账套后强制刷新页面，确保所有组件重新加载数据
+    window.location.href = '/';
+  };
+
+  const logout = () => {
+    setToken(null);
+    setUser(null);
+    setTenants([]);
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, token, tenants, login, logout, switchTenant, loadTenants, loading }}>
+      {children}
+    </AuthContext.Provider>
+  );
+};

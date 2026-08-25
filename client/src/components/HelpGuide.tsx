@@ -1,1 +1,121 @@
-aW1wb3J0IFJlYWN0LCB7IHVzZVN0YXRlIH0gZnJvbSAncmVhY3QnOwppbXBvcnQgeyBEcmF3ZXIsIEJ1dHRvbiwgVHlwb2dyYXBoeSwgU3RlcHMsIFRhZywgQ29sbGFwc2UsIEZsb2F0QnV0dG9uLCBEaXZpZGVyIH0gZnJvbSAnYW50ZCc7CmltcG9ydCB7IFF1ZXN0aW9uQ2lyY2xlT3V0bGluZWQsIEJ1bGJPdXRsaW5lZCwgQ2xvc2VPdXRsaW5lZCB9IGZyb20gJ0BhbnQtZGVzaWduL2ljb25zJzsKaW1wb3J0IHsgZ3VpZGVzIH0gZnJvbSAnLi4vZGF0YS9ndWlkZXMnOwppbXBvcnQgeyB1c2VMb2NhdGlvbiB9IGZyb20gJ3JlYWN0LXJvdXRlci1kb20nOwoKY29uc3QgeyBUaXRsZSwgVGV4dCwgUGFyYWdyYXBoIH0gPSBUeXBvZ3JhcGh5OwoKY29uc3QgSGVscEd1aWRlOiBSZWFjdC5GQyA9ICgpID0+IHsKICBjb25zdCBbb3Blbiwgc2V0T3Blbl0gPSB1c2VTdGF0ZShmYWxzZSk7CiAgY29uc3QgbG9jYXRpb24gPSB1c2VMb2NhdGlvbigpOwoKICBjb25zdCBjdXJyZW50R3VpZGUgPSBndWlkZXNbbG9jYXRpb24ucGF0aG5hbWVdOwoKICBpZiAoIWN1cnJlbnRHdWlkZSkgcmV0dXJuIG51bGw7CgogIHJldHVybiAoCiAgICA8PgogICAgICA8RmxvYXRCdXR0b24KICAgICAgICBpY29uPXs8UXVlc3Rpb25DaXJjbGVPdXRsaW5lZCAvPn0KICAgICAgICB0b29sdGlwPSLmk43kvZzmjIflvJUiCiAgICAgICAgb25DbGljaz17KCkgPT4gc2V0T3Blbih0cnVlKX0KICAgICAgICBzdHlsZT17eyByaWdodDogMjQsIGJvdHRvbTogMjQgfX0KICAgICAgLz4KICAgICAgPERyYXdlcgogICAgICAgIHRpdGxlPXtudWxsfQogICAgICAgIHBsYWNlbWVudD0icmlnaHQiCiAgICAgICAgd2lkdGg9ezQwMH0KICAgICAgICBvbkNsb3NlPXsoKSA9PiBzZXRPcGVuKGZhbHNlKX0KICAgICAgICBvcGVuPXtvcGVufQogICAgICAgIHN0eWxlcz17eyBib2R5OiB7IHBhZGRpbmc6IDAgfSwgaGVhZGVyOiB7IGRpc3BsYXk6ICdub25lJyB9IH19CiAgICAgID4KICAgICAgICB7Lyog5qCH6aKY5Yy6ICovfQogICAgICAgIDxkaXYgc3R5bGU9e3sKICAgICAgICAgIGJhY2tncm91bmQ6ICdsaW5lYXItZ3JhZGllbnQoMTM1ZGVnLCAjMTY3N2ZmIDAlLCAjNDA5NmZmIDEwMCUpJywKICAgICAgICAgIHBhZGRpbmc6ICcyNHB4IDIwcHgnLAogICAgICAgICAgY29sb3I6ICd3aGl0ZScKICAgICAgICB9fT4KICAgICAgICAgIDxkaXYgc3R5bGU9e3sgZGlzcGxheTogJ2ZsZXgnLCBqdXN0aWZ5Q29udGVudDogJ3NwYWNlLWJldHdlZW4nLCBhbGlnbkl0ZW1zOiAnY2VudGVyJyB9fT4KICAgICAgICAgICAgPFRpdGxlIGxldmVsPXs0fSBzdHlsZT17eyBjb2xvcjogJ3doaXRlJywgbWFyZ2luOiAwIH19PntjdXJyZW50R3VpZGUudGl0bGV9PC9UaXRsZT4KICAgICAgICAgICAgPEJ1dHRvbgogICAgICAgICAgICAgIHR5cGU9InRleHQiCiAgICAgICAgICAgICAgaWNvbj17PENsb3NlT3V0bGluZWQgLz59CiAgICAgICAgICAgICAgb25DbGljaz17KCkgPT4gc2V0T3BlbihmYWxzZSl9CiAgICAgICAgICAgICAgc3R5bGU9e3sgY29sb3I6ICd3aGl0ZScgfX0KICAgICAgICAgICAgLz4KICAgICAgICAgIDwvZGl2PgogICAgICAgICAgPFBhcmFncmFwaCBzdHlsZT17eyBjb2xvcjogJ3JnYmEoMjU1LDI1NSwyNTUsMC44NSknLCBtYXJnaW5Ub3A6IDgsIG1hcmdpbkJvdHRvbTogMCB9fT4KICAgICAgICAgICAge2N1cnJlbnRHdWlkZS5zdW1tYXJ5fQogICAgICAgICAgPC9QYXJhZ3JhcGg+CiAgICAgICAgPC9kaXY+CgogICAgICAgIHsvKiDmk43kvZzmraXpqqQgKi99CiAgICAgICAgPGRpdiBzdHlsZT17eyBwYWRkaW5nOiAnMjBweCcgfX0+CiAgICAgICAgICA8VGV4dCBzdHJvbmcgc3R5bGU9e3sgZm9udFNpemU6IDE1LCBtYXJnaW5Cb3R0b206IDEyLCBkaXNwbGF5OiAnYmxvY2snIH19PgogICAgICAgICAgICDwn5OLIOaTjeS9nOatpemqpAogICAgICAgICAgPC9UZXh0PgogICAgICAgICAgPFN0ZXBzCiAgICAgICAgICAgIGRpcmVjdGlvbj0idmVydGljYWwiCiAgICAgICAgICAgIHNpemU9InNtYWxsIgogICAgICAgICAgICBjdXJyZW50PXstMX0KICAgICAgICAgICAgaXRlbXM9e2N1cnJlbnRHdWlkZS5zdGVwcy5tYXAoKHN0ZXAsIGluZGV4KSA9PiAoewogICAgICAgICAgICAgIHRpdGxlOiA8VGV4dCBzdHJvbmc+e3N0ZXAudGl0bGV9PC9UZXh0PiwKICAgICAgICAgICAgICBkZXNjcmlwdGlvbjogKAogICAgICAgICAgICAgICAgPFBhcmFncmFwaAogICAgICAgICAgICAgICAgICB0eXBlPSJzZWNvbmRhcnkiCiAgICAgICAgICAgICAgICAgIHN0eWxlPXt7IG1hcmdpbkJvdHRvbTogMCwgbWFyZ2luVG9wOiA0LCBmb250U2l6ZTogMTMgfX0KICAgICAgICAgICAgICAgID4KICAgICAgICAgICAgICAgICAge3N0ZXAuZGVzY3JpcHRpb259CiAgICAgICAgICAgICAgICA8L1BhcmFncmFwaD4KICAgICAgICAgICAgICApLAogICAgICAgICAgICAgIHN0YXR1czogJ3dhaXQnIGFzIGNvbnN0CiAgICAgICAgICAgIH0pKX0KICAgICAgICAgIC8+CgogICAgICAgICAgPERpdmlkZXIgc3R5bGU9e3sgbWFyZ2luOiAnMTZweCAwJyB9fSAvPgoKICAgICAgICAgIHsvKiDlrp7nlKjmioDlt6cgKi99CiAgICAgICAgICA8VGV4dCBzdHJvbmcgc3R5bGU9e3sgZm9udFNpemU6IDE1LCBtYXJnaW5Cb3R0b206IDEyLCBkaXNwbGF5OiAnYmxvY2snIH19PgogICAgICAgICAgICDwn5KhIOWunueUqOaKgOW3pwogICAgICAgICAgPC9UZXh0PgogICAgICAgICAgPENvbGxhcHNlCiAgICAgICAgICAgIGdob3N0CiAgICAgICAgICAgIGl0ZW1zPXtbCiAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAga2V5OiAndGlwcycsCiAgICAgICAgICAgICAgICBsYWJlbDogPFRleHQgdHlwZT0ic2Vjb25kYXJ5Ij7ngrnlh7vlsZXlvIDmn6XnnIvmiYDmnInmioDlt6c8L1RleHQ+LAogICAgICAgICAgICAgICAgY2hpbGRyZW46ICgKICAgICAgICAgICAgICAgICAgPHVsIHN0eWxlPXt7IHBhZGRpbmdMZWZ0OiAxNiwgbWFyZ2luOiAwIH19PgogICAgICAgICAgICAgICAgICAgIHtjdXJyZW50R3VpZGUudGlwcy5tYXAoKHRpcCwgaW5kZXgpID0+ICgKICAgICAgICAgICAgICAgICAgICAgIDxsaSBrZXk9e2luZGV4fSBzdHlsZT17eyBtYXJnaW5Cb3R0b206IDgsIGZvbnRTaXplOiAxMyB9fT4KICAgICAgICAgICAgICAgICAgICAgICAgPFRleHQ+e3RpcH08L1RleHQ+CiAgICAgICAgICAgICAgICAgICAgICA8L2xpPgogICAgICAgICAgICAgICAgICAgICkpfQogICAgICAgICAgICAgICAgICA8L3VsPgogICAgICAgICAgICAgICAgKQogICAgICAgICAgICAgIH0KICAgICAgICAgICAgXX0KICAgICAgICAgIC8+CgogICAgICAgICAgPERpdmlkZXIgc3R5bGU9e3sgbWFyZ2luOiAnMTZweCAwJyB9fSAvPgoKICAgICAgICAgIHsvKiDlv6vmjbfogZTns7sgKi99CiAgICAgICAgICA8ZGl2IHN0eWxlPXt7CiAgICAgICAgICAgIGJhY2tncm91bmQ6ICcjZjZmOGZhJywKICAgICAgICAgICAgYm9yZGVyUmFkaXVzOiA4LAogICAgICAgICAgICBwYWRkaW5nOiAnMTZweCcsCiAgICAgICAgICAgIHRleHRBbGlnbjogJ2NlbnRlcicKICAgICAgICAgIH19PgogICAgICAgICAgICA8QnVsYk91dGxpbmVkIHN0eWxlPXt7IGZvbnRTaXplOiAyNCwgY29sb3I6ICcjMTY3N2ZmJywgbWFyZ2luQm90dG9tOiA4IH19IC8+CiAgICAgICAgICAgIDxQYXJhZ3JhcGggc3R5bGU9e3sgbWFyZ2luQm90dG9tOiAwLCBmb250U2l6ZTogMTMsIGNvbG9yOiAnIzY2NicgfX0+CiAgICAgICAgICAgICAg6YGH5Yiw6Zeu6aKY77yf5Y+v5Lul5Zyo57O757uf6K6+572u5Lit5Y+N6aaI77yMPGJyLz7miJHku6zkvJrlsL3lv6vluK7mgqjop6PlhrPjgIIKICAgICAgICAgICAgPC9QYXJhZ3JhcGg+CiAgICAgICAgICA8L2Rpdj4KICAgICAgICA8L2Rpdj4KICAgICAgPC9EcmF3ZXI+CiAgICA8Lz4KICApOwp9OwoKZXhwb3J0IGRlZmF1bHQgSGVscEd1aWRlOwo=
+import React, { useState } from 'react';
+import { Drawer, Button, Typography, Steps, Tag, Collapse, FloatButton, Divider } from 'antd';
+import { QuestionCircleOutlined, BulbOutlined, CloseOutlined } from '@ant-design/icons';
+import { guides } from '../data/guides';
+import { useLocation } from 'react-router-dom';
+
+const { Title, Text, Paragraph } = Typography;
+
+const HelpGuide: React.FC = () => {
+  const [open, setOpen] = useState(false);
+  const location = useLocation();
+
+  const currentGuide = guides[location.pathname];
+
+  if (!currentGuide) return null;
+
+  return (
+    <>
+      <FloatButton
+        icon={<QuestionCircleOutlined />}
+        tooltip="操作指引"
+        onClick={() => setOpen(true)}
+        style={{ right: 24, bottom: 24 }}
+      />
+      <Drawer
+        title={null}
+        placement="right"
+        width={400}
+        onClose={() => setOpen(false)}
+        open={open}
+        styles={{ body: { padding: 0 }, header: { display: 'none' } }}
+      >
+        {/* 标题区 */}
+        <div style={{
+          background: 'linear-gradient(135deg, #1677ff 0%, #4096ff 100%)',
+          padding: '24px 20px',
+          color: 'white'
+        }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <Title level={4} style={{ color: 'white', margin: 0 }}>{currentGuide.title}</Title>
+            <Button
+              type="text"
+              icon={<CloseOutlined />}
+              onClick={() => setOpen(false)}
+              style={{ color: 'white' }}
+            />
+          </div>
+          <Paragraph style={{ color: 'rgba(255,255,255,0.85)', marginTop: 8, marginBottom: 0 }}>
+            {currentGuide.summary}
+          </Paragraph>
+        </div>
+
+        {/* 操作步骤 */}
+        <div style={{ padding: '20px' }}>
+          <Text strong style={{ fontSize: 15, marginBottom: 12, display: 'block' }}>
+            📋 操作步骤
+          </Text>
+          <Steps
+            direction="vertical"
+            size="small"
+            current={-1}
+            items={currentGuide.steps.map((step, index) => ({
+              title: <Text strong>{step.title}</Text>,
+              description: (
+                <Paragraph
+                  type="secondary"
+                  style={{ marginBottom: 0, marginTop: 4, fontSize: 13 }}
+                >
+                  {step.description}
+                </Paragraph>
+              ),
+              status: 'wait' as const
+            }))}
+          />
+
+          <Divider style={{ margin: '16px 0' }} />
+
+          {/* 实用技巧 */}
+          <Text strong style={{ fontSize: 15, marginBottom: 12, display: 'block' }}>
+            💡 实用技巧
+          </Text>
+          <Collapse
+            ghost
+            items={[
+              {
+                key: 'tips',
+                label: <Text type="secondary">点击展开查看所有技巧</Text>,
+                children: (
+                  <ul style={{ paddingLeft: 16, margin: 0 }}>
+                    {currentGuide.tips.map((tip, index) => (
+                      <li key={index} style={{ marginBottom: 8, fontSize: 13 }}>
+                        <Text>{tip}</Text>
+                      </li>
+                    ))}
+                  </ul>
+                )
+              }
+            ]}
+          />
+
+          <Divider style={{ margin: '16px 0' }} />
+
+          {/* 快捷联系 */}
+          <div style={{
+            background: '#f6f8fa',
+            borderRadius: 8,
+            padding: '16px',
+            textAlign: 'center'
+          }}>
+            <BulbOutlined style={{ fontSize: 24, color: '#1677ff', marginBottom: 8 }} />
+            <Paragraph style={{ marginBottom: 0, fontSize: 13, color: '#666' }}>
+              遇到问题？可以在系统设置中反馈，<br/>我们会尽快帮您解决。
+            </Paragraph>
+          </div>
+        </div>
+      </Drawer>
+    </>
+  );
+};
+
+export default HelpGuide;

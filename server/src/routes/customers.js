@@ -1,1 +1,72 @@
-Y29uc3QgZXhwcmVzcyA9IHJlcXVpcmUoJ2V4cHJlc3MnKTsKY29uc3QgcG9vbCA9IHJlcXVpcmUoJy4uL2NvbmZpZy9kYicpOwpjb25zdCB7IGF1dGhlbnRpY2F0ZSwgcmVxdWlyZVJvbGUgfSA9IHJlcXVpcmUoJy4uL21pZGRsZXdhcmUvYXV0aCcpOwoKY29uc3Qgcm91dGVyID0gZXhwcmVzcy5Sb3V0ZXIoKTsKcm91dGVyLnVzZShhdXRoZW50aWNhdGUpOwoKLy8g6I635Y+W5a6i5oi35YiX6KGoCnJvdXRlci5nZXQoJy8nLCBhc3luYyAocmVxLCByZXMpID0+IHsKICB0cnkgewogICAgY29uc3QgeyBwYWdlID0gMSwgcGFnZVNpemUgPSAyMCwga2V5d29yZCwgbGV2ZWwgfSA9IHJlcS5xdWVyeTsKICAgIGNvbnN0IG9mZnNldCA9IChwYWdlIC0gMSkgKiBwYWdlU2l6ZTsKICAgIGxldCB3aGVyZSA9ICdXSEVSRSB0ZW5hbnRfaWQgPSA/JzsKICAgIGNvbnN0IHBhcmFtcyA9IFtyZXEudGVuYW50SWRdOwoKICAgIGlmIChrZXl3b3JkKSB7CiAgICAgIHdoZXJlICs9ICcgQU5EIChuYW1lIExJS0UgPyBPUiBwaG9uZSBMSUtFID8pJzsKICAgICAgcGFyYW1zLnB1c2goYCUke2tleXdvcmR9JWAsIGAlJHtrZXl3b3JkfSVgKTsKICAgIH0KICAgIGlmIChsZXZlbCkgewogICAgICB3aGVyZSArPSAnIEFORCBsZXZlbCA9ID8nOwogICAgICBwYXJhbXMucHVzaChsZXZlbCk7CiAgICB9CgogICAgY29uc3QgW2NvdW50UmVzdWx0XSA9IGF3YWl0IHBvb2wucXVlcnkoYFNFTEVDVCBDT1VOVCgqKSBhcyB0b3RhbCBGUk9NIGN1c3RvbWVycyAke3doZXJlfWAsIHBhcmFtcyk7CgogICAgY29uc3QgW2N1c3RvbWVyc10gPSBhd2FpdCBwb29sLnF1ZXJ5KAogICAgICBgU0VMRUNUICogRlJPTSBjdXN0b21lcnMgJHt3aGVyZX0gT1JERVIgQlkgdG90YWxfc3BlbnQgREVTQywgaWQgREVTQyBMSU1JVCA/IE9GRlNFVCA/YCwKICAgICAgWy4uLnBhcmFtcywgcGFyc2VJbnQocGFnZVNpemUpLCBvZmZzZXRdCiAgICApOwoKICAgIHJlcy5qc29uKHsKICAgICAgY29kZTogMCwKICAgICAgZGF0YTogeyBsaXN0OiBjdXN0b21lcnMsIHRvdGFsOiBjb3VudFJlc3VsdFswXS50b3RhbCwgcGFnZTogcGFyc2VJbnQocGFnZSksIHBhZ2VTaXplOiBwYXJzZUludChwYWdlU2l6ZSkgfQogICAgfSk7CiAgfSBjYXRjaCAoZXJyKSB7CiAgICByZXMuc3RhdHVzKDUwMCkuanNvbih7IGNvZGU6IDUwMCwgbWVzc2FnZTogJ+iOt+WPluWuouaIt+WIl+ihqOWksei0pScgfSk7CiAgfQp9KTsKCi8vIOaWsOWinuWuouaItwpyb3V0ZXIucG9zdCgnLycsIGFzeW5jIChyZXEsIHJlcykgPT4gewogIHRyeSB7CiAgICBjb25zdCB7IG5hbWUsIHBob25lLCBnZW5kZXIsIGxldmVsLCBiaXJ0aGRheSwgYWRkcmVzcywgcmVtYXJrIH0gPSByZXEuYm9keTsKICAgIGlmICghbmFtZSkgdGhyb3cgbmV3IEVycm9yKCflrqLmiLflkI3np7DkuI3og73kuLrnqbonKTsKCiAgICBjb25zdCBbcmVzdWx0XSA9IGF3YWl0IHBvb2wucXVlcnkoCiAgICAgICdJTlNFUlQgSU5UTyBjdXN0b21lcnMgKHRlbmFudF9pZCwgbmFtZSwgcGhvbmUsIGdlbmRlciwgbGV2ZWwsIGJpcnRoZGF5LCBhZGRyZXNzLCByZW1hcmspIFZBTFVFUyAoPywgPywgPywgPywgPywgPywgPywgPyknLAogICAgICBbcmVxLnRlbmFudElkLCBuYW1lLCBwaG9uZSB8fCBudWxsLCBnZW5kZXIgfHwgJ3Vua25vd24nLCBsZXZlbCB8fCAnbm9ybWFsJywgYmlydGhkYXkgfHwgbnVsbCwgYWRkcmVzcyB8fCBudWxsLCByZW1hcmsgfHwgbnVsbF0KICAgICk7CgogICAgcmVzLmpzb24oeyBjb2RlOiAwLCBtZXNzYWdlOiAn5a6i5oi35re75Yqg5oiQ5YqfJywgZGF0YTogeyBpZDogcmVzdWx0Lmluc2VydElkIH0gfSk7CiAgfSBjYXRjaCAoZXJyKSB7CiAgICByZXMuc3RhdHVzKDQwMCkuanNvbih7IGNvZGU6IDQwMCwgbWVzc2FnZTogZXJyLm1lc3NhZ2UgfSk7CiAgfQp9KTsKCi8vIOabtOaWsOWuouaItwpyb3V0ZXIucHV0KCcvOmlkJywgYXN5bmMgKHJlcSwgcmVzKSA9PiB7CiAgdHJ5IHsKICAgIGNvbnN0IHsgbmFtZSwgcGhvbmUsIGdlbmRlciwgbGV2ZWwsIGJpcnRoZGF5LCBhZGRyZXNzLCByZW1hcmsgfSA9IHJlcS5ib2R5OwogICAgYXdhaXQgcG9vbC5xdWVyeSgKICAgICAgJ1VQREFURSBjdXN0b21lcnMgU0VUIG5hbWU9PywgcGhvbmU9PywgZ2VuZGVyPT8sIGxldmVsPT8sIGJpcnRoZGF5PT8sIGFkZHJlc3M9PywgcmVtYXJrPT8gV0hFUkUgaWQ9PyBBTkQgdGVuYW50X2lkPT8nLAogICAgICBbbmFtZSwgcGhvbmUsIGdlbmRlciwgbGV2ZWwsIGJpcnRoZGF5LCBhZGRyZXNzLCByZW1hcmssIHJlcS5wYXJhbXMuaWQsIHJlcS50ZW5hbnRJZF0KICAgICk7CiAgICByZXMuanNvbih7IGNvZGU6IDAsIG1lc3NhZ2U6ICflrqLmiLfmm7TmlrDmiJDlip8nIH0pOwogIH0gY2F0Y2ggKGVycikgewogICAgcmVzLnN0YXR1cyg0MDApLmpzb24oeyBjb2RlOiA0MDAsIG1lc3NhZ2U6IGVyci5tZXNzYWdlIH0pOwogIH0KfSk7Cgptb2R1bGUuZXhwb3J0cyA9IHJvdXRlcjsK
+const express = require('express');
+const pool = require('../config/db');
+const { authenticate, requireRole } = require('../middleware/auth');
+
+const router = express.Router();
+router.use(authenticate);
+
+// 获取客户列表
+router.get('/', async (req, res) => {
+  try {
+    const { page = 1, pageSize = 20, keyword, level } = req.query;
+    const offset = (page - 1) * pageSize;
+    let where = 'WHERE tenant_id = ?';
+    const params = [req.tenantId];
+
+    if (keyword) {
+      where += ' AND (name LIKE ? OR phone LIKE ?)';
+      params.push(`%${keyword}%`, `%${keyword}%`);
+    }
+    if (level) {
+      where += ' AND level = ?';
+      params.push(level);
+    }
+
+    const [countResult] = await pool.query(`SELECT COUNT(*) as total FROM customers ${where}`, params);
+
+    const [customers] = await pool.query(
+      `SELECT * FROM customers ${where} ORDER BY total_spent DESC, id DESC LIMIT ? OFFSET ?`,
+      [...params, parseInt(pageSize), offset]
+    );
+
+    res.json({
+      code: 0,
+      data: { list: customers, total: countResult[0].total, page: parseInt(page), pageSize: parseInt(pageSize) }
+    });
+  } catch (err) {
+    res.status(500).json({ code: 500, message: '获取客户列表失败' });
+  }
+});
+
+// 新增客户
+router.post('/', async (req, res) => {
+  try {
+    const { name, phone, gender, level, birthday, address, remark } = req.body;
+    if (!name) throw new Error('客户名称不能为空');
+
+    const [result] = await pool.query(
+      'INSERT INTO customers (tenant_id, name, phone, gender, level, birthday, address, remark) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+      [req.tenantId, name, phone || null, gender || 'unknown', level || 'normal', birthday || null, address || null, remark || null]
+    );
+
+    res.json({ code: 0, message: '客户添加成功', data: { id: result.insertId } });
+  } catch (err) {
+    res.status(400).json({ code: 400, message: err.message });
+  }
+});
+
+// 更新客户
+router.put('/:id', async (req, res) => {
+  try {
+    const { name, phone, gender, level, birthday, address, remark } = req.body;
+    await pool.query(
+      'UPDATE customers SET name=?, phone=?, gender=?, level=?, birthday=?, address=?, remark=? WHERE id=? AND tenant_id=?',
+      [name, phone, gender, level, birthday, address, remark, req.params.id, req.tenantId]
+    );
+    res.json({ code: 0, message: '客户更新成功' });
+  } catch (err) {
+    res.status(400).json({ code: 400, message: err.message });
+  }
+});
+
+module.exports = router;

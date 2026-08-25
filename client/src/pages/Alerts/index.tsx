@@ -1,1 +1,135 @@
-aW1wb3J0IFJlYWN0LCB7IHVzZVN0YXRlLCB1c2VFZmZlY3QgfSBmcm9tICdyZWFjdCc7CmltcG9ydCB7IFRhYmxlLCBCdXR0b24sIFRhZywgU3BhY2UsIG1lc3NhZ2UsIENhcmQsIFJvdywgQ29sLCBTdGF0aXN0aWMsIFR5cG9ncmFwaHksIFBvcGNvbmZpcm0sIFNlbGVjdCwgSW5wdXQsIEJhZGdlIH0gZnJvbSAnYW50ZCc7CmltcG9ydCB7IFdhcm5pbmdPdXRsaW5lZCwgUmVsb2FkT3V0bGluZWQsIENoZWNrQ2lyY2xlT3V0bGluZWQsIEJlbGxPdXRsaW5lZCB9IGZyb20gJ0BhbnQtZGVzaWduL2ljb25zJzsKaW1wb3J0IHJlcXVlc3QgZnJvbSAnLi4vLi4vYXBpL3JlcXVlc3QnOwppbXBvcnQgeyB2b2ljZVNlcnZpY2UgfSBmcm9tICcuLi8uLi9zZXJ2aWNlcy92b2ljZVNlcnZpY2UnOwoKY29uc3QgeyBUaXRsZSwgVGV4dCB9ID0gVHlwb2dyYXBoeTsKCmNvbnN0IGFsZXJ0VHlwZU1hcDogUmVjb3JkPHN0cmluZywgeyBsYWJlbDogc3RyaW5nOyBjb2xvcjogc3RyaW5nOyBpY29uOiBzdHJpbmcgfT4gPSB7CiAgbG93X3N0b2NrOiB7IGxhYmVsOiAn5bqT5a2Y5LiN6LazJywgY29sb3I6ICdyZWQnLCBpY29uOiAn4pqg77iPJyB9LAogIG92ZXJfc3RvY2s6IHsgbGFiZWw6ICflupPlrZjnp6/ljosnLCBjb2xvcjogJ29yYW5nZScsIGljb246ICfwn5OmJyB9LAogIHplcm9fc3RvY2s6IHsgbGFiZWw6ICfpm7blupPlrZgnLCBjb2xvcjogJ2RlZmF1bHQnLCBpY29uOiAn8J+aqycgfSwKICBuZWdhdGl2ZTogeyBsYWJlbDogJ+i0n+W6k+WtmOW8guW4uCcsIGNvbG9yOiAncmVkJywgaWNvbjogJ+KdlycgfSwKICBleHBpcnk6IHsgbGFiZWw6ICfkuLTmnJ/pooToraYnLCBjb2xvcjogJ29yYW5nZScsIGljb246ICfij7AnIH0KfTsKY29uc3QgbGV2ZWxNYXA6IFJlY29yZDxzdHJpbmcsIHsgbGFiZWw6IHN0cmluZzsgY29sb3I6IHN0cmluZyB9PiA9IHsKICBpbmZvOiB7IGxhYmVsOiAn5o+Q56S6JywgY29sb3I6ICdibHVlJyB9LCB3YXJuaW5nOiB7IGxhYmVsOiAn6K2m5ZGKJywgY29sb3I6ICdvcmFuZ2UnIH0sIGNyaXRpY2FsOiB7IGxhYmVsOiAn5Lil6YeNJywgY29sb3I6ICdyZWQnIH0KfTsKCmNvbnN0IEFsZXJ0czogUmVhY3QuRkMgPSAoKSA9PiB7CiAgY29uc3QgW2xpc3QsIHNldExpc3RdID0gdXNlU3RhdGU8YW55W10+KFtdKTsKICBjb25zdCBbbG9hZGluZywgc2V0TG9hZGluZ10gPSB1c2VTdGF0ZShmYWxzZSk7CiAgY29uc3QgW3NjYW5uaW5nLCBzZXRTY2FubmluZ10gPSB1c2VTdGF0ZShmYWxzZSk7CiAgY29uc3QgW3BhZ2luYXRpb24sIHNldFBhZ2luYXRpb25dID0gdXNlU3RhdGUoeyBjdXJyZW50OiAxLCBwYWdlU2l6ZTogMjAsIHRvdGFsOiAwIH0pOwogIGNvbnN0IFtzdGF0cywgc2V0U3RhdHNdID0gdXNlU3RhdGU8YW55Pih7IHRvdGFsOiAwLCBicmVha2Rvd246IFtdIH0pOwogIGNvbnN0IFtmaWx0ZXJzLCBzZXRGaWx0ZXJzXSA9IHVzZVN0YXRlPGFueT4oeyBzdGF0dXM6ICdhY3RpdmUnLCBhbGVydF90eXBlOiB1bmRlZmluZWQsIGFsZXJ0X2xldmVsOiB1bmRlZmluZWQgfSk7CgogIGNvbnN0IGxvYWQgPSBhc3luYyAocGFnZSA9IDEpID0+IHsKICAgIHNldExvYWRpbmcodHJ1ZSk7CiAgICB0cnkgewogICAgICBjb25zdCBbbGlzdFJlcywgc3RhdHNSZXNdID0gYXdhaXQgUHJvbWlzZS5hbGwoWwogICAgICAgIHJlcXVlc3QuZ2V0KCcvYWxlcnRzJywgeyBwYXJhbXM6IHsgcGFnZSwgcGFnZVNpemU6IDIwLCAuLi5maWx0ZXJzIH0gfSksCiAgICAgICAgcmVxdWVzdC5nZXQoJy9hbGVydHMvc3RhdHMnKQogICAgICBdKTsKICAgICAgY29uc3QgbGlzdERhdGEgPSBsaXN0UmVzLmRhdGE/LmRhdGEgfHwgbGlzdFJlcy5kYXRhIHx8IHt9OwogICAgICBzZXRMaXN0KGxpc3REYXRhLmxpc3QgfHwgW10pOwogICAgICBzZXRQYWdpbmF0aW9uKHAgPT4gKHsgLi4ucCwgY3VycmVudDogcGFnZSwgdG90YWw6IGxpc3REYXRhLnRvdGFsIHx8IDAgfSkpOwogICAgICBzZXRTdGF0cyhzdGF0c1Jlcy5kYXRhPy5kYXRhIHx8IHN0YXRzUmVzLmRhdGEgfHwgeyB0b3RhbDogMCwgYnJlYWtkb3duOiBbXSB9KTsKICAgIH0gY2F0Y2ggKGUpIHsgLyogaWdub3JlICovIH0KICAgIHNldExvYWRpbmcoZmFsc2UpOwogIH07CgogIHVzZUVmZmVjdCgoKSA9PiB7IGxvYWQoMSk7IH0sIFtmaWx0ZXJzLnN0YXR1cywgZmlsdGVycy5hbGVydF90eXBlLCBmaWx0ZXJzLmFsZXJ0X2xldmVsXSk7CgogIGNvbnN0IGhhbmRsZVNjYW4gPSBhc3luYyAoKSA9PiB7CiAgICBzZXRTY2FubmluZyh0cnVlKTsKICAgIHRyeSB7CiAgICAgIGNvbnN0IHJlcyA9IGF3YWl0IHJlcXVlc3QucG9zdCgnL2FsZXJ0cy9zY2FuJyk7CiAgICAgIG1lc3NhZ2Uuc3VjY2VzcyhyZXMubWVzc2FnZSB8fCAn5omr5o+P5a6M5oiQJyk7CiAgICAgIGxvYWQoMSk7CiAgICAgIC8vIOivremfs+aSreaKpQogICAgICBjb25zdCBjcml0aWNhbCA9ICgocmVzLmRhdGE/LmRhdGEgfHwgcmVzLmRhdGEgfHwge30pLmFjdGl2ZV9hbGVydHMgfHwgMCk7CiAgICAgIGlmIChjcml0aWNhbCA+IDApIHZvaWNlU2VydmljZS5zcGVhayhg5bqT5a2Y6aKE6K2m5omr5o+P5a6M5oiQ77yM5b2T5YmN5pyJJHtjcml0aWNhbH3mnaHpooTorabpnIDopoHlpITnkIZgLCB7IHJhdGU6IDAuOSB9KTsKICAgIH0gY2F0Y2ggKGU6IGFueSkgeyBtZXNzYWdlLmVycm9yKGUucmVzcG9uc2U/LmRhdGE/Lm1lc3NhZ2UgfHwgJ+aJq+aPj+Wksei0pScpOyB9CiAgICBzZXRTY2FubmluZyhmYWxzZSk7CiAgfTsKCiAgY29uc3QgaGFuZGxlUmVzb2x2ZSA9IGFzeW5jIChpZDogbnVtYmVyKSA9PiB7CiAgICB0cnkgeyBhd2FpdCByZXF1ZXN0LnB1dChgL2FsZXJ0cy8ke2lkfWAsIHsgc3RhdHVzOiAncmVzb2x2ZWQnIH0pOyBtZXNzYWdlLnN1Y2Nlc3MoJ+mihOitpuW3suWkhOeQhicpOyBsb2FkKHBhZ2luYXRpb24uY3VycmVudCk7IH0KICAgIGNhdGNoIChlKSB7IG1lc3NhZ2UuZXJyb3IoJ+aTjeS9nOWksei0pScpOyB9CiAgfTsKCiAgY29uc3QgaGFuZGxlSWdub3JlID0gYXN5bmMgKGlkOiBudW1iZXIpID0+IHsKICAgIHRyeSB7IGF3YWl0IHJlcXVlc3QucHV0KGAvYWxlcnRzLyR7aWR9YCwgeyBzdGF0dXM6ICdpZ25vcmVkJyB9KTsgbWVzc2FnZS5zdWNjZXNzKCflt7Llv73nlaUnKTsgbG9hZChwYWdpbmF0aW9uLmN1cnJlbnQpOyB9CiAgICBjYXRjaCAoZSkgeyBtZXNzYWdlLmVycm9yKCfmk43kvZzlpLHotKUnKTsgfQogIH07CgogIGNvbnN0IGNyaXRpY2FsQ291bnQgPSBzdGF0cy5icmVha2Rvd24/LmZpbHRlcigoYjogYW55KSA9PiBiLmFsZXJ0X2xldmVsID09PSAnY3JpdGljYWwnKS5yZWR1Y2UoKHM6IG51bWJlciwgYjogYW55KSA9PiBzICsgYi5jbnQsIDApIHx8IDA7CiAgY29uc3Qgd2FybmluZ0NvdW50ID0gc3RhdHMuYnJlYWtkb3duPy5maWx0ZXIoKGI6IGFueSkgPT4gYi5hbGVydF9sZXZlbCA9PT0gJ3dhcm5pbmcnKS5yZWR1Y2UoKHM6IG51bWJlciwgYjogYW55KSA9PiBzICsgYi5jbnQsIDApIHx8IDA7CgogIGNvbnN0IGNvbHVtbnMgPSBbCiAgICB7IHRpdGxlOiAn57qn5YirJywgZGF0YUluZGV4OiAnYWxlcnRfbGV2ZWwnLCB3aWR0aDogODAsIHJlbmRlcjogKHY6IHN0cmluZykgPT4gPFRhZyBjb2xvcj17bGV2ZWxNYXBbdl0/LmNvbG9yfT57bGV2ZWxNYXBbdl0/LmxhYmVsIHx8IHZ9PC9UYWc+IH0sCiAgICB7IHRpdGxlOiAn57G75Z6LJywgZGF0YUluZGV4OiAnYWxlcnRfdHlwZScsIHdpZHRoOiAxMDAsIHJlbmRlcjogKHY6IHN0cmluZykgPT4gPHNwYW4+e2FsZXJ0VHlwZU1hcFt2XT8uaWNvbn0ge2FsZXJ0VHlwZU1hcFt2XT8ubGFiZWwgfHwgdn08L3NwYW4+IH0sCiAgICB7IHRpdGxlOiAn5ZWG5ZOBJywgZGF0YUluZGV4OiAncHJvZHVjdF9uYW1lJyB9LAogICAgeyB0aXRsZTogJ+S7k+W6kycsIGRhdGFJbmRleDogJ3dhcmVob3VzZV9uYW1lJywgd2lkdGg6IDEwMCB9LAogICAgeyB0aXRsZTogJ+W9k+WJjeW6k+WtmCcsIGRhdGFJbmRleDogJ2N1cnJlbnRfdmFsdWUnLCB3aWR0aDogMTAwLCBhbGlnbjogJ3JpZ2h0JyBhcyBjb25zdCwgcmVuZGVyOiAodjogbnVtYmVyLCByOiBhbnkpID0+IDxUZXh0IHR5cGU9e3IuYWxlcnRfbGV2ZWwgPT09ICdjcml0aWNhbCcgPyAnZGFuZ2VyJyA6ICd3YXJuaW5nJ30gc3Ryb25nPnt2fSB7ci51bml0fTwvVGV4dD4gfSwKICAgIHsgdGl0bGU6ICfpmIjlgLwnLCBkYXRhSW5kZXg6ICd0aHJlc2hvbGRfdmFsdWUnLCB3aWR0aDogODAsIGFsaWduOiAncmlnaHQnIGFzIGNvbnN0LCByZW5kZXI6ICh2OiBudW1iZXIpID0+IHYgfHwgJy0nIH0sCiAgICB7IHRpdGxlOiAn6aKE6K2m5L+h5oGvJywgZGF0YUluZGV4OiAnbWVzc2FnZScsIGVsbGlwc2lzOiB0cnVlIH0sCiAgICB7IHRpdGxlOiAn5pe26Ze0JywgZGF0YUluZGV4OiAnY3JlYXRlZF9hdCcsIHdpZHRoOiAxMTAsIHJlbmRlcjogKHY6IHN0cmluZykgPT4gdj8uc2xpY2UoMCwgMTYpLnJlcGxhY2UoJ1QnLCAnICcpIH0sCiAgICB7CiAgICAgIHRpdGxlOiAn5pON5L2cJywgd2lkdGg6IDE0MCwgcmVuZGVyOiAoXzogYW55LCByOiBhbnkpID0+IHIuc3RhdHVzID09PSAnYWN0aXZlJyA/ICgKICAgICAgICA8U3BhY2U+CiAgICAgICAgICA8QnV0dG9uIHR5cGU9ImxpbmsiIHNpemU9InNtYWxsIiBpY29uPXs8Q2hlY2tDaXJjbGVPdXRsaW5lZCAvPn0gb25DbGljaz17KCkgPT4gaGFuZGxlUmVzb2x2ZShyLmlkKX0+6Kej5YazPC9CdXR0b24+CiAgICAgICAgICA8QnV0dG9uIHR5cGU9ImxpbmsiIHNpemU9InNtYWxsIiBvbkNsaWNrPXsoKSA9PiBoYW5kbGVJZ25vcmUoci5pZCl9PuW/veeVpTwvQnV0dG9uPgogICAgICAgIDwvU3BhY2U+CiAgICAgICkgOiA8VGFnPntyLnN0YXR1cyA9PT0gJ3Jlc29sdmVkJyA/ICflt7Lop6PlhrMnIDogJ+W3suW/veeVpSd9PC9UYWc+CiAgICB9CiAgXTsKCiAgcmV0dXJuICgKICAgIDxkaXY+CiAgICAgIDxUaXRsZSBsZXZlbD17NH0gc3R5bGU9e3sgbWFyZ2luQm90dG9tOiAxNiB9fT7pooTorabkuK3lv4M8L1RpdGxlPgoKICAgICAgPFJvdyBndXR0ZXI9ezE2fSBzdHlsZT17eyBtYXJnaW5Cb3R0b206IDE2IH19PgogICAgICAgIDxDb2wgeHM9ezEyfSBtZD17Nn0+CiAgICAgICAgICA8Q2FyZCBzaXplPSJzbWFsbCI+PFN0YXRpc3RpYyB0aXRsZT0i5rS76LeD6aKE6K2mIiB2YWx1ZT17c3RhdHMudG90YWx9IHByZWZpeD17PEJlbGxPdXRsaW5lZCAvPn0gdmFsdWVTdHlsZT17eyBjb2xvcjogc3RhdHMudG90YWwgPiAwID8gJyNmZjRkNGYnIDogJyM1MmM0MWEnIH19IC8+PC9DYXJkPgogICAgICAgIDwvQ29sPgogICAgICAgIDxDb2wgeHM9ezEyfSBtZD17Nn0+CiAgICAgICAgICA8Q2FyZCBzaXplPSJzbWFsbCI+PFN0YXRpc3RpYyB0aXRsZT0i5Lil6YeN6aKE6K2mIiB2YWx1ZT17Y3JpdGljYWxDb3VudH0gcHJlZml4PXs8V2FybmluZ091dGxpbmVkIC8+fSB2YWx1ZVN0eWxlPXt7IGNvbG9yOiAnI2ZmNGQ0ZicgfX0gLz48L0NhcmQ+CiAgICAgICAgPC9Db2w+CiAgICAgICAgPENvbCB4cz17MTJ9IG1kPXs2fT4KICAgICAgICAgIDxDYXJkIHNpemU9InNtYWxsIj48U3RhdGlzdGljIHRpdGxlPSLorablkYoiIHZhbHVlPXt3YXJuaW5nQ291bnR9IHZhbHVlU3R5bGU9e3sgY29sb3I6ICcjZmFhZDE0JyB9fSAvPjwvQ2FyZD4KICAgICAgICA8L0NvbD4KICAgICAgICA8Q29sIHhzPXsxMn0gbWQ9ezZ9PgogICAgICAgICAgPENhcmQgc2l6ZT0ic21hbGwiIHN0eWxlPXt7IHRleHRBbGlnbjogJ2NlbnRlcicgfX0+CiAgICAgICAgICAgIDxCdXR0b24gdHlwZT0icHJpbWFyeSIgaWNvbj17PFJlbG9hZE91dGxpbmVkIC8+fSBsb2FkaW5nPXtzY2FubmluZ30gb25DbGljaz17aGFuZGxlU2Nhbn0gc3R5bGU9e3sgbWFyZ2luVG9wOiA4IH19PgogICAgICAgICAgICAgIOaJq+aPj+W6k+WtmOmihOitpgogICAgICAgICAgICA8L0J1dHRvbj4KICAgICAgICAgIDwvQ2FyZD4KICAgICAgICA8L0NvbD4KICAgICAgPC9Sb3c+CgogICAgICA8Q2FyZCBzaXplPSJzbWFsbCIgc3R5bGU9e3sgbWFyZ2luQm90dG9tOiAxNiB9fT4KICAgICAgICA8U3BhY2Ugd3JhcD4KICAgICAgICAgIDxTZWxlY3QgcGxhY2Vob2xkZXI9IumihOitpuexu+WeiyIgYWxsb3dDbGVhciBzdHlsZT17eyB3aWR0aDogMTMwIH19CiAgICAgICAgICAgIG9wdGlvbnM9e09iamVjdC5lbnRyaWVzKGFsZXJ0VHlwZU1hcCkubWFwKChbaywgdl0pID0+ICh7IHZhbHVlOiBrLCBsYWJlbDogYCR7di5pY29ufSAke3YubGFiZWx9YCB9KSl9CiAgICAgICAgICAgIG9uQ2hhbmdlPXt2ID0+IHNldEZpbHRlcnMoKGY6IGFueSkgPT4gKHsgLi4uZiwgYWxlcnRfdHlwZTogdiB9KSl9IC8+CiAgICAgICAgICA8U2VsZWN0IHBsYWNlaG9sZGVyPSLpooTorabnuqfliKsiIGFsbG93Q2xlYXIgc3R5bGU9e3sgd2lkdGg6IDExMCB9fQogICAgICAgICAgICBvcHRpb25zPXtPYmplY3QuZW50cmllcyhsZXZlbE1hcCkubWFwKChbaywgdl0pID0+ICh7IHZhbHVlOiBrLCBsYWJlbDogdi5sYWJlbCB9KSl9CiAgICAgICAgICAgIG9uQ2hhbmdlPXt2ID0+IHNldEZpbHRlcnMoKGY6IGFueSkgPT4gKHsgLi4uZiwgYWxlcnRfbGV2ZWw6IHYgfSkpfSAvPgogICAgICAgICAgPFNlbGVjdCB2YWx1ZT17ZmlsdGVycy5zdGF0dXN9IHN0eWxlPXt7IHdpZHRoOiAxMTAgfX0KICAgICAgICAgICAgb3B0aW9ucz17W3sgdmFsdWU6ICdhY3RpdmUnLCBsYWJlbDogJ+acquWkhOeQhicgfSwgeyB2YWx1ZTogJ3Jlc29sdmVkJywgbGFiZWw6ICflt7Lop6PlhrMnIH0sIHsgdmFsdWU6ICdpZ25vcmVkJywgbGFiZWw6ICflt7Llv73nlaUnIH1dfQogICAgICAgICAgICBvbkNoYW5nZT17diA9PiBzZXRGaWx0ZXJzKChmOiBhbnkpID0+ICh7IC4uLmYsIHN0YXR1czogdiB9KSl9IC8+CiAgICAgICAgICA8QnV0dG9uIG9uQ2xpY2s9eygpID0+IGxvYWQoMSl9PuafpeivojwvQnV0dG9uPgogICAgICAgIDwvU3BhY2U+CiAgICAgIDwvQ2FyZD4KCiAgICAgIDxUYWJsZSBjb2x1bW5zPXtjb2x1bW5zfSBkYXRhU291cmNlPXtsaXN0fSByb3dLZXk9ImlkIiBsb2FkaW5nPXtsb2FkaW5nfSBzaXplPSJzbWFsbCIgc2Nyb2xsPXt7IHg6IDExMDAgfX0KICAgICAgICBwYWdpbmF0aW9uPXt7IGN1cnJlbnQ6IHBhZ2luYXRpb24uY3VycmVudCwgcGFnZVNpemU6IHBhZ2luYXRpb24ucGFnZVNpemUsIHRvdGFsOiBwYWdpbmF0aW9uLnRvdGFsLCBzaG93VG90YWw6IHQgPT4gYOWFsSAke3R9IOadoWAsIG9uQ2hhbmdlOiBwID0+IGxvYWQocCkgfX0KICAgICAgICByb3dDbGFzc05hbWU9eyhyKSA9PiByLmFsZXJ0X2xldmVsID09PSAnY3JpdGljYWwnID8gJ2FsZXJ0LXJvdy1jcml0aWNhbCcgOiAnJ30gLz4KICAgIDwvZGl2PgogICk7Cn07CgpleHBvcnQgZGVmYXVsdCBBbGVydHM7Cg==
+import React, { useState, useEffect } from 'react';
+import { Table, Button, Tag, Space, message, Card, Row, Col, Statistic, Typography, Popconfirm, Select, Input, Badge } from 'antd';
+import { WarningOutlined, ReloadOutlined, CheckCircleOutlined, BellOutlined } from '@ant-design/icons';
+import request from '../../api/request';
+import { voiceService } from '../../services/voiceService';
+
+const { Title, Text } = Typography;
+
+const alertTypeMap: Record<string, { label: string; color: string; icon: string }> = {
+  low_stock: { label: '库存不足', color: 'red', icon: '⚠️' },
+  over_stock: { label: '库存积压', color: 'orange', icon: '📦' },
+  zero_stock: { label: '零库存', color: 'default', icon: '🚫' },
+  negative: { label: '负库存异常', color: 'red', icon: '❗' },
+  expiry: { label: '临期预警', color: 'orange', icon: '⏰' }
+};
+const levelMap: Record<string, { label: string; color: string }> = {
+  info: { label: '提示', color: 'blue' }, warning: { label: '警告', color: 'orange' }, critical: { label: '严重', color: 'red' }
+};
+
+const Alerts: React.FC = () => {
+  const [list, setList] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [scanning, setScanning] = useState(false);
+  const [pagination, setPagination] = useState({ current: 1, pageSize: 20, total: 0 });
+  const [stats, setStats] = useState<any>({ total: 0, breakdown: [] });
+  const [filters, setFilters] = useState<any>({ status: 'active', alert_type: undefined, alert_level: undefined });
+
+  const load = async (page = 1) => {
+    setLoading(true);
+    try {
+      const [listRes, statsRes] = await Promise.all([
+        request.get('/alerts', { params: { page, pageSize: 20, ...filters } }),
+        request.get('/alerts/stats')
+      ]);
+      const listData = listRes.data?.data || listRes.data || {};
+      setList(listData.list || []);
+      setPagination(p => ({ ...p, current: page, total: listData.total || 0 }));
+      setStats(statsRes.data?.data || statsRes.data || { total: 0, breakdown: [] });
+    } catch (e) { /* ignore */ }
+    setLoading(false);
+  };
+
+  useEffect(() => { load(1); }, [filters.status, filters.alert_type, filters.alert_level]);
+
+  const handleScan = async () => {
+    setScanning(true);
+    try {
+      const res = await request.post('/alerts/scan');
+      message.success(res.message || '扫描完成');
+      load(1);
+      // 语音播报
+      const critical = ((res.data?.data || res.data || {}).active_alerts || 0);
+      if (critical > 0) voiceService.speak(`库存预警扫描完成，当前有${critical}条预警需要处理`, { rate: 0.9 });
+    } catch (e: any) { message.error(e.response?.data?.message || '扫描失败'); }
+    setScanning(false);
+  };
+
+  const handleResolve = async (id: number) => {
+    try { await request.put(`/alerts/${id}`, { status: 'resolved' }); message.success('预警已处理'); load(pagination.current); }
+    catch (e) { message.error('操作失败'); }
+  };
+
+  const handleIgnore = async (id: number) => {
+    try { await request.put(`/alerts/${id}`, { status: 'ignored' }); message.success('已忽略'); load(pagination.current); }
+    catch (e) { message.error('操作失败'); }
+  };
+
+  const criticalCount = stats.breakdown?.filter((b: any) => b.alert_level === 'critical').reduce((s: number, b: any) => s + b.cnt, 0) || 0;
+  const warningCount = stats.breakdown?.filter((b: any) => b.alert_level === 'warning').reduce((s: number, b: any) => s + b.cnt, 0) || 0;
+
+  const columns = [
+    { title: '级别', dataIndex: 'alert_level', width: 80, render: (v: string) => <Tag color={levelMap[v]?.color}>{levelMap[v]?.label || v}</Tag> },
+    { title: '类型', dataIndex: 'alert_type', width: 100, render: (v: string) => <span>{alertTypeMap[v]?.icon} {alertTypeMap[v]?.label || v}</span> },
+    { title: '商品', dataIndex: 'product_name' },
+    { title: '仓库', dataIndex: 'warehouse_name', width: 100 },
+    { title: '当前库存', dataIndex: 'current_value', width: 100, align: 'right' as const, render: (v: number, r: any) => <Text type={r.alert_level === 'critical' ? 'danger' : 'warning'} strong>{v} {r.unit}</Text> },
+    { title: '阈值', dataIndex: 'threshold_value', width: 80, align: 'right' as const, render: (v: number) => v || '-' },
+    { title: '预警信息', dataIndex: 'message', ellipsis: true },
+    { title: '时间', dataIndex: 'created_at', width: 110, render: (v: string) => v?.slice(0, 16).replace('T', ' ') },
+    {
+      title: '操作', width: 140, render: (_: any, r: any) => r.status === 'active' ? (
+        <Space>
+          <Button type="link" size="small" icon={<CheckCircleOutlined />} onClick={() => handleResolve(r.id)}>解决</Button>
+          <Button type="link" size="small" onClick={() => handleIgnore(r.id)}>忽略</Button>
+        </Space>
+      ) : <Tag>{r.status === 'resolved' ? '已解决' : '已忽略'}</Tag>
+    }
+  ];
+
+  return (
+    <div>
+      <Title level={4} style={{ marginBottom: 16 }}>预警中心</Title>
+
+      <Row gutter={16} style={{ marginBottom: 16 }}>
+        <Col xs={12} md={6}>
+          <Card size="small"><Statistic title="活跃预警" value={stats.total} prefix={<BellOutlined />} valueStyle={{ color: stats.total > 0 ? '#ff4d4f' : '#52c41a' }} /></Card>
+        </Col>
+        <Col xs={12} md={6}>
+          <Card size="small"><Statistic title="严重预警" value={criticalCount} prefix={<WarningOutlined />} valueStyle={{ color: '#ff4d4f' }} /></Card>
+        </Col>
+        <Col xs={12} md={6}>
+          <Card size="small"><Statistic title="警告" value={warningCount} valueStyle={{ color: '#faad14' }} /></Card>
+        </Col>
+        <Col xs={12} md={6}>
+          <Card size="small" style={{ textAlign: 'center' }}>
+            <Button type="primary" icon={<ReloadOutlined />} loading={scanning} onClick={handleScan} style={{ marginTop: 8 }}>
+              扫描库存预警
+            </Button>
+          </Card>
+        </Col>
+      </Row>
+
+      <Card size="small" style={{ marginBottom: 16 }}>
+        <Space wrap>
+          <Select placeholder="预警类型" allowClear style={{ width: 130 }}
+            options={Object.entries(alertTypeMap).map(([k, v]) => ({ value: k, label: `${v.icon} ${v.label}` }))}
+            onChange={v => setFilters((f: any) => ({ ...f, alert_type: v }))} />
+          <Select placeholder="预警级别" allowClear style={{ width: 110 }}
+            options={Object.entries(levelMap).map(([k, v]) => ({ value: k, label: v.label }))}
+            onChange={v => setFilters((f: any) => ({ ...f, alert_level: v }))} />
+          <Select value={filters.status} style={{ width: 110 }}
+            options={[{ value: 'active', label: '未处理' }, { value: 'resolved', label: '已解决' }, { value: 'ignored', label: '已忽略' }]}
+            onChange={v => setFilters((f: any) => ({ ...f, status: v }))} />
+          <Button onClick={() => load(1)}>查询</Button>
+        </Space>
+      </Card>
+
+      <Table columns={columns} dataSource={list} rowKey="id" loading={loading} size="small" scroll={{ x: 1100 }}
+        pagination={{ current: pagination.current, pageSize: pagination.pageSize, total: pagination.total, showTotal: t => `共 ${t} 条`, onChange: p => load(p) }}
+        rowClassName={(r) => r.alert_level === 'critical' ? 'alert-row-critical' : ''} />
+    </div>
+  );
+};
+
+export default Alerts;

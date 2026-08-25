@@ -1,1 +1,45 @@
-LS0gMjAyNi0wOC0yNiDnlLXllYbotKblpZfmlLnkuLrnlKjmiLfnnJ/lrp7okKXkuJrmiafnhafkv6Hmga8KLS0g56ef5oi3M++8muaCpumAieaVsOeggeeUteWVhu+8iOa8lOekuu+8ieKGkiDmrabmsYnluILmsZ/lsrjljLrlrofoiKrmmbrojZ/nlLXllYbokKXkuJrpg6jvvIjnlKjmiLfnnJ/lrp7kuLvkvZPvvIkKClVQREFURSB0ZW5hbnRzIApTRVQgbmFtZSA9ICfmrabmsYnluILmsZ/lsrjljLrlrofoiKrmmbrojZ/nlLXllYbokKXkuJrpg6gnLAogICAgb3duZXJfbmFtZSA9ICfpgrHlgaXlhpsnLAogICAgcGhvbmUgPSAnMTg2Njc4ODcxMzgnLAogICAgYnVzaW5lc3NfdHlwZSA9ICdlY29tbWVyY2UnCldIRVJFIGlkID0gMzsKClVQREFURSBhY2NvdW50aW5nX2Jvb2tzIApTRVQgYm9va19uYW1lID0gJ+Wuh+iIquaZuuiNn+eUteWVhui0puWllycsCiAgICBlbnRpdHlfbmFtZSA9ICfmrabmsYnluILmsZ/lsrjljLrlrofoiKrmmbrojZ/nlLXllYbokKXkuJrpg6gnLAogICAgY3JlZGl0X2NvZGUgPSAnOTI0MjAxMDJNQUtKTUU1RjNSJywKICAgIGVudGl0eV90eXBlID0gJ2luZGl2aWR1YWwnCldIRVJFIGlkID0gMzsKCi0tIOabtOaWsGFkbWlu55yf5a6e5aeT5ZCNClVQREFURSB1c2VycyBTRVQgcmVhbF9uYW1lID0gJ+mCseWBpeWGmycgV0hFUkUgdGVuYW50X2lkID0gMyBBTkQgdXNlcm5hbWUgPSAnYWRtaW4nOwoKLS0g5Li656ef5oi3M+WIm+W7uuS4ieaemuWNsOeroO+8iOWFrOeroOOAgei0ouWKoeS4k+eUqOeroOOAgeazleWumuS7o+ihqOS6uuWQjeeroO+8iQotLSDlhaznq6DlpIfmoYjlj7cgNDIwMTAyMTA0NTA4MDLvvIzms5Xkurrnp4Hnq6DlpIfmoYjlj7cgNDIwMTAyMTA0NTA4MDMKLS0g6LSi5Yqh5LiT55So56ug5aSH5qGI5Y+35Y+C6ICD56ef5oi3MueahOagvOW8j++8mjQyMDEwMjEwNDUyNDgzCklOU0VSVCBJTlRPIHNlYWxzIChib29rX2lkLCBzZWFsX3R5cGUsIHNlYWxfbmFtZSwgc2VhbF9jb2RlLCBpbWFnZV91cmwsIGlzX2ZpbGVkLCBpc19hY3RpdmUpClNFTEVDVCAzLCAnY29tcGFueScsICfmrabmsYnluILmsZ/lsrjljLrlrofoiKrmmbrojZ/nlLXllYbokKXkuJrpg6gnLCAnNDIwMTAyMTA0NTA4MDInLCBOVUxMLCAxLCAxCldIRVJFIE5PVCBFWElTVFMgKFNFTEVDVCAxIEZST00gc2VhbHMgV0hFUkUgYm9va19pZCA9IDMgQU5EIHNlYWxfdHlwZSA9ICdjb21wYW55Jyk7CgpJTlNFUlQgSU5UTyBzZWFscyAoYm9va19pZCwgc2VhbF90eXBlLCBzZWFsX25hbWUsIHNlYWxfY29kZSwgaW1hZ2VfdXJsLCBpc19maWxlZCwgaXNfYWN0aXZlKQpTRUxFQ1QgMywgJ2ZpbmFuY2lhbCcsICfmrabmsYnluILmsZ/lsrjljLrlrofoiKrmmbrojZ/nlLXllYbokKXkuJrpg6gnLCAnNDIwMTAyMTA0NTI0ODMnLCBOVUxMLCAxLCAxCldIRVJFIE5PVCBFWElTVFMgKFNFTEVDVCAxIEZST00gc2VhbHMgV0hFUkUgYm9va19pZCA9IDMgQU5EIHNlYWxfdHlwZSA9ICdmaW5hbmNpYWwnKTsKCklOU0VSVCBJTlRPIHNlYWxzIChib29rX2lkLCBzZWFsX3R5cGUsIHNlYWxfbmFtZSwgc2VhbF9jb2RlLCBpbWFnZV91cmwsIGlzX2ZpbGVkLCBpc19hY3RpdmUpClNFTEVDVCAzLCAnbGVnYWxfcmVwJywgJ+mCseWBpeWGmycsICc0MjAxMDIxMDQ1MDgwMycsIE5VTEwsIDEsIDEKV0hFUkUgTk9UIEVYSVNUUyAoU0VMRUNUIDEgRlJPTSBzZWFscyBXSEVSRSBib29rX2lkID0gMyBBTkQgc2VhbF90eXBlID0gJ2xlZ2FsX3JlcCcpOwoKLS0g5bCG5LiJ5p6a5Y2w56ug6Ieq5Yqo55uW5Yiw6LSm5aWXM+eahOaJgOacieWHreivgeS4igpJTlNFUlQgSU5UTyB2b3VjaGVyX3NlYWxzICh2b3VjaGVyX2lkLCBzZWFsX2lkLCBzdGFtcGVkX2J5KQpTRUxFQ1Qgdi5pZCwgcy5pZCwgMzgKRlJPTSB2b3VjaGVycyB2CkNST1NTIEpPSU4gc2VhbHMgcwpXSEVSRSB2LmJvb2tfaWQgPSAzIEFORCBzLmJvb2tfaWQgPSAzCiAgQU5EIE5PVCBFWElTVFMgKAogICAgU0VMRUNUIDEgRlJPTSB2b3VjaGVyX3NlYWxzIHZzIAogICAgV0hFUkUgdnMudm91Y2hlcl9pZCA9IHYuaWQgQU5EIHZzLnNlYWxfaWQgPSBzLmlkCiAgKTsK
+-- 2026-08-26 电商账套改为用户真实营业执照信息
+-- 租户3：悦选数码电商（演示）→ 武汉市江岸区宇航智荟电商营业部（用户真实主体）
+
+UPDATE tenants 
+SET name = '武汉市江岸区宇航智荟电商营业部',
+    owner_name = '邱健军',
+    phone = '18667887138',
+    business_type = 'ecommerce'
+WHERE id = 3;
+
+UPDATE accounting_books 
+SET book_name = '宇航智荟电商账套',
+    entity_name = '武汉市江岸区宇航智荟电商营业部',
+    credit_code = '92420102MAKJME5F3R',
+    entity_type = 'individual'
+WHERE id = 3;
+
+-- 更新admin真实姓名
+UPDATE users SET real_name = '邱健军' WHERE tenant_id = 3 AND username = 'admin';
+
+-- 为租户3创建三枚印章（公章、财务专用章、法定代表人名章）
+-- 公章备案号 42010210450802，法人私章备案号 42010210450803
+-- 财务专用章备案号参考租户2的格式：42010210452483
+INSERT INTO seals (book_id, seal_type, seal_name, seal_code, image_url, is_filed, is_active)
+SELECT 3, 'company', '武汉市江岸区宇航智荟电商营业部', '42010210450802', NULL, 1, 1
+WHERE NOT EXISTS (SELECT 1 FROM seals WHERE book_id = 3 AND seal_type = 'company');
+
+INSERT INTO seals (book_id, seal_type, seal_name, seal_code, image_url, is_filed, is_active)
+SELECT 3, 'financial', '武汉市江岸区宇航智荟电商营业部', '42010210452483', NULL, 1, 1
+WHERE NOT EXISTS (SELECT 1 FROM seals WHERE book_id = 3 AND seal_type = 'financial');
+
+INSERT INTO seals (book_id, seal_type, seal_name, seal_code, image_url, is_filed, is_active)
+SELECT 3, 'legal_rep', '邱健军', '42010210450803', NULL, 1, 1
+WHERE NOT EXISTS (SELECT 1 FROM seals WHERE book_id = 3 AND seal_type = 'legal_rep');
+
+-- 将三枚印章自动盖到账套3的所有凭证上
+INSERT INTO voucher_seals (voucher_id, seal_id, stamped_by)
+SELECT v.id, s.id, 38
+FROM vouchers v
+CROSS JOIN seals s
+WHERE v.book_id = 3 AND s.book_id = 3
+  AND NOT EXISTS (
+    SELECT 1 FROM voucher_seals vs 
+    WHERE vs.voucher_id = v.id AND vs.seal_id = s.id
+  );

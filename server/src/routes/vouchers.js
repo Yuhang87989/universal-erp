@@ -1,1 +1,391 @@
-Y29uc3QgZXhwcmVzcyA9IHJlcXVpcmUoJ2V4cHJlc3MnKTsKY29uc3QgcG9vbCA9IHJlcXVpcmUoJy4uL2NvbmZpZy9kYicpOwpjb25zdCB7IGF1dGhlbnRpY2F0ZSwgcmVxdWlyZVJvbGUgfSA9IHJlcXVpcmUoJy4uL21pZGRsZXdhcmUvYXV0aCcpOwpjb25zdCBkYXlqcyA9IHJlcXVpcmUoJ2RheWpzJyk7Cgpjb25zdCByb3V0ZXIgPSBleHByZXNzLlJvdXRlcigpOwpyb3V0ZXIudXNlKGF1dGhlbnRpY2F0ZSk7CgovLyDlh63or4HnsbvlnovkuK3mlofmmKDlsIQKY29uc3Qgdm91Y2hlclR5cGVNYXAgPSB7IHJlY2VpcHQ6ICfmlLYnLCBwYXltZW50OiAn5LuYJywgdHJhbnNmZXI6ICfovawnLCBnZW5lcmFsOiAn6K6wJyB9OwoKLy8g6L6F5Yqp77ya6I635Y+W5b2T5YmN56ef5oi355qE6buY6K6k6LSm5aWXSUQKYXN5bmMgZnVuY3Rpb24gZ2V0RGVmYXVsdEJvb2tJZCh0ZW5hbnRJZCwgYm9va0lkKSB7CiAgaWYgKGJvb2tJZCkgcmV0dXJuIGJvb2tJZDsKICBjb25zdCBbYm9va3NdID0gYXdhaXQgcG9vbC5xdWVyeSgKICAgICdTRUxFQ1QgaWQgRlJPTSBhY2NvdW50aW5nX2Jvb2tzIFdIRVJFIHRlbmFudF9pZCA9ID8gQU5EIGlzX2FjdGl2ZSA9IFRSVUUgT1JERVIgQlkgaWQgQVNDIExJTUlUIDEnLAogICAgW3RlbmFudElkXQogICk7CiAgaWYgKCFib29rcy5sZW5ndGgpIHRocm93IG5ldyBFcnJvcign5b2T5YmN56ef5oi35pqC5peg6LSm5aWXJyk7CiAgcmV0dXJuIGJvb2tzWzBdLmlkOwp9CgovLyDovoXliqnvvJrnlJ/miJDlh63or4HnvJblj7cKYXN5bmMgZnVuY3Rpb24gZ2VuZXJhdGVWb3VjaGVyTm8oY29ubiwgYm9va0lkLCB2b3VjaGVyVHlwZSwgdm91Y2hlckRhdGUpIHsKICBjb25zdCBwcmVmaXggPSB2b3VjaGVyVHlwZU1hcFt2b3VjaGVyVHlwZV0gfHwgJ+iusCc7CiAgY29uc3QgbW9udGggPSBkYXlqcyh2b3VjaGVyRGF0ZSkuZm9ybWF0KCdZWVlZTU0nKTsKICBjb25zdCBwYXR0ZXJuID0gYCR7cHJlZml4fS0ke21vbnRofS0lYDsKCiAgY29uc3QgW2xhc3RdID0gYXdhaXQgY29ubi5xdWVyeSgKICAgIGBTRUxFQ1Qgdm91Y2hlcl9ubyBGUk9NIHZvdWNoZXJzIFdIRVJFIGJvb2tfaWQgPSA/IEFORCB2b3VjaGVyX25vIExJS0UgPyBPUkRFUiBCWSB2b3VjaGVyX25vIERFU0MgTElNSVQgMWAsCiAgICBbYm9va0lkLCBwYXR0ZXJuXQogICk7CgogIGxldCBzZXEgPSAxOwogIGlmIChsYXN0Lmxlbmd0aCkgewogICAgY29uc3QgcGFydHMgPSBsYXN0WzBdLnZvdWNoZXJfbm8uc3BsaXQoJy0nKTsKICAgIHNlcSA9IHBhcnNlSW50KHBhcnRzWzJdIHx8ICcwJykgKyAxOwogIH0KICByZXR1cm4gYCR7cHJlZml4fS0ke21vbnRofS0ke1N0cmluZyhzZXEpLnBhZFN0YXJ0KDQsICcwJyl9YDsKfQoKLy8g6I635Y+W5Yet6K+B5YiX6KGoCnJvdXRlci5nZXQoJy8nLCBhc3luYyAocmVxLCByZXMpID0+IHsKICB0cnkgewogICAgY29uc3QgeyBib29rX2lkLCBzdGF0dXMsIHZvdWNoZXJfdHlwZSwgc3RhcnRfZGF0ZSwgZW5kX2RhdGUsIGtleXdvcmQsIHBhZ2UgPSAxLCBwYWdlU2l6ZSA9IDIwIH0gPSByZXEucXVlcnk7CiAgICBjb25zdCBvZmZzZXQgPSAocGFnZSAtIDEpICogcGFnZVNpemU7CiAgICBjb25zdCBiaWQgPSBhd2FpdCBnZXREZWZhdWx0Qm9va0lkKHJlcS50ZW5hbnRJZCwgYm9va19pZCA/IHBhcnNlSW50KGJvb2tfaWQpIDogbnVsbCk7CgogICAgbGV0IHdoZXJlID0gJ1dIRVJFIHYuYm9va19pZCA9ID8nOwogICAgY29uc3QgcGFyYW1zID0gW2JpZF07CgogICAgaWYgKHN0YXR1cykgeyB3aGVyZSArPSAnIEFORCB2LnN0YXR1cyA9ID8nOyBwYXJhbXMucHVzaChzdGF0dXMpOyB9CiAgICBpZiAodm91Y2hlcl90eXBlKSB7IHdoZXJlICs9ICcgQU5EIHYudm91Y2hlcl90eXBlID0gPyc7IHBhcmFtcy5wdXNoKHZvdWNoZXJfdHlwZSk7IH0KICAgIGlmIChzdGFydF9kYXRlKSB7IHdoZXJlICs9ICcgQU5EIHYudm91Y2hlcl9kYXRlID49ID8nOyBwYXJhbXMucHVzaChzdGFydF9kYXRlKTsgfQogICAgaWYgKGVuZF9kYXRlKSB7IHdoZXJlICs9ICcgQU5EIHYudm91Y2hlcl9kYXRlIDw9ID8nOyBwYXJhbXMucHVzaChlbmRfZGF0ZSk7IH0KICAgIGlmIChrZXl3b3JkKSB7CiAgICAgIHdoZXJlICs9ICcgQU5EICh2LnZvdWNoZXJfbm8gTElLRSA/IE9SIHYucmVtYXJrIExJS0UgPyBPUiBFWElTVFMoU0VMRUNUIDEgRlJPTSB2b3VjaGVyX2l0ZW1zIHZpIFdIRVJFIHZpLnZvdWNoZXJfaWQgPSB2LmlkIEFORCB2aS5zdW1tYXJ5IExJS0UgPykpJzsKICAgICAgcGFyYW1zLnB1c2goYCUke2tleXdvcmR9JWAsIGAlJHtrZXl3b3JkfSVgLCBgJSR7a2V5d29yZH0lYCk7CiAgICB9CgogICAgY29uc3QgW2NvdW50UmVzdWx0XSA9IGF3YWl0IHBvb2wucXVlcnkoYFNFTEVDVCBDT1VOVCgqKSBhcyB0b3RhbCBGUk9NIHZvdWNoZXJzIHYgJHt3aGVyZX1gLCBwYXJhbXMpOwoKICAgIGNvbnN0IFt2b3VjaGVyc10gPSBhd2FpdCBwb29sLnF1ZXJ5KAogICAgICBgU0VMRUNUIHYuKiwgCiAgICAgICAgdTEucmVhbF9uYW1lIGFzIGNyZWF0b3JfbmFtZSwgdTIucmVhbF9uYW1lIGFzIGF1ZGl0b3JfbmFtZQogICAgICAgRlJPTSB2b3VjaGVycyB2CiAgICAgICBMRUZUIEpPSU4gdXNlcnMgdTEgT04gdi5jcmVhdG9yX2lkID0gdTEuaWQKICAgICAgIExFRlQgSk9JTiB1c2VycyB1MiBPTiB2LmF1ZGl0b3JfaWQgPSB1Mi5pZAogICAgICAgJHt3aGVyZX0gT1JERVIgQlkgdi52b3VjaGVyX2RhdGUgREVTQywgdi5pZCBERVNDIExJTUlUID8gT0ZGU0VUID9gLAogICAgICBbLi4ucGFyYW1zLCBwYXJzZUludChwYWdlU2l6ZSksIG9mZnNldF0KICAgICk7CgogICAgLy8g5rGH5oC757uf6K6hCiAgICBjb25zdCBbc3VtbWFyeV0gPSBhd2FpdCBwb29sLnF1ZXJ5KAogICAgICBgU0VMRUNUIAogICAgICAgIENPVU5UKCopIGFzIHRvdGFsX2NvdW50LAogICAgICAgIENPQUxFU0NFKFNVTSh0b3RhbF9kZWJpdCksIDApIGFzIHRvdGFsX2Ftb3VudCwKICAgICAgICBTVU0oQ0FTRSBXSEVOIHN0YXR1cz0nZHJhZnQnIFRIRU4gMSBFTFNFIDAgRU5EKSBhcyBkcmFmdF9jb3VudCwKICAgICAgICBTVU0oQ0FTRSBXSEVOIHN0YXR1cz0nYXVkaXRlZCcgVEhFTiAxIEVMU0UgMCBFTkQpIGFzIGF1ZGl0ZWRfY291bnQKICAgICAgIEZST00gdm91Y2hlcnMgV0hFUkUgYm9va19pZCA9ID9gLAogICAgICBbYmlkXQogICAgKTsKCiAgICByZXMuanNvbih7CiAgICAgIGNvZGU6IDAsCiAgICAgIGRhdGE6IHsKICAgICAgICBsaXN0OiB2b3VjaGVycywKICAgICAgICB0b3RhbDogY291bnRSZXN1bHRbMF0udG90YWwsCiAgICAgICAgcGFnZTogcGFyc2VJbnQocGFnZSksCiAgICAgICAgcGFnZVNpemU6IHBhcnNlSW50KHBhZ2VTaXplKSwKICAgICAgICBzdW1tYXJ5OiBzdW1tYXJ5WzBdCiAgICAgIH0KICAgIH0pOwogIH0gY2F0Y2ggKGVycikgewogICAgcmVzLnN0YXR1cyg1MDApLmpzb24oeyBjb2RlOiA1MDAsIG1lc3NhZ2U6ICfojrflj5blh63or4HliJfooajlpLHotKU6ICcgKyBlcnIubWVzc2FnZSB9KTsKICB9Cn0pOwoKLy8g6I635Y+W5Yet6K+B6K+m5oOFCnJvdXRlci5nZXQoJy86aWQnLCBhc3luYyAocmVxLCByZXMpID0+IHsKICB0cnkgewogICAgY29uc3QgW3ZvdWNoZXJzXSA9IGF3YWl0IHBvb2wucXVlcnkoCiAgICAgIGBTRUxFQ1Qgdi4qLCB1MS5yZWFsX25hbWUgYXMgY3JlYXRvcl9uYW1lLCB1Mi5yZWFsX25hbWUgYXMgYXVkaXRvcl9uYW1lCiAgICAgICBGUk9NIHZvdWNoZXJzIHYKICAgICAgIExFRlQgSk9JTiB1c2VycyB1MSBPTiB2LmNyZWF0b3JfaWQgPSB1MS5pZAogICAgICAgTEVGVCBKT0lOIHVzZXJzIHUyIE9OIHYuYXVkaXRvcl9pZCA9IHUyLmlkCiAgICAgICBXSEVSRSB2LmlkID0gP2AsCiAgICAgIFtyZXEucGFyYW1zLmlkXQogICAgKTsKICAgIGlmICghdm91Y2hlcnMubGVuZ3RoKSByZXR1cm4gcmVzLnN0YXR1cyg0MDQpLmpzb24oeyBjb2RlOiA0MDQsIG1lc3NhZ2U6ICflh63or4HkuI3lrZjlnKgnIH0pOwoKICAgIC8vIOWHreivgeaYjue7huihjAogICAgY29uc3QgW2l0ZW1zXSA9IGF3YWl0IHBvb2wucXVlcnkoCiAgICAgIGBTRUxFQ1QgdmkuKiwgYS5jb2RlIGFzIGFjY291bnRfY29kZSwgYS5uYW1lIGFzIGFjY291bnRfbmFtZSwgYS5jYXRlZ29yeSBhcyBhY2NvdW50X2NhdGVnb3J5CiAgICAgICBGUk9NIHZvdWNoZXJfaXRlbXMgdmkKICAgICAgIEpPSU4gYWNjb3VudGluZ19hY2NvdW50cyBhIE9OIHZpLmFjY291bnRfaWQgPSBhLmlkCiAgICAgICBXSEVSRSB2aS52b3VjaGVyX2lkID0gPwogICAgICAgT1JERVIgQlkgdmkubGluZV9ubyBBU0NgLAogICAgICBbcmVxLnBhcmFtcy5pZF0KICAgICk7CgogICAgLy8g5YWz6IGU5Y2w56ugCiAgICBjb25zdCBbc2VhbHNdID0gYXdhaXQgcG9vbC5xdWVyeSgKICAgICAgYFNFTEVDVCB2cy4qLCBzLnNlYWxfbmFtZSwgcy5zZWFsX2NvZGUsIHMuc2VhbF90eXBlLCBzLmltYWdlX3VybCwgcy5pc19maWxlZAogICAgICAgRlJPTSB2b3VjaGVyX3NlYWxzIHZzCiAgICAgICBKT0lOIHNlYWxzIHMgT04gdnMuc2VhbF9pZCA9IHMuaWQKICAgICAgIFdIRVJFIHZzLnZvdWNoZXJfaWQgPSA/YCwKICAgICAgW3JlcS5wYXJhbXMuaWRdCiAgICApOwoKICAgIHJlcy5qc29uKHsKICAgICAgY29kZTogMCwKICAgICAgZGF0YTogewogICAgICAgIC4uLnZvdWNoZXJzWzBdLAogICAgICAgIGl0ZW1zLAogICAgICAgIHNlYWxzCiAgICAgIH0KICAgIH0pOwogIH0gY2F0Y2ggKGVycikgewogICAgcmVzLnN0YXR1cyg1MDApLmpzb24oeyBjb2RlOiA1MDAsIG1lc3NhZ2U6ICfojrflj5blh63or4Hor6bmg4XlpLHotKU6ICcgKyBlcnIubWVzc2FnZSB9KTsKICB9Cn0pOwoKLy8g5paw5bu65Yet6K+BCnJvdXRlci5wb3N0KCcvJywgYXN5bmMgKHJlcSwgcmVzKSA9PiB7CiAgY29uc3QgY29ubiA9IGF3YWl0IHBvb2wuZ2V0Q29ubmVjdGlvbigpOwogIHRyeSB7CiAgICBhd2FpdCBjb25uLmJlZ2luVHJhbnNhY3Rpb24oKTsKICAgIGNvbnN0IHsgYm9va19pZCwgdm91Y2hlcl90eXBlID0gJ2dlbmVyYWwnLCB2b3VjaGVyX2RhdGUsIGF0dGFjaG1lbnRfY291bnQgPSAwLCBpdGVtcywgcmVtYXJrIH0gPSByZXEuYm9keTsKCiAgICBpZiAoIWl0ZW1zIHx8ICFBcnJheS5pc0FycmF5KGl0ZW1zKSB8fCBpdGVtcy5sZW5ndGggPCAyKSB7CiAgICAgIHRocm93IG5ldyBFcnJvcign5Yet6K+B5piO57uG6Iez5bCR6ZyA6KaB5Lik6KGMJyk7CiAgICB9CiAgICBpZiAoIXZvdWNoZXJfZGF0ZSkgdGhyb3cgbmV3IEVycm9yKCflh63or4Hml6XmnJ/kuI3og73kuLrnqbonKTsKCiAgICBjb25zdCBiaWQgPSBhd2FpdCBnZXREZWZhdWx0Qm9va0lkKHJlcS50ZW5hbnRJZCwgYm9va19pZCk7CgogICAgLy8g5qCh6aqM5YCf6LS35bmz6KGhCiAgICBsZXQgdG90YWxEZWJpdCA9IDAsIHRvdGFsQ3JlZGl0ID0gMDsKICAgIGZvciAoY29uc3QgaXRlbSBvZiBpdGVtcykgewogICAgICBpZiAoIWl0ZW0uYWNjb3VudF9pZCkgdGhyb3cgbmV3IEVycm9yKCfmmI7nu4booYznp5Hnm67kuI3og73kuLrnqbonKTsKICAgICAgaWYgKCFpdGVtLnN1bW1hcnkpIHRocm93IG5ldyBFcnJvcign5piO57uG6KGM5pGY6KaB5LiN6IO95Li656m6Jyk7CiAgICAgIGNvbnN0IGQgPSBwYXJzZUZsb2F0KGl0ZW0uZGViaXRfYW1vdW50KSB8fCAwOwogICAgICBjb25zdCBjID0gcGFyc2VGbG9hdChpdGVtLmNyZWRpdF9hbW91bnQpIHx8IDA7CiAgICAgIGlmIChkID4gMCAmJiBjID4gMCkgdGhyb3cgbmV3IEVycm9yKGDmkZjopoEiJHtpdGVtLnN1bW1hcnl9Iu+8muWAn+aWueWSjOi0t+aWueS4jeiDveWQjOaXtuaciemHkeminWApOwogICAgICBpZiAoZCA9PT0gMCAmJiBjID09PSAwKSB0aHJvdyBuZXcgRXJyb3IoYOaRmOimgSIke2l0ZW0uc3VtbWFyeX0i77ya5YCf5pa55ZKM6LS35pa55LiN6IO95ZCM5pe25Li66Zu2YCk7CiAgICAgIHRvdGFsRGViaXQgKz0gZDsKICAgICAgdG90YWxDcmVkaXQgKz0gYzsKICAgIH0KCiAgICAvLyDnsr7luqblpITnkIbvvIjkv53nlZky5L2N5bCP5pWw5q+U6L6D77yJCiAgICBpZiAoTWF0aC5yb3VuZCh0b3RhbERlYml0ICogMTAwKSAhPT0gTWF0aC5yb3VuZCh0b3RhbENyZWRpdCAqIDEwMCkpIHsKICAgICAgdGhyb3cgbmV3IEVycm9yKGDlgJ/otLfkuI3lubPooaHvvIHlgJ/mlrnlkIjorqEgwqUke3RvdGFsRGViaXQudG9GaXhlZCgyKX0g4omgIOi0t+aWueWQiOiuoSDCpSR7dG90YWxDcmVkaXQudG9GaXhlZCgyKX3vvIzlt67pop0gwqUkeyh0b3RhbERlYml0IC0gdG90YWxDcmVkaXQpLnRvRml4ZWQoMil9YCk7CiAgICB9CgogICAgY29uc3QgaXNCYWxhbmNlZCA9IE1hdGgucm91bmQodG90YWxEZWJpdCAqIDEwMCkgPT09IE1hdGgucm91bmQodG90YWxDcmVkaXQgKiAxMDApOwoKICAgIC8vIOeUn+aIkOWHreivgee8luWPtwogICAgY29uc3Qgdm91Y2hlck5vID0gYXdhaXQgZ2VuZXJhdGVWb3VjaGVyTm8oY29ubiwgYmlkLCB2b3VjaGVyX3R5cGUsIHZvdWNoZXJfZGF0ZSk7CgogICAgLy8g5o+S5YWl5Yet6K+B5aS0CiAgICBjb25zdCBbcmVzdWx0XSA9IGF3YWl0IGNvbm4ucXVlcnkoCiAgICAgIGBJTlNFUlQgSU5UTyB2b3VjaGVycyAoYm9va19pZCwgdm91Y2hlcl90eXBlLCB2b3VjaGVyX25vLCB2b3VjaGVyX2RhdGUsIGF0dGFjaG1lbnRfY291bnQsIHRvdGFsX2RlYml0LCB0b3RhbF9jcmVkaXQsIGlzX2JhbGFuY2VkLCBzdGF0dXMsIGNyZWF0b3JfaWQsIHJlbWFyaykKICAgICAgIFZBTFVFUyAoPywgPywgPywgPywgPywgPywgPywgPywgJ2RyYWZ0JywgPywgPylgLAogICAgICBbYmlkLCB2b3VjaGVyX3R5cGUsIHZvdWNoZXJObywgdm91Y2hlcl9kYXRlLCBhdHRhY2htZW50X2NvdW50LCB0b3RhbERlYml0LCB0b3RhbENyZWRpdCwgaXNCYWxhbmNlZCwgcmVxLnVzZXIuaWQsIHJlbWFyayB8fCBudWxsXQogICAgKTsKICAgIGNvbnN0IHZvdWNoZXJJZCA9IHJlc3VsdC5pbnNlcnRJZDsKCiAgICAvLyDmj5LlhaXmmI7nu4booYwKICAgIGZvciAobGV0IGkgPSAwOyBpIDwgaXRlbXMubGVuZ3RoOyBpKyspIHsKICAgICAgY29uc3QgaXRlbSA9IGl0ZW1zW2ldOwogICAgICBhd2FpdCBjb25uLnF1ZXJ5KAogICAgICAgIGBJTlNFUlQgSU5UTyB2b3VjaGVyX2l0ZW1zICh2b3VjaGVyX2lkLCBsaW5lX25vLCBhY2NvdW50X2lkLCBzdW1tYXJ5LCBkZWJpdF9hbW91bnQsIGNyZWRpdF9hbW91bnQpCiAgICAgICAgIFZBTFVFUyAoPywgPywgPywgPywgPywgPylgLAogICAgICAgIFt2b3VjaGVySWQsIGkgKyAxLCBpdGVtLmFjY291bnRfaWQsIGl0ZW0uc3VtbWFyeSwgcGFyc2VGbG9hdChpdGVtLmRlYml0X2Ftb3VudCkgfHwgMCwgcGFyc2VGbG9hdChpdGVtLmNyZWRpdF9hbW91bnQpIHx8IDBdCiAgICAgICk7CiAgICB9CgogICAgYXdhaXQgY29ubi5jb21taXQoKTsKICAgIHJlcy5qc29uKHsgY29kZTogMCwgbWVzc2FnZTogJ+WHreivgeS/neWtmOaIkOWKnycsIGRhdGE6IHsgaWQ6IHZvdWNoZXJJZCwgdm91Y2hlcl9ubzogdm91Y2hlck5vIH0gfSk7CiAgfSBjYXRjaCAoZXJyKSB7CiAgICBhd2FpdCBjb25uLnJvbGxiYWNrKCk7CiAgICByZXMuc3RhdHVzKDQwMCkuanNvbih7IGNvZGU6IDQwMCwgbWVzc2FnZTogZXJyLm1lc3NhZ2UgfSk7CiAgfSBmaW5hbGx5IHsKICAgIGNvbm4ucmVsZWFzZSgpOwogIH0KfSk7CgovLyDkv67mlLnlh63or4HvvIjku4VkcmFmdOeKtuaAge+8iQpyb3V0ZXIucHV0KCcvOmlkJywgYXN5bmMgKHJlcSwgcmVzKSA9PiB7CiAgY29uc3QgY29ubiA9IGF3YWl0IHBvb2wuZ2V0Q29ubmVjdGlvbigpOwogIHRyeSB7CiAgICBhd2FpdCBjb25uLmJlZ2luVHJhbnNhY3Rpb24oKTsKCiAgICAvLyDmo4Dmn6XnirbmgIEKICAgIGNvbnN0IFtleGlzdGluZ10gPSBhd2FpdCBjb25uLnF1ZXJ5KCdTRUxFQ1QgKiBGUk9NIHZvdWNoZXJzIFdIRVJFIGlkID0gPycsIFtyZXEucGFyYW1zLmlkXSk7CiAgICBpZiAoIWV4aXN0aW5nLmxlbmd0aCkgdGhyb3cgbmV3IEVycm9yKCflh63or4HkuI3lrZjlnKgnKTsKICAgIGlmIChleGlzdGluZ1swXS5zdGF0dXMgIT09ICdkcmFmdCcpIHRocm93IG5ldyBFcnJvcign5Y+q5pyJ6I2J56i/54q25oCB55qE5Yet6K+B5Y+v5Lul5L+u5pS5Jyk7CgogICAgY29uc3QgeyB2b3VjaGVyX2RhdGUsIGF0dGFjaG1lbnRfY291bnQsIGl0ZW1zLCByZW1hcmsgfSA9IHJlcS5ib2R5OwoKICAgIC8vIOagoemqjOWAn+i0t+W5s+ihoQogICAgbGV0IHRvdGFsRGViaXQgPSAwLCB0b3RhbENyZWRpdCA9IDA7CiAgICBmb3IgKGNvbnN0IGl0ZW0gb2YgaXRlbXMpIHsKICAgICAgY29uc3QgZCA9IHBhcnNlRmxvYXQoaXRlbS5kZWJpdF9hbW91bnQpIHx8IDA7CiAgICAgIGNvbnN0IGMgPSBwYXJzZUZsb2F0KGl0ZW0uY3JlZGl0X2Ftb3VudCkgfHwgMDsKICAgICAgaWYgKGQgPiAwICYmIGMgPiAwKSB0aHJvdyBuZXcgRXJyb3IoYOaRmOimgSIke2l0ZW0uc3VtbWFyeX0i77ya5YCf6LS35LiN6IO95ZCM5pe25pyJ6YeR6aKdYCk7CiAgICAgIGlmIChkID09PSAwICYmIGMgPT09IDApIHRocm93IG5ldyBFcnJvcihg5pGY6KaBIiR7aXRlbS5zdW1tYXJ5fSLvvJrlgJ/otLfkuI3og73lkIzml7bkuLrpm7ZgKTsKICAgICAgdG90YWxEZWJpdCArPSBkOwogICAgICB0b3RhbENyZWRpdCArPSBjOwogICAgfQoKICAgIGlmIChNYXRoLnJvdW5kKHRvdGFsRGViaXQgKiAxMDApICE9PSBNYXRoLnJvdW5kKHRvdGFsQ3JlZGl0ICogMTAwKSkgewogICAgICB0aHJvdyBuZXcgRXJyb3IoYOWAn+i0t+S4jeW5s+ihoe+8geWAn+aWuSDCpSR7dG90YWxEZWJpdC50b0ZpeGVkKDIpfSDiiaAg6LS35pa5IMKlJHt0b3RhbENyZWRpdC50b0ZpeGVkKDIpfWApOwogICAgfQoKICAgIC8vIOabtOaWsOWHreivgeWktAogICAgYXdhaXQgY29ubi5xdWVyeSgKICAgICAgYFVQREFURSB2b3VjaGVycyBTRVQgdm91Y2hlcl9kYXRlID0gQ09BTEVTQ0UoPywgdm91Y2hlcl9kYXRlKSwgYXR0YWNobWVudF9jb3VudCA9IENPQUxFU0NFKD8sIGF0dGFjaG1lbnRfY291bnQpLAogICAgICAgdG90YWxfZGViaXQgPSA/LCB0b3RhbF9jcmVkaXQgPSA/LCBpc19iYWxhbmNlZCA9ID8sIHJlbWFyayA9IENPQUxFU0NFKD8sIHJlbWFyaykKICAgICAgIFdIRVJFIGlkID0gP2AsCiAgICAgIFt2b3VjaGVyX2RhdGUgfHwgbnVsbCwgYXR0YWNobWVudF9jb3VudCAhPT0gdW5kZWZpbmVkID8gYXR0YWNobWVudF9jb3VudCA6IG51bGwsCiAgICAgICB0b3RhbERlYml0LCB0b3RhbENyZWRpdCwgdHJ1ZSwgcmVtYXJrIHx8IG51bGwsIHJlcS5wYXJhbXMuaWRdCiAgICApOwoKICAgIC8vIOWIoOmZpOaXp+aYjue7hu+8jOmHjeaWsOaPkuWFpQogICAgYXdhaXQgY29ubi5xdWVyeSgnREVMRVRFIEZST00gdm91Y2hlcl9pdGVtcyBXSEVSRSB2b3VjaGVyX2lkID0gPycsIFtyZXEucGFyYW1zLmlkXSk7CiAgICBmb3IgKGxldCBpID0gMDsgaSA8IGl0ZW1zLmxlbmd0aDsgaSsrKSB7CiAgICAgIGNvbnN0IGl0ZW0gPSBpdGVtc1tpXTsKICAgICAgYXdhaXQgY29ubi5xdWVyeSgKICAgICAgICBgSU5TRVJUIElOVE8gdm91Y2hlcl9pdGVtcyAodm91Y2hlcl9pZCwgbGluZV9ubywgYWNjb3VudF9pZCwgc3VtbWFyeSwgZGViaXRfYW1vdW50LCBjcmVkaXRfYW1vdW50KQogICAgICAgICBWQUxVRVMgKD8sID8sID8sID8sID8sID8pYCwKICAgICAgICBbcmVxLnBhcmFtcy5pZCwgaSArIDEsIGl0ZW0uYWNjb3VudF9pZCwgaXRlbS5zdW1tYXJ5LCBwYXJzZUZsb2F0KGl0ZW0uZGViaXRfYW1vdW50KSB8fCAwLCBwYXJzZUZsb2F0KGl0ZW0uY3JlZGl0X2Ftb3VudCkgfHwgMF0KICAgICAgKTsKICAgIH0KCiAgICBhd2FpdCBjb25uLmNvbW1pdCgpOwogICAgcmVzLmpzb24oeyBjb2RlOiAwLCBtZXNzYWdlOiAn5Yet6K+B5pu05paw5oiQ5YqfJyB9KTsKICB9IGNhdGNoIChlcnIpIHsKICAgIGF3YWl0IGNvbm4ucm9sbGJhY2soKTsKICAgIHJlcy5zdGF0dXMoNDAwKS5qc29uKHsgY29kZTogNDAwLCBtZXNzYWdlOiBlcnIubWVzc2FnZSB9KTsKICB9IGZpbmFsbHkgewogICAgY29ubi5yZWxlYXNlKCk7CiAgfQp9KTsKCi8vIOWIoOmZpOWHreivge+8iOS7hWRyYWZ054q25oCB77yJCnJvdXRlci5kZWxldGUoJy86aWQnLCBhc3luYyAocmVxLCByZXMpID0+IHsKICB0cnkgewogICAgY29uc3QgW2V4aXN0aW5nXSA9IGF3YWl0IHBvb2wucXVlcnkoJ1NFTEVDVCBzdGF0dXMgRlJPTSB2b3VjaGVycyBXSEVSRSBpZCA9ID8nLCBbcmVxLnBhcmFtcy5pZF0pOwogICAgaWYgKCFleGlzdGluZy5sZW5ndGgpIHJldHVybiByZXMuc3RhdHVzKDQwNCkuanNvbih7IGNvZGU6IDQwNCwgbWVzc2FnZTogJ+WHreivgeS4jeWtmOWcqCcgfSk7CiAgICBpZiAoZXhpc3RpbmdbMF0uc3RhdHVzICE9PSAnZHJhZnQnKSByZXR1cm4gcmVzLnN0YXR1cyg0MDApLmpzb24oeyBjb2RlOiA0MDAsIG1lc3NhZ2U6ICflj6rmnInojYnnqL/nirbmgIHnmoTlh63or4Hlj6/ku6XliKDpmaQnIH0pOwoKICAgIGF3YWl0IHBvb2wucXVlcnkoJ0RFTEVURSBGUk9NIHZvdWNoZXJfaXRlbXMgV0hFUkUgdm91Y2hlcl9pZCA9ID8nLCBbcmVxLnBhcmFtcy5pZF0pOwogICAgYXdhaXQgcG9vbC5xdWVyeSgnREVMRVRFIEZST00gdm91Y2hlcl9zZWFscyBXSEVSRSB2b3VjaGVyX2lkID0gPycsIFtyZXEucGFyYW1zLmlkXSk7CiAgICBhd2FpdCBwb29sLnF1ZXJ5KCdERUxFVEUgRlJPTSB2b3VjaGVycyBXSEVSRSBpZCA9ID8nLCBbcmVxLnBhcmFtcy5pZF0pOwogICAgcmVzLmpzb24oeyBjb2RlOiAwLCBtZXNzYWdlOiAn5Yet6K+B5bey5Yig6ZmkJyB9KTsKICB9IGNhdGNoIChlcnIpIHsKICAgIHJlcy5zdGF0dXMoNTAwKS5qc29uKHsgY29kZTogNTAwLCBtZXNzYWdlOiAn5Yig6Zmk5aSx6LSlOiAnICsgZXJyLm1lc3NhZ2UgfSk7CiAgfQp9KTsKCi8vIOWuoeaguOWHreivgQpyb3V0ZXIucG9zdCgnLzppZC9hdWRpdCcsIHJlcXVpcmVSb2xlKCdvd25lcicsICdtYW5hZ2VyJyksIGFzeW5jIChyZXEsIHJlcykgPT4gewogIHRyeSB7CiAgICBjb25zdCBbZXhpc3RpbmddID0gYXdhaXQgcG9vbC5xdWVyeSgnU0VMRUNUICogRlJPTSB2b3VjaGVycyBXSEVSRSBpZCA9ID8nLCBbcmVxLnBhcmFtcy5pZF0pOwogICAgaWYgKCFleGlzdGluZy5sZW5ndGgpIHJldHVybiByZXMuc3RhdHVzKDQwNCkuanNvbih7IGNvZGU6IDQwNCwgbWVzc2FnZTogJ+WHreivgeS4jeWtmOWcqCcgfSk7CiAgICBpZiAoZXhpc3RpbmdbMF0uc3RhdHVzICE9PSAnZHJhZnQnKSByZXR1cm4gcmVzLnN0YXR1cyg0MDApLmpzb24oeyBjb2RlOiA0MDAsIG1lc3NhZ2U6ICflj6rmnInojYnnqL/nirbmgIHlj6/ku6XlrqHmoLgnIH0pOwogICAgaWYgKCFleGlzdGluZ1swXS5pc19iYWxhbmNlZCkgcmV0dXJuIHJlcy5zdGF0dXMoNDAwKS5qc29uKHsgY29kZTogNDAwLCBtZXNzYWdlOiAn5Yet6K+B5YCf6LS35LiN5bmz6KGh77yM5peg5rOV5a6h5qC4JyB9KTsKCiAgICBhd2FpdCBwb29sLnF1ZXJ5KAogICAgICBgVVBEQVRFIHZvdWNoZXJzIFNFVCBzdGF0dXMgPSAnYXVkaXRlZCcsIGF1ZGl0b3JfaWQgPSA/LCBhdWRpdF90aW1lID0gTk9XKCkgV0hFUkUgaWQgPSA/YCwKICAgICAgW3JlcS51c2VyLmlkLCByZXEucGFyYW1zLmlkXQogICAgKTsKICAgIHJlcy5qc29uKHsgY29kZTogMCwgbWVzc2FnZTogJ+WHreivgeWuoeaguOmAmui/hycgfSk7CiAgfSBjYXRjaCAoZXJyKSB7CiAgICByZXMuc3RhdHVzKDQwMCkuanNvbih7IGNvZGU6IDQwMCwgbWVzc2FnZTogZXJyLm1lc3NhZ2UgfSk7CiAgfQp9KTsKCi8vIOS9nOW6n+WHreivgQpyb3V0ZXIucG9zdCgnLzppZC92b2lkJywgcmVxdWlyZVJvbGUoJ293bmVyJywgJ21hbmFnZXInKSwgYXN5bmMgKHJlcSwgcmVzKSA9PiB7CiAgdHJ5IHsKICAgIGNvbnN0IFtleGlzdGluZ10gPSBhd2FpdCBwb29sLnF1ZXJ5KCdTRUxFQ1Qgc3RhdHVzIEZST00gdm91Y2hlcnMgV0hFUkUgaWQgPSA/JywgW3JlcS5wYXJhbXMuaWRdKTsKICAgIGlmICghZXhpc3RpbmcubGVuZ3RoKSByZXR1cm4gcmVzLnN0YXR1cyg0MDQpLmpzb24oeyBjb2RlOiA0MDQsIG1lc3NhZ2U6ICflh63or4HkuI3lrZjlnKgnIH0pOwogICAgaWYgKGV4aXN0aW5nWzBdLnN0YXR1cyA9PT0gJ3ZvaWQnKSByZXR1cm4gcmVzLnN0YXR1cyg0MDApLmpzb24oeyBjb2RlOiA0MDAsIG1lc3NhZ2U6ICflh63or4Hlt7Lnu4/mmK/kvZzlup/nirbmgIEnIH0pOwoKICAgIGF3YWl0IHBvb2wucXVlcnkoJ1VQREFURSB2b3VjaGVycyBTRVQgc3RhdHVzID0gPyBXSEVSRSBpZCA9ID8nLCBbJ3ZvaWQnLCByZXEucGFyYW1zLmlkXSk7CiAgICByZXMuanNvbih7IGNvZGU6IDAsIG1lc3NhZ2U6ICflh63or4Hlt7LkvZzlup8nIH0pOwogIH0gY2F0Y2ggKGVycikgewogICAgcmVzLnN0YXR1cyg0MDApLmpzb24oeyBjb2RlOiA0MDAsIG1lc3NhZ2U6IGVyci5tZXNzYWdlIH0pOwogIH0KfSk7CgovLyDor5XnrpflubPooaHooagKcm91dGVyLmdldCgnL3JlcG9ydC90cmlhbC1iYWxhbmNlJywgYXN5bmMgKHJlcSwgcmVzKSA9PiB7CiAgdHJ5IHsKICAgIGNvbnN0IHsgYm9va19pZCwgcGVyaW9kIH0gPSByZXEucXVlcnk7CiAgICBjb25zdCBiaWQgPSBhd2FpdCBnZXREZWZhdWx0Qm9va0lkKHJlcS50ZW5hbnRJZCwgYm9va19pZCA/IHBhcnNlSW50KGJvb2tfaWQpIDogbnVsbCk7CiAgICBjb25zdCB0YXJnZXRQZXJpb2QgPSBwZXJpb2QgfHwgZGF5anMoKS5mb3JtYXQoJ1lZWVktTU0nKTsKCiAgICAvLyDojrflj5bmiYDmnInnp5Hnm67lj4rlhbblnKjmjIflrprmnJ/pl7TnmoTlj5HnlJ/pop0KICAgIGNvbnN0IFtyb3dzXSA9IGF3YWl0IHBvb2wucXVlcnkoCiAgICAgIGBTRUxFQ1QgCiAgICAgICAgYS5pZCwgYS5jb2RlLCBhLm5hbWUsIGEuY2F0ZWdvcnksIGEuZGlyZWN0aW9uLAogICAgICAgIENPQUxFU0NFKGFiLm9wZW5pbmdfZGViaXQsIDApIGFzIG9wZW5pbmdfZGViaXQsCiAgICAgICAgQ09BTEVTQ0UoYWIub3BlbmluZ19jcmVkaXQsIDApIGFzIG9wZW5pbmdfY3JlZGl0LAogICAgICAgIENPQUxFU0NFKFNVTShDQVNFIFdIRU4gdmkuZGViaXRfYW1vdW50ID4gMCBUSEVOIHZpLmRlYml0X2Ftb3VudCBFTFNFIDAgRU5EKSwgMCkgYXMgY3VycmVudF9kZWJpdCwKICAgICAgICBDT0FMRVNDRShTVU0oQ0FTRSBXSEVOIHZpLmNyZWRpdF9hbW91bnQgPiAwIFRIRU4gdmkuY3JlZGl0X2Ftb3VudCBFTFNFIDAgRU5EKSwgMCkgYXMgY3VycmVudF9jcmVkaXQKICAgICAgIEZST00gYWNjb3VudGluZ19hY2NvdW50cyBhCiAgICAgICBMRUZUIEpPSU4gYWNjb3VudF9iYWxhbmNlcyBhYiBPTiBhYi5hY2NvdW50X2lkID0gYS5pZCBBTkQgYWIuYm9va19pZCA9IGEuYm9va19pZCBBTkQgYWIucGVyaW9kID0gPwogICAgICAgTEVGVCBKT0lOIHZvdWNoZXJzIHYgT04gdi5ib29rX2lkID0gYS5ib29rX2lkIEFORCB2LnZvdWNoZXJfZGF0ZSA+PSA/IEFORCB2LnZvdWNoZXJfZGF0ZSA8PSA/IEFORCB2LnN0YXR1cyBJTiAoJ2F1ZGl0ZWQnLCAncG9zdGVkJykgQU5EIHYuaXNfYmFsYW5jZWQgPSBUUlVFCiAgICAgICBMRUZUIEpPSU4gdm91Y2hlcl9pdGVtcyB2aSBPTiB2aS52b3VjaGVyX2lkID0gdi5pZCBBTkQgdmkuYWNjb3VudF9pZCA9IGEuaWQKICAgICAgIFdIRVJFIGEuYm9va19pZCA9ID8gQU5EIGEuaXNfZW5hYmxlZCA9IFRSVUUKICAgICAgIEdST1VQIEJZIGEuaWQsIGEuY29kZSwgYS5uYW1lLCBhLmNhdGVnb3J5LCBhLmRpcmVjdGlvbiwgYWIub3BlbmluZ19kZWJpdCwgYWIub3BlbmluZ19jcmVkaXQKICAgICAgIEhBVklORyAob3BlbmluZ19kZWJpdCArIG9wZW5pbmdfY3JlZGl0ICsgY3VycmVudF9kZWJpdCArIGN1cnJlbnRfY3JlZGl0KSA+IDAKICAgICAgIE9SREVSIEJZIGEuY29kZSBBU0NgLAogICAgICBbdGFyZ2V0UGVyaW9kLCBkYXlqcyh0YXJnZXRQZXJpb2QpLnN0YXJ0T2YoJ21vbnRoJykuZm9ybWF0KCdZWVlZLU1NLUREJyksIGRheWpzKHRhcmdldFBlcmlvZCkuZW5kT2YoJ21vbnRoJykuZm9ybWF0KCdZWVlZLU1NLUREJyksIGJpZF0KICAgICk7CgogICAgLy8g6K6h566X5pyf5pyr5L2Z6aKdCiAgICBjb25zdCByZXN1bHQgPSByb3dzLm1hcChyID0+IHsKICAgICAgY29uc3QgY2xvc2luZ0RlYml0ID0gcGFyc2VGbG9hdChyLm9wZW5pbmdfZGViaXQpICsgcGFyc2VGbG9hdChyLmN1cnJlbnRfZGViaXQpOwogICAgICBjb25zdCBjbG9zaW5nQ3JlZGl0ID0gcGFyc2VGbG9hdChyLm9wZW5pbmdfY3JlZGl0KSArIHBhcnNlRmxvYXQoci5jdXJyZW50X2NyZWRpdCk7CiAgICAgIAogICAgICAvLyDmoLnmja7np5Hnm67mlrnlkJHorqHnrpflh4DkvZnpop0KICAgICAgbGV0IG5ldENsb3NpbmcgPSAwOwogICAgICBpZiAoci5kaXJlY3Rpb24gPT09ICdkZWJpdCcpIHsKICAgICAgICBuZXRDbG9zaW5nID0gY2xvc2luZ0RlYml0IC0gY2xvc2luZ0NyZWRpdDsKICAgICAgfSBlbHNlIHsKICAgICAgICBuZXRDbG9zaW5nID0gY2xvc2luZ0NyZWRpdCAtIGNsb3NpbmdEZWJpdDsKICAgICAgfQoKICAgICAgcmV0dXJuIHsKICAgICAgICAuLi5yLAogICAgICAgIGNsb3NpbmdfZGViaXQ6IHIuZGlyZWN0aW9uID09PSAnZGViaXQnID8gTWF0aC5tYXgobmV0Q2xvc2luZywgMCkgOiAwLAogICAgICAgIGNsb3NpbmdfY3JlZGl0OiByLmRpcmVjdGlvbiA9PT0gJ2NyZWRpdCcgPyBNYXRoLm1heChuZXRDbG9zaW5nLCAwKSA6IDAsCiAgICAgICAgbmV0X2Nsb3Npbmc6IG5ldENsb3NpbmcKICAgICAgfTsKICAgIH0pOwoKICAgIC8vIOaxh+aAuwogICAgY29uc3QgdG90YWxPcGVuaW5nRGViaXQgPSByZXN1bHQucmVkdWNlKChzLCByKSA9PiBzICsgcGFyc2VGbG9hdChyLm9wZW5pbmdfZGViaXQpLCAwKTsKICAgIGNvbnN0IHRvdGFsT3BlbmluZ0NyZWRpdCA9IHJlc3VsdC5yZWR1Y2UoKHMsIHIpID0+IHMgKyBwYXJzZUZsb2F0KHIub3BlbmluZ19jcmVkaXQpLCAwKTsKICAgIGNvbnN0IHRvdGFsQ3VycmVudERlYml0ID0gcmVzdWx0LnJlZHVjZSgocywgcikgPT4gcyArIHBhcnNlRmxvYXQoci5jdXJyZW50X2RlYml0KSwgMCk7CiAgICBjb25zdCB0b3RhbEN1cnJlbnRDcmVkaXQgPSByZXN1bHQucmVkdWNlKChzLCByKSA9PiBzICsgcGFyc2VGbG9hdChyLmN1cnJlbnRfY3JlZGl0KSwgMCk7CiAgICBjb25zdCB0b3RhbENsb3NpbmdEZWJpdCA9IHJlc3VsdC5yZWR1Y2UoKHMsIHIpID0+IHMgKyBwYXJzZUZsb2F0KHIuY2xvc2luZ19kZWJpdCksIDApOwogICAgY29uc3QgdG90YWxDbG9zaW5nQ3JlZGl0ID0gcmVzdWx0LnJlZHVjZSgocywgcikgPT4gcyArIHBhcnNlRmxvYXQoci5jbG9zaW5nX2NyZWRpdCksIDApOwoKICAgIHJlcy5qc29uKHsKICAgICAgY29kZTogMCwKICAgICAgZGF0YTogewogICAgICAgIHBlcmlvZDogdGFyZ2V0UGVyaW9kLAogICAgICAgIGl0ZW1zOiByZXN1bHQsCiAgICAgICAgdG90YWxzOiB7CiAgICAgICAgICBvcGVuaW5nX2RlYml0OiB0b3RhbE9wZW5pbmdEZWJpdCwKICAgICAgICAgIG9wZW5pbmdfY3JlZGl0OiB0b3RhbE9wZW5pbmdDcmVkaXQsCiAgICAgICAgICBjdXJyZW50X2RlYml0OiB0b3RhbEN1cnJlbnREZWJpdCwKICAgICAgICAgIGN1cnJlbnRfY3JlZGl0OiB0b3RhbEN1cnJlbnRDcmVkaXQsCiAgICAgICAgICBjbG9zaW5nX2RlYml0OiB0b3RhbENsb3NpbmdEZWJpdCwKICAgICAgICAgIGNsb3NpbmdfY3JlZGl0OiB0b3RhbENsb3NpbmdDcmVkaXQsCiAgICAgICAgICBpc19iYWxhbmNlZDogTWF0aC5yb3VuZCh0b3RhbENsb3NpbmdEZWJpdCAqIDEwMCkgPT09IE1hdGgucm91bmQodG90YWxDbG9zaW5nQ3JlZGl0ICogMTAwKQogICAgICAgIH0KICAgICAgfQogICAgfSk7CiAgfSBjYXRjaCAoZXJyKSB7CiAgICByZXMuc3RhdHVzKDUwMCkuanNvbih7IGNvZGU6IDUwMCwgbWVzc2FnZTogJ+iOt+WPluivleeul+W5s+ihoeihqOWksei0pTogJyArIGVyci5tZXNzYWdlIH0pOwogIH0KfSk7Cgptb2R1bGUuZXhwb3J0cyA9IHJvdXRlcjsK
+const express = require('express');
+const pool = require('../config/db');
+const { authenticate, requireRole } = require('../middleware/auth');
+const dayjs = require('dayjs');
+
+const router = express.Router();
+router.use(authenticate);
+
+// 凭证类型中文映射
+const voucherTypeMap = { receipt: '收', payment: '付', transfer: '转', general: '记' };
+
+// 辅助：获取当前租户的默认账套ID
+async function getDefaultBookId(tenantId, bookId) {
+  if (bookId) return bookId;
+  const [books] = await pool.query(
+    'SELECT id FROM accounting_books WHERE tenant_id = ? AND is_active = TRUE ORDER BY id ASC LIMIT 1',
+    [tenantId]
+  );
+  if (!books.length) throw new Error('当前租户暂无账套');
+  return books[0].id;
+}
+
+// 辅助：生成凭证编号
+async function generateVoucherNo(conn, bookId, voucherType, voucherDate) {
+  const prefix = voucherTypeMap[voucherType] || '记';
+  const month = dayjs(voucherDate).format('YYYYMM');
+  const pattern = `${prefix}-${month}-%`;
+
+  const [last] = await conn.query(
+    `SELECT voucher_no FROM vouchers WHERE book_id = ? AND voucher_no LIKE ? ORDER BY voucher_no DESC LIMIT 1`,
+    [bookId, pattern]
+  );
+
+  let seq = 1;
+  if (last.length) {
+    const parts = last[0].voucher_no.split('-');
+    seq = parseInt(parts[2] || '0') + 1;
+  }
+  return `${prefix}-${month}-${String(seq).padStart(4, '0')}`;
+}
+
+// 获取凭证列表
+router.get('/', async (req, res) => {
+  try {
+    const { book_id, status, voucher_type, start_date, end_date, keyword, page = 1, pageSize = 20 } = req.query;
+    const offset = (page - 1) * pageSize;
+    const bid = await getDefaultBookId(req.tenantId, book_id ? parseInt(book_id) : null);
+
+    let where = 'WHERE v.book_id = ?';
+    const params = [bid];
+
+    if (status) { where += ' AND v.status = ?'; params.push(status); }
+    if (voucher_type) { where += ' AND v.voucher_type = ?'; params.push(voucher_type); }
+    if (start_date) { where += ' AND v.voucher_date >= ?'; params.push(start_date); }
+    if (end_date) { where += ' AND v.voucher_date <= ?'; params.push(end_date); }
+    if (keyword) {
+      where += ' AND (v.voucher_no LIKE ? OR v.remark LIKE ? OR EXISTS(SELECT 1 FROM voucher_items vi WHERE vi.voucher_id = v.id AND vi.summary LIKE ?))';
+      params.push(`%${keyword}%`, `%${keyword}%`, `%${keyword}%`);
+    }
+
+    const [countResult] = await pool.query(`SELECT COUNT(*) as total FROM vouchers v ${where}`, params);
+
+    const [vouchers] = await pool.query(
+      `SELECT v.*, 
+        u1.real_name as creator_name, u2.real_name as auditor_name
+       FROM vouchers v
+       LEFT JOIN users u1 ON v.creator_id = u1.id
+       LEFT JOIN users u2 ON v.auditor_id = u2.id
+       ${where} ORDER BY v.voucher_date DESC, v.id DESC LIMIT ? OFFSET ?`,
+      [...params, parseInt(pageSize), offset]
+    );
+
+    // 汇总统计
+    const [summary] = await pool.query(
+      `SELECT 
+        COUNT(*) as total_count,
+        COALESCE(SUM(total_debit), 0) as total_amount,
+        SUM(CASE WHEN status='draft' THEN 1 ELSE 0 END) as draft_count,
+        SUM(CASE WHEN status='audited' THEN 1 ELSE 0 END) as audited_count
+       FROM vouchers WHERE book_id = ?`,
+      [bid]
+    );
+
+    res.json({
+      code: 0,
+      data: {
+        list: vouchers,
+        total: countResult[0].total,
+        page: parseInt(page),
+        pageSize: parseInt(pageSize),
+        summary: summary[0]
+      }
+    });
+  } catch (err) {
+    res.status(500).json({ code: 500, message: '获取凭证列表失败: ' + err.message });
+  }
+});
+
+// 获取凭证详情
+router.get('/:id', async (req, res) => {
+  try {
+    const [vouchers] = await pool.query(
+      `SELECT v.*, u1.real_name as creator_name, u2.real_name as auditor_name
+       FROM vouchers v
+       LEFT JOIN users u1 ON v.creator_id = u1.id
+       LEFT JOIN users u2 ON v.auditor_id = u2.id
+       WHERE v.id = ?`,
+      [req.params.id]
+    );
+    if (!vouchers.length) return res.status(404).json({ code: 404, message: '凭证不存在' });
+
+    // 凭证明细行
+    const [items] = await pool.query(
+      `SELECT vi.*, a.code as account_code, a.name as account_name, a.category as account_category
+       FROM voucher_items vi
+       JOIN accounting_accounts a ON vi.account_id = a.id
+       WHERE vi.voucher_id = ?
+       ORDER BY vi.line_no ASC`,
+      [req.params.id]
+    );
+
+    // 关联印章
+    const [seals] = await pool.query(
+      `SELECT vs.*, s.seal_name, s.seal_code, s.seal_type, s.image_url, s.is_filed
+       FROM voucher_seals vs
+       JOIN seals s ON vs.seal_id = s.id
+       WHERE vs.voucher_id = ?`,
+      [req.params.id]
+    );
+
+    res.json({
+      code: 0,
+      data: {
+        ...vouchers[0],
+        items,
+        seals
+      }
+    });
+  } catch (err) {
+    res.status(500).json({ code: 500, message: '获取凭证详情失败: ' + err.message });
+  }
+});
+
+// 新建凭证
+router.post('/', async (req, res) => {
+  const conn = await pool.getConnection();
+  try {
+    await conn.beginTransaction();
+    const { book_id, voucher_type = 'general', voucher_date, attachment_count = 0, items, remark } = req.body;
+
+    if (!items || !Array.isArray(items) || items.length < 2) {
+      throw new Error('凭证明细至少需要两行');
+    }
+    if (!voucher_date) throw new Error('凭证日期不能为空');
+
+    const bid = await getDefaultBookId(req.tenantId, book_id);
+
+    // 校验借贷平衡
+    let totalDebit = 0, totalCredit = 0;
+    for (const item of items) {
+      if (!item.account_id) throw new Error('明细行科目不能为空');
+      if (!item.summary) throw new Error('明细行摘要不能为空');
+      const d = parseFloat(item.debit_amount) || 0;
+      const c = parseFloat(item.credit_amount) || 0;
+      if (d > 0 && c > 0) throw new Error(`摘要"${item.summary}"：借方和贷方不能同时有金额`);
+      if (d === 0 && c === 0) throw new Error(`摘要"${item.summary}"：借方和贷方不能同时为零`);
+      totalDebit += d;
+      totalCredit += c;
+    }
+
+    // 精度处理（保留2位小数比较）
+    if (Math.round(totalDebit * 100) !== Math.round(totalCredit * 100)) {
+      throw new Error(`借贷不平衡！借方合计 ¥${totalDebit.toFixed(2)} ≠ 贷方合计 ¥${totalCredit.toFixed(2)}，差额 ¥${(totalDebit - totalCredit).toFixed(2)}`);
+    }
+
+    const isBalanced = Math.round(totalDebit * 100) === Math.round(totalCredit * 100);
+
+    // 生成凭证编号
+    const voucherNo = await generateVoucherNo(conn, bid, voucher_type, voucher_date);
+
+    // 插入凭证头
+    const [result] = await conn.query(
+      `INSERT INTO vouchers (book_id, voucher_type, voucher_no, voucher_date, attachment_count, total_debit, total_credit, is_balanced, status, creator_id, remark)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'draft', ?, ?)`,
+      [bid, voucher_type, voucherNo, voucher_date, attachment_count, totalDebit, totalCredit, isBalanced, req.user.id, remark || null]
+    );
+    const voucherId = result.insertId;
+
+    // 插入明细行
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      await conn.query(
+        `INSERT INTO voucher_items (voucher_id, line_no, account_id, summary, debit_amount, credit_amount)
+         VALUES (?, ?, ?, ?, ?, ?)`,
+        [voucherId, i + 1, item.account_id, item.summary, parseFloat(item.debit_amount) || 0, parseFloat(item.credit_amount) || 0]
+      );
+    }
+
+    await conn.commit();
+    res.json({ code: 0, message: '凭证保存成功', data: { id: voucherId, voucher_no: voucherNo } });
+  } catch (err) {
+    await conn.rollback();
+    res.status(400).json({ code: 400, message: err.message });
+  } finally {
+    conn.release();
+  }
+});
+
+// 修改凭证（仅draft状态）
+router.put('/:id', async (req, res) => {
+  const conn = await pool.getConnection();
+  try {
+    await conn.beginTransaction();
+
+    // 检查状态
+    const [existing] = await conn.query('SELECT * FROM vouchers WHERE id = ?', [req.params.id]);
+    if (!existing.length) throw new Error('凭证不存在');
+    if (existing[0].status !== 'draft') throw new Error('只有草稿状态的凭证可以修改');
+
+    const { voucher_date, attachment_count, items, remark } = req.body;
+
+    // 校验借贷平衡
+    let totalDebit = 0, totalCredit = 0;
+    for (const item of items) {
+      const d = parseFloat(item.debit_amount) || 0;
+      const c = parseFloat(item.credit_amount) || 0;
+      if (d > 0 && c > 0) throw new Error(`摘要"${item.summary}"：借贷不能同时有金额`);
+      if (d === 0 && c === 0) throw new Error(`摘要"${item.summary}"：借贷不能同时为零`);
+      totalDebit += d;
+      totalCredit += c;
+    }
+
+    if (Math.round(totalDebit * 100) !== Math.round(totalCredit * 100)) {
+      throw new Error(`借贷不平衡！借方 ¥${totalDebit.toFixed(2)} ≠ 贷方 ¥${totalCredit.toFixed(2)}`);
+    }
+
+    // 更新凭证头
+    await conn.query(
+      `UPDATE vouchers SET voucher_date = COALESCE(?, voucher_date), attachment_count = COALESCE(?, attachment_count),
+       total_debit = ?, total_credit = ?, is_balanced = ?, remark = COALESCE(?, remark)
+       WHERE id = ?`,
+      [voucher_date || null, attachment_count !== undefined ? attachment_count : null,
+       totalDebit, totalCredit, true, remark || null, req.params.id]
+    );
+
+    // 删除旧明细，重新插入
+    await conn.query('DELETE FROM voucher_items WHERE voucher_id = ?', [req.params.id]);
+    for (let i = 0; i < items.length; i++) {
+      const item = items[i];
+      await conn.query(
+        `INSERT INTO voucher_items (voucher_id, line_no, account_id, summary, debit_amount, credit_amount)
+         VALUES (?, ?, ?, ?, ?, ?)`,
+        [req.params.id, i + 1, item.account_id, item.summary, parseFloat(item.debit_amount) || 0, parseFloat(item.credit_amount) || 0]
+      );
+    }
+
+    await conn.commit();
+    res.json({ code: 0, message: '凭证更新成功' });
+  } catch (err) {
+    await conn.rollback();
+    res.status(400).json({ code: 400, message: err.message });
+  } finally {
+    conn.release();
+  }
+});
+
+// 删除凭证（仅draft状态）
+router.delete('/:id', async (req, res) => {
+  try {
+    const [existing] = await pool.query('SELECT status FROM vouchers WHERE id = ?', [req.params.id]);
+    if (!existing.length) return res.status(404).json({ code: 404, message: '凭证不存在' });
+    if (existing[0].status !== 'draft') return res.status(400).json({ code: 400, message: '只有草稿状态的凭证可以删除' });
+
+    await pool.query('DELETE FROM voucher_items WHERE voucher_id = ?', [req.params.id]);
+    await pool.query('DELETE FROM voucher_seals WHERE voucher_id = ?', [req.params.id]);
+    await pool.query('DELETE FROM vouchers WHERE id = ?', [req.params.id]);
+    res.json({ code: 0, message: '凭证已删除' });
+  } catch (err) {
+    res.status(500).json({ code: 500, message: '删除失败: ' + err.message });
+  }
+});
+
+// 审核凭证
+router.post('/:id/audit', requireRole('owner', 'manager'), async (req, res) => {
+  try {
+    const [existing] = await pool.query('SELECT * FROM vouchers WHERE id = ?', [req.params.id]);
+    if (!existing.length) return res.status(404).json({ code: 404, message: '凭证不存在' });
+    if (existing[0].status !== 'draft') return res.status(400).json({ code: 400, message: '只有草稿状态可以审核' });
+    if (!existing[0].is_balanced) return res.status(400).json({ code: 400, message: '凭证借贷不平衡，无法审核' });
+
+    await pool.query(
+      `UPDATE vouchers SET status = 'audited', auditor_id = ?, audit_time = NOW() WHERE id = ?`,
+      [req.user.id, req.params.id]
+    );
+    res.json({ code: 0, message: '凭证审核通过' });
+  } catch (err) {
+    res.status(400).json({ code: 400, message: err.message });
+  }
+});
+
+// 作废凭证
+router.post('/:id/void', requireRole('owner', 'manager'), async (req, res) => {
+  try {
+    const [existing] = await pool.query('SELECT status FROM vouchers WHERE id = ?', [req.params.id]);
+    if (!existing.length) return res.status(404).json({ code: 404, message: '凭证不存在' });
+    if (existing[0].status === 'void') return res.status(400).json({ code: 400, message: '凭证已经是作废状态' });
+
+    await pool.query('UPDATE vouchers SET status = ? WHERE id = ?', ['void', req.params.id]);
+    res.json({ code: 0, message: '凭证已作废' });
+  } catch (err) {
+    res.status(400).json({ code: 400, message: err.message });
+  }
+});
+
+// 试算平衡表
+router.get('/report/trial-balance', async (req, res) => {
+  try {
+    const { book_id, period } = req.query;
+    const bid = await getDefaultBookId(req.tenantId, book_id ? parseInt(book_id) : null);
+    const targetPeriod = period || dayjs().format('YYYY-MM');
+
+    // 获取所有科目及其在指定期间的发生额
+    const [rows] = await pool.query(
+      `SELECT 
+        a.id, a.code, a.name, a.category, a.direction,
+        COALESCE(ab.opening_debit, 0) as opening_debit,
+        COALESCE(ab.opening_credit, 0) as opening_credit,
+        COALESCE(SUM(CASE WHEN vi.debit_amount > 0 THEN vi.debit_amount ELSE 0 END), 0) as current_debit,
+        COALESCE(SUM(CASE WHEN vi.credit_amount > 0 THEN vi.credit_amount ELSE 0 END), 0) as current_credit
+       FROM accounting_accounts a
+       LEFT JOIN account_balances ab ON ab.account_id = a.id AND ab.book_id = a.book_id AND ab.period = ?
+       LEFT JOIN vouchers v ON v.book_id = a.book_id AND v.voucher_date >= ? AND v.voucher_date <= ? AND v.status IN ('audited', 'posted') AND v.is_balanced = TRUE
+       LEFT JOIN voucher_items vi ON vi.voucher_id = v.id AND vi.account_id = a.id
+       WHERE a.book_id = ? AND a.is_enabled = TRUE
+       GROUP BY a.id, a.code, a.name, a.category, a.direction, ab.opening_debit, ab.opening_credit
+       HAVING (opening_debit + opening_credit + current_debit + current_credit) > 0
+       ORDER BY a.code ASC`,
+      [targetPeriod, dayjs(targetPeriod).startOf('month').format('YYYY-MM-DD'), dayjs(targetPeriod).endOf('month').format('YYYY-MM-DD'), bid]
+    );
+
+    // 计算期末余额
+    const result = rows.map(r => {
+      const closingDebit = parseFloat(r.opening_debit) + parseFloat(r.current_debit);
+      const closingCredit = parseFloat(r.opening_credit) + parseFloat(r.current_credit);
+      
+      // 根据科目方向计算净余额
+      let netClosing = 0;
+      if (r.direction === 'debit') {
+        netClosing = closingDebit - closingCredit;
+      } else {
+        netClosing = closingCredit - closingDebit;
+      }
+
+      return {
+        ...r,
+        closing_debit: r.direction === 'debit' ? Math.max(netClosing, 0) : 0,
+        closing_credit: r.direction === 'credit' ? Math.max(netClosing, 0) : 0,
+        net_closing: netClosing
+      };
+    });
+
+    // 汇总
+    const totalOpeningDebit = result.reduce((s, r) => s + parseFloat(r.opening_debit), 0);
+    const totalOpeningCredit = result.reduce((s, r) => s + parseFloat(r.opening_credit), 0);
+    const totalCurrentDebit = result.reduce((s, r) => s + parseFloat(r.current_debit), 0);
+    const totalCurrentCredit = result.reduce((s, r) => s + parseFloat(r.current_credit), 0);
+    const totalClosingDebit = result.reduce((s, r) => s + parseFloat(r.closing_debit), 0);
+    const totalClosingCredit = result.reduce((s, r) => s + parseFloat(r.closing_credit), 0);
+
+    res.json({
+      code: 0,
+      data: {
+        period: targetPeriod,
+        items: result,
+        totals: {
+          opening_debit: totalOpeningDebit,
+          opening_credit: totalOpeningCredit,
+          current_debit: totalCurrentDebit,
+          current_credit: totalCurrentCredit,
+          closing_debit: totalClosingDebit,
+          closing_credit: totalClosingCredit,
+          is_balanced: Math.round(totalClosingDebit * 100) === Math.round(totalClosingCredit * 100)
+        }
+      }
+    });
+  } catch (err) {
+    res.status(500).json({ code: 500, message: '获取试算平衡表失败: ' + err.message });
+  }
+});
+
+module.exports = router;

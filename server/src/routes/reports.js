@@ -1,1 +1,278 @@
-Y29uc3QgZXhwcmVzcyA9IHJlcXVpcmUoJ2V4cHJlc3MnKTsKY29uc3Qgcm91dGVyID0gZXhwcmVzcy5Sb3V0ZXIoKTsKY29uc3QgZGIgPSByZXF1aXJlKCcuLi9jb25maWcvZGInKTsKY29uc3QgeyBhdXRoZW50aWNhdGUgfSA9IHJlcXVpcmUoJy4uL21pZGRsZXdhcmUvYXV0aCcpOwoKcm91dGVyLnVzZShhdXRoZW50aWNhdGUpOwoKLy8g57u85ZCI5oql6KGoIC0g6JCl5pS26LaL5Yq/CnJvdXRlci5nZXQoJy9yZXZlbnVlJywgYXN5bmMgKHJlcSwgcmVzKSA9PiB7CiAgdHJ5IHsKICAgIGNvbnN0IHRlbmFudElkID0gcmVxLnRlbmFudElkOwogICAgY29uc3QgeyBzdGFydERhdGUsIGVuZERhdGUsIGdyb3VwQnkgPSAnZGF5JyB9ID0gcmVxLnF1ZXJ5OwoKICAgIGxldCBkYXRlRm9ybWF0OwogICAgc3dpdGNoIChncm91cEJ5KSB7CiAgICAgIGNhc2UgJ3dlZWsnOiBkYXRlRm9ybWF0ID0gJyV4LVcldic7IGJyZWFrOwogICAgICBjYXNlICdtb250aCc6IGRhdGVGb3JtYXQgPSAnJVktJW0nOyBicmVhazsKICAgICAgZGVmYXVsdDogZGF0ZUZvcm1hdCA9ICclWS0lbS0lZCc7CiAgICB9CgogICAgbGV0IGRhdGVGaWx0ZXIgPSAnJzsKICAgIGNvbnN0IHBhcmFtcyA9IFt0ZW5hbnRJZF07CiAgICBpZiAoc3RhcnREYXRlKSB7IGRhdGVGaWx0ZXIgKz0gJyBBTkQgREFURShzby5jcmVhdGVkX2F0KSA+PSA/JzsgcGFyYW1zLnB1c2goc3RhcnREYXRlKTsgfQogICAgaWYgKGVuZERhdGUpIHsgZGF0ZUZpbHRlciArPSAnIEFORCBEQVRFKHNvLmNyZWF0ZWRfYXQpIDw9ID8nOyBwYXJhbXMucHVzaChlbmREYXRlKTsgfQogICAgaWYgKCFzdGFydERhdGUgJiYgIWVuZERhdGUpIHsKICAgICAgZGF0ZUZpbHRlciA9ICcgQU5EIHNvLmNyZWF0ZWRfYXQgPj0gREFURV9TVUIoTk9XKCksIElOVEVSVkFMIDMwIERBWSknOwogICAgfQoKICAgIGNvbnN0IFtyb3dzXSA9IGF3YWl0IGRiLnF1ZXJ5KAogICAgICBgU0VMRUNUIERBVEVfRk9STUFUKHNvLmNyZWF0ZWRfYXQsID8pIGFzIHBlcmlvZCwKICAgICAgICAgICAgICBDT1VOVCgqKSBhcyBvcmRlckNvdW50LAogICAgICAgICAgICAgIFNVTShzby50b3RhbF9hbW91bnQpIGFzIHJldmVudWUsCiAgICAgICAgICAgICAgQVZHKHNvLnRvdGFsX2Ftb3VudCkgYXMgYXZnT3JkZXJBbW91bnQKICAgICAgIEZST00gc2FsZXNfb3JkZXJzIHNvCiAgICAgICBXSEVSRSBzby50ZW5hbnRfaWQgPSA/ICR7ZGF0ZUZpbHRlcn0KICAgICAgIEdST1VQIEJZIHBlcmlvZCBPUkRFUiBCWSBwZXJpb2RgLAogICAgICBbZGF0ZUZvcm1hdCwgLi4ucGFyYW1zXQogICAgKTsKCiAgICByZXMuanNvbih7IGRhdGE6IHJvd3MgfSk7CiAgfSBjYXRjaCAoZXJyKSB7CiAgICBjb25zb2xlLmVycm9yKCfokKXmlLbmiqXooajmn6Xor6LlpLHotKU6JywgZXJyKTsKICAgIHJlcy5zdGF0dXMoNTAwKS5qc29uKHsgbWVzc2FnZTogJ+afpeivouWksei0pScgfSk7CiAgfQp9KTsKCi8vIOWVhuWTgemUgOWUruaOkuihjApyb3V0ZXIuZ2V0KCcvdG9wLXByb2R1Y3RzJywgYXN5bmMgKHJlcSwgcmVzKSA9PiB7CiAgdHJ5IHsKICAgIGNvbnN0IHRlbmFudElkID0gcmVxLnRlbmFudElkOwogICAgY29uc3QgeyBzdGFydERhdGUsIGVuZERhdGUsIGxpbWl0ID0gMjAgfSA9IHJlcS5xdWVyeTsKCiAgICBsZXQgZGF0ZUZpbHRlciA9ICcnOwogICAgY29uc3QgcGFyYW1zID0gW3RlbmFudElkXTsKICAgIGlmIChzdGFydERhdGUpIHsgZGF0ZUZpbHRlciArPSAnIEFORCBEQVRFKHNvLmNyZWF0ZWRfYXQpID49ID8nOyBwYXJhbXMucHVzaChzdGFydERhdGUpOyB9CiAgICBpZiAoZW5kRGF0ZSkgeyBkYXRlRmlsdGVyICs9ICcgQU5EIERBVEUoc28uY3JlYXRlZF9hdCkgPD0gPyc7IHBhcmFtcy5wdXNoKGVuZERhdGUpOyB9CiAgICBpZiAoIXN0YXJ0RGF0ZSAmJiAhZW5kRGF0ZSkgewogICAgICBkYXRlRmlsdGVyID0gJyBBTkQgc28uY3JlYXRlZF9hdCA+PSBEQVRFX1NVQihOT1coKSwgSU5URVJWQUwgMzAgREFZKSc7CiAgICB9CgogICAgY29uc3QgW3Jvd3NdID0gYXdhaXQgZGIucXVlcnkoCiAgICAgIGBTRUxFQ1QgcC5pZCwgcC5uYW1lLCBwLmJhcmNvZGUsIHAuY2F0ZWdvcnlfaWQsIGMubmFtZSBhcyBjYXRlZ29yeV9uYW1lLAogICAgICAgICAgICAgIFNVTShzaS5xdWFudGl0eSkgYXMgdG90YWxRdHksCiAgICAgICAgICAgICAgU1VNKHNpLnF1YW50aXR5ICogc2kudW5pdF9wcmljZSkgYXMgdG90YWxSZXZlbnVlLAogICAgICAgICAgICAgIEFWRyhzaS51bml0X3ByaWNlKSBhcyBhdmdQcmljZSwKICAgICAgICAgICAgICBDT1VOVChESVNUSU5DVCBzby5pZCkgYXMgb3JkZXJDb3VudAogICAgICAgRlJPTSBzYWxlX2l0ZW1zIHNpCiAgICAgICBKT0lOIHNhbGVzX29yZGVycyBzbyBPTiBzaS5zYWxlc19vcmRlcl9pZCA9IHNvLmlkCiAgICAgICBKT0lOIHByb2R1Y3RzIHAgT04gc2kucHJvZHVjdF9pZCA9IHAuaWQKICAgICAgIExFRlQgSk9JTiBjYXRlZ29yaWVzIGMgT04gcC5jYXRlZ29yeV9pZCA9IGMuaWQKICAgICAgIFdIRVJFIHNvLnRlbmFudF9pZCA9ID8gJHtkYXRlRmlsdGVyfQogICAgICAgR1JPVVAgQlkgcC5pZCBPUkRFUiBCWSB0b3RhbFJldmVudWUgREVTQyBMSU1JVCA/YCwKICAgICAgWy4uLnBhcmFtcywgTnVtYmVyKGxpbWl0KV0KICAgICk7CgogICAgcmVzLmpzb24oeyBkYXRhOiByb3dzIH0pOwogIH0gY2F0Y2ggKGVycikgewogICAgY29uc29sZS5lcnJvcign5ZWG5ZOB5o6S6KGM5p+l6K+i5aSx6LSlOicsIGVycik7CiAgICByZXMuc3RhdHVzKDUwMCkuanNvbih7IG1lc3NhZ2U6ICfmn6Xor6LlpLHotKUnIH0pOwogIH0KfSk7CgovLyDliIbnsbvplIDllK7nu5/orqEKcm91dGVyLmdldCgnL2NhdGVnb3J5LXN0YXRzJywgYXN5bmMgKHJlcSwgcmVzKSA9PiB7CiAgdHJ5IHsKICAgIGNvbnN0IHRlbmFudElkID0gcmVxLnRlbmFudElkOwogICAgY29uc3QgeyBzdGFydERhdGUsIGVuZERhdGUgfSA9IHJlcS5xdWVyeTsKCiAgICBsZXQgZGF0ZUZpbHRlciA9ICcnOwogICAgY29uc3QgcGFyYW1zID0gW3RlbmFudElkXTsKICAgIGlmIChzdGFydERhdGUpIHsgZGF0ZUZpbHRlciArPSAnIEFORCBEQVRFKHNvLmNyZWF0ZWRfYXQpID49ID8nOyBwYXJhbXMucHVzaChzdGFydERhdGUpOyB9CiAgICBpZiAoZW5kRGF0ZSkgeyBkYXRlRmlsdGVyICs9ICcgQU5EIERBVEUoc28uY3JlYXRlZF9hdCkgPD0gPyc7IHBhcmFtcy5wdXNoKGVuZERhdGUpOyB9CiAgICBpZiAoIXN0YXJ0RGF0ZSAmJiAhZW5kRGF0ZSkgewogICAgICBkYXRlRmlsdGVyID0gJyBBTkQgc28uY3JlYXRlZF9hdCA+PSBEQVRFX1NVQihOT1coKSwgSU5URVJWQUwgMzAgREFZKSc7CiAgICB9CgogICAgY29uc3QgW3Jvd3NdID0gYXdhaXQgZGIucXVlcnkoCiAgICAgIGBTRUxFQ1QgYy5pZCwgYy5uYW1lLAogICAgICAgICAgICAgIENPVU5UKERJU1RJTkNUIHAuaWQpIGFzIHByb2R1Y3RDb3VudCwKICAgICAgICAgICAgICBTVU0oc2kucXVhbnRpdHkpIGFzIHRvdGFsUXR5LAogICAgICAgICAgICAgIFNVTShzaS5xdWFudGl0eSAqIHNpLnVuaXRfcHJpY2UpIGFzIHRvdGFsUmV2ZW51ZQogICAgICAgRlJPTSBzYWxlX2l0ZW1zIHNpCiAgICAgICBKT0lOIHNhbGVzX29yZGVycyBzbyBPTiBzaS5zYWxlc19vcmRlcl9pZCA9IHNvLmlkCiAgICAgICBKT0lOIHByb2R1Y3RzIHAgT04gc2kucHJvZHVjdF9pZCA9IHAuaWQKICAgICAgIExFRlQgSk9JTiBjYXRlZ29yaWVzIGMgT04gcC5jYXRlZ29yeV9pZCA9IGMuaWQKICAgICAgIFdIRVJFIHNvLnRlbmFudF9pZCA9ID8gJHtkYXRlRmlsdGVyfQogICAgICAgR1JPVVAgQlkgYy5pZCBPUkRFUiBCWSB0b3RhbFJldmVudWUgREVTQ2AsCiAgICAgIFsuLi5wYXJhbXNdCiAgICApOwoKICAgIHJlcy5qc29uKHsgZGF0YTogcm93cyB9KTsKICB9IGNhdGNoIChlcnIpIHsKICAgIGNvbnNvbGUuZXJyb3IoJ+WIhuexu+e7n+iuoeafpeivouWksei0pTonLCBlcnIpOwogICAgcmVzLnN0YXR1cyg1MDApLmpzb24oeyBtZXNzYWdlOiAn5p+l6K+i5aSx6LSlJyB9KTsKICB9Cn0pOwoKLy8g5a6i5oi35raI6LS55YiG5p6QCnJvdXRlci5nZXQoJy9jdXN0b21lci1zdGF0cycsIGFzeW5jIChyZXEsIHJlcykgPT4gewogIHRyeSB7CiAgICBjb25zdCB0ZW5hbnRJZCA9IHJlcS50ZW5hbnRJZDsKICAgIGNvbnN0IHsgc3RhcnREYXRlLCBlbmREYXRlLCBsaW1pdCA9IDUwIH0gPSByZXEucXVlcnk7CgogICAgbGV0IGRhdGVGaWx0ZXIgPSAnJzsKICAgIGNvbnN0IHBhcmFtcyA9IFt0ZW5hbnRJZF07CiAgICBpZiAoc3RhcnREYXRlKSB7IGRhdGVGaWx0ZXIgKz0gJyBBTkQgREFURShzby5jcmVhdGVkX2F0KSA+PSA/JzsgcGFyYW1zLnB1c2goc3RhcnREYXRlKTsgfQogICAgaWYgKGVuZERhdGUpIHsgZGF0ZUZpbHRlciArPSAnIEFORCBEQVRFKHNvLmNyZWF0ZWRfYXQpIDw9ID8nOyBwYXJhbXMucHVzaChlbmREYXRlKTsgfQogICAgaWYgKCFzdGFydERhdGUgJiYgIWVuZERhdGUpIHsKICAgICAgZGF0ZUZpbHRlciA9ICcgQU5EIHNvLmNyZWF0ZWRfYXQgPj0gREFURV9TVUIoTk9XKCksIElOVEVSVkFMIDMwIERBWSknOwogICAgfQoKICAgIGNvbnN0IFtyb3dzXSA9IGF3YWl0IGRiLnF1ZXJ5KAogICAgICBgU0VMRUNUIGN1LmlkLCBjdS5uYW1lLCBjdS5waG9uZSwKICAgICAgICAgICAgICBDT1VOVChzby5pZCkgYXMgb3JkZXJDb3VudCwKICAgICAgICAgICAgICBTVU0oc28udG90YWxfYW1vdW50KSBhcyB0b3RhbFNwZW5kLAogICAgICAgICAgICAgIEFWRyhzby50b3RhbF9hbW91bnQpIGFzIGF2Z09yZGVyQW1vdW50LAogICAgICAgICAgICAgIE1JTihzby5jcmVhdGVkX2F0KSBhcyBmaXJzdE9yZGVyLAogICAgICAgICAgICAgIE1BWChzby5jcmVhdGVkX2F0KSBhcyBsYXN0T3JkZXIKICAgICAgIEZST00gc2FsZXNfb3JkZXJzIHNvCiAgICAgICBMRUZUIEpPSU4gY3VzdG9tZXJzIGN1IE9OIHNvLmN1c3RvbWVyX2lkID0gY3UuaWQKICAgICAgIFdIRVJFIHNvLnRlbmFudF9pZCA9ID8gQU5EIHNvLmN1c3RvbWVyX2lkIElTIE5PVCBOVUxMICR7ZGF0ZUZpbHRlcn0KICAgICAgIEdST1VQIEJZIGN1LmlkIE9SREVSIEJZIHRvdGFsU3BlbmQgREVTQyBMSU1JVCA/YCwKICAgICAgWy4uLnBhcmFtcywgTnVtYmVyKGxpbWl0KV0KICAgICk7CgogICAgcmVzLmpzb24oeyBkYXRhOiByb3dzIH0pOwogIH0gY2F0Y2ggKGVycikgewogICAgY29uc29sZS5lcnJvcign5a6i5oi35YiG5p6Q5p+l6K+i5aSx6LSlOicsIGVycik7CiAgICByZXMuc3RhdHVzKDUwMCkuanNvbih7IG1lc3NhZ2U6ICfmn6Xor6LlpLHotKUnIH0pOwogIH0KfSk7CgovLyDmlK/ku5jmlrnlvI/nu5/orqEKcm91dGVyLmdldCgnL3BheW1lbnQtc3RhdHMnLCBhc3luYyAocmVxLCByZXMpID0+IHsKICB0cnkgewogICAgY29uc3QgdGVuYW50SWQgPSByZXEudGVuYW50SWQ7CiAgICBjb25zdCB7IHN0YXJ0RGF0ZSwgZW5kRGF0ZSB9ID0gcmVxLnF1ZXJ5OwoKICAgIGxldCBkYXRlRmlsdGVyID0gJyc7CiAgICBjb25zdCBwYXJhbXMgPSBbdGVuYW50SWRdOwogICAgaWYgKHN0YXJ0RGF0ZSkgeyBkYXRlRmlsdGVyICs9ICcgQU5EIERBVEUoY3JlYXRlZF9hdCkgPj0gPyc7IHBhcmFtcy5wdXNoKHN0YXJ0RGF0ZSk7IH0KICAgIGlmIChlbmREYXRlKSB7IGRhdGVGaWx0ZXIgKz0gJyBBTkQgREFURShjcmVhdGVkX2F0KSA8PSA/JzsgcGFyYW1zLnB1c2goZW5kRGF0ZSk7IH0KICAgIGlmICghc3RhcnREYXRlICYmICFlbmREYXRlKSB7CiAgICAgIGRhdGVGaWx0ZXIgPSAnIEFORCBjcmVhdGVkX2F0ID49IERBVEVfU1VCKE5PVygpLCBJTlRFUlZBTCAzMCBEQVkpJzsKICAgIH0KCiAgICBjb25zdCBbcm93c10gPSBhd2FpdCBkYi5xdWVyeSgKICAgICAgYFNFTEVDVCBwYXltZW50X21ldGhvZCwKICAgICAgICAgICAgICBDT1VOVCgqKSBhcyBvcmRlckNvdW50LAogICAgICAgICAgICAgIFNVTSh0b3RhbF9hbW91bnQpIGFzIHRvdGFsQW1vdW50CiAgICAgICBGUk9NIHNhbGVzX29yZGVycwogICAgICAgV0hFUkUgdGVuYW50X2lkID0gPyAke2RhdGVGaWx0ZXJ9CiAgICAgICBHUk9VUCBCWSBwYXltZW50X21ldGhvZCBPUkRFUiBCWSB0b3RhbEFtb3VudCBERVNDYCwKICAgICAgW3RlbmFudElkLCAuLi5wYXJhbXNdCiAgICApOwoKICAgIHJlcy5qc29uKHsgZGF0YTogcm93cyB9KTsKICB9IGNhdGNoIChlcnIpIHsKICAgIGNvbnNvbGUuZXJyb3IoJ+aUr+S7mOaWueW8j+e7n+iuoeWksei0pTonLCBlcnIpOwogICAgcmVzLnN0YXR1cyg1MDApLmpzb24oeyBtZXNzYWdlOiAn5p+l6K+i5aSx6LSlJyB9KTsKICB9Cn0pOwoKLy8g5bqT5a2Y5ZGo6L2s5YiG5p6QCnJvdXRlci5nZXQoJy9pbnZlbnRvcnktdHVybm92ZXInLCBhc3luYyAocmVxLCByZXMpID0+IHsKICB0cnkgewogICAgY29uc3QgdGVuYW50SWQgPSByZXEudGVuYW50SWQ7CgogICAgY29uc3QgW3Jvd3NdID0gYXdhaXQgZGIucXVlcnkoCiAgICAgIGBTRUxFQ1QgcC5pZCwgcC5uYW1lLCBwLmJhcmNvZGUsIGMubmFtZSBhcyBjYXRlZ29yeV9uYW1lLAogICAgICAgICAgICAgIGkucXVhbnRpdHkgYXMgc3RvY2tRdHksCiAgICAgICAgICAgICAgcC5jb3N0X3ByaWNlLAogICAgICAgICAgICAgIGkucXVhbnRpdHkgKiBwLmNvc3RfcHJpY2UgYXMgc3RvY2tWYWx1ZSwKICAgICAgICAgICAgICBDT0FMRVNDRShzb2xkLnRvdGFsU29sZCwgMCkgYXMgc29sZFF0eTMwZCwKICAgICAgICAgICAgICBDQVNFIFdIRU4gaS5xdWFudGl0eSA+IDAgVEhFTiBDT0FMRVNDRShzb2xkLnRvdGFsU29sZCwgMCkgLyBpLnF1YW50aXR5IEVMU0UgMCBFTkQgYXMgdHVybm92ZXJSYXRlLAogICAgICAgICAgICAgIENBU0UKICAgICAgICAgICAgICAgIFdIRU4gaS5xdWFudGl0eSA9IDAgVEhFTiAn5peg5bqT5a2YJwogICAgICAgICAgICAgICAgV0hFTiBDT0FMRVNDRShzb2xkLnRvdGFsU29sZCwgMCkgPSAwIFRIRU4gJ+a7numUgCcKICAgICAgICAgICAgICAgIFdIRU4gQ09BTEVTQ0Uoc29sZC50b3RhbFNvbGQsIDApIC8gaS5xdWFudGl0eSA8IDAuNSBUSEVOICflgY/mhaInCiAgICAgICAgICAgICAgICBXSEVOIENPQUxFU0NFKHNvbGQudG90YWxTb2xkLCAwKSAvIGkucXVhbnRpdHkgPiAzIFRIRU4gJ+eVhemUgCcKICAgICAgICAgICAgICAgIEVMU0UgJ+ato+W4uCcKICAgICAgICAgICAgICBFTkQgYXMgc3RhdHVzCiAgICAgICBGUk9NIHByb2R1Y3RzIHAKICAgICAgIEpPSU4gaW52ZW50b3J5IGkgT04gcC5pZCA9IGkucHJvZHVjdF9pZCBBTkQgaS50ZW5hbnRfaWQgPSA/CiAgICAgICBMRUZUIEpPSU4gY2F0ZWdvcmllcyBjIE9OIHAuY2F0ZWdvcnlfaWQgPSBjLmlkCiAgICAgICBMRUZUIEpPSU4gKAogICAgICAgICBTRUxFQ1Qgc2kucHJvZHVjdF9pZCwgU1VNKHNpLnF1YW50aXR5KSBhcyB0b3RhbFNvbGQKICAgICAgICAgRlJPTSBzYWxlX2l0ZW1zIHNpCiAgICAgICAgIEpPSU4gc2FsZXNfb3JkZXJzIHNvIE9OIHNpLnNhbGVzX29yZGVyX2lkID0gc28uaWQKICAgICAgICAgV0hFUkUgc28udGVuYW50X2lkID0gPyBBTkQgc28uY3JlYXRlZF9hdCA+PSBEQVRFX1NVQihOT1coKSwgSU5URVJWQUwgMzAgREFZKQogICAgICAgICBHUk9VUCBCWSBzaS5wcm9kdWN0X2lkCiAgICAgICApIHNvbGQgT04gcC5pZCA9IHNvbGQucHJvZHVjdF9pZAogICAgICAgV0hFUkUgcC50ZW5hbnRfaWQgPSA/CiAgICAgICBPUkRFUiBCWSBzdG9ja1ZhbHVlIERFU0NgLAogICAgICBbdGVuYW50SWQsIHRlbmFudElkLCB0ZW5hbnRJZF0KICAgICk7CgogICAgcmVzLmpzb24oeyBkYXRhOiByb3dzIH0pOwogIH0gY2F0Y2ggKGVycikgewogICAgY29uc29sZS5lcnJvcign5bqT5a2Y5ZGo6L2s5YiG5p6Q5aSx6LSlOicsIGVycik7CiAgICByZXMuc3RhdHVzKDUwMCkuanNvbih7IG1lc3NhZ2U6ICfmn6Xor6LlpLHotKUnIH0pOwogIH0KfSk7CgovLyDliKnmtqbliIbmnpAKcm91dGVyLmdldCgnL3Byb2ZpdCcsIGFzeW5jIChyZXEsIHJlcykgPT4gewogIHRyeSB7CiAgICBjb25zdCB0ZW5hbnRJZCA9IHJlcS50ZW5hbnRJZDsKICAgIGNvbnN0IHsgc3RhcnREYXRlLCBlbmREYXRlIH0gPSByZXEucXVlcnk7CgogICAgbGV0IGRhdGVGaWx0ZXIgPSAnIEFORCBzby5jcmVhdGVkX2F0ID49IERBVEVfU1VCKE5PVygpLCBJTlRFUlZBTCAzMCBEQVkpJzsKICAgIGNvbnN0IHBhcmFtcyA9IFt0ZW5hbnRJZF07CiAgICBpZiAoc3RhcnREYXRlKSB7IGRhdGVGaWx0ZXIgPSAnIEFORCBzby5jcmVhdGVkX2F0ID49ID8nOyBwYXJhbXMucHVzaChzdGFydERhdGUpOyB9CiAgICBpZiAoZW5kRGF0ZSkgeyBkYXRlRmlsdGVyICs9ICcgQU5EIHNvLmNyZWF0ZWRfYXQgPD0gPyc7IHBhcmFtcy5wdXNoKGVuZERhdGUpOyB9CgogICAgLy8g5oC76JCl5pS2CiAgICBjb25zdCBbW3JldmVudWVdXSA9IGF3YWl0IGRiLnF1ZXJ5KAogICAgICBgU0VMRUNUIElGTlVMTChTVU0odG90YWxfYW1vdW50KSwgMCkgYXMgdG90YWwgRlJPTSBzYWxlc19vcmRlcnMgV0hFUkUgdGVuYW50X2lkID0gPyAke2RhdGVGaWx0ZXJ9YCwKICAgICAgcGFyYW1zCiAgICApOwoKICAgIC8vIOaAu+mUgOWUruaIkOacrO+8iOeUqOWVhuWTgeaIkOacrOS7t+iuoeeul++8iQogICAgY29uc3QgW1tjb3N0XV0gPSBhd2FpdCBkYi5xdWVyeSgKICAgICAgYFNFTEVDVCBJRk5VTEwoU1VNKHNpLnF1YW50aXR5ICogcC5jb3N0X3ByaWNlKSwgMCkgYXMgdG90YWwKICAgICAgIEZST00gc2FsZV9pdGVtcyBzaQogICAgICAgSk9JTiBzYWxlc19vcmRlcnMgc28gT04gc2kuc2FsZXNfb3JkZXJfaWQgPSBzby5pZAogICAgICAgSk9JTiBwcm9kdWN0cyBwIE9OIHNpLnByb2R1Y3RfaWQgPSBwLmlkCiAgICAgICBXSEVSRSBzby50ZW5hbnRfaWQgPSA/ICR7ZGF0ZUZpbHRlcn1gLAogICAgICBwYXJhbXMKICAgICk7CgogICAgLy8g5oC76YeH6LSt6YeR6aKdCiAgICBjb25zdCBbW3B1cmNoYXNlQ29zdF1dID0gYXdhaXQgZGIucXVlcnkoCiAgICAgIGBTRUxFQ1QgSUZOVUxMKFNVTSh0b3RhbF9hbW91bnQpLCAwKSBhcyB0b3RhbCBGUk9NIHB1cmNoYXNlX29yZGVycyBXSEVSRSB0ZW5hbnRfaWQgPSA/IEFORCBzdGF0dXMgPSAncmVjZWl2ZWQnYCwKICAgICAgW3RlbmFudElkXQogICAgKTsKCiAgICBjb25zdCB0b3RhbFJldmVudWUgPSByZXZlbnVlLnRvdGFsOwogICAgY29uc3QgdG90YWxDb3N0ID0gY29zdC50b3RhbDsKICAgIGNvbnN0IGdyb3NzUHJvZml0ID0gdG90YWxSZXZlbnVlIC0gdG90YWxDb3N0OwogICAgY29uc3QgcHJvZml0TWFyZ2luID0gdG90YWxSZXZlbnVlID4gMCA/IChncm9zc1Byb2ZpdCAvIHRvdGFsUmV2ZW51ZSAqIDEwMCkudG9GaXhlZCgxKSA6IDA7CgogICAgcmVzLmpzb24oewogICAgICBkYXRhOiB7CiAgICAgICAgdG90YWxSZXZlbnVlOiBOdW1iZXIodG90YWxSZXZlbnVlKSwKICAgICAgICB0b3RhbENvc3Q6IE51bWJlcih0b3RhbENvc3QpLAogICAgICAgIGdyb3NzUHJvZml0OiBOdW1iZXIoZ3Jvc3NQcm9maXQpLAogICAgICAgIHByb2ZpdE1hcmdpbjogTnVtYmVyKHByb2ZpdE1hcmdpbiksCiAgICAgICAgcHVyY2hhc2VDb3N0OiBOdW1iZXIocHVyY2hhc2VDb3N0LnRvdGFsKQogICAgICB9CiAgICB9KTsKICB9IGNhdGNoIChlcnIpIHsKICAgIGNvbnNvbGUuZXJyb3IoJ+WIqea2puWIhuaekOWksei0pTonLCBlcnIpOwogICAgcmVzLnN0YXR1cyg1MDApLmpzb24oeyBtZXNzYWdlOiAn5p+l6K+i5aSx6LSlJyB9KTsKICB9Cn0pOwoKbW9kdWxlLmV4cG9ydHMgPSByb3V0ZXI7Cg==
+const express = require('express');
+const router = express.Router();
+const db = require('../config/db');
+const { authenticate } = require('../middleware/auth');
+
+router.use(authenticate);
+
+// 综合报表 - 营收趋势
+router.get('/revenue', async (req, res) => {
+  try {
+    const tenantId = req.tenantId;
+    const { startDate, endDate, groupBy = 'day' } = req.query;
+
+    let dateFormat;
+    switch (groupBy) {
+      case 'week': dateFormat = '%x-W%v'; break;
+      case 'month': dateFormat = '%Y-%m'; break;
+      default: dateFormat = '%Y-%m-%d';
+    }
+
+    let dateFilter = '';
+    const params = [tenantId];
+    if (startDate) { dateFilter += ' AND DATE(so.created_at) >= ?'; params.push(startDate); }
+    if (endDate) { dateFilter += ' AND DATE(so.created_at) <= ?'; params.push(endDate); }
+    if (!startDate && !endDate) {
+      dateFilter = ' AND so.created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)';
+    }
+
+    const [rows] = await db.query(
+      `SELECT DATE_FORMAT(so.created_at, ?) as period,
+              COUNT(*) as orderCount,
+              SUM(so.total_amount) as revenue,
+              AVG(so.total_amount) as avgOrderAmount
+       FROM sales_orders so
+       WHERE so.tenant_id = ? ${dateFilter}
+       GROUP BY period ORDER BY period`,
+      [dateFormat, ...params]
+    );
+
+    res.json({ data: rows });
+  } catch (err) {
+    console.error('营收报表查询失败:', err);
+    res.status(500).json({ message: '查询失败' });
+  }
+});
+
+// 商品销售排行
+router.get('/top-products', async (req, res) => {
+  try {
+    const tenantId = req.tenantId;
+    const { startDate, endDate, limit = 20 } = req.query;
+
+    let dateFilter = '';
+    const params = [tenantId];
+    if (startDate) { dateFilter += ' AND DATE(so.created_at) >= ?'; params.push(startDate); }
+    if (endDate) { dateFilter += ' AND DATE(so.created_at) <= ?'; params.push(endDate); }
+    if (!startDate && !endDate) {
+      dateFilter = ' AND so.created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)';
+    }
+
+    const [rows] = await db.query(
+      `SELECT p.id, p.name, p.barcode, p.category_id, c.name as category_name,
+              SUM(si.quantity) as totalQty,
+              SUM(si.quantity * si.unit_price) as totalRevenue,
+              AVG(si.unit_price) as avgPrice,
+              COUNT(DISTINCT so.id) as orderCount
+       FROM sale_items si
+       JOIN sales_orders so ON si.sales_order_id = so.id
+       JOIN products p ON si.product_id = p.id
+       LEFT JOIN categories c ON p.category_id = c.id
+       WHERE so.tenant_id = ? ${dateFilter}
+       GROUP BY p.id ORDER BY totalRevenue DESC LIMIT ?`,
+      [...params, Number(limit)]
+    );
+
+    res.json({ data: rows });
+  } catch (err) {
+    console.error('商品排行查询失败:', err);
+    res.status(500).json({ message: '查询失败' });
+  }
+});
+
+// 分类销售统计
+router.get('/category-stats', async (req, res) => {
+  try {
+    const tenantId = req.tenantId;
+    const { startDate, endDate } = req.query;
+
+    let dateFilter = '';
+    const params = [tenantId];
+    if (startDate) { dateFilter += ' AND DATE(so.created_at) >= ?'; params.push(startDate); }
+    if (endDate) { dateFilter += ' AND DATE(so.created_at) <= ?'; params.push(endDate); }
+    if (!startDate && !endDate) {
+      dateFilter = ' AND so.created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)';
+    }
+
+    const [rows] = await db.query(
+      `SELECT c.id, c.name,
+              COUNT(DISTINCT p.id) as productCount,
+              SUM(si.quantity) as totalQty,
+              SUM(si.quantity * si.unit_price) as totalRevenue
+       FROM sale_items si
+       JOIN sales_orders so ON si.sales_order_id = so.id
+       JOIN products p ON si.product_id = p.id
+       LEFT JOIN categories c ON p.category_id = c.id
+       WHERE so.tenant_id = ? ${dateFilter}
+       GROUP BY c.id ORDER BY totalRevenue DESC`,
+      [...params]
+    );
+
+    res.json({ data: rows });
+  } catch (err) {
+    console.error('分类统计查询失败:', err);
+    res.status(500).json({ message: '查询失败' });
+  }
+});
+
+// 客户消费分析
+router.get('/customer-stats', async (req, res) => {
+  try {
+    const tenantId = req.tenantId;
+    const { startDate, endDate, limit = 50 } = req.query;
+
+    let dateFilter = '';
+    const params = [tenantId];
+    if (startDate) { dateFilter += ' AND DATE(so.created_at) >= ?'; params.push(startDate); }
+    if (endDate) { dateFilter += ' AND DATE(so.created_at) <= ?'; params.push(endDate); }
+    if (!startDate && !endDate) {
+      dateFilter = ' AND so.created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)';
+    }
+
+    const [rows] = await db.query(
+      `SELECT cu.id, cu.name, cu.phone,
+              COUNT(so.id) as orderCount,
+              SUM(so.total_amount) as totalSpend,
+              AVG(so.total_amount) as avgOrderAmount,
+              MIN(so.created_at) as firstOrder,
+              MAX(so.created_at) as lastOrder
+       FROM sales_orders so
+       LEFT JOIN customers cu ON so.customer_id = cu.id
+       WHERE so.tenant_id = ? AND so.customer_id IS NOT NULL ${dateFilter}
+       GROUP BY cu.id ORDER BY totalSpend DESC LIMIT ?`,
+      [...params, Number(limit)]
+    );
+
+    res.json({ data: rows });
+  } catch (err) {
+    console.error('客户分析查询失败:', err);
+    res.status(500).json({ message: '查询失败' });
+  }
+});
+
+// 支付方式统计
+router.get('/payment-stats', async (req, res) => {
+  try {
+    const tenantId = req.tenantId;
+    const { startDate, endDate } = req.query;
+
+    let dateFilter = '';
+    const params = [tenantId];
+    if (startDate) { dateFilter += ' AND DATE(created_at) >= ?'; params.push(startDate); }
+    if (endDate) { dateFilter += ' AND DATE(created_at) <= ?'; params.push(endDate); }
+    if (!startDate && !endDate) {
+      dateFilter = ' AND created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)';
+    }
+
+    const [rows] = await db.query(
+      `SELECT payment_method,
+              COUNT(*) as orderCount,
+              SUM(total_amount) as totalAmount
+       FROM sales_orders
+       WHERE tenant_id = ? ${dateFilter}
+       GROUP BY payment_method ORDER BY totalAmount DESC`,
+      [tenantId, ...params]
+    );
+
+    res.json({ data: rows });
+  } catch (err) {
+    console.error('支付方式统计失败:', err);
+    res.status(500).json({ message: '查询失败' });
+  }
+});
+
+// 库存周转分析
+router.get('/inventory-turnover', async (req, res) => {
+  try {
+    const tenantId = req.tenantId;
+
+    const [rows] = await db.query(
+      `SELECT p.id, p.name, p.barcode, c.name as category_name,
+              i.quantity as stockQty,
+              p.cost_price,
+              i.quantity * p.cost_price as stockValue,
+              COALESCE(sold.totalSold, 0) as soldQty30d,
+              CASE WHEN i.quantity > 0 THEN COALESCE(sold.totalSold, 0) / i.quantity ELSE 0 END as turnoverRate,
+              CASE
+                WHEN i.quantity = 0 THEN '无库存'
+                WHEN COALESCE(sold.totalSold, 0) = 0 THEN '滞销'
+                WHEN COALESCE(sold.totalSold, 0) / i.quantity < 0.5 THEN '偏慢'
+                WHEN COALESCE(sold.totalSold, 0) / i.quantity > 3 THEN '畅销'
+                ELSE '正常'
+              END as status
+       FROM products p
+       JOIN inventory i ON p.id = i.product_id AND i.tenant_id = ?
+       LEFT JOIN categories c ON p.category_id = c.id
+       LEFT JOIN (
+         SELECT si.product_id, SUM(si.quantity) as totalSold
+         FROM sale_items si
+         JOIN sales_orders so ON si.sales_order_id = so.id
+         WHERE so.tenant_id = ? AND so.created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)
+         GROUP BY si.product_id
+       ) sold ON p.id = sold.product_id
+       WHERE p.tenant_id = ?
+       ORDER BY stockValue DESC`,
+      [tenantId, tenantId, tenantId]
+    );
+
+    res.json({ data: rows });
+  } catch (err) {
+    console.error('库存周转分析失败:', err);
+    res.status(500).json({ message: '查询失败' });
+  }
+});
+
+// 利润分析
+router.get('/profit', async (req, res) => {
+  try {
+    const tenantId = req.tenantId;
+    const { startDate, endDate } = req.query;
+
+    let dateFilter = ' AND so.created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)';
+    const params = [tenantId];
+    if (startDate) { dateFilter = ' AND so.created_at >= ?'; params.push(startDate); }
+    if (endDate) { dateFilter += ' AND so.created_at <= ?'; params.push(endDate); }
+
+    // 总营收
+    const [[revenue]] = await db.query(
+      `SELECT IFNULL(SUM(total_amount), 0) as total FROM sales_orders WHERE tenant_id = ? ${dateFilter}`,
+      params
+    );
+
+    // 总销售成本（用商品成本价计算）
+    const [[cost]] = await db.query(
+      `SELECT IFNULL(SUM(si.quantity * p.cost_price), 0) as total
+       FROM sale_items si
+       JOIN sales_orders so ON si.sales_order_id = so.id
+       JOIN products p ON si.product_id = p.id
+       WHERE so.tenant_id = ? ${dateFilter}`,
+      params
+    );
+
+    // 总采购金额
+    const [[purchaseCost]] = await db.query(
+      `SELECT IFNULL(SUM(total_amount), 0) as total FROM purchase_orders WHERE tenant_id = ? AND status = 'received'`,
+      [tenantId]
+    );
+
+    const totalRevenue = revenue.total;
+    const totalCost = cost.total;
+    const grossProfit = totalRevenue - totalCost;
+    const profitMargin = totalRevenue > 0 ? (grossProfit / totalRevenue * 100).toFixed(1) : 0;
+
+    res.json({
+      data: {
+        totalRevenue: Number(totalRevenue),
+        totalCost: Number(totalCost),
+        grossProfit: Number(grossProfit),
+        profitMargin: Number(profitMargin),
+        purchaseCost: Number(purchaseCost.total)
+      }
+    });
+  } catch (err) {
+    console.error('利润分析失败:', err);
+    res.status(500).json({ message: '查询失败' });
+  }
+});
+
+module.exports = router;

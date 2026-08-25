@@ -1,1 +1,23 @@
-IyEvYmluL2Jhc2gKc2V0IC1lCmV4cG9ydCBQQVRIPS91c3IvbG9jYWwvYmluOiRQQVRICmNkIC9vcHQvdW5pdmVyc2FsLWVycC9zZXJ2ZXIKCmVjaG8gIvCfk4sgMS80IOW7uuihqC4uLiIKbXlzcWwgLXUgZXJwX3VzZXIgLXAnRXJwQFNlY3VyZTIwMjYnIGVycF9kYiA8IHByaXNtYS9zY2hlbWEuc3FsIDI+L2Rldi9udWxsCgplY2hvICLwn4+qIDIvNCDliJvlu7rluJDlpZcuLi4iCm5vZGUgaW5pdF90ZW5hbnRzLmpzCgplY2hvICLwn46sIDMvNCDnlJ/miJDmvJTnpLrmlbDmja4uLi4iCm5vZGUgc2VlZF9kZW1vLmpzCgplY2hvICLwn5SEIDQvNCDph43lkK9FUlDmnI3liqEuLi4iCnN5c3RlbWN0bCByZXN0YXJ0IGVycC1zZXJ2ZXIKc2xlZXAgMgoKZWNobyAiIgplY2hvICI9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0iCmVjaG8gIuKchSDlhajpg6jlrozmiJDvvIHorr/pl646IGh0dHBzOi8vZXJwLnFpdXloYW5nMTY4OC5jb20uY24iCmVjaG8gIiAgIOi0puWPtzogYWRtaW4gLyBhZG1pbjEyMyIKZWNobyAiPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09Igo=
+#!/bin/bash
+set -e
+export PATH=/usr/local/bin:$PATH
+cd /opt/universal-erp/server
+
+echo "📋 1/4 建表..."
+mysql -u erp_user -p'Erp@Secure2026' erp_db < prisma/schema.sql 2>/dev/null
+
+echo "🏪 2/4 创建帐套..."
+node init_tenants.js
+
+echo "🎬 3/4 生成演示数据..."
+node seed_demo.js
+
+echo "🔄 4/4 重启ERP服务..."
+systemctl restart erp-server
+sleep 2
+
+echo ""
+echo "=========================================="
+echo "✅ 全部完成！访问: https://erp.qiuyhang1688.com.cn"
+echo "   账号: admin / admin123"
+echo "=========================================="

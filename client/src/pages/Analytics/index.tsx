@@ -1,1 +1,250 @@
-aW1wb3J0IFJlYWN0LCB7IHVzZVN0YXRlLCB1c2VFZmZlY3QgfSBmcm9tICdyZWFjdCc7CmltcG9ydCB7IENhcmQsIFJvdywgQ29sLCBTdGF0aXN0aWMsIFNlbGVjdCwgU3BhY2UsIFNwaW4sIFR5cG9ncmFwaHksIFRhYmxlLCBUYWcsIEJ1dHRvbiwgRGF0ZVBpY2tlciB9IGZyb20gJ2FudGQnOwppbXBvcnQgewogIEFycm93VXBPdXRsaW5lZCwgQXJyb3dEb3duT3V0bGluZWQsIFNob3BwaW5nQ2FydE91dGxpbmVkLCBEb2xsYXJPdXRsaW5lZCwKICBJbmJveE91dGxpbmVkLCBXYXJuaW5nT3V0bGluZWQsIFJpc2VPdXRsaW5lZCwgRmFsbE91dGxpbmVkCn0gZnJvbSAnQGFudC1kZXNpZ24vaWNvbnMnOwppbXBvcnQgUmVhY3RFQ2hhcnRzIGZyb20gJ2VjaGFydHMtZm9yLXJlYWN0JzsKaW1wb3J0IGRheWpzIGZyb20gJ2RheWpzJzsKaW1wb3J0IHJlcXVlc3QgZnJvbSAnLi4vLi4vYXBpL3JlcXVlc3QnOwoKY29uc3QgeyBUaXRsZSwgVGV4dCB9ID0gVHlwb2dyYXBoeTsKY29uc3QgeyBSYW5nZVBpY2tlciB9ID0gRGF0ZVBpY2tlcjsKCmNvbnN0IEFuYWx5dGljczogUmVhY3QuRkMgPSAoKSA9PiB7CiAgY29uc3QgW2xvYWRpbmcsIHNldExvYWRpbmddID0gdXNlU3RhdGUoZmFsc2UpOwogIGNvbnN0IFtwZXJpb2QsIHNldFBlcmlvZF0gPSB1c2VTdGF0ZSgnMzBkJyk7CiAgY29uc3QgW3N1bW1hcnksIHNldFN1bW1hcnldID0gdXNlU3RhdGU8YW55PihudWxsKTsKICBjb25zdCBbc2FsZXNUcmVuZCwgc2V0U2FsZXNUcmVuZF0gPSB1c2VTdGF0ZTxhbnlbXT4oW10pOwogIGNvbnN0IFtwdXJjaGFzZVRyZW5kLCBzZXRQdXJjaGFzZVRyZW5kXSA9IHVzZVN0YXRlPGFueVtdPihbXSk7CiAgY29uc3QgW3Byb2R1Y3RSYW5rLCBzZXRQcm9kdWN0UmFua10gPSB1c2VTdGF0ZTxhbnlbXT4oW10pOwogIGNvbnN0IFtpbnZWYWx1ZSwgc2V0SW52VmFsdWVdID0gdXNlU3RhdGU8YW55W10+KFtdKTsKICBjb25zdCBbcHJvZml0LCBzZXRQcm9maXRdID0gdXNlU3RhdGU8YW55W10+KFtdKTsKICBjb25zdCBbc3RvY2tNb3ZlLCBzZXRTdG9ja01vdmVdID0gdXNlU3RhdGU8YW55Pih7IHN0b2NrX2luOiBbXSwgc3RvY2tfb3V0OiBbXSB9KTsKCiAgY29uc3QgbG9hZEFsbCA9IGFzeW5jICgpID0+IHsKICAgIHNldExvYWRpbmcodHJ1ZSk7CiAgICB0cnkgewogICAgICBjb25zdCBbcywgc3QsIHB0LCBwciwgaXYsIHBmLCBzbV0gPSBhd2FpdCBQcm9taXNlLmFsbChbCiAgICAgICAgcmVxdWVzdC5nZXQoJy9hbmFseXRpY3Mvc3VtbWFyeScpLAogICAgICAgIHJlcXVlc3QuZ2V0KCcvYW5hbHl0aWNzL3NhbGVzLXRyZW5kJywgeyBwYXJhbXM6IHsgcGVyaW9kIH0gfSksCiAgICAgICAgcmVxdWVzdC5nZXQoJy9hbmFseXRpY3MvcHVyY2hhc2UtdHJlbmQnLCB7IHBhcmFtczogeyBwZXJpb2QgfSB9KSwKICAgICAgICByZXF1ZXN0LmdldCgnL2FuYWx5dGljcy9wcm9kdWN0LXJhbmtpbmcnLCB7IHBhcmFtczogeyBsaW1pdDogMTAgfSB9KSwKICAgICAgICByZXF1ZXN0LmdldCgnL2FuYWx5dGljcy9pbnZlbnRvcnktdmFsdWUnKSwKICAgICAgICByZXF1ZXN0LmdldCgnL2FuYWx5dGljcy9wcm9maXQtYW5hbHlzaXMnLCB7IHBhcmFtczogeyBwZXJpb2QgfSB9KSwKICAgICAgICByZXF1ZXN0LmdldCgnL2FuYWx5dGljcy9zdG9jay1tb3ZlbWVudCcsIHsgcGFyYW1zOiB7IHBlcmlvZCB9IH0pLAogICAgICBdKTsKICAgICAgc2V0U3VtbWFyeShzLmRhdGE/LmRhdGEgfHwgcy5kYXRhKTsKICAgICAgc2V0U2FsZXNUcmVuZChzdC5kYXRhPy5kYXRhIHx8IFtdKTsKICAgICAgc2V0UHVyY2hhc2VUcmVuZChwdC5kYXRhPy5kYXRhIHx8IFtdKTsKICAgICAgc2V0UHJvZHVjdFJhbmsocHIuZGF0YT8uZGF0YSB8fCBbXSk7CiAgICAgIHNldEludlZhbHVlKGl2LmRhdGE/LmRhdGEgfHwgW10pOwogICAgICBzZXRQcm9maXQocGYuZGF0YT8uZGF0YSB8fCBbXSk7CiAgICAgIHNldFN0b2NrTW92ZShzbS5kYXRhPy5kYXRhIHx8IHsgc3RvY2tfaW46IFtdLCBzdG9ja19vdXQ6IFtdIH0pOwogICAgfSBjYXRjaCAoZSkgeyBjb25zb2xlLmVycm9yKGUpOyB9CiAgICBzZXRMb2FkaW5nKGZhbHNlKTsKICB9OwoKICB1c2VFZmZlY3QoKCkgPT4geyBsb2FkQWxsKCk7IH0sIFtwZXJpb2RdKTsKCiAgLy8g6ZSA5ZSu6LaL5Yq/5Zu+CiAgY29uc3Qgc2FsZXNUcmVuZE9wdGlvbiA9IHsKICAgIHRvb2x0aXA6IHsgdHJpZ2dlcjogJ2F4aXMnIH0sCiAgICBsZWdlbmQ6IHsgZGF0YTogWyfplIDllK7pop0nLCAn6K6i5Y2V5pWwJ10sIHRvcDogMCB9LAogICAgZ3JpZDogeyBsZWZ0OiA1MCwgcmlnaHQ6IDUwLCB0b3A6IDQwLCBib3R0b206IDMwIH0sCiAgICB4QXhpczogeyB0eXBlOiAnY2F0ZWdvcnknLCBkYXRhOiBzYWxlc1RyZW5kLm1hcChkID0+IGQuZGF0ZSksIGF4aXNMYWJlbDogeyByb3RhdGU6IHBlcmlvZCA9PT0gJzEybScgPyAwIDogNDUsIGZvbnRTaXplOiAxMSB9IH0sCiAgICB5QXhpczogWwogICAgICB7IHR5cGU6ICd2YWx1ZScsIG5hbWU6ICfph5Hpop0owqUpJywgcG9zaXRpb246ICdsZWZ0JyB9LAogICAgICB7IHR5cGU6ICd2YWx1ZScsIG5hbWU6ICforqLljZXmlbAnLCBwb3NpdGlvbjogJ3JpZ2h0JyB9CiAgICBdLAogICAgc2VyaWVzOiBbCiAgICAgIHsKICAgICAgICBuYW1lOiAn6ZSA5ZSu6aKdJywgdHlwZTogJ2xpbmUnLCBzbW9vdGg6IHRydWUsIGRhdGE6IHNhbGVzVHJlbmQubWFwKGQgPT4gTnVtYmVyKGQuYWN0dWFsX2Ftb3VudCB8fCAwKSksCiAgICAgICAgaXRlbVN0eWxlOiB7IGNvbG9yOiAnIzE2NzdmZicgfSwgYXJlYVN0eWxlOiB7IGNvbG9yOiAncmdiYSgyMiwxMTksMjU1LDAuMSknIH0KICAgICAgfSwKICAgICAgewogICAgICAgIG5hbWU6ICforqLljZXmlbAnLCB0eXBlOiAnYmFyJywgeUF4aXNJbmRleDogMSwgZGF0YTogc2FsZXNUcmVuZC5tYXAoZCA9PiBkLm9yZGVyX2NvdW50KSwKICAgICAgICBpdGVtU3R5bGU6IHsgY29sb3I6ICcjNTJjNDFhJywgb3BhY2l0eTogMC42IH0KICAgICAgfQogICAgXQogIH07CgogIC8vIOmHh+i0rXZz6ZSA5ZSu5a+55q+UCiAgY29uc3QgY29tcGFyZU9wdGlvbiA9IHsKICAgIHRvb2x0aXA6IHsgdHJpZ2dlcjogJ2F4aXMnIH0sCiAgICBsZWdlbmQ6IHsgZGF0YTogWyfph4fotK3pop0nLCAn6ZSA5ZSu6aKdJ10sIHRvcDogMCB9LAogICAgZ3JpZDogeyBsZWZ0OiA1MCwgcmlnaHQ6IDIwLCB0b3A6IDQwLCBib3R0b206IDMwIH0sCiAgICB4QXhpczogeyB0eXBlOiAnY2F0ZWdvcnknLCBkYXRhOiBzYWxlc1RyZW5kLm1hcChkID0+IGQuZGF0ZSksIGF4aXNMYWJlbDogeyByb3RhdGU6IDQ1LCBmb250U2l6ZTogMTEgfSB9LAogICAgeUF4aXM6IHsgdHlwZTogJ3ZhbHVlJyB9LAogICAgc2VyaWVzOiBbCiAgICAgIHsKICAgICAgICBuYW1lOiAn6YeH6LSt6aKdJywgdHlwZTogJ2JhcicsIGRhdGE6IHB1cmNoYXNlVHJlbmQubWFwKGQgPT4gTnVtYmVyKGQudG90YWxfYW1vdW50IHx8IDApKSwKICAgICAgICBpdGVtU3R5bGU6IHsgY29sb3I6ICcjZmFhZDE0JyB9CiAgICAgIH0sCiAgICAgIHsKICAgICAgICBuYW1lOiAn6ZSA5ZSu6aKdJywgdHlwZTogJ2JhcicsIGRhdGE6IHNhbGVzVHJlbmQubWFwKGQgPT4gTnVtYmVyKGQuYWN0dWFsX2Ftb3VudCB8fCAwKSksCiAgICAgICAgaXRlbVN0eWxlOiB7IGNvbG9yOiAnIzE2NzdmZicgfQogICAgICB9CiAgICBdCiAgfTsKCiAgLy8g5bqT5a2Y5Lu35YC85YiG57G76aW85Zu+CiAgY29uc3QgaW52UGllT3B0aW9uID0gewogICAgdG9vbHRpcDogeyB0cmlnZ2VyOiAnaXRlbScsIGZvcm1hdHRlcjogJ3tifTogwqV7Y30gKHtkfSUpJyB9LAogICAgbGVnZW5kOiB7IHR5cGU6ICdzY3JvbGwnLCBvcmllbnQ6ICd2ZXJ0aWNhbCcsIHJpZ2h0OiAxMCwgdG9wOiAyMCwgYm90dG9tOiAyMCB9LAogICAgc2VyaWVzOiBbewogICAgICB0eXBlOiAncGllJywgcmFkaXVzOiBbJzQwJScsICc3MCUnXSwgY2VudGVyOiBbJzQwJScsICc1MCUnXSwKICAgICAgbGFiZWw6IHsgc2hvdzogZmFsc2UgfSwKICAgICAgZGF0YTogaW52VmFsdWUubWFwKGQgPT4gKHsgbmFtZTogZC5jYXRlZ29yeV9uYW1lIHx8ICfmnKrliIbnsbsnLCB2YWx1ZTogTnVtYmVyKGQuY29zdF92YWx1ZSB8fCAwKSB9KSksCiAgICAgIGVtcGhhc2lzOiB7IGl0ZW1TdHlsZTogeyBzaGFkb3dCbHVyOiAxMCwgc2hhZG93T2Zmc2V0WDogMCwgc2hhZG93Q29sb3I6ICdyZ2JhKDAsMCwwLDAuMiknIH0gfQogICAgfV0KICB9OwoKICAvLyDliKnmtqbotovlir8KICBjb25zdCBwcm9maXRPcHRpb24gPSB7CiAgICB0b29sdGlwOiB7IHRyaWdnZXI6ICdheGlzJyB9LAogICAgbGVnZW5kOiB7IGRhdGE6IFsn5pS25YWlJywgJ+aUr+WHuicsICfliKnmtqYnXSwgdG9wOiAwIH0sCiAgICBncmlkOiB7IGxlZnQ6IDUwLCByaWdodDogMjAsIHRvcDogNDAsIGJvdHRvbTogMzAgfSwKICAgIHhBeGlzOiB7IHR5cGU6ICdjYXRlZ29yeScsIGRhdGE6IHByb2ZpdC5tYXAoZCA9PiBkLmRhdGUpLCBheGlzTGFiZWw6IHsgcm90YXRlOiA0NSwgZm9udFNpemU6IDExIH0gfSwKICAgIHlBeGlzOiB7IHR5cGU6ICd2YWx1ZScgfSwKICAgIHNlcmllczogWwogICAgICB7IG5hbWU6ICfmlLblhaUnLCB0eXBlOiAnbGluZScsIHNtb290aDogdHJ1ZSwgZGF0YTogcHJvZml0Lm1hcChkID0+IE51bWJlcihkLmluY29tZSB8fCAwKSksIGl0ZW1TdHlsZTogeyBjb2xvcjogJyM1MmM0MWEnIH0gfSwKICAgICAgeyBuYW1lOiAn5pSv5Ye6JywgdHlwZTogJ2xpbmUnLCBzbW9vdGg6IHRydWUsIGRhdGE6IHByb2ZpdC5tYXAoZCA9PiBOdW1iZXIoZC5leHBlbnNlIHx8IDApKSwgaXRlbVN0eWxlOiB7IGNvbG9yOiAnI2ZmNGQ0ZicgfSB9LAogICAgICB7CiAgICAgICAgbmFtZTogJ+WIqea2picsIHR5cGU6ICdiYXInLCBkYXRhOiBwcm9maXQubWFwKGQgPT4gTnVtYmVyKGQucHJvZml0IHx8IDApKSwKICAgICAgICBpdGVtU3R5bGU6IHsgY29sb3I6IChwYXJhbXM6IGFueSkgPT4gcGFyYW1zLnZhbHVlID49IDAgPyAnIzE2NzdmZicgOiAnI2ZmNGQ0ZicsIG9wYWNpdHk6IDAuNyB9CiAgICAgIH0KICAgIF0KICB9OwoKICAvLyDlh7rlhaXlupPotovlir8KICBjb25zdCBtb3ZlT3B0aW9uID0gewogICAgdG9vbHRpcDogeyB0cmlnZ2VyOiAnYXhpcycgfSwKICAgIGxlZ2VuZDogeyBkYXRhOiBbJ+WFpeW6k+mHkeminScsICflh7rlupPph5Hpop0nXSwgdG9wOiAwIH0sCiAgICBncmlkOiB7IGxlZnQ6IDUwLCByaWdodDogMjAsIHRvcDogNDAsIGJvdHRvbTogMzAgfSwKICAgIHhBeGlzOiB7IHR5cGU6ICdjYXRlZ29yeScsIGRhdGE6IHN0b2NrTW92ZS5zdG9ja19pbi5tYXAoKGQ6IGFueSkgPT4gZC5kYXRlKSwgYXhpc0xhYmVsOiB7IHJvdGF0ZTogNDUsIGZvbnRTaXplOiAxMSB9IH0sCiAgICB5QXhpczogeyB0eXBlOiAndmFsdWUnIH0sCiAgICBzZXJpZXM6IFsKICAgICAgeyBuYW1lOiAn5YWl5bqT6YeR6aKdJywgdHlwZTogJ2xpbmUnLCBzbW9vdGg6IHRydWUsIGRhdGE6IHN0b2NrTW92ZS5zdG9ja19pbi5tYXAoKGQ6IGFueSkgPT4gTnVtYmVyKGQuYW1vdW50IHx8IDApKSwgaXRlbVN0eWxlOiB7IGNvbG9yOiAnIzUyYzQxYScgfSwgYXJlYVN0eWxlOiB7IGNvbG9yOiAncmdiYSg4MiwxOTYsMjYsMC4xKScgfSB9LAogICAgICB7IG5hbWU6ICflh7rlupPph5Hpop0nLCB0eXBlOiAnbGluZScsIHNtb290aDogdHJ1ZSwgZGF0YTogc3RvY2tNb3ZlLnN0b2NrX291dC5tYXAoKGQ6IGFueSkgPT4gTnVtYmVyKGQuYW1vdW50IHx8IDApKSwgaXRlbVN0eWxlOiB7IGNvbG9yOiAnI2ZmN2E0NScgfSwgYXJlYVN0eWxlOiB7IGNvbG9yOiAncmdiYSgyNTUsMTIyLDY5LDAuMSknIH0gfQogICAgXQogIH07CgogIGNvbnN0IHJhbmtDb2x1bW5zID0gWwogICAgeyB0aXRsZTogJ+aOkuWQjScsIHdpZHRoOiA1MCwgcmVuZGVyOiAoXzogYW55LCBfXzogYW55LCBpOiBudW1iZXIpID0+IDxUYWcgY29sb3I9e2kgPCAzID8gWydnb2xkJywgJ3NpbHZlcicsICdvcmFuZ2UnXVtpXSA6ICdkZWZhdWx0J30+I3tpICsgMX08L1RhZz4gfSwKICAgIHsgdGl0bGU6ICfllYblk4EnLCBkYXRhSW5kZXg6ICduYW1lJyB9LAogICAgeyB0aXRsZTogJ+mUgOmHjycsIGRhdGFJbmRleDogJ3RvdGFsX3F0eScsIHdpZHRoOiA4MCwgYWxpZ246ICdyaWdodCcgYXMgY29uc3QsIHJlbmRlcjogKHY6IG51bWJlciwgcjogYW55KSA9PiBgJHt2fSR7ci51bml0IHx8ICcnfWAgfSwKICAgIHsgdGl0bGU6ICfplIDllK7pop0nLCBkYXRhSW5kZXg6ICd0b3RhbF9hbW91bnQnLCB3aWR0aDogMTAwLCBhbGlnbjogJ3JpZ2h0JyBhcyBjb25zdCwgcmVuZGVyOiAodjogbnVtYmVyKSA9PiBgwqUke051bWJlcih2IHx8IDApLnRvRml4ZWQoMil9YCB9LAogIF07CgogIGlmIChsb2FkaW5nIHx8ICFzdW1tYXJ5KSByZXR1cm4gPFNwaW4gc2l6ZT0ibGFyZ2UiIHN0eWxlPXt7IGRpc3BsYXk6ICdibG9jaycsIG1hcmdpbjogJzEwMHB4IGF1dG8nIH19IC8+OwoKICByZXR1cm4gKAogICAgPGRpdj4KICAgICAgPGRpdiBzdHlsZT17eyBkaXNwbGF5OiAnZmxleCcsIGp1c3RpZnlDb250ZW50OiAnc3BhY2UtYmV0d2VlbicsIGFsaWduSXRlbXM6ICdjZW50ZXInLCBtYXJnaW5Cb3R0b206IDE2IH19PgogICAgICAgIDxUaXRsZSBsZXZlbD17NH0gc3R5bGU9e3sgbWFyZ2luOiAwIH19PuaVsOaNruWIhuaekOS4reW/gzwvVGl0bGU+CiAgICAgICAgPFNlbGVjdCB2YWx1ZT17cGVyaW9kfSBvbkNoYW5nZT17c2V0UGVyaW9kfSBzdHlsZT17eyB3aWR0aDogMTQwIH19CiAgICAgICAgICBvcHRpb25zPXtbCiAgICAgICAgICAgIHsgdmFsdWU6ICc3ZCcsIGxhYmVsOiAn6L+RN+WkqScgfSwgeyB2YWx1ZTogJzMwZCcsIGxhYmVsOiAn6L+RMzDlpKknIH0sCiAgICAgICAgICAgIHsgdmFsdWU6ICc5MGQnLCBsYWJlbDogJ+i/kTkw5aSpJyB9LCB7IHZhbHVlOiAnMTJtJywgbGFiZWw6ICfov5ExMuS4quaciCcgfQogICAgICAgICAgXX0gLz4KICAgICAgPC9kaXY+CgogICAgICB7Lyog5qC45b+D5oyH5qCHICovfQogICAgICA8Um93IGd1dHRlcj17WzE2LCAxNl19IHN0eWxlPXt7IG1hcmdpbkJvdHRvbTogMTYgfX0+CiAgICAgICAgPENvbCB4cz17MTJ9IG1kPXs2fT4KICAgICAgICAgIDxDYXJkIHNpemU9InNtYWxsIiBob3ZlcmFibGU+CiAgICAgICAgICAgIDxTdGF0aXN0aWMgdGl0bGU9IuS7iuaXpeiQpeaUtiIgdmFsdWU9e3N1bW1hcnkudG9kYXlfc2FsZXM/LmFtb3VudCB8fCAwfSBwcmVjaXNpb249ezJ9IHByZWZpeD17PERvbGxhck91dGxpbmVkIC8+fSBzdWZmaXg9IuWFgyIKICAgICAgICAgICAgICB2YWx1ZVN0eWxlPXt7IGNvbG9yOiAnIzE2NzdmZicsIGZvbnRTaXplOiAyMCB9fSAvPgogICAgICAgICAgICA8VGV4dCB0eXBlPSJzZWNvbmRhcnkiIHN0eWxlPXt7IGZvbnRTaXplOiAxMiB9fT7ku4rml6V7c3VtbWFyeS50b2RheV9zYWxlcz8ub3JkZXJfY291bnQgfHwgMH3nrJTorqLljZU8L1RleHQ+CiAgICAgICAgICA8L0NhcmQ+CiAgICAgICAgPC9Db2w+CiAgICAgICAgPENvbCB4cz17MTJ9IG1kPXs2fT4KICAgICAgICAgIDxDYXJkIHNpemU9InNtYWxsIiBob3ZlcmFibGU+CiAgICAgICAgICAgIDxTdGF0aXN0aWMgdGl0bGU9IuacrOaciOiQpeaUtiIgdmFsdWU9e3N1bW1hcnkubW9udGhfc2FsZXM/LmFtb3VudCB8fCAwfSBwcmVjaXNpb249ezJ9IHByZWZpeD0iwqUiCiAgICAgICAgICAgICAgdmFsdWVTdHlsZT17eyBjb2xvcjogJyM1MmM0MWEnLCBmb250U2l6ZTogMjAgfX0gLz4KICAgICAgICAgICAgPFRleHQgdHlwZT0ic2Vjb25kYXJ5IiBzdHlsZT17eyBmb250U2l6ZTogMTIgfX0+5pys5pyIe3N1bW1hcnkubW9udGhfc2FsZXM/Lm9yZGVyX2NvdW50IHx8IDB956yU6K6i5Y2VPC9UZXh0PgogICAgICAgICAgPC9DYXJkPgogICAgICAgIDwvQ29sPgogICAgICAgIDxDb2wgeHM9ezEyfSBtZD17Nn0+CiAgICAgICAgICA8Q2FyZCBzaXplPSJzbWFsbCIgaG92ZXJhYmxlPgogICAgICAgICAgICA8U3RhdGlzdGljIHRpdGxlPSLmnKzmnIjph4fotK0iIHZhbHVlPXtzdW1tYXJ5Lm1vbnRoX3B1cmNoYXNlPy5hbW91bnQgfHwgMH0gcHJlY2lzaW9uPXsyfSBwcmVmaXg9IsKlIgogICAgICAgICAgICAgIHZhbHVlU3R5bGU9e3sgY29sb3I6ICcjZmFhZDE0JywgZm9udFNpemU6IDIwIH19IC8+CiAgICAgICAgICAgIDxUZXh0IHR5cGU9InNlY29uZGFyeSIgc3R5bGU9e3sgZm9udFNpemU6IDEyIH19PntzdW1tYXJ5Lm1vbnRoX3B1cmNoYXNlPy5vcmRlcl9jb3VudCB8fCAwfeeslOmHh+i0reWNlTwvVGV4dD4KICAgICAgICAgIDwvQ2FyZD4KICAgICAgICA8L0NvbD4KICAgICAgICA8Q29sIHhzPXsxMn0gbWQ9ezZ9PgogICAgICAgICAgPENhcmQgc2l6ZT0ic21hbGwiIGhvdmVyYWJsZT4KICAgICAgICAgICAgPFN0YXRpc3RpYyB0aXRsZT0i5bqT5a2Y5oC75YC8IiB2YWx1ZT17c3VtbWFyeS5pbnZlbnRvcnk/LmNvc3RfdmFsdWUgfHwgMH0gcHJlY2lzaW9uPXsyfSBwcmVmaXg9ezxJbmJveE91dGxpbmVkIC8+fSBzdWZmaXg9IuWFgyIKICAgICAgICAgICAgICB2YWx1ZVN0eWxlPXt7IGZvbnRTaXplOiAyMCB9fSAvPgogICAgICAgICAgICA8U3BhY2Ugc2l6ZT17NH0+CiAgICAgICAgICAgICAgPFRleHQgdHlwZT0ic2Vjb25kYXJ5IiBzdHlsZT17eyBmb250U2l6ZTogMTIgfX0+e3N1bW1hcnkuaW52ZW50b3J5Py5za3VfY291bnQgfHwgMH3kuKpTS1U8L1RleHQ+CiAgICAgICAgICAgICAge3N1bW1hcnkubG93X3N0b2NrX2NvdW50ID4gMCAmJiA8VGFnIGNvbG9yPSJyZWQiIGljb249ezxXYXJuaW5nT3V0bGluZWQgLz59PntzdW1tYXJ5Lmxvd19zdG9ja19jb3VudH3pooToraY8L1RhZz59CiAgICAgICAgICAgIDwvU3BhY2U+CiAgICAgICAgICA8L0NhcmQ+CiAgICAgICAgPC9Db2w+CiAgICAgIDwvUm93PgoKICAgICAgey8qIOi2i+WKv+WbviAqL30KICAgICAgPFJvdyBndXR0ZXI9e1sxNiwgMTZdfSBzdHlsZT17eyBtYXJnaW5Cb3R0b206IDE2IH19PgogICAgICAgIDxDb2wgeHM9ezI0fSBsZz17MTZ9PgogICAgICAgICAgPENhcmQgdGl0bGU9IvCfk4gg6ZSA5ZSu6LaL5Yq/IiBzaXplPSJzbWFsbCIgZXh0cmE9ezxUZXh0IHR5cGU9InNlY29uZGFyeSIgc3R5bGU9e3sgZm9udFNpemU6IDEyIH19PumUgOWUruminSvorqLljZXmlbA8L1RleHQ+fT4KICAgICAgICAgICAgPFJlYWN0RUNoYXJ0cyBvcHRpb249e3NhbGVzVHJlbmRPcHRpb259IHN0eWxlPXt7IGhlaWdodDogMjgwIH19IC8+CiAgICAgICAgICA8L0NhcmQ+CiAgICAgICAgPC9Db2w+CiAgICAgICAgPENvbCB4cz17MjR9IGxnPXs4fT4KICAgICAgICAgIDxDYXJkIHRpdGxlPSLwn5OKIOW6k+WtmOS7t+WAvOWIhuW4gyIgc2l6ZT0ic21hbGwiPgogICAgICAgICAgICA8UmVhY3RFQ2hhcnRzIG9wdGlvbj17aW52UGllT3B0aW9ufSBzdHlsZT17eyBoZWlnaHQ6IDI4MCB9fSAvPgogICAgICAgICAgPC9DYXJkPgogICAgICAgIDwvQ29sPgogICAgICA8L1Jvdz4KCiAgICAgIDxSb3cgZ3V0dGVyPXtbMTYsIDE2XX0gc3R5bGU9e3sgbWFyZ2luQm90dG9tOiAxNiB9fT4KICAgICAgICA8Q29sIHhzPXsyNH0gbGc9ezEyfT4KICAgICAgICAgIDxDYXJkIHRpdGxlPSLwn5KwIOmHh+i0rSB2cyDplIDllK7lr7nmr5QiIHNpemU9InNtYWxsIj4KICAgICAgICAgICAgPFJlYWN0RUNoYXJ0cyBvcHRpb249e2NvbXBhcmVPcHRpb259IHN0eWxlPXt7IGhlaWdodDogMjYwIH19IC8+CiAgICAgICAgICA8L0NhcmQ+CiAgICAgICAgPC9Db2w+CiAgICAgICAgPENvbCB4cz17MjR9IGxnPXsxMn0+CiAgICAgICAgICA8Q2FyZCB0aXRsZT0i8J+TiiDmlLbmlK/liKnmtqbliIbmnpAiIHNpemU9InNtYWxsIj4KICAgICAgICAgICAgPFJlYWN0RUNoYXJ0cyBvcHRpb249e3Byb2ZpdE9wdGlvbn0gc3R5bGU9e3sgaGVpZ2h0OiAyNjAgfX0gLz4KICAgICAgICAgIDwvQ2FyZD4KICAgICAgICA8L0NvbD4KICAgICAgPC9Sb3c+CgogICAgICA8Um93IGd1dHRlcj17WzE2LCAxNl19IHN0eWxlPXt7IG1hcmdpbkJvdHRvbTogMTYgfX0+CiAgICAgICAgPENvbCB4cz17MjR9IGxnPXsxNH0+CiAgICAgICAgICA8Q2FyZCB0aXRsZT0i8J+TpiDlh7rlhaXlupPotovlir8iIHNpemU9InNtYWxsIj4KICAgICAgICAgICAgPFJlYWN0RUNoYXJ0cyBvcHRpb249e21vdmVPcHRpb259IHN0eWxlPXt7IGhlaWdodDogMjYwIH19IC8+CiAgICAgICAgICA8L0NhcmQ+CiAgICAgICAgPC9Db2w+CiAgICAgICAgPENvbCB4cz17MjR9IGxnPXsxMH0+CiAgICAgICAgICA8Q2FyZCB0aXRsZT0i8J+PhiDllYblk4HplIDllK7mjpLooYxUT1AxMCIgc2l6ZT0ic21hbGwiPgogICAgICAgICAgICA8VGFibGUgY29sdW1ucz17cmFua0NvbHVtbnN9IGRhdGFTb3VyY2U9e3Byb2R1Y3RSYW5rfSByb3dLZXk9ImlkIiBzaXplPSJzbWFsbCIgcGFnaW5hdGlvbj17ZmFsc2V9IHNjcm9sbD17eyB5OiAyNDAgfX0gLz4KICAgICAgICAgIDwvQ2FyZD4KICAgICAgICA8L0NvbD4KICAgICAgPC9Sb3c+CgogICAgICB7Lyog5YiG57G75bqT5a2Y5piO57uGICovfQogICAgICA8Q2FyZCB0aXRsZT0i8J+TiyDlkITliIbnsbvlupPlrZjmmI7nu4YiIHNpemU9InNtYWxsIj4KICAgICAgICA8VGFibGUgc2l6ZT0ic21hbGwiIHJvd0tleT0iaWQiIHBhZ2luYXRpb249e2ZhbHNlfSBkYXRhU291cmNlPXtpbnZWYWx1ZX0KICAgICAgICAgIGNvbHVtbnM9e1sKICAgICAgICAgICAgeyB0aXRsZTogJ+WVhuWTgeWIhuexuycsIGRhdGFJbmRleDogJ2NhdGVnb3J5X25hbWUnLCByZW5kZXI6ICh2OiBzdHJpbmcpID0+IHYgfHwgJ+acquWIhuexuycgfSwKICAgICAgICAgICAgeyB0aXRsZTogJ1NLVeaVsCcsIGRhdGFJbmRleDogJ3NrdV9jb3VudCcsIHdpZHRoOiA4MCwgYWxpZ246ICdyaWdodCcgYXMgY29uc3QgfSwKICAgICAgICAgICAgeyB0aXRsZTogJ+W6k+WtmOaVsOmHjycsIGRhdGFJbmRleDogJ3RvdGFsX3F0eScsIHdpZHRoOiAxMDAsIGFsaWduOiAncmlnaHQnIGFzIGNvbnN0LCByZW5kZXI6ICh2OiBudW1iZXIpID0+IE51bWJlcih2IHx8IDApLnRvRml4ZWQoMCkgfSwKICAgICAgICAgICAgeyB0aXRsZTogJ+aIkOacrOS7t+WAvCcsIGRhdGFJbmRleDogJ2Nvc3RfdmFsdWUnLCB3aWR0aDogMTIwLCBhbGlnbjogJ3JpZ2h0JyBhcyBjb25zdCwgcmVuZGVyOiAodjogbnVtYmVyKSA9PiBgwqUke051bWJlcih2IHx8IDApLnRvRml4ZWQoMil9YCB9LAogICAgICAgICAgICB7IHRpdGxlOiAn6ZSA5ZSu5Lu35YC8JywgZGF0YUluZGV4OiAnc2VsbF92YWx1ZScsIHdpZHRoOiAxMjAsIGFsaWduOiAncmlnaHQnIGFzIGNvbnN0LCByZW5kZXI6ICh2OiBudW1iZXIpID0+IGDCpSR7TnVtYmVyKHYgfHwgMCkudG9GaXhlZCgyKX1gIH0sCiAgICAgICAgICAgIHsKICAgICAgICAgICAgICB0aXRsZTogJ+mihOS8sOavm+WIqScsIHdpZHRoOiAxMjAsIGFsaWduOiAncmlnaHQnIGFzIGNvbnN0LAogICAgICAgICAgICAgIHJlbmRlcjogKF86IGFueSwgcjogYW55KSA9PiB7CiAgICAgICAgICAgICAgICBjb25zdCBwcm9maXQgPSBOdW1iZXIoci5zZWxsX3ZhbHVlIHx8IDApIC0gTnVtYmVyKHIuY29zdF92YWx1ZSB8fCAwKTsKICAgICAgICAgICAgICAgIHJldHVybiA8c3BhbiBzdHlsZT17eyBjb2xvcjogcHJvZml0ID49IDAgPyAnIzUyYzQxYScgOiAnI2ZmNGQ0ZicgfX0+wqV7cHJvZml0LnRvRml4ZWQoMil9PC9zcGFuPjsKICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KICAgICAgICAgIF19IC8+CiAgICAgIDwvQ2FyZD4KICAgIDwvZGl2PgogICk7Cn07CgpleHBvcnQgZGVmYXVsdCBBbmFseXRpY3M7Cg==
+import React, { useState, useEffect } from 'react';
+import { Card, Row, Col, Statistic, Select, Space, Spin, Typography, Table, Tag, Button, DatePicker } from 'antd';
+import {
+  ArrowUpOutlined, ArrowDownOutlined, ShoppingCartOutlined, DollarOutlined,
+  InboxOutlined, WarningOutlined, RiseOutlined, FallOutlined
+} from '@ant-design/icons';
+import ReactECharts from 'echarts-for-react';
+import dayjs from 'dayjs';
+import request from '../../api/request';
+
+const { Title, Text } = Typography;
+const { RangePicker } = DatePicker;
+
+const Analytics: React.FC = () => {
+  const [loading, setLoading] = useState(false);
+  const [period, setPeriod] = useState('30d');
+  const [summary, setSummary] = useState<any>(null);
+  const [salesTrend, setSalesTrend] = useState<any[]>([]);
+  const [purchaseTrend, setPurchaseTrend] = useState<any[]>([]);
+  const [productRank, setProductRank] = useState<any[]>([]);
+  const [invValue, setInvValue] = useState<any[]>([]);
+  const [profit, setProfit] = useState<any[]>([]);
+  const [stockMove, setStockMove] = useState<any>({ stock_in: [], stock_out: [] });
+
+  const loadAll = async () => {
+    setLoading(true);
+    try {
+      const [s, st, pt, pr, iv, pf, sm] = await Promise.all([
+        request.get('/analytics/summary'),
+        request.get('/analytics/sales-trend', { params: { period } }),
+        request.get('/analytics/purchase-trend', { params: { period } }),
+        request.get('/analytics/product-ranking', { params: { limit: 10 } }),
+        request.get('/analytics/inventory-value'),
+        request.get('/analytics/profit-analysis', { params: { period } }),
+        request.get('/analytics/stock-movement', { params: { period } }),
+      ]);
+      setSummary(s.data?.data || s.data);
+      setSalesTrend(st.data?.data || []);
+      setPurchaseTrend(pt.data?.data || []);
+      setProductRank(pr.data?.data || []);
+      setInvValue(iv.data?.data || []);
+      setProfit(pf.data?.data || []);
+      setStockMove(sm.data?.data || { stock_in: [], stock_out: [] });
+    } catch (e) { console.error(e); }
+    setLoading(false);
+  };
+
+  useEffect(() => { loadAll(); }, [period]);
+
+  // 销售趋势图
+  const salesTrendOption = {
+    tooltip: { trigger: 'axis' },
+    legend: { data: ['销售额', '订单数'], top: 0 },
+    grid: { left: 50, right: 50, top: 40, bottom: 30 },
+    xAxis: { type: 'category', data: salesTrend.map(d => d.date), axisLabel: { rotate: period === '12m' ? 0 : 45, fontSize: 11 } },
+    yAxis: [
+      { type: 'value', name: '金额(¥)', position: 'left' },
+      { type: 'value', name: '订单数', position: 'right' }
+    ],
+    series: [
+      {
+        name: '销售额', type: 'line', smooth: true, data: salesTrend.map(d => Number(d.actual_amount || 0)),
+        itemStyle: { color: '#1677ff' }, areaStyle: { color: 'rgba(22,119,255,0.1)' }
+      },
+      {
+        name: '订单数', type: 'bar', yAxisIndex: 1, data: salesTrend.map(d => d.order_count),
+        itemStyle: { color: '#52c41a', opacity: 0.6 }
+      }
+    ]
+  };
+
+  // 采购vs销售对比
+  const compareOption = {
+    tooltip: { trigger: 'axis' },
+    legend: { data: ['采购额', '销售额'], top: 0 },
+    grid: { left: 50, right: 20, top: 40, bottom: 30 },
+    xAxis: { type: 'category', data: salesTrend.map(d => d.date), axisLabel: { rotate: 45, fontSize: 11 } },
+    yAxis: { type: 'value' },
+    series: [
+      {
+        name: '采购额', type: 'bar', data: purchaseTrend.map(d => Number(d.total_amount || 0)),
+        itemStyle: { color: '#faad14' }
+      },
+      {
+        name: '销售额', type: 'bar', data: salesTrend.map(d => Number(d.actual_amount || 0)),
+        itemStyle: { color: '#1677ff' }
+      }
+    ]
+  };
+
+  // 库存价值分类饼图
+  const invPieOption = {
+    tooltip: { trigger: 'item', formatter: '{b}: ¥{c} ({d}%)' },
+    legend: { type: 'scroll', orient: 'vertical', right: 10, top: 20, bottom: 20 },
+    series: [{
+      type: 'pie', radius: ['40%', '70%'], center: ['40%', '50%'],
+      label: { show: false },
+      data: invValue.map(d => ({ name: d.category_name || '未分类', value: Number(d.cost_value || 0) })),
+      emphasis: { itemStyle: { shadowBlur: 10, shadowOffsetX: 0, shadowColor: 'rgba(0,0,0,0.2)' } }
+    }]
+  };
+
+  // 利润趋势
+  const profitOption = {
+    tooltip: { trigger: 'axis' },
+    legend: { data: ['收入', '支出', '利润'], top: 0 },
+    grid: { left: 50, right: 20, top: 40, bottom: 30 },
+    xAxis: { type: 'category', data: profit.map(d => d.date), axisLabel: { rotate: 45, fontSize: 11 } },
+    yAxis: { type: 'value' },
+    series: [
+      { name: '收入', type: 'line', smooth: true, data: profit.map(d => Number(d.income || 0)), itemStyle: { color: '#52c41a' } },
+      { name: '支出', type: 'line', smooth: true, data: profit.map(d => Number(d.expense || 0)), itemStyle: { color: '#ff4d4f' } },
+      {
+        name: '利润', type: 'bar', data: profit.map(d => Number(d.profit || 0)),
+        itemStyle: { color: (params: any) => params.value >= 0 ? '#1677ff' : '#ff4d4f', opacity: 0.7 }
+      }
+    ]
+  };
+
+  // 出入库趋势
+  const moveOption = {
+    tooltip: { trigger: 'axis' },
+    legend: { data: ['入库金额', '出库金额'], top: 0 },
+    grid: { left: 50, right: 20, top: 40, bottom: 30 },
+    xAxis: { type: 'category', data: stockMove.stock_in.map((d: any) => d.date), axisLabel: { rotate: 45, fontSize: 11 } },
+    yAxis: { type: 'value' },
+    series: [
+      { name: '入库金额', type: 'line', smooth: true, data: stockMove.stock_in.map((d: any) => Number(d.amount || 0)), itemStyle: { color: '#52c41a' }, areaStyle: { color: 'rgba(82,196,26,0.1)' } },
+      { name: '出库金额', type: 'line', smooth: true, data: stockMove.stock_out.map((d: any) => Number(d.amount || 0)), itemStyle: { color: '#ff7a45' }, areaStyle: { color: 'rgba(255,122,69,0.1)' } }
+    ]
+  };
+
+  const rankColumns = [
+    { title: '排名', width: 50, render: (_: any, __: any, i: number) => <Tag color={i < 3 ? ['gold', 'silver', 'orange'][i] : 'default'}>#{i + 1}</Tag> },
+    { title: '商品', dataIndex: 'name' },
+    { title: '销量', dataIndex: 'total_qty', width: 80, align: 'right' as const, render: (v: number, r: any) => `${v}${r.unit || ''}` },
+    { title: '销售额', dataIndex: 'total_amount', width: 100, align: 'right' as const, render: (v: number) => `¥${Number(v || 0).toFixed(2)}` },
+  ];
+
+  if (loading || !summary) return <Spin size="large" style={{ display: 'block', margin: '100px auto' }} />;
+
+  return (
+    <div>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+        <Title level={4} style={{ margin: 0 }}>数据分析中心</Title>
+        <Select value={period} onChange={setPeriod} style={{ width: 140 }}
+          options={[
+            { value: '7d', label: '近7天' }, { value: '30d', label: '近30天' },
+            { value: '90d', label: '近90天' }, { value: '12m', label: '近12个月' }
+          ]} />
+      </div>
+
+      {/* 核心指标 */}
+      <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
+        <Col xs={12} md={6}>
+          <Card size="small" hoverable>
+            <Statistic title="今日营收" value={summary.today_sales?.amount || 0} precision={2} prefix={<DollarOutlined />} suffix="元"
+              valueStyle={{ color: '#1677ff', fontSize: 20 }} />
+            <Text type="secondary" style={{ fontSize: 12 }}>今日{summary.today_sales?.order_count || 0}笔订单</Text>
+          </Card>
+        </Col>
+        <Col xs={12} md={6}>
+          <Card size="small" hoverable>
+            <Statistic title="本月营收" value={summary.month_sales?.amount || 0} precision={2} prefix="¥"
+              valueStyle={{ color: '#52c41a', fontSize: 20 }} />
+            <Text type="secondary" style={{ fontSize: 12 }}>本月{summary.month_sales?.order_count || 0}笔订单</Text>
+          </Card>
+        </Col>
+        <Col xs={12} md={6}>
+          <Card size="small" hoverable>
+            <Statistic title="本月采购" value={summary.month_purchase?.amount || 0} precision={2} prefix="¥"
+              valueStyle={{ color: '#faad14', fontSize: 20 }} />
+            <Text type="secondary" style={{ fontSize: 12 }}>{summary.month_purchase?.order_count || 0}笔采购单</Text>
+          </Card>
+        </Col>
+        <Col xs={12} md={6}>
+          <Card size="small" hoverable>
+            <Statistic title="库存总值" value={summary.inventory?.cost_value || 0} precision={2} prefix={<InboxOutlined />} suffix="元"
+              valueStyle={{ fontSize: 20 }} />
+            <Space size={4}>
+              <Text type="secondary" style={{ fontSize: 12 }}>{summary.inventory?.sku_count || 0}个SKU</Text>
+              {summary.low_stock_count > 0 && <Tag color="red" icon={<WarningOutlined />}>{summary.low_stock_count}预警</Tag>}
+            </Space>
+          </Card>
+        </Col>
+      </Row>
+
+      {/* 趋势图 */}
+      <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
+        <Col xs={24} lg={16}>
+          <Card title="📈 销售趋势" size="small" extra={<Text type="secondary" style={{ fontSize: 12 }}>销售额+订单数</Text>}>
+            <ReactECharts option={salesTrendOption} style={{ height: 280 }} />
+          </Card>
+        </Col>
+        <Col xs={24} lg={8}>
+          <Card title="📊 库存价值分布" size="small">
+            <ReactECharts option={invPieOption} style={{ height: 280 }} />
+          </Card>
+        </Col>
+      </Row>
+
+      <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
+        <Col xs={24} lg={12}>
+          <Card title="💰 采购 vs 销售对比" size="small">
+            <ReactECharts option={compareOption} style={{ height: 260 }} />
+          </Card>
+        </Col>
+        <Col xs={24} lg={12}>
+          <Card title="📊 收支利润分析" size="small">
+            <ReactECharts option={profitOption} style={{ height: 260 }} />
+          </Card>
+        </Col>
+      </Row>
+
+      <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
+        <Col xs={24} lg={14}>
+          <Card title="📦 出入库趋势" size="small">
+            <ReactECharts option={moveOption} style={{ height: 260 }} />
+          </Card>
+        </Col>
+        <Col xs={24} lg={10}>
+          <Card title="🏆 商品销售排行TOP10" size="small">
+            <Table columns={rankColumns} dataSource={productRank} rowKey="id" size="small" pagination={false} scroll={{ y: 240 }} />
+          </Card>
+        </Col>
+      </Row>
+
+      {/* 分类库存明细 */}
+      <Card title="📋 各分类库存明细" size="small">
+        <Table size="small" rowKey="id" pagination={false} dataSource={invValue}
+          columns={[
+            { title: '商品分类', dataIndex: 'category_name', render: (v: string) => v || '未分类' },
+            { title: 'SKU数', dataIndex: 'sku_count', width: 80, align: 'right' as const },
+            { title: '库存数量', dataIndex: 'total_qty', width: 100, align: 'right' as const, render: (v: number) => Number(v || 0).toFixed(0) },
+            { title: '成本价值', dataIndex: 'cost_value', width: 120, align: 'right' as const, render: (v: number) => `¥${Number(v || 0).toFixed(2)}` },
+            { title: '销售价值', dataIndex: 'sell_value', width: 120, align: 'right' as const, render: (v: number) => `¥${Number(v || 0).toFixed(2)}` },
+            {
+              title: '预估毛利', width: 120, align: 'right' as const,
+              render: (_: any, r: any) => {
+                const profit = Number(r.sell_value || 0) - Number(r.cost_value || 0);
+                return <span style={{ color: profit >= 0 ? '#52c41a' : '#ff4d4f' }}>¥{profit.toFixed(2)}</span>;
+              }
+            }
+          ]} />
+      </Card>
+    </div>
+  );
+};
+
+export default Analytics;

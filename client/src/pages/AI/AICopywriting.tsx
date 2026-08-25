@@ -1,1 +1,94 @@
-aW1wb3J0IFJlYWN0LCB7IHVzZVN0YXRlIH0gZnJvbSAncmVhY3QnOwppbXBvcnQgeyBDYXJkLCBJbnB1dCwgQnV0dG9uLCBUeXBvZ3JhcGh5LCBSb3csIENvbCwgU2VsZWN0LCBTcGFjZSwgbWVzc2FnZSB9IGZyb20gJ2FudGQnOwppbXBvcnQgeyBFZGl0T3V0bGluZWQsIENvcHlPdXRsaW5lZCwgQnVsYk91dGxpbmVkIH0gZnJvbSAnQGFudC1kZXNpZ24vaWNvbnMnOwppbXBvcnQgcmVxdWVzdCBmcm9tICcuLi8uLi9hcGkvcmVxdWVzdCc7Cgpjb25zdCB7IFRpdGxlLCBUZXh0LCBQYXJhZ3JhcGggfSA9IFR5cG9ncmFwaHk7CmNvbnN0IHsgVGV4dEFyZWEgfSA9IElucHV0OwoKY29uc3QgQUlDb3B5d3JpdGluZzogUmVhY3QuRkMgPSAoKSA9PiB7CiAgY29uc3QgW3R5cGUsIHNldFR5cGVdID0gdXNlU3RhdGUoJ3Byb2R1Y3RfZGVzYycpOwogIGNvbnN0IFtwcm9kdWN0SW5mbywgc2V0UHJvZHVjdEluZm9dID0gdXNlU3RhdGUoJycpOwogIGNvbnN0IFt0b25lLCBzZXRUb25lXSA9IHVzZVN0YXRlKCdwcm9mZXNzaW9uYWwnKTsKICBjb25zdCBbcmVzdWx0LCBzZXRSZXN1bHRdID0gdXNlU3RhdGUoJycpOwogIGNvbnN0IFtsb2FkaW5nLCBzZXRMb2FkaW5nXSA9IHVzZVN0YXRlKGZhbHNlKTsKCiAgY29uc3QgdHlwZU9wdGlvbnMgPSBbCiAgICB7IHZhbHVlOiAncHJvZHVjdF9kZXNjJywgbGFiZWw6ICfwn5OdIOWVhuWTgeaPj+i/sCcgfSwKICAgIHsgdmFsdWU6ICdwcm9tb3Rpb24nLCBsYWJlbDogJ/Cfjq8g5L+D6ZSA5paH5qGIJyB9LAogICAgeyB2YWx1ZTogJ3B1cmNoYXNlX3RpcCcsIGxhYmVsOiAn8J+TiyDph4fotK3lu7rorq4nIH0sCiAgICB7IHZhbHVlOiAnY3VzdG9tZXJfcmVwbHknLCBsYWJlbDogJ/Cfkqwg5a6i5oi35Zue5aSNJyB9CiAgXTsKCiAgY29uc3QgcGxhY2Vob2xkZXJzOiBSZWNvcmQ8c3RyaW5nLCBzdHJpbmc+ID0gewogICAgcHJvZHVjdF9kZXNjOiAn5L6L5aaC77ya5pyJ5py65aSn57Gz77yMNWtn6KOF77yM5Lic5YyX6buR5Zyf5Zyw56eN5qSN77yM5LiN5omT6Jyh5LiN5oqb5YWJ77yM55yf56m65YyF6KOFLi4uJywKICAgIHByb21vdGlvbjogJ+S+i+Wmgu+8muWPjOWNgeS4gOa0u+WKqO+8jOWFqOWcujjmipjvvIzmu6EyMDDlh48zMO+8jOacieacuuWkp+exs+WOn+S7tzg5546w5Lu3NjkuLi4nLAogICAgcHVyY2hhc2VfdGlwOiAn5L6L5aaC77ya6YeH6LStMTAw566x6Iu55p6c77yM6ZyA6KaB6aqM6LSn6KaB54K544CB5a2Y5YKo5bu66K6u44CB5L+d6LSo5pyf5qOA5p+lLi4uJywKICAgIGN1c3RvbWVyX3JlcGx5OiAn5L6L5aaC77ya5a6i5oi36K+0IuaUtuWIsOeahOWVhuWTgeacieegtOaNnyLmiJYi6IO95LiN6IO95L6/5a6c5LiA54K5Ii4uLicKICB9OwoKICBjb25zdCBnZW5lcmF0ZSA9IGFzeW5jICgpID0+IHsKICAgIGlmICghcHJvZHVjdEluZm8udHJpbSgpKSB7IG1lc3NhZ2Uud2FybmluZygn6K+36L6T5YWl5ZWG5ZOBL+a0u+WKqOS/oeaBrycpOyByZXR1cm47IH0KICAgIHNldExvYWRpbmcodHJ1ZSk7CiAgICB0cnkgewogICAgICBjb25zdCByZXMgPSBhd2FpdCByZXF1ZXN0LnBvc3QoJy9haS9jb3B5d3JpdGluZycsIHsgdHlwZSwgcHJvZHVjdEluZm8sIHRvbmUgfSk7CiAgICAgIHNldFJlc3VsdChyZXMuZGF0YT8uZGF0YT8udGV4dCB8fCByZXMuZGF0YT8udGV4dCB8fCAn55Sf5oiQ5aSx6LSlJyk7CiAgICB9IGNhdGNoIChlOiBhbnkpIHsKICAgICAgbWVzc2FnZS5lcnJvcihlLnJlc3BvbnNlPy5kYXRhPy5tZXNzYWdlIHx8ICfnlJ/miJDlpLHotKUnKTsKICAgIH0KICAgIHNldExvYWRpbmcoZmFsc2UpOwogIH07CgogIHJldHVybiAoCiAgICA8ZGl2PgogICAgICA8VGl0bGUgbGV2ZWw9ezR9IHN0eWxlPXt7IG1hcmdpbkJvdHRvbTogMTYgfX0+CiAgICAgICAgPEVkaXRPdXRsaW5lZCBzdHlsZT17eyBjb2xvcjogJyNlYjJmOTYnIH19IC8+IEFJ5paH5qGI55Sf5oiQCiAgICAgIDwvVGl0bGU+CgogICAgICA8Um93IGd1dHRlcj17MTZ9PgogICAgICAgIDxDb2wgeHM9ezI0fSBtZD17MTJ9PgogICAgICAgICAgPENhcmQgdGl0bGU9Iui+k+WFpeS/oeaBryIgc2l6ZT0ic21hbGwiPgogICAgICAgICAgICA8U3BhY2UgZGlyZWN0aW9uPSJ2ZXJ0aWNhbCIgc3R5bGU9e3sgd2lkdGg6ICcxMDAlJyB9fSBzaXplPSJtaWRkbGUiPgogICAgICAgICAgICAgIDxkaXY+CiAgICAgICAgICAgICAgICA8VGV4dCBzdHJvbmc+5paH5qGI57G75Z6LPC9UZXh0PgogICAgICAgICAgICAgICAgPFNlbGVjdCB2YWx1ZT17dHlwZX0gb25DaGFuZ2U9e3NldFR5cGV9IG9wdGlvbnM9e3R5cGVPcHRpb25zfSBzdHlsZT17eyB3aWR0aDogJzEwMCUnLCBtYXJnaW5Ub3A6IDggfX0gLz4KICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgICB7dHlwZSA9PT0gJ3Byb21vdGlvbicgJiYgKAogICAgICAgICAgICAgICAgPGRpdj4KICAgICAgICAgICAgICAgICAgPFRleHQgc3Ryb25nPuaWh+ahiOivreawlDwvVGV4dD4KICAgICAgICAgICAgICAgICAgPFNlbGVjdCB2YWx1ZT17dG9uZX0gb25DaGFuZ2U9e3NldFRvbmV9IHN0eWxlPXt7IHdpZHRoOiAnMTAwJScsIG1hcmdpblRvcDogOCB9fQogICAgICAgICAgICAgICAgICAgIG9wdGlvbnM9e1t7IHZhbHVlOiAncHJvZmVzc2lvbmFsJywgbGFiZWw6ICfkuJPkuJrlj6/kv6EnIH0sIHsgdmFsdWU6ICdjYXN1YWwnLCBsYWJlbDogJ+a0u+azvOS6suWIhycgfSwgeyB2YWx1ZTogJ2x1eHVyeScsIGxhYmVsOiAn6auY56uv5aSn5rCUJyB9XX0gLz4KICAgICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICAgICl9CiAgICAgICAgICAgICAgPGRpdj4KICAgICAgICAgICAgICAgIDxUZXh0IHN0cm9uZz57dHlwZSA9PT0gJ2N1c3RvbWVyX3JlcGx5JyA/ICflrqLmiLfor4Tku7cv6Zeu6aKYJyA6ICfllYblk4Ev5rS75Yqo5L+h5oGvJ308L1RleHQ+CiAgICAgICAgICAgICAgICA8VGV4dEFyZWEgcm93cz17Nn0gc3R5bGU9e3sgbWFyZ2luVG9wOiA4IH19IHBsYWNlaG9sZGVyPXtwbGFjZWhvbGRlcnNbdHlwZV19CiAgICAgICAgICAgICAgICAgIHZhbHVlPXtwcm9kdWN0SW5mb30gb25DaGFuZ2U9e2UgPT4gc2V0UHJvZHVjdEluZm8oZS50YXJnZXQudmFsdWUpfSAvPgogICAgICAgICAgICAgIDwvZGl2PgogICAgICAgICAgICAgIDxCdXR0b24gdHlwZT0icHJpbWFyeSIgYmxvY2sgaWNvbj17PEJ1bGJPdXRsaW5lZCAvPn0gb25DbGljaz17Z2VuZXJhdGV9IGxvYWRpbmc9e2xvYWRpbmd9PgogICAgICAgICAgICAgICAg4pyoIEFJ55Sf5oiQ5paH5qGICiAgICAgICAgICAgICAgPC9CdXR0b24+CiAgICAgICAgICAgIDwvU3BhY2U+CiAgICAgICAgICA8L0NhcmQ+CiAgICAgICAgPC9Db2w+CiAgICAgICAgPENvbCB4cz17MjR9IG1kPXsxMn0+CiAgICAgICAgICA8Q2FyZCB0aXRsZT0i55Sf5oiQ57uT5p6cIiBzaXplPSJzbWFsbCIKICAgICAgICAgICAgZXh0cmE9e3Jlc3VsdCAmJiA8QnV0dG9uIHR5cGU9InRleHQiIGljb249ezxDb3B5T3V0bGluZWQgLz59IG9uQ2xpY2s9eygpID0+IHsgbmF2aWdhdG9yLmNsaXBib2FyZC53cml0ZVRleHQocmVzdWx0KTsgbWVzc2FnZS5zdWNjZXNzKCflt7LlpI3liLYnKTsgfX0+5aSN5Yi2PC9CdXR0b24+fT4KICAgICAgICAgICAge3Jlc3VsdCA/ICgKICAgICAgICAgICAgICA8ZGl2IHN0eWxlPXt7IG1pbkhlaWdodDogMjAwLCBwYWRkaW5nOiAxMiwgYmFja2dyb3VuZDogJyNmYWZhZmEnLCBib3JkZXJSYWRpdXM6IDgsIHdoaXRlU3BhY2U6ICdwcmUtd3JhcCcsIGxpbmVIZWlnaHQ6IDEuOCB9fT4KICAgICAgICAgICAgICAgIHtyZXN1bHR9CiAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICkgOiAoCiAgICAgICAgICAgICAgPGRpdiBzdHlsZT17eyB0ZXh0QWxpZ246ICdjZW50ZXInLCBwYWRkaW5nOiAnNjBweCAwJywgY29sb3I6ICcjOTk5JyB9fT4KICAgICAgICAgICAgICAgIDxCdWxiT3V0bGluZWQgc3R5bGU9e3sgZm9udFNpemU6IDQ4LCBtYXJnaW5Cb3R0b206IDE2IH19IC8+CiAgICAgICAgICAgICAgICA8cD7ovpPlhaXllYblk4Hkv6Hmga/vvIxBSeW4ruS9oOeUn+aIkOS4k+S4muaWh+ahiDwvcD4KICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgKX0KICAgICAgICAgIDwvQ2FyZD4KICAgICAgICA8L0NvbD4KICAgICAgPC9Sb3c+CiAgICA8L2Rpdj4KICApOwp9OwoKZXhwb3J0IGRlZmF1bHQgQUlDb3B5d3JpdGluZzsK
+import React, { useState } from 'react';
+import { Card, Input, Button, Typography, Row, Col, Select, Space, message } from 'antd';
+import { EditOutlined, CopyOutlined, BulbOutlined } from '@ant-design/icons';
+import request from '../../api/request';
+
+const { Title, Text, Paragraph } = Typography;
+const { TextArea } = Input;
+
+const AICopywriting: React.FC = () => {
+  const [type, setType] = useState('product_desc');
+  const [productInfo, setProductInfo] = useState('');
+  const [tone, setTone] = useState('professional');
+  const [result, setResult] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const typeOptions = [
+    { value: 'product_desc', label: '📝 商品描述' },
+    { value: 'promotion', label: '🎯 促销文案' },
+    { value: 'purchase_tip', label: '📋 采购建议' },
+    { value: 'customer_reply', label: '💬 客户回复' }
+  ];
+
+  const placeholders: Record<string, string> = {
+    product_desc: '例如：有机大米，5kg装，东北黑土地种植，不打蜡不抛光，真空包装...',
+    promotion: '例如：双十一活动，全场8折，满200减30，有机大米原价89现价69...',
+    purchase_tip: '例如：采购100箱苹果，需要验货要点、存储建议、保质期检查...',
+    customer_reply: '例如：客户说"收到的商品有破损"或"能不能便宜一点"...'
+  };
+
+  const generate = async () => {
+    if (!productInfo.trim()) { message.warning('请输入商品/活动信息'); return; }
+    setLoading(true);
+    try {
+      const res = await request.post('/ai/copywriting', { type, productInfo, tone });
+      setResult(res.data?.data?.text || res.data?.text || '生成失败');
+    } catch (e: any) {
+      message.error(e.response?.data?.message || '生成失败');
+    }
+    setLoading(false);
+  };
+
+  return (
+    <div>
+      <Title level={4} style={{ marginBottom: 16 }}>
+        <EditOutlined style={{ color: '#eb2f96' }} /> AI文案生成
+      </Title>
+
+      <Row gutter={16}>
+        <Col xs={24} md={12}>
+          <Card title="输入信息" size="small">
+            <Space direction="vertical" style={{ width: '100%' }} size="middle">
+              <div>
+                <Text strong>文案类型</Text>
+                <Select value={type} onChange={setType} options={typeOptions} style={{ width: '100%', marginTop: 8 }} />
+              </div>
+              {type === 'promotion' && (
+                <div>
+                  <Text strong>文案语气</Text>
+                  <Select value={tone} onChange={setTone} style={{ width: '100%', marginTop: 8 }}
+                    options={[{ value: 'professional', label: '专业可信' }, { value: 'casual', label: '活泼亲切' }, { value: 'luxury', label: '高端大气' }]} />
+                </div>
+              )}
+              <div>
+                <Text strong>{type === 'customer_reply' ? '客户评价/问题' : '商品/活动信息'}</Text>
+                <TextArea rows={6} style={{ marginTop: 8 }} placeholder={placeholders[type]}
+                  value={productInfo} onChange={e => setProductInfo(e.target.value)} />
+              </div>
+              <Button type="primary" block icon={<BulbOutlined />} onClick={generate} loading={loading}>
+                ✨ AI生成文案
+              </Button>
+            </Space>
+          </Card>
+        </Col>
+        <Col xs={24} md={12}>
+          <Card title="生成结果" size="small"
+            extra={result && <Button type="text" icon={<CopyOutlined />} onClick={() => { navigator.clipboard.writeText(result); message.success('已复制'); }}>复制</Button>}>
+            {result ? (
+              <div style={{ minHeight: 200, padding: 12, background: '#fafafa', borderRadius: 8, whiteSpace: 'pre-wrap', lineHeight: 1.8 }}>
+                {result}
+              </div>
+            ) : (
+              <div style={{ textAlign: 'center', padding: '60px 0', color: '#999' }}>
+                <BulbOutlined style={{ fontSize: 48, marginBottom: 16 }} />
+                <p>输入商品信息，AI帮你生成专业文案</p>
+              </div>
+            )}
+          </Card>
+        </Col>
+      </Row>
+    </div>
+  );
+};
+
+export default AICopywriting;

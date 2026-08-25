@@ -1,1 +1,77 @@
-aW1wb3J0IFJlYWN0LCB7IHVzZVN0YXRlLCB1c2VFZmZlY3QgfSBmcm9tICdyZWFjdCc7CmltcG9ydCB7IENhcmQsIFRhYmxlLCBUYWcsIEJ1dHRvbiwgVHlwb2dyYXBoeSwgUm93LCBDb2wsIFN0YXRpc3RpYywgU3BhY2UsIElucHV0TnVtYmVyLCBtZXNzYWdlLCBQb3Bjb25maXJtIH0gZnJvbSAnYW50ZCc7CmltcG9ydCB7IFNob3BwaW5nQ2FydE91dGxpbmVkLCBXYXJuaW5nT3V0bGluZWQsIFJpc2VPdXRsaW5lZCwgRmFsbE91dGxpbmVkIH0gZnJvbSAnQGFudC1kZXNpZ24vaWNvbnMnOwppbXBvcnQgcmVxdWVzdCBmcm9tICcuLi8uLi9hcGkvcmVxdWVzdCc7Cgpjb25zdCB7IFRpdGxlLCBUZXh0IH0gPSBUeXBvZ3JhcGh5OwoKY29uc3QgQUlSZXBsZW5pc2g6IFJlYWN0LkZDID0gKCkgPT4gewogIGNvbnN0IFtsaXN0LCBzZXRMaXN0XSA9IHVzZVN0YXRlPGFueVtdPihbXSk7CiAgY29uc3QgW2xvYWRpbmcsIHNldExvYWRpbmddID0gdXNlU3RhdGUoZmFsc2UpOwoKICBjb25zdCBsb2FkID0gYXN5bmMgKCkgPT4gewogICAgc2V0TG9hZGluZyh0cnVlKTsKICAgIHRyeSB7CiAgICAgIGNvbnN0IHJlcyA9IGF3YWl0IHJlcXVlc3QuZ2V0KCcvYWkvcmVwbGVuaXNoJyk7CiAgICAgIHNldExpc3QocmVzLmRhdGE/LmRhdGEgfHwgcmVzLmRhdGEgfHwgW10pOwogICAgfSBjYXRjaCAoZSkgeyAvKiBpZ25vcmUgKi8gfQogICAgc2V0TG9hZGluZyhmYWxzZSk7CiAgfTsKCiAgdXNlRWZmZWN0KCgpID0+IHsgbG9hZCgpOyB9LCBbXSk7CgogIGNvbnN0IGNyZWF0ZVB1cmNoYXNlT3JkZXIgPSBhc3luYyAocmVjb3JkOiBhbnkpID0+IHsKICAgIC8vIOi3s+i9rOWIsOmHh+i0reWNleWIm+W7uu+8iOeugOWMlu+8muaPkOekuu+8iQogICAgbWVzc2FnZS5pbmZvKGDlt7LkuLrjgIwke3JlY29yZC5wcm9kdWN0X25hbWV944CN55Sf5oiQ6YeH6LSt5bu66K6u77yM6K+35Yiw6YeH6LSt566h55CG5Yib5bu66YeH6LSt5Y2VYCk7CiAgfTsKCiAgY29uc3QgdXJnZW5jeU1hcDogUmVjb3JkPHN0cmluZywgeyBsYWJlbDogc3RyaW5nOyBjb2xvcjogc3RyaW5nIH0+ID0gewogICAgY3JpdGljYWw6IHsgbGFiZWw6ICfntKfmgKUnLCBjb2xvcjogJ3JlZCcgfSwKICAgIHdhcm5pbmc6IHsgbGFiZWw6ICfpnIDlhbPms6gnLCBjb2xvcjogJ29yYW5nZScgfSwKICAgIG5vcm1hbDogeyBsYWJlbDogJ+ato+W4uCcsIGNvbG9yOiAnYmx1ZScgfQogIH07CgogIGNvbnN0IHRvdGFsQ29zdCA9IGxpc3QucmVkdWNlKChzLCBpKSA9PiBzICsgKGkuZXN0aW1hdGVkX2Nvc3QgfHwgMCksIDApOwogIGNvbnN0IGNyaXRpY2FsQ291bnQgPSBsaXN0LmZpbHRlcihpID0+IGkudXJnZW5jeSA9PT0gJ2NyaXRpY2FsJykubGVuZ3RoOwoKICBjb25zdCBjb2x1bW5zID0gWwogICAgeyB0aXRsZTogJ+WVhuWTgeWQjeensCcsIGRhdGFJbmRleDogJ3Byb2R1Y3RfbmFtZScgfSwKICAgIHsgdGl0bGU6ICflvZPliY3lupPlrZgnLCBkYXRhSW5kZXg6ICdjdXJyZW50X3N0b2NrJywgd2lkdGg6IDEwMCwgYWxpZ246ICdyaWdodCcgYXMgY29uc3QsIHJlbmRlcjogKHY6IG51bWJlciwgcjogYW55KSA9PiA8VGV4dCB0eXBlPXt2IDw9IHIubWluX3N0b2NrID8gJ2RhbmdlcicgOiB1bmRlZmluZWR9IHN0cm9uZz57dn0ge3IudW5pdH08L1RleHQ+IH0sCiAgICB7IHRpdGxlOiAn6aKE6K2m5YC8JywgZGF0YUluZGV4OiAnbWluX3N0b2NrJywgd2lkdGg6IDgwLCBhbGlnbjogJ3JpZ2h0JyBhcyBjb25zdCB9LAogICAgeyB0aXRsZTogJzfml6XplIDph48nLCBkYXRhSW5kZXg6ICdzb2xkXzdkJywgd2lkdGg6IDkwLCBhbGlnbjogJ3JpZ2h0JyBhcyBjb25zdCwgcmVuZGVyOiAodjogbnVtYmVyKSA9PiA8VGV4dCB0eXBlPSJzdWNjZXNzIj57dn08L1RleHQ+IH0sCiAgICB7IHRpdGxlOiAnMzDml6XplIDph48nLCBkYXRhSW5kZXg6ICdzb2xkXzMwZCcsIHdpZHRoOiA5MCwgYWxpZ246ICdyaWdodCcgYXMgY29uc3QgfSwKICAgIHsgdGl0bGU6ICfml6XlnYfplIDph48nLCBkYXRhSW5kZXg6ICdkYWlseV9yYXRlJywgd2lkdGg6IDkwLCBhbGlnbjogJ3JpZ2h0JyBhcyBjb25zdCwgcmVuZGVyOiAodjogYW55KSA9PiBOdW1iZXIodiB8fCAwKS50b0ZpeGVkKDEpIH0sCiAgICB7IHRpdGxlOiAn5Y+v5ZSu5aSp5pWwJywgZGF0YUluZGV4OiAnc3RvY2tfZGF5cycsIHdpZHRoOiA5MCwgYWxpZ246ICdjZW50ZXInIGFzIGNvbnN0LAogICAgICByZW5kZXI6ICh2OiBudW1iZXIgfCBudWxsKSA9PiB2ID09PSBudWxsID8gPFRhZz7mu57plIA8L1RhZz4gOiA8VGFnIGNvbG9yPXt2IDw9IDMgPyAncmVkJyA6IHYgPD0gNyA/ICdvcmFuZ2UnIDogJ2dyZWVuJ30+e3Z95aSpPC9UYWc+IH0sCiAgICB7IHRpdGxlOiAn5bu66K6u6KGl6LSnJywgZGF0YUluZGV4OiAnc3VnZ2VzdF9xdHknLCB3aWR0aDogMTAwLCBhbGlnbjogJ3JpZ2h0JyBhcyBjb25zdCwKICAgICAgcmVuZGVyOiAodjogbnVtYmVyLCByOiBhbnkpID0+IDxUZXh0IHN0cm9uZyBzdHlsZT17eyBjb2xvcjogJyMxNjc3ZmYnIH19Pnt2fSB7ci51bml0fTwvVGV4dD4gfSwKICAgIHsgdGl0bGU6ICfpooTorqHmiJDmnKwnLCBkYXRhSW5kZXg6ICdlc3RpbWF0ZWRfY29zdCcsIHdpZHRoOiAxMDAsIGFsaWduOiAncmlnaHQnIGFzIGNvbnN0LAogICAgICByZW5kZXI6ICh2OiBudW1iZXIpID0+IGDCpSR7TnVtYmVyKHYgfHwgMCkudG9GaXhlZCgyKX1gIH0sCiAgICB7IHRpdGxlOiAn57Sn5oCl5bqmJywgZGF0YUluZGV4OiAndXJnZW5jeScsIHdpZHRoOiA4MCwKICAgICAgcmVuZGVyOiAodjogc3RyaW5nKSA9PiA8VGFnIGNvbG9yPXt1cmdlbmN5TWFwW3ZdPy5jb2xvcn0+e3VyZ2VuY3lNYXBbdl0/LmxhYmVsIHx8IHZ9PC9UYWc+IH0sCiAgICB7IHRpdGxlOiAn5pON5L2cJywgd2lkdGg6IDEwMCwgcmVuZGVyOiAoXzogYW55LCByOiBhbnkpID0+ICgKICAgICAgPEJ1dHRvbiB0eXBlPSJsaW5rIiBzaXplPSJzbWFsbCIgaWNvbj17PFNob3BwaW5nQ2FydE91dGxpbmVkIC8+fSBvbkNsaWNrPXsoKSA9PiBjcmVhdGVQdXJjaGFzZU9yZGVyKHIpfT7ljrvph4fotK08L0J1dHRvbj4KICAgICl9CiAgXTsKCiAgcmV0dXJuICgKICAgIDxkaXY+CiAgICAgIDxUaXRsZSBsZXZlbD17NH0gc3R5bGU9e3sgbWFyZ2luQm90dG9tOiAxNiB9fT4KICAgICAgICA8UmlzZU91dGxpbmVkIHN0eWxlPXt7IGNvbG9yOiAnIzE2NzdmZicgfX0gLz4gQUnmmbrog73ooaXotKflu7rorq4KICAgICAgPC9UaXRsZT4KCiAgICAgIDxSb3cgZ3V0dGVyPXsxNn0gc3R5bGU9e3sgbWFyZ2luQm90dG9tOiAxNiB9fT4KICAgICAgICA8Q29sIHhzPXsxMn0gbWQ9ezZ9PjxDYXJkIHNpemU9InNtYWxsIj48U3RhdGlzdGljIHRpdGxlPSLpnIDooaXotKfllYblk4EiIHZhbHVlPXtsaXN0Lmxlbmd0aH0gc3VmZml4PSLnp40iIHZhbHVlU3R5bGU9e3sgZm9udFNpemU6IDIwIH19IC8+PC9DYXJkPjwvQ29sPgogICAgICAgIDxDb2wgeHM9ezEyfSBtZD17Nn0+PENhcmQgc2l6ZT0ic21hbGwiPjxTdGF0aXN0aWMgdGl0bGU9Iue0p+aApeihpei0pyIgdmFsdWU9e2NyaXRpY2FsQ291bnR9IHN1ZmZpeD0i56eNIiBwcmVmaXg9ezxXYXJuaW5nT3V0bGluZWQgLz59IHZhbHVlU3R5bGU9e3sgY29sb3I6ICcjZmY0ZDRmJywgZm9udFNpemU6IDIwIH19IC8+PC9DYXJkPjwvQ29sPgogICAgICAgIDxDb2wgeHM9ezEyfSBtZD17Nn0+PENhcmQgc2l6ZT0ic21hbGwiPjxTdGF0aXN0aWMgdGl0bGU9IumihOiuoemHh+i0reaAu+minSIgdmFsdWU9e3RvdGFsQ29zdH0gcHJlY2lzaW9uPXsyfSBwcmVmaXg9IsKlIiB2YWx1ZVN0eWxlPXt7IGZvbnRTaXplOiAyMCwgY29sb3I6ICcjZmFhZDE0JyB9fSAvPjwvQ2FyZD48L0NvbD4KICAgICAgICA8Q29sIHhzPXsxMn0gbWQ9ezZ9PjxDYXJkIHNpemU9InNtYWxsIj48QnV0dG9uIHR5cGU9InByaW1hcnkiIGJsb2NrIG9uQ2xpY2s9e2xvYWR9IHN0eWxlPXt7IG1hcmdpblRvcDogOCB9fT7liLfmlrDlu7rorq48L0J1dHRvbj48L0NhcmQ+PC9Db2w+CiAgICAgIDwvUm93PgoKICAgICAgPENhcmQgc2l6ZT0ic21hbGwiIHRpdGxlPSLwn5OmIOihpei0p+a4heWNle+8iOWfuuS6jui/kTMw5aSp6ZSA5ZSu6YCf5bqm77yM5bu66K6u5aSHMTTlpKnlupPlrZjvvIkiPgogICAgICAgIDxUYWJsZSBjb2x1bW5zPXtjb2x1bW5zfSBkYXRhU291cmNlPXtsaXN0fSByb3dLZXk9InByb2R1Y3RfaWQiIGxvYWRpbmc9e2xvYWRpbmd9IHNpemU9InNtYWxsIiBzY3JvbGw9e3sgeDogMTEwMCB9fSBwYWdpbmF0aW9uPXt7IHBhZ2VTaXplOiAyMCwgc2hvd1RvdGFsOiB0ID0+IGDlhbEgJHt0fSDnp43llYblk4FgIH19IC8+CiAgICAgIDwvQ2FyZD4KICAgIDwvZGl2PgogICk7Cn07CgpleHBvcnQgZGVmYXVsdCBBSVJlcGxlbmlzaDsK
+import React, { useState, useEffect } from 'react';
+import { Card, Table, Tag, Button, Typography, Row, Col, Statistic, Space, InputNumber, message, Popconfirm } from 'antd';
+import { ShoppingCartOutlined, WarningOutlined, RiseOutlined, FallOutlined } from '@ant-design/icons';
+import request from '../../api/request';
+
+const { Title, Text } = Typography;
+
+const AIReplenish: React.FC = () => {
+  const [list, setList] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+
+  const load = async () => {
+    setLoading(true);
+    try {
+      const res = await request.get('/ai/replenish');
+      setList(res.data?.data || res.data || []);
+    } catch (e) { /* ignore */ }
+    setLoading(false);
+  };
+
+  useEffect(() => { load(); }, []);
+
+  const createPurchaseOrder = async (record: any) => {
+    // 跳转到采购单创建（简化：提示）
+    message.info(`已为「${record.product_name}」生成采购建议，请到采购管理创建采购单`);
+  };
+
+  const urgencyMap: Record<string, { label: string; color: string }> = {
+    critical: { label: '紧急', color: 'red' },
+    warning: { label: '需关注', color: 'orange' },
+    normal: { label: '正常', color: 'blue' }
+  };
+
+  const totalCost = list.reduce((s, i) => s + (i.estimated_cost || 0), 0);
+  const criticalCount = list.filter(i => i.urgency === 'critical').length;
+
+  const columns = [
+    { title: '商品名称', dataIndex: 'product_name' },
+    { title: '当前库存', dataIndex: 'current_stock', width: 100, align: 'right' as const, render: (v: number, r: any) => <Text type={v <= r.min_stock ? 'danger' : undefined} strong>{v} {r.unit}</Text> },
+    { title: '预警值', dataIndex: 'min_stock', width: 80, align: 'right' as const },
+    { title: '7日销量', dataIndex: 'sold_7d', width: 90, align: 'right' as const, render: (v: number) => <Text type="success">{v}</Text> },
+    { title: '30日销量', dataIndex: 'sold_30d', width: 90, align: 'right' as const },
+    { title: '日均销量', dataIndex: 'daily_rate', width: 90, align: 'right' as const, render: (v: any) => Number(v || 0).toFixed(1) },
+    { title: '可售天数', dataIndex: 'stock_days', width: 90, align: 'center' as const,
+      render: (v: number | null) => v === null ? <Tag>滞销</Tag> : <Tag color={v <= 3 ? 'red' : v <= 7 ? 'orange' : 'green'}>{v}天</Tag> },
+    { title: '建议补货', dataIndex: 'suggest_qty', width: 100, align: 'right' as const,
+      render: (v: number, r: any) => <Text strong style={{ color: '#1677ff' }}>{v} {r.unit}</Text> },
+    { title: '预计成本', dataIndex: 'estimated_cost', width: 100, align: 'right' as const,
+      render: (v: number) => `¥${Number(v || 0).toFixed(2)}` },
+    { title: '紧急度', dataIndex: 'urgency', width: 80,
+      render: (v: string) => <Tag color={urgencyMap[v]?.color}>{urgencyMap[v]?.label || v}</Tag> },
+    { title: '操作', width: 100, render: (_: any, r: any) => (
+      <Button type="link" size="small" icon={<ShoppingCartOutlined />} onClick={() => createPurchaseOrder(r)}>去采购</Button>
+    )}
+  ];
+
+  return (
+    <div>
+      <Title level={4} style={{ marginBottom: 16 }}>
+        <RiseOutlined style={{ color: '#1677ff' }} /> AI智能补货建议
+      </Title>
+
+      <Row gutter={16} style={{ marginBottom: 16 }}>
+        <Col xs={12} md={6}><Card size="small"><Statistic title="需补货商品" value={list.length} suffix="种" valueStyle={{ fontSize: 20 }} /></Card></Col>
+        <Col xs={12} md={6}><Card size="small"><Statistic title="紧急补货" value={criticalCount} suffix="种" prefix={<WarningOutlined />} valueStyle={{ color: '#ff4d4f', fontSize: 20 }} /></Card></Col>
+        <Col xs={12} md={6}><Card size="small"><Statistic title="预计采购总额" value={totalCost} precision={2} prefix="¥" valueStyle={{ fontSize: 20, color: '#faad14' }} /></Card></Col>
+        <Col xs={12} md={6}><Card size="small"><Button type="primary" block onClick={load} style={{ marginTop: 8 }}>刷新建议</Button></Card></Col>
+      </Row>
+
+      <Card size="small" title="📦 补货清单（基于近30天销售速度，建议备14天库存）">
+        <Table columns={columns} dataSource={list} rowKey="product_id" loading={loading} size="small" scroll={{ x: 1100 }} pagination={{ pageSize: 20, showTotal: t => `共 ${t} 种商品` }} />
+      </Card>
+    </div>
+  );
+};
+
+export default AIReplenish;

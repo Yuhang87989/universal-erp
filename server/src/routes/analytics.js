@@ -1,1 +1,204 @@
-Y29uc3QgZXhwcmVzcyA9IHJlcXVpcmUoJ2V4cHJlc3MnKTsKY29uc3QgcG9vbCA9IHJlcXVpcmUoJy4uL2NvbmZpZy9kYicpOwpjb25zdCB7IGF1dGhlbnRpY2F0ZSB9ID0gcmVxdWlyZSgnLi4vbWlkZGxld2FyZS9hdXRoJyk7CmNvbnN0IGRheWpzID0gcmVxdWlyZSgnZGF5anMnKTsKCmNvbnN0IHJvdXRlciA9IGV4cHJlc3MuUm91dGVyKCk7CnJvdXRlci51c2UoYXV0aGVudGljYXRlKTsKCi8vIOmUgOWUrui2i+WKv++8iOi/kU7lpKkv5pyI77yJCnJvdXRlci5nZXQoJy9zYWxlcy10cmVuZCcsIGFzeW5jIChyZXEsIHJlcykgPT4gewogIHRyeSB7CiAgICBjb25zdCB7IHBlcmlvZCA9ICczMGQnIH0gPSByZXEucXVlcnk7CiAgICBsZXQgc3RhcnREYXRlLCBncm91cEJ5OwogICAgaWYgKHBlcmlvZCA9PT0gJzEybScpIHsKICAgICAgc3RhcnREYXRlID0gZGF5anMoKS5zdWJ0cmFjdCgxMiwgJ21vbnRoJykuZm9ybWF0KCdZWVlZLU1NLUREJyk7CiAgICAgIGdyb3VwQnkgPSAnREFURV9GT1JNQVQob3JkZXJfZGF0ZSwgIiVZLSVtIiknOwogICAgfSBlbHNlIHsKICAgICAgc3RhcnREYXRlID0gZGF5anMoKS5zdWJ0cmFjdChwYXJzZUludChwZXJpb2QpLCAnZGF5JykuZm9ybWF0KCdZWVlZLU1NLUREJyk7CiAgICAgIGdyb3VwQnkgPSAnREFURShvcmRlcl9kYXRlKSc7CiAgICB9CiAgICBjb25zdCBbcm93c10gPSBhd2FpdCBwb29sLnF1ZXJ5KAogICAgICBgU0VMRUNUICR7Z3JvdXBCeX0gYXMgZGF0ZSwgQ09VTlQoKikgYXMgb3JkZXJfY291bnQsCiAgICAgICAgICAgICAgQ09BTEVTQ0UoU1VNKHRvdGFsX2Ftb3VudCksIDApIGFzIHRvdGFsX2Ftb3VudCwKICAgICAgICAgICAgICBDT0FMRVNDRShTVU0oYWN0dWFsX2Ftb3VudCksIDApIGFzIGFjdHVhbF9hbW91bnQKICAgICAgIEZST00gc2FsZXNfb3JkZXJzIFdIRVJFIHRlbmFudF9pZCA9ID8gQU5EIHN0YXR1cyAhPSAnY2FuY2VsbGVkJyBBTkQgb3JkZXJfZGF0ZSA+PSA/CiAgICAgICBHUk9VUCBCWSBkYXRlIE9SREVSIEJZIGRhdGUgQVNDYCwKICAgICAgW3JlcS50ZW5hbnRJZCwgc3RhcnREYXRlXQogICAgKTsKICAgIHJlcy5qc29uKHsgY29kZTogMCwgZGF0YTogcm93cyB9KTsKICB9IGNhdGNoIChlcnIpIHsgcmVzLnN0YXR1cyg1MDApLmpzb24oeyBjb2RlOiA1MDAsIG1lc3NhZ2U6IGVyci5tZXNzYWdlIH0pOyB9Cn0pOwoKLy8g6YeH6LSt6LaL5Yq/CnJvdXRlci5nZXQoJy9wdXJjaGFzZS10cmVuZCcsIGFzeW5jIChyZXEsIHJlcykgPT4gewogIHRyeSB7CiAgICBjb25zdCB7IHBlcmlvZCA9ICczMGQnIH0gPSByZXEucXVlcnk7CiAgICBsZXQgc3RhcnREYXRlLCBncm91cEJ5OwogICAgaWYgKHBlcmlvZCA9PT0gJzEybScpIHsKICAgICAgc3RhcnREYXRlID0gZGF5anMoKS5zdWJ0cmFjdCgxMiwgJ21vbnRoJykuZm9ybWF0KCdZWVlZLU1NLUREJyk7CiAgICAgIGdyb3VwQnkgPSAnREFURV9GT1JNQVQob3JkZXJfZGF0ZSwgIiVZLSVtIiknOwogICAgfSBlbHNlIHsKICAgICAgc3RhcnREYXRlID0gZGF5anMoKS5zdWJ0cmFjdChwYXJzZUludChwZXJpb2QpLCAnZGF5JykuZm9ybWF0KCdZWVlZLU1NLUREJyk7CiAgICAgIGdyb3VwQnkgPSAnREFURShvcmRlcl9kYXRlKSc7CiAgICB9CiAgICBjb25zdCBbcm93c10gPSBhd2FpdCBwb29sLnF1ZXJ5KAogICAgICBgU0VMRUNUICR7Z3JvdXBCeX0gYXMgZGF0ZSwgQ09VTlQoKikgYXMgb3JkZXJfY291bnQsIENPQUxFU0NFKFNVTSh0b3RhbF9hbW91bnQpLCAwKSBhcyB0b3RhbF9hbW91bnQKICAgICAgIEZST00gcHVyY2hhc2Vfb3JkZXJzIFdIRVJFIHRlbmFudF9pZCA9ID8gQU5EIHN0YXR1cyAhPSAnY2FuY2VsbGVkJyBBTkQgb3JkZXJfZGF0ZSA+PSA/CiAgICAgICBHUk9VUCBCWSBkYXRlIE9SREVSIEJZIGRhdGUgQVNDYCwKICAgICAgW3JlcS50ZW5hbnRJZCwgc3RhcnREYXRlXQogICAgKTsKICAgIHJlcy5qc29uKHsgY29kZTogMCwgZGF0YTogcm93cyB9KTsKICB9IGNhdGNoIChlcnIpIHsgcmVzLnN0YXR1cyg1MDApLmpzb24oeyBjb2RlOiA1MDAsIG1lc3NhZ2U6IGVyci5tZXNzYWdlIH0pOyB9Cn0pOwoKLy8g5ZWG5ZOB6ZSA5ZSu5o6S6KGMCnJvdXRlci5nZXQoJy9wcm9kdWN0LXJhbmtpbmcnLCBhc3luYyAocmVxLCByZXMpID0+IHsKICB0cnkgewogICAgY29uc3QgeyBsaW1pdCA9IDEwLCBzdGFydERhdGUsIGVuZERhdGUgfSA9IHJlcS5xdWVyeTsKICAgIGxldCB3aGVyZSA9ICdXSEVSRSBzby50ZW5hbnRfaWQgPSA/IEFORCBzby5zdGF0dXMgIT0gImNhbmNlbGxlZCInOwogICAgY29uc3QgcGFyYW1zID0gW3JlcS50ZW5hbnRJZF07CiAgICBpZiAoc3RhcnREYXRlKSB7IHdoZXJlICs9ICcgQU5EIHNvLm9yZGVyX2RhdGUgPj0gPyc7IHBhcmFtcy5wdXNoKHN0YXJ0RGF0ZSk7IH0KICAgIGlmIChlbmREYXRlKSB7IHdoZXJlICs9ICcgQU5EIHNvLm9yZGVyX2RhdGUgPD0gPyc7IHBhcmFtcy5wdXNoKGVuZERhdGUgKyAnIDIzOjU5OjU5Jyk7IH0KICAgIGNvbnN0IFtyb3dzXSA9IGF3YWl0IHBvb2wucXVlcnkoCiAgICAgIGBTRUxFQ1QgcC5pZCwgcC5uYW1lLCBwLnVuaXQsIHAuYmFyY29kZSwKICAgICAgICAgICAgICBDT0FMRVNDRShTVU0oc2kucXVhbnRpdHkpLCAwKSBhcyB0b3RhbF9xdHksCiAgICAgICAgICAgICAgQ09BTEVTQ0UoU1VNKHNpLnN1YnRvdGFsKSwgMCkgYXMgdG90YWxfYW1vdW50CiAgICAgICBGUk9NIHNhbGVfaXRlbXMgc2kgSk9JTiBzYWxlc19vcmRlcnMgc28gT04gc2kuc2FsZXNfb3JkZXJfaWQgPSBzby5pZAogICAgICAgSk9JTiBwcm9kdWN0cyBwIE9OIHNpLnByb2R1Y3RfaWQgPSBwLmlkICR7d2hlcmV9CiAgICAgICBHUk9VUCBCWSBwLmlkIE9SREVSIEJZIHRvdGFsX2Ftb3VudCBERVNDIExJTUlUID9gLAogICAgICBbLi4ucGFyYW1zLCBwYXJzZUludChsaW1pdCldCiAgICApOwogICAgcmVzLmpzb24oeyBjb2RlOiAwLCBkYXRhOiByb3dzIH0pOwogIH0gY2F0Y2ggKGVycikgeyByZXMuc3RhdHVzKDUwMCkuanNvbih7IGNvZGU6IDUwMCwgbWVzc2FnZTogZXJyLm1lc3NhZ2UgfSk7IH0KfSk7CgovLyDlupPlrZjku7flgLzliIbmnpDvvIjmjInliIbnsbvmsYfmgLvvvIkKcm91dGVyLmdldCgnL2ludmVudG9yeS12YWx1ZScsIGFzeW5jIChyZXEsIHJlcykgPT4gewogIHRyeSB7CiAgICBjb25zdCBbcm93c10gPSBhd2FpdCBwb29sLnF1ZXJ5KAogICAgICBgU0VMRUNUIGMuaWQsIGMubmFtZSBhcyBjYXRlZ29yeV9uYW1lLCBDT1VOVChESVNUSU5DVCBpLnByb2R1Y3RfaWQpIGFzIHNrdV9jb3VudCwKICAgICAgICAgICAgICBDT0FMRVNDRShTVU0oaS5xdWFudGl0eSksIDApIGFzIHRvdGFsX3F0eSwKICAgICAgICAgICAgICBDT0FMRVNDRShTVU0oaS5xdWFudGl0eSAqIHAuY29zdF9wcmljZSksIDApIGFzIGNvc3RfdmFsdWUsCiAgICAgICAgICAgICAgQ09BTEVTQ0UoU1VNKGkucXVhbnRpdHkgKiBwLnNlbGxfcHJpY2UpLCAwKSBhcyBzZWxsX3ZhbHVlCiAgICAgICBGUk9NIGludmVudG9yeSBpIEpPSU4gcHJvZHVjdHMgcCBPTiBpLnByb2R1Y3RfaWQgPSBwLmlkCiAgICAgICBMRUZUIEpPSU4gY2F0ZWdvcmllcyBjIE9OIHAuY2F0ZWdvcnlfaWQgPSBjLmlkCiAgICAgICBXSEVSRSBpLnRlbmFudF9pZCA9ID8gQU5EIHAuc3RhdHVzICE9ICdkZWxldGVkJwogICAgICAgR1JPVVAgQlkgYy5pZCBPUkRFUiBCWSBjb3N0X3ZhbHVlIERFU0NgLAogICAgICBbcmVxLnRlbmFudElkXQogICAgKTsKICAgIHJlcy5qc29uKHsgY29kZTogMCwgZGF0YTogcm93cyB9KTsKICB9IGNhdGNoIChlcnIpIHsgcmVzLnN0YXR1cyg1MDApLmpzb24oeyBjb2RlOiA1MDAsIG1lc3NhZ2U6IGVyci5tZXNzYWdlIH0pOyB9Cn0pOwoKLy8g5pS25pSv5Yip5ram5YiG5p6QCnJvdXRlci5nZXQoJy9wcm9maXQtYW5hbHlzaXMnLCBhc3luYyAocmVxLCByZXMpID0+IHsKICB0cnkgewogICAgY29uc3QgeyBwZXJpb2QgPSAnMzBkJyB9ID0gcmVxLnF1ZXJ5OwogICAgY29uc3Qgc3RhcnREYXRlID0gcGVyaW9kID09PSAnMTJtJwogICAgICA/IGRheWpzKCkuc3VidHJhY3QoMTIsICdtb250aCcpLmZvcm1hdCgnWVlZWS1NTS1ERCcpCiAgICAgIDogZGF5anMoKS5zdWJ0cmFjdChwYXJzZUludChwZXJpb2QpLCAnZGF5JykuZm9ybWF0KCdZWVlZLU1NLUREJyk7CiAgICBjb25zdCBncm91cEJ5ID0gcGVyaW9kID09PSAnMTJtJyA/ICdEQVRFX0ZPUk1BVChyZWNvcmRfZGF0ZSwgIiVZLSVtIiknIDogJ0RBVEUocmVjb3JkX2RhdGUpJzsKICAgIGNvbnN0IFtyb3dzXSA9IGF3YWl0IHBvb2wucXVlcnkoCiAgICAgIGBTRUxFQ1QgJHtncm91cEJ5fSBhcyBkYXRlLAogICAgICAgICAgICAgIFNVTShDQVNFIFdIRU4gdHlwZT0naW5jb21lJyBUSEVOIGFtb3VudCBFTFNFIDAgRU5EKSBhcyBpbmNvbWUsCiAgICAgICAgICAgICAgU1VNKENBU0UgV0hFTiB0eXBlPSdleHBlbnNlJyBUSEVOIGFtb3VudCBFTFNFIDAgRU5EKSBhcyBleHBlbnNlLAogICAgICAgICAgICAgIFNVTShDQVNFIFdIRU4gdHlwZT0naW5jb21lJyBUSEVOIGFtb3VudCBFTFNFIC1hbW91bnQgRU5EKSBhcyBwcm9maXQKICAgICAgIEZST00gZmluYW5jZV9yZWNvcmRzIFdIRVJFIHRlbmFudF9pZCA9ID8gQU5EIHJlY29yZF9kYXRlID49ID8KICAgICAgIEdST1VQIEJZIGRhdGUgT1JERVIgQlkgZGF0ZSBBU0NgLAogICAgICBbcmVxLnRlbmFudElkLCBzdGFydERhdGVdCiAgICApOwogICAgcmVzLmpzb24oeyBjb2RlOiAwLCBkYXRhOiByb3dzIH0pOwogIH0gY2F0Y2ggKGVycikgeyByZXMuc3RhdHVzKDUwMCkuanNvbih7IGNvZGU6IDUwMCwgbWVzc2FnZTogZXJyLm1lc3NhZ2UgfSk7IH0KfSk7CgovLyDlhaXlupPlh7rlupPotovlir8Kcm91dGVyLmdldCgnL3N0b2NrLW1vdmVtZW50JywgYXN5bmMgKHJlcSwgcmVzKSA9PiB7CiAgdHJ5IHsKICAgIGNvbnN0IHsgcGVyaW9kID0gJzMwZCcgfSA9IHJlcS5xdWVyeTsKICAgIGNvbnN0IHN0YXJ0RGF0ZSA9IHBlcmlvZCA9PT0gJzEybScKICAgICAgPyBkYXlqcygpLnN1YnRyYWN0KDEyLCAnbW9udGgnKS5mb3JtYXQoJ1lZWVktTU0tREQnKQogICAgICA6IGRheWpzKCkuc3VidHJhY3QocGFyc2VJbnQocGVyaW9kKSwgJ2RheScpLmZvcm1hdCgnWVlZWS1NTS1ERCcpOwogICAgY29uc3QgZ3JvdXBCeSA9IHBlcmlvZCA9PT0gJzEybScgPyAnREFURV9GT1JNQVQoY3JlYXRlZF9hdCwgIiVZLSVtIiknIDogJ0RBVEUoY3JlYXRlZF9hdCknOwogICAgY29uc3QgW2luUm93c10gPSBhd2FpdCBwb29sLnF1ZXJ5KAogICAgICBgU0VMRUNUICR7Z3JvdXBCeX0gYXMgZGF0ZSwgQ09BTEVTQ0UoU1VNKHRvdGFsX2Ftb3VudCksIDApIGFzIGFtb3VudCwgQ09VTlQoKikgYXMgY250CiAgICAgICBGUk9NIHN0b2NrX2luX29yZGVycyBXSEVSRSB0ZW5hbnRfaWQgPSA/IEFORCBzdGF0dXMgPSAnY29uZmlybWVkJyBBTkQgY3JlYXRlZF9hdCA+PSA/IEdST1VQIEJZIGRhdGVgLAogICAgICBbcmVxLnRlbmFudElkLCBzdGFydERhdGVdCiAgICApOwogICAgY29uc3QgW291dFJvd3NdID0gYXdhaXQgcG9vbC5xdWVyeSgKICAgICAgYFNFTEVDVCAke2dyb3VwQnl9IGFzIGRhdGUsIENPQUxFU0NFKFNVTSh0b3RhbF9hbW91bnQpLCAwKSBhcyBhbW91bnQsIENPVU5UKCopIGFzIGNudAogICAgICAgRlJPTSBzdG9ja19vdXRfb3JkZXJzIFdIRVJFIHRlbmFudF9pZCA9ID8gQU5EIHN0YXR1cyA9ICdjb25maXJtZWQnIEFORCBjcmVhdGVkX2F0ID49ID8gR1JPVVAgQlkgZGF0ZWAsCiAgICAgIFtyZXEudGVuYW50SWQsIHN0YXJ0RGF0ZV0KICAgICk7CiAgICByZXMuanNvbih7IGNvZGU6IDAsIGRhdGE6IHsgc3RvY2tfaW46IGluUm93cywgc3RvY2tfb3V0OiBvdXRSb3dzIH0gfSk7CiAgfSBjYXRjaCAoZXJyKSB7IHJlcy5zdGF0dXMoNTAwKS5qc29uKHsgY29kZTogNTAwLCBtZXNzYWdlOiBlcnIubWVzc2FnZSB9KTsgfQp9KTsKCi8vIOaguOW/g+aMh+agh+axh+aAuwpyb3V0ZXIuZ2V0KCcvc3VtbWFyeScsIGFzeW5jIChyZXEsIHJlcykgPT4gewogIHRyeSB7CiAgICBjb25zdCB0b2RheSA9IGRheWpzKCkuZm9ybWF0KCdZWVlZLU1NLUREJyk7CiAgICBjb25zdCBtb250aFN0YXJ0ID0gZGF5anMoKS5zdGFydE9mKCdtb250aCcpLmZvcm1hdCgnWVlZWS1NTS1ERCcpOwoKICAgIGNvbnN0IFtbdG9kYXlTYWxlc11dID0gYXdhaXQgcG9vbC5xdWVyeSgKICAgICAgYFNFTEVDVCBDT1VOVCgqKSBhcyBvcmRlcl9jb3VudCwgQ09BTEVTQ0UoU1VNKGFjdHVhbF9hbW91bnQpLCAwKSBhcyBhbW91bnQKICAgICAgIEZST00gc2FsZXNfb3JkZXJzIFdIRVJFIHRlbmFudF9pZCA9ID8gQU5EIERBVEUob3JkZXJfZGF0ZSkgPSA/IEFORCBzdGF0dXMgIT0gJ2NhbmNlbGxlZCdgLAogICAgICBbcmVxLnRlbmFudElkLCB0b2RheV0KICAgICk7CiAgICBjb25zdCBbW21vbnRoU2FsZXNdXSA9IGF3YWl0IHBvb2wucXVlcnkoCiAgICAgIGBTRUxFQ1QgQ09VTlQoKikgYXMgb3JkZXJfY291bnQsIENPQUxFU0NFKFNVTShhY3R1YWxfYW1vdW50KSwgMCkgYXMgYW1vdW50CiAgICAgICBGUk9NIHNhbGVzX29yZGVycyBXSEVSRSB0ZW5hbnRfaWQgPSA/IEFORCBvcmRlcl9kYXRlID49ID8gQU5EIHN0YXR1cyAhPSAnY2FuY2VsbGVkJ2AsCiAgICAgIFtyZXEudGVuYW50SWQsIG1vbnRoU3RhcnRdCiAgICApOwogICAgY29uc3QgW1ttb250aFB1cmNoYXNlXV0gPSBhd2FpdCBwb29sLnF1ZXJ5KAogICAgICBgU0VMRUNUIENPVU5UKCopIGFzIG9yZGVyX2NvdW50LCBDT0FMRVNDRShTVU0odG90YWxfYW1vdW50KSwgMCkgYXMgYW1vdW50CiAgICAgICBGUk9NIHB1cmNoYXNlX29yZGVycyBXSEVSRSB0ZW5hbnRfaWQgPSA/IEFORCBvcmRlcl9kYXRlID49ID8gQU5EIHN0YXR1cyAhPSAnY2FuY2VsbGVkJ2AsCiAgICAgIFtyZXEudGVuYW50SWQsIG1vbnRoU3RhcnRdCiAgICApOwogICAgY29uc3QgW1tpbnZlbnRvcnlWYWx1ZV1dID0gYXdhaXQgcG9vbC5xdWVyeSgKICAgICAgYFNFTEVDVCBDT0FMRVNDRShTVU0oaS5xdWFudGl0eSAqIHAuY29zdF9wcmljZSksIDApIGFzIGNvc3RfdmFsdWUsCiAgICAgICAgICAgICAgQ09BTEVTQ0UoU1VNKGkucXVhbnRpdHkgKiBwLnNlbGxfcHJpY2UpLCAwKSBhcyBzZWxsX3ZhbHVlLAogICAgICAgICAgICAgIENPVU5UKERJU1RJTkNUIGkucHJvZHVjdF9pZCkgYXMgc2t1X2NvdW50CiAgICAgICBGUk9NIGludmVudG9yeSBpIEpPSU4gcHJvZHVjdHMgcCBPTiBpLnByb2R1Y3RfaWQgPSBwLmlkCiAgICAgICBXSEVSRSBpLnRlbmFudF9pZCA9ID8gQU5EIHAuc3RhdHVzICE9ICdkZWxldGVkJ2AsCiAgICAgIFtyZXEudGVuYW50SWRdCiAgICApOwogICAgY29uc3QgW1tsb3dTdG9ja11dID0gYXdhaXQgcG9vbC5xdWVyeSgKICAgICAgYFNFTEVDVCBDT1VOVCgqKSBhcyBjbnQgRlJPTSBpbnZlbnRvcnkgaSBKT0lOIHByb2R1Y3RzIHAgT04gaS5wcm9kdWN0X2lkID0gcC5pZAogICAgICAgV0hFUkUgaS50ZW5hbnRfaWQgPSA/IEFORCBwLm1pbl9zdG9jayA+IDAgQU5EIGkucXVhbnRpdHkgPD0gcC5taW5fc3RvY2sgQU5EIHAuc3RhdHVzICE9ICdkZWxldGVkJ2AsCiAgICAgIFtyZXEudGVuYW50SWRdCiAgICApOwogICAgY29uc3QgW1ttb250aEZpbmFuY2VdXSA9IGF3YWl0IHBvb2wucXVlcnkoCiAgICAgIGBTRUxFQ1QgQ09BTEVTQ0UoU1VNKENBU0UgV0hFTiB0eXBlPSdpbmNvbWUnIFRIRU4gYW1vdW50IEVMU0UgMCBFTkQpLCAwKSBhcyBpbmNvbWUsCiAgICAgICAgICAgICAgQ09BTEVTQ0UoU1VNKENBU0UgV0hFTiB0eXBlPSdleHBlbnNlJyBUSEVOIGFtb3VudCBFTFNFIDAgRU5EKSwgMCkgYXMgZXhwZW5zZQogICAgICAgRlJPTSBmaW5hbmNlX3JlY29yZHMgV0hFUkUgdGVuYW50X2lkID0gPyBBTkQgcmVjb3JkX2RhdGUgPj0gP2AsCiAgICAgIFtyZXEudGVuYW50SWQsIG1vbnRoU3RhcnRdCiAgICApOwogICAgY29uc3QgW1twZW5kaW5nUmVjZWl2ZV1dID0gYXdhaXQgcG9vbC5xdWVyeSgKICAgICAgIlNFTEVDVCBDT1VOVCgqKSBhcyBjbnQgRlJPTSBwdXJjaGFzZV9vcmRlcnMgV0hFUkUgdGVuYW50X2lkID0gPyBBTkQgc3RhdHVzID0gJ2RyYWZ0JyIsCiAgICAgIFtyZXEudGVuYW50SWRdCiAgICApOwoKICAgIHJlcy5qc29uKHsKICAgICAgY29kZTogMCwKICAgICAgZGF0YTogewogICAgICAgIHRvZGF5X3NhbGVzOiB7IG9yZGVyX2NvdW50OiB0b2RheVNhbGVzLm9yZGVyX2NvdW50LCBhbW91bnQ6IHBhcnNlRmxvYXQodG9kYXlTYWxlcy5hbW91bnQpIH0sCiAgICAgICAgbW9udGhfc2FsZXM6IHsgb3JkZXJfY291bnQ6IG1vbnRoU2FsZXMub3JkZXJfY291bnQsIGFtb3VudDogcGFyc2VGbG9hdChtb250aFNhbGVzLmFtb3VudCkgfSwKICAgICAgICBtb250aF9wdXJjaGFzZTogeyBvcmRlcl9jb3VudDogbW9udGhQdXJjaGFzZS5vcmRlcl9jb3VudCwgYW1vdW50OiBwYXJzZUZsb2F0KG1vbnRoUHVyY2hhc2UuYW1vdW50KSB9LAogICAgICAgIGludmVudG9yeTogewogICAgICAgICAgc2t1X2NvdW50OiBpbnZlbnRvcnlWYWx1ZS5za3VfY291bnQsCiAgICAgICAgICBjb3N0X3ZhbHVlOiBwYXJzZUZsb2F0KGludmVudG9yeVZhbHVlLmNvc3RfdmFsdWUpLAogICAgICAgICAgc2VsbF92YWx1ZTogcGFyc2VGbG9hdChpbnZlbnRvcnlWYWx1ZS5zZWxsX3ZhbHVlKQogICAgICAgIH0sCiAgICAgICAgbG93X3N0b2NrX2NvdW50OiBsb3dTdG9jay5jbnQsCiAgICAgICAgbW9udGhfZmluYW5jZTogeyBpbmNvbWU6IHBhcnNlRmxvYXQobW9udGhGaW5hbmNlLmluY29tZSksIGV4cGVuc2U6IHBhcnNlRmxvYXQobW9udGhGaW5hbmNlLmV4cGVuc2UpIH0sCiAgICAgICAgcGVuZGluZ19yZWNlaXZlOiBwZW5kaW5nUmVjZWl2ZS5jbnQKICAgICAgfQogICAgfSk7CiAgfSBjYXRjaCAoZXJyKSB7CiAgICBjb25zb2xlLmVycm9yKCfmsYfmgLvmlbDmja7mn6Xor6LlpLHotKU6JywgZXJyKTsKICAgIHJlcy5zdGF0dXMoNTAwKS5qc29uKHsgY29kZTogNTAwLCBtZXNzYWdlOiBlcnIubWVzc2FnZSB9KTsKICB9Cn0pOwoKbW9kdWxlLmV4cG9ydHMgPSByb3V0ZXI7Cg==
+const express = require('express');
+const pool = require('../config/db');
+const { authenticate } = require('../middleware/auth');
+const dayjs = require('dayjs');
+
+const router = express.Router();
+router.use(authenticate);
+
+// 销售趋势（近N天/月）
+router.get('/sales-trend', async (req, res) => {
+  try {
+    const { period = '30d' } = req.query;
+    let startDate, groupBy;
+    if (period === '12m') {
+      startDate = dayjs().subtract(12, 'month').format('YYYY-MM-DD');
+      groupBy = 'DATE_FORMAT(order_date, "%Y-%m")';
+    } else {
+      startDate = dayjs().subtract(parseInt(period), 'day').format('YYYY-MM-DD');
+      groupBy = 'DATE(order_date)';
+    }
+    const [rows] = await pool.query(
+      `SELECT ${groupBy} as date, COUNT(*) as order_count,
+              COALESCE(SUM(total_amount), 0) as total_amount,
+              COALESCE(SUM(actual_amount), 0) as actual_amount
+       FROM sales_orders WHERE tenant_id = ? AND status != 'cancelled' AND order_date >= ?
+       GROUP BY date ORDER BY date ASC`,
+      [req.tenantId, startDate]
+    );
+    res.json({ code: 0, data: rows });
+  } catch (err) { res.status(500).json({ code: 500, message: err.message }); }
+});
+
+// 采购趋势
+router.get('/purchase-trend', async (req, res) => {
+  try {
+    const { period = '30d' } = req.query;
+    let startDate, groupBy;
+    if (period === '12m') {
+      startDate = dayjs().subtract(12, 'month').format('YYYY-MM-DD');
+      groupBy = 'DATE_FORMAT(order_date, "%Y-%m")';
+    } else {
+      startDate = dayjs().subtract(parseInt(period), 'day').format('YYYY-MM-DD');
+      groupBy = 'DATE(order_date)';
+    }
+    const [rows] = await pool.query(
+      `SELECT ${groupBy} as date, COUNT(*) as order_count, COALESCE(SUM(total_amount), 0) as total_amount
+       FROM purchase_orders WHERE tenant_id = ? AND status != 'cancelled' AND order_date >= ?
+       GROUP BY date ORDER BY date ASC`,
+      [req.tenantId, startDate]
+    );
+    res.json({ code: 0, data: rows });
+  } catch (err) { res.status(500).json({ code: 500, message: err.message }); }
+});
+
+// 商品销售排行
+router.get('/product-ranking', async (req, res) => {
+  try {
+    const { limit = 10, startDate, endDate } = req.query;
+    let where = 'WHERE so.tenant_id = ? AND so.status != "cancelled"';
+    const params = [req.tenantId];
+    if (startDate) { where += ' AND so.order_date >= ?'; params.push(startDate); }
+    if (endDate) { where += ' AND so.order_date <= ?'; params.push(endDate + ' 23:59:59'); }
+    const [rows] = await pool.query(
+      `SELECT p.id, p.name, p.unit, p.barcode,
+              COALESCE(SUM(si.quantity), 0) as total_qty,
+              COALESCE(SUM(si.subtotal), 0) as total_amount
+       FROM sale_items si JOIN sales_orders so ON si.sales_order_id = so.id
+       JOIN products p ON si.product_id = p.id ${where}
+       GROUP BY p.id ORDER BY total_amount DESC LIMIT ?`,
+      [...params, parseInt(limit)]
+    );
+    res.json({ code: 0, data: rows });
+  } catch (err) { res.status(500).json({ code: 500, message: err.message }); }
+});
+
+// 库存价值分析（按分类汇总）
+router.get('/inventory-value', async (req, res) => {
+  try {
+    const [rows] = await pool.query(
+      `SELECT c.id, c.name as category_name, COUNT(DISTINCT i.product_id) as sku_count,
+              COALESCE(SUM(i.quantity), 0) as total_qty,
+              COALESCE(SUM(i.quantity * p.cost_price), 0) as cost_value,
+              COALESCE(SUM(i.quantity * p.sell_price), 0) as sell_value
+       FROM inventory i JOIN products p ON i.product_id = p.id
+       LEFT JOIN categories c ON p.category_id = c.id
+       WHERE i.tenant_id = ? AND p.status != 'deleted'
+       GROUP BY c.id ORDER BY cost_value DESC`,
+      [req.tenantId]
+    );
+    res.json({ code: 0, data: rows });
+  } catch (err) { res.status(500).json({ code: 500, message: err.message }); }
+});
+
+// 收支利润分析
+router.get('/profit-analysis', async (req, res) => {
+  try {
+    const { period = '30d' } = req.query;
+    const startDate = period === '12m'
+      ? dayjs().subtract(12, 'month').format('YYYY-MM-DD')
+      : dayjs().subtract(parseInt(period), 'day').format('YYYY-MM-DD');
+    const groupBy = period === '12m' ? 'DATE_FORMAT(record_date, "%Y-%m")' : 'DATE(record_date)';
+    const [rows] = await pool.query(
+      `SELECT ${groupBy} as date,
+              SUM(CASE WHEN type='income' THEN amount ELSE 0 END) as income,
+              SUM(CASE WHEN type='expense' THEN amount ELSE 0 END) as expense,
+              SUM(CASE WHEN type='income' THEN amount ELSE -amount END) as profit
+       FROM finance_records WHERE tenant_id = ? AND record_date >= ?
+       GROUP BY date ORDER BY date ASC`,
+      [req.tenantId, startDate]
+    );
+    res.json({ code: 0, data: rows });
+  } catch (err) { res.status(500).json({ code: 500, message: err.message }); }
+});
+
+// 入库出库趋势
+router.get('/stock-movement', async (req, res) => {
+  try {
+    const { period = '30d' } = req.query;
+    const startDate = period === '12m'
+      ? dayjs().subtract(12, 'month').format('YYYY-MM-DD')
+      : dayjs().subtract(parseInt(period), 'day').format('YYYY-MM-DD');
+    const groupBy = period === '12m' ? 'DATE_FORMAT(created_at, "%Y-%m")' : 'DATE(created_at)';
+    const [inRows] = await pool.query(
+      `SELECT ${groupBy} as date, COALESCE(SUM(total_amount), 0) as amount, COUNT(*) as cnt
+       FROM stock_in_orders WHERE tenant_id = ? AND status = 'confirmed' AND created_at >= ? GROUP BY date`,
+      [req.tenantId, startDate]
+    );
+    const [outRows] = await pool.query(
+      `SELECT ${groupBy} as date, COALESCE(SUM(total_amount), 0) as amount, COUNT(*) as cnt
+       FROM stock_out_orders WHERE tenant_id = ? AND status = 'confirmed' AND created_at >= ? GROUP BY date`,
+      [req.tenantId, startDate]
+    );
+    res.json({ code: 0, data: { stock_in: inRows, stock_out: outRows } });
+  } catch (err) { res.status(500).json({ code: 500, message: err.message }); }
+});
+
+// 核心指标汇总
+router.get('/summary', async (req, res) => {
+  try {
+    const today = dayjs().format('YYYY-MM-DD');
+    const monthStart = dayjs().startOf('month').format('YYYY-MM-DD');
+
+    const [[todaySales]] = await pool.query(
+      `SELECT COUNT(*) as order_count, COALESCE(SUM(actual_amount), 0) as amount
+       FROM sales_orders WHERE tenant_id = ? AND DATE(order_date) = ? AND status != 'cancelled'`,
+      [req.tenantId, today]
+    );
+    const [[monthSales]] = await pool.query(
+      `SELECT COUNT(*) as order_count, COALESCE(SUM(actual_amount), 0) as amount
+       FROM sales_orders WHERE tenant_id = ? AND order_date >= ? AND status != 'cancelled'`,
+      [req.tenantId, monthStart]
+    );
+    const [[monthPurchase]] = await pool.query(
+      `SELECT COUNT(*) as order_count, COALESCE(SUM(total_amount), 0) as amount
+       FROM purchase_orders WHERE tenant_id = ? AND order_date >= ? AND status != 'cancelled'`,
+      [req.tenantId, monthStart]
+    );
+    const [[inventoryValue]] = await pool.query(
+      `SELECT COALESCE(SUM(i.quantity * p.cost_price), 0) as cost_value,
+              COALESCE(SUM(i.quantity * p.sell_price), 0) as sell_value,
+              COUNT(DISTINCT i.product_id) as sku_count
+       FROM inventory i JOIN products p ON i.product_id = p.id
+       WHERE i.tenant_id = ? AND p.status != 'deleted'`,
+      [req.tenantId]
+    );
+    const [[lowStock]] = await pool.query(
+      `SELECT COUNT(*) as cnt FROM inventory i JOIN products p ON i.product_id = p.id
+       WHERE i.tenant_id = ? AND p.min_stock > 0 AND i.quantity <= p.min_stock AND p.status != 'deleted'`,
+      [req.tenantId]
+    );
+    const [[monthFinance]] = await pool.query(
+      `SELECT COALESCE(SUM(CASE WHEN type='income' THEN amount ELSE 0 END), 0) as income,
+              COALESCE(SUM(CASE WHEN type='expense' THEN amount ELSE 0 END), 0) as expense
+       FROM finance_records WHERE tenant_id = ? AND record_date >= ?`,
+      [req.tenantId, monthStart]
+    );
+    const [[pendingReceive]] = await pool.query(
+      "SELECT COUNT(*) as cnt FROM purchase_orders WHERE tenant_id = ? AND status = 'draft'",
+      [req.tenantId]
+    );
+
+    res.json({
+      code: 0,
+      data: {
+        today_sales: { order_count: todaySales.order_count, amount: parseFloat(todaySales.amount) },
+        month_sales: { order_count: monthSales.order_count, amount: parseFloat(monthSales.amount) },
+        month_purchase: { order_count: monthPurchase.order_count, amount: parseFloat(monthPurchase.amount) },
+        inventory: {
+          sku_count: inventoryValue.sku_count,
+          cost_value: parseFloat(inventoryValue.cost_value),
+          sell_value: parseFloat(inventoryValue.sell_value)
+        },
+        low_stock_count: lowStock.cnt,
+        month_finance: { income: parseFloat(monthFinance.income), expense: parseFloat(monthFinance.expense) },
+        pending_receive: pendingReceive.cnt
+      }
+    });
+  } catch (err) {
+    console.error('汇总数据查询失败:', err);
+    res.status(500).json({ code: 500, message: err.message });
+  }
+});
+
+module.exports = router;

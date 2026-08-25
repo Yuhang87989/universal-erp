@@ -1,1 +1,317 @@
-aW1wb3J0IFJlYWN0LCB7IHVzZVN0YXRlLCB1c2VFZmZlY3QgfSBmcm9tICdyZWFjdCc7CmltcG9ydCB7IE91dGxldCwgdXNlTmF2aWdhdGUsIHVzZUxvY2F0aW9uIH0gZnJvbSAncmVhY3Qtcm91dGVyLWRvbSc7CmltcG9ydCB7IExheW91dCwgTWVudSwgQXZhdGFyLCBEcm9wZG93biwgU3BhY2UsIFR5cG9ncmFwaHksIEJ1dHRvbiwgRHJhd2VyLCBUb29sdGlwLCBBbGVydCwgU2VsZWN0LCBUYWcgfSBmcm9tICdhbnRkJzsKaW1wb3J0IHsKICBEYXNoYm9hcmRPdXRsaW5lZCwgU2hvcHBpbmdDYXJ0T3V0bGluZWQsIFNob3BwaW5nT3V0bGluZWQsCiAgRGF0YWJhc2VPdXRsaW5lZCwgVXNlck91dGxpbmVkLCBMb2dvdXRPdXRsaW5lZCwgU2V0dGluZ091dGxpbmVkLAogIEJhckNoYXJ0T3V0bGluZWQsIEFwaU91dGxpbmVkLCBBY2NvdW50Qm9va091dGxpbmVkLAogIE1lbnVPdXRsaW5lZCwgVGVhbU91dGxpbmVkLCBCYW5rT3V0bGluZWQsIFN3YXBPdXRsaW5lZCwKICBSb2JvdE91dGxpbmVkLCBXYXJuaW5nT3V0bGluZWQsIEhvbWVPdXRsaW5lZCwgSW5ib3hPdXRsaW5lZCwKICBJbXBvcnRPdXRsaW5lZCwgRXhwb3J0T3V0bGluZWQsIFRodW5kZXJib2x0T3V0bGluZWQsIExpbmVDaGFydE91dGxpbmVkLAogIFNhZmV0eUNlcnRpZmljYXRlT3V0bGluZWQsIFdhbGxldE91dGxpbmVkLCBTaG9wT3V0bGluZWQsCiAgRmlsZVRleHRPdXRsaW5lZCwgQXVkaXRPdXRsaW5lZCwgQXBwc3RvcmVPdXRsaW5lZAp9IGZyb20gJ0BhbnQtZGVzaWduL2ljb25zJzsKaW1wb3J0IHsgdXNlQXV0aCB9IGZyb20gJy4uL2NvbnRleHQvQXV0aENvbnRleHQnOwppbXBvcnQgSGVscEd1aWRlIGZyb20gJy4uL2NvbXBvbmVudHMvSGVscEd1aWRlJzsKCmNvbnN0IHsgSGVhZGVyLCBDb250ZW50IH0gPSBMYXlvdXQ7CmNvbnN0IHsgVGV4dCB9ID0gVHlwb2dyYXBoeTsKCmNvbnN0IHJvbGVOYW1lczogUmVjb3JkPHN0cmluZywgc3RyaW5nPiA9IHsKICBvd25lcjogJ+iAgeadvycsIG1hbmFnZXI6ICflupfplb8nLCBjYXNoaWVyOiAn5pS26ZO25ZGYJywgd2FyZWhvdXNlOiAn5LuT566hJwp9OwoKY29uc3QgdGVuYW50SWNvbnM6IFJlY29yZDxzdHJpbmcsIHN0cmluZz4gPSB7CiAgc3VwcGx5X2Nvb3A6ICfwn4+Y77iPJywKICBtYXJrZXRfdmVuZG9yOiAn8J+lrCcsCiAgcmV0YWlsX3N0b3JlOiAn8J+PqicsCn07Cgpjb25zdCBndWlkZU1hcDogUmVjb3JkPHN0cmluZywgc3RyaW5nPiA9IHsKICAnL2Rhc2hib2FyZCc6ICfmn6XnnIvku4rml6Xnu4/okKXmlbDmja7jgIHlvoXlip7kuovpobnvvIzkuIDnm67kuobnhLbmjozmj6Hpl6jlupfov5DokKXmg4XlhrUnLAogICcvcHVyY2hhc2UnOiAn5b2V5YWl6YeH6LSt6K6i5Y2V77yM5Yiw6LSn5ZCO54K5IuWFpeW6kyLoh6rliqjlop7liqDlupPlrZgnLAogICcvc3VwcGxpZXJzJzogJ+euoeeQhuS+m+W6lOWVhuS/oeaBr++8muiBlOezu+aWueW8j+OAgemTtuihjOi0puaIt+OAgeWOhuWPsumHh+i0reiusOW9lScsCiAgJy9zYWxlcyc6ICfliJvlu7rplIDllK7orqLljZXvvIzmlK/mjIFQT1Mv57q/5LiKL+aJueWPkS/nlLXor53nrYnlpJrnp43nsbvlnosnLAogICcvcG9zJzogJ+inpuWxj+aUtumTtu+8muaQnOe0ouWVhuWTgeKGkuWKoOWFpei0reeJqei9puKGkumAieaLqeaUr+S7mOaWueW8j+KGkue7k+i0picsCiAgJy9pbnZlbnRvcnknOiAn5p+l55yL5a6e5pe25bqT5a2Y77yM5oyJ5LuT5bqT562b6YCJ77yM57qi6Imy5qCH6K6w5L2O5LqO6aKE6K2m5YC855qE5ZWG5ZOBJywKICAnL3N0b2NrLWluJzogJ+eLrOeri+WFpeW6k+WNleeuoeeQhu+8mumHh+i0reWFpeW6ky/pgIDotKflhaXlupMv55Sf5Lqn5YWl5bqTL+iwg+aLqOWFpeW6ky/lhbbku5blhaXlupPvvIznoa7orqTlkI7oh6rliqjliqDlupPlrZgnLAogICcvc3RvY2stb3V0JzogJ+eLrOeri+WHuuW6k+WNleeuoeeQhu+8mumUgOWUruWHuuW6ky/pgIDotKflh7rlupMv55Sf5Lqn6aKG5paZL+aKpeaNn+WHuuW6k++8jOehruiupOWQjuiHquWKqOaJo+W6k+WtmCcsCiAgJy90cmFuc2ZlcnMnOiAn5LuT5bqT6Ze05bqT5a2Y6LCD5ouo77yM5LiA5q2l5a6M5oiQ6LCD5Ye65LuT5omj5YePK+iwg+WFpeS7k+WinuWKoCcsCiAgJy93YXJlaG91c2VzJzogJ+euoeeQhuWkmuS4quS7k+W6k++8jOafpeeci+WQhOS7k+W6k1NLVeaVsOWSjOW6k+WtmOS7t+WAvCcsCiAgJy9zdG9ja3Rha2UnOiAn5bqT5a2Y55uY54K577ya5pSv5oyB5YWo55uY44CB5oq955uY44CB5b6q546v55uY77yM6Ieq5Yqo6K6h566X55uY55uI55uY5LqP5beu5byCJywKICAnL2FuYWx5dGljcyc6ICfmlbDmja7liIbmnpDkuK3lv4PvvJrplIDllK7otovlir/jgIHph4fotK3lr7nmr5TjgIHliKnmtqbliIbmnpDjgIHlupPlrZjku7flgLzjgIHllYblk4HmjpLooYznrYnlm77ooagnLAogICcvYWxlcnRzJzogJ+mihOitpuS4reW/g++8muiHquWKqOaJq+aPj+S9juW6k+WtmC/pm7blupPlrZgv6LSf5bqT5a2Y5byC5bi477yM5pSv5oyB6K+t6Z+z5pKt5oql5o+Q6YaSJywKICAnL2ZpbmFuY2UnOiAn5oyJ5bmz5Y+w5YiG5byA6K6w6LSm77yM5oC75biQ55uu6Ieq5Yqo5rGH5oC75omA5pyJ5bmz5Y+w5pS25pSvJywKICAnL3ZvdWNoZXJzJzogJ+eUqOWPi+mjjuagvOiusOi0puWHreivge+8jOWAn+i0t+W/heebuOetie+8jOaUr+aMgeWuoeaguOa1geeoi+S4jueblueroCcsCiAgJy9hY2NvdW50cyc6ICfkvJrorqHnp5Hnm67ooajnrqHnkIbvvIzmlK/mjIHlpJrnuqfnp5Hnm67vvIzpooTnva7moIflh4bkvJrorqHnp5Hnm64nLAogICcvdHJpYWwtYmFsYW5jZSc6ICfor5XnrpflubPooaHooajvvIzoh6rliqjmsYfmgLvlkITnp5Hnm67nmoTmnJ/liJ3jgIHmnKzmnJ/jgIHmnJ/mnKvlgJ/otLfmlrnkvZnpop0nLAogICcvc2VhbHMnOiAn5Y2w56ug566h55CG77ya55yf5a6e5Y2w56ug6aKE6KeI77yM5YWs5a6J5aSH5qGI57yW5Y+377yM5pSv5oyB5Zyo5Yet6K+B5LiK55uW56ugJywKICAnL3BheW1lbnQtc2V0dGluZ3MnOiAn5pSv5LuY5rig6YGT6YWN572u77ya5b6u5L+h5pSv5LuY44CB5pSv5LuY5a6d44CB6ZO26KGM6L2s6LSm77yI6aKE55WZ5o6l5Y+j77yJ77yM6YWN572u5ZCO5Y+v5ZCv55SoJywKICAnL2FpJzogJ0FJ5pm66IO95Lit5b+D77ya5a+56K+d6Zeu562U44CB57uP6JCl6K+K5pat44CB5pm66IO96KGl6LSn5bu66K6u44CBQUnmlofmoYjnlJ/miJAnLAogICcvcHJvZHVjdHMnOiAn566h55CG5ZWG5ZOB5qGj5qGI77yI5ZCN56ew44CB5p2h56CB44CB5ZSu5Lu344CB5oiQ5pys5Lu344CB6aKE6K2m5YC877yJ5ZKM5ZWG5ZOB5YiG57G7JywKICAnL2N1c3RvbWVycyc6ICfnrqHnkIblrqLmiLflkozlvoDmnaXljZXkvY3kv6Hmga/vvJrogZTns7vmlrnlvI/jgIHlupTmlLblupTku5jjgIHkuqTmmJPorrDlvZUnLAogICcvcmVwb3J0cyc6ICfmn6XnnIvnu4/okKXml6XmiqXjgIHliKnmtqbliIbmnpDjgIHplIDllK7mjpLooYznrYnmlbDmja7miqXooagnLAogICcvZWNvbW1lcmNlJzogJ+euoeeQhuWkmuW5s+WPsOeUteWVhuW6l+mTuu+8jOaxh+aAu+WQhOW5s+WPsOiuouWNleWSjOmUgOWUruminScsCiAgJy9zZXR0aW5ncyc6ICforr7nva7pl6jlupfkv6Hmga/jgIHlkZjlt6XotKblj7fmnYPpmZDjgIHln7rnoYDlj4LmlbDnrYknLAp9OwoKY29uc3QgbWVudUl0ZW1zID0gWwogIHsgdHlwZTogJ2dyb3VwJyBhcyBjb25zdCwgbGFiZWw6ICfkuJrliqHnrqHnkIYnLCBjaGlsZHJlbjogWwogICAgeyBrZXk6ICcvZGFzaGJvYXJkJywgaWNvbjogPERhc2hib2FyZE91dGxpbmVkIC8+LCBsYWJlbDogJ+W3peS9nOWPsCcgfSwKICAgIHsga2V5OiAncHVyY2hhc2UtZ3JvdXAnLCBpY29uOiA8QWNjb3VudEJvb2tPdXRsaW5lZCAvPiwgbGFiZWw6ICfph4fotK3nrqHnkIYnLCBjaGlsZHJlbjogWwogICAgICB7IGtleTogJy9wdXJjaGFzZScsIGxhYmVsOiAn6YeH6LSt6K6i5Y2VJywgaWNvbjogPEZpbGVUZXh0T3V0bGluZWQgLz4gfSwKICAgICAgeyBrZXk6ICcvc3VwcGxpZXJzJywgbGFiZWw6ICfkvpvlupTllYbnrqHnkIYnLCBpY29uOiA8VGVhbU91dGxpbmVkIC8+IH0sCiAgICBdfSwKICAgIHsga2V5OiAnc2FsZXMtZ3JvdXAnLCBpY29uOiA8U2hvcHBpbmdDYXJ0T3V0bGluZWQgLz4sIGxhYmVsOiAn6ZSA5ZSu566h55CGJywgY2hpbGRyZW46IFsKICAgICAgeyBrZXk6ICcvc2FsZXMnLCBsYWJlbDogJ+mUgOWUruiuouWNlScsIGljb246IDxGaWxlVGV4dE91dGxpbmVkIC8+IH0sCiAgICAgIHsga2V5OiAnL3BvcycsIGxhYmVsOiAnUE9T5pS26ZO2JywgaWNvbjogPFRodW5kZXJib2x0T3V0bGluZWQgLz4gfSwKICAgIF19LAogIF19LAogIHsgdHlwZTogJ2dyb3VwJyBhcyBjb25zdCwgbGFiZWw6ICfku5PlupPnrqHnkIYnLCBjaGlsZHJlbjogWwogICAgeyBrZXk6ICcvd2FyZWhvdXNlcycsIGljb246IDxIb21lT3V0bGluZWQgLz4sIGxhYmVsOiAn5LuT5bqT6K6+572uJyB9LAogICAgeyBrZXk6ICcvaW52ZW50b3J5JywgaWNvbjogPERhdGFiYXNlT3V0bGluZWQgLz4sIGxhYmVsOiAn5bqT5a2Y5p+l6K+iJyB9LAogICAgeyBrZXk6ICcvc3RvY2staW4nLCBpY29uOiA8SW1wb3J0T3V0bGluZWQgLz4sIGxhYmVsOiAn5YWl5bqT566h55CGJyB9LAogICAgeyBrZXk6ICcvc3RvY2stb3V0JywgaWNvbjogPEV4cG9ydE91dGxpbmVkIC8+LCBsYWJlbDogJ+WHuuW6k+euoeeQhicgfSwKICAgIHsga2V5OiAnL3RyYW5zZmVycycsIGljb246IDxTd2FwT3V0bGluZWQgLz4sIGxhYmVsOiAn5bqT5a2Y6LCD5ouoJyB9LAogICAgeyBrZXk6ICcvc3RvY2t0YWtlJywgaWNvbjogPEluYm94T3V0bGluZWQgLz4sIGxhYmVsOiAn5bqT5a2Y55uY54K5JyB9LAogICAgeyBrZXk6ICcvYWxlcnRzJywgaWNvbjogPFdhcm5pbmdPdXRsaW5lZCAvPiwgbGFiZWw6ICfpooTorabkuK3lv4MnIH0sCiAgXX0sCiAgeyB0eXBlOiAnZ3JvdXAnIGFzIGNvbnN0LCBsYWJlbDogJ+i0ouWKoeeuoeeQhicsIGNoaWxkcmVuOiBbCiAgICB7IGtleTogJy9maW5hbmNlJywgaWNvbjogPFdhbGxldE91dGxpbmVkIC8+LCBsYWJlbDogJ+aUtuaUr+euoeeQhicgfSwKICAgIHsga2V5OiAnL3ZvdWNoZXJzJywgaWNvbjogPEF1ZGl0T3V0bGluZWQgLz4sIGxhYmVsOiAn6K6w6LSm5Yet6K+BJyB9LAogICAgeyBrZXk6ICcvYWNjb3VudHMnLCBpY29uOiA8QmFua091dGxpbmVkIC8+LCBsYWJlbDogJ+S8muiuoeenkeebricgfSwKICAgIHsga2V5OiAnL3RyaWFsLWJhbGFuY2UnLCBpY29uOiA8TGluZUNoYXJ0T3V0bGluZWQgLz4sIGxhYmVsOiAn6K+V566X5bmz6KGhJyB9LAogICAgeyBrZXk6ICcvc2VhbHMnLCBpY29uOiA8U2FmZXR5Q2VydGlmaWNhdGVPdXRsaW5lZCAvPiwgbGFiZWw6ICfljbDnq6DnrqHnkIYnIH0sCiAgICB7IGtleTogJy9wYXltZW50LXNldHRpbmdzJywgaWNvbjogPFdhbGxldE91dGxpbmVkIC8+LCBsYWJlbDogJ+aUr+S7mOa4oOmBkycgfSwKICBdfSwKICB7IHR5cGU6ICdncm91cCcgYXMgY29uc3QsIGxhYmVsOiAn5pWw5o2u5YiG5p6QJywgY2hpbGRyZW46IFsKICAgIHsga2V5OiAnL2FuYWx5dGljcycsIGljb246IDxCYXJDaGFydE91dGxpbmVkIC8+LCBsYWJlbDogJ+aVsOaNruWIhuaekOS4reW/gycgfSwKICAgIHsga2V5OiAnL3JlcG9ydHMnLCBpY29uOiA8QXBwc3RvcmVPdXRsaW5lZCAvPiwgbGFiZWw6ICfmlbDmja7miqXooagnIH0sCiAgXX0sCiAgeyB0eXBlOiAnZ3JvdXAnIGFzIGNvbnN0LCBsYWJlbDogJ0FJ5pm66IO9JywgY2hpbGRyZW46IFsKICAgIHsga2V5OiAnL2FpJywgaWNvbjogPFJvYm90T3V0bGluZWQgLz4sIGxhYmVsOiAnQUnmmbrog73kuK3lv4MnIH0sCiAgXX0sCiAgeyB0eXBlOiAnZ3JvdXAnIGFzIGNvbnN0LCBsYWJlbDogJ+WfuuehgOaVsOaNricsIGNoaWxkcmVuOiBbCiAgICB7IGtleTogJy9wcm9kdWN0cycsIGljb246IDxTaG9wcGluZ091dGxpbmVkIC8+LCBsYWJlbDogJ+WVhuWTgeeuoeeQhicgfSwKICAgIHsga2V5OiAnL2N1c3RvbWVycycsIGljb246IDxUZWFtT3V0bGluZWQgLz4sIGxhYmVsOiAn5b6A5p2l5Y2V5L2NJyB9LAogICAgeyBrZXk6ICcvZWNvbW1lcmNlJywgaWNvbjogPFNob3BPdXRsaW5lZCAvPiwgbGFiZWw6ICfnlLXllYbnrqHnkIYnIH0sCiAgXX0sCiAgeyB0eXBlOiAnZ3JvdXAnIGFzIGNvbnN0LCBsYWJlbDogJ+ezu+e7nycsIGNoaWxkcmVuOiBbCiAgICB7IGtleTogJy9zZXR0aW5ncycsIGljb246IDxTZXR0aW5nT3V0bGluZWQgLz4sIGxhYmVsOiAn57O757uf566h55CGJyB9LAogIF19Cl07Cgpjb25zdCBpbmplY3RUb29sdGlwcyA9IChpdGVtczogYW55W10pOiBhbnlbXSA9PiB7CiAgcmV0dXJuIGl0ZW1zLm1hcChpdGVtID0+IHsKICAgIGlmIChpdGVtLnR5cGUgPT09ICdncm91cCcpIHsKICAgICAgcmV0dXJuIHsgLi4uaXRlbSwgY2hpbGRyZW46IGluamVjdFRvb2x0aXBzKGl0ZW0uY2hpbGRyZW4gfHwgW10pIH07CiAgICB9CiAgICBjb25zdCBkZXNjID0gZ3VpZGVNYXBbaXRlbS5rZXldOwogICAgaWYgKGl0ZW0uY2hpbGRyZW4pIHsKICAgICAgcmV0dXJuIHsgLi4uaXRlbSwgY2hpbGRyZW46IGluamVjdFRvb2x0aXBzKGl0ZW0uY2hpbGRyZW4pIH07CiAgICB9CiAgICBpZiAoZGVzYykgewogICAgICByZXR1cm4gewogICAgICAgIC4uLml0ZW0sCiAgICAgICAgbGFiZWw6ICgKICAgICAgICAgIDxUb29sdGlwIHRpdGxlPXtkZXNjfSBwbGFjZW1lbnQ9InJpZ2h0IiBtb3VzZUVudGVyRGVsYXk9ezAuNX0+CiAgICAgICAgICAgIDxzcGFuIHN0eWxlPXt7IGRpc3BsYXk6ICdibG9jaycgfX0+e2l0ZW0ubGFiZWwgYXMgc3RyaW5nfTwvc3Bhbj4KICAgICAgICAgIDwvVG9vbHRpcD4KICAgICAgICApCiAgICAgIH07CiAgICB9CiAgICByZXR1cm4gaXRlbTsKICB9KTsKfTsKCmNvbnN0IE1haW5MYXlvdXQ6IFJlYWN0LkZDID0gKCkgPT4gewogIGNvbnN0IG5hdmlnYXRlID0gdXNlTmF2aWdhdGUoKTsKICBjb25zdCBsb2NhdGlvbiA9IHVzZUxvY2F0aW9uKCk7CiAgY29uc3QgeyB1c2VyLCBsb2dvdXQsIHRlbmFudHMsIHN3aXRjaFRlbmFudCwgbG9hZFRlbmFudHMgfSA9IHVzZUF1dGgoKTsKICBjb25zdCBbaXNNb2JpbGUsIHNldElzTW9iaWxlXSA9IHVzZVN0YXRlKGZhbHNlKTsKICBjb25zdCBbZHJhd2VyVmlzaWJsZSwgc2V0RHJhd2VyVmlzaWJsZV0gPSB1c2VTdGF0ZShmYWxzZSk7CgogIHVzZUVmZmVjdCgoKSA9PiB7CiAgICBjb25zdCBjaGVjayA9ICgpID0+IHNldElzTW9iaWxlKHdpbmRvdy5pbm5lcldpZHRoIDwgNzY4KTsKICAgIGNoZWNrKCk7CiAgICB3aW5kb3cuYWRkRXZlbnRMaXN0ZW5lcigncmVzaXplJywgY2hlY2spOwogICAgcmV0dXJuICgpID0+IHdpbmRvdy5yZW1vdmVFdmVudExpc3RlbmVyKCdyZXNpemUnLCBjaGVjayk7CiAgfSwgW10pOwoKICB1c2VFZmZlY3QoKCkgPT4gewogICAgaWYgKHVzZXIpIGxvYWRUZW5hbnRzKCk7CiAgfSwgW3VzZXI/LmlkXSk7CgogIGNvbnN0IGhhbmRsZUxvZ291dCA9ICgpID0+IHsgbG9nb3V0KCk7IG5hdmlnYXRlKCcvbG9naW4nKTsgfTsKCiAgY29uc3QgaGFuZGxlTWVudUNsaWNrID0gKHsga2V5IH06IHsga2V5OiBzdHJpbmcgfSkgPT4gewogICAgaWYgKGtleS5zdGFydHNXaXRoKCcvJykpIHsKICAgICAgbmF2aWdhdGUoa2V5KTsKICAgICAgaWYgKGlzTW9iaWxlKSBzZXREcmF3ZXJWaXNpYmxlKGZhbHNlKTsKICAgIH0KICB9OwoKICBjb25zdCBoYW5kbGVTd2l0Y2hUZW5hbnQgPSBhc3luYyAodGVuYW50SWQ6IG51bWJlcikgPT4gewogICAgaWYgKHRlbmFudElkID09PSB1c2VyPy50ZW5hbnRJZCkgcmV0dXJuOwogICAgdHJ5IHsKICAgICAgYXdhaXQgc3dpdGNoVGVuYW50KHRlbmFudElkKTsKICAgICAgbmF2aWdhdGUoJy9kYXNoYm9hcmQnKTsKICAgIH0gY2F0Y2ggKGVycikgewogICAgICBjb25zb2xlLmVycm9yKCfliIfmjaLluJDlpZflpLHotKU6JywgZXJyKTsKICAgIH0KICB9OwoKICBjb25zdCB1c2VyTWVudSA9IHsKICAgIGl0ZW1zOiBbCiAgICAgIHsga2V5OiAncHJvZmlsZScsIGljb246IDxVc2VyT3V0bGluZWQgLz4sIGxhYmVsOiAn5Liq5Lq65L+h5oGvJyB9LAogICAgICB7IGtleTogJ3NldHRpbmdzJywgaWNvbjogPFNldHRpbmdPdXRsaW5lZCAvPiwgbGFiZWw6ICfns7vnu5/orr7nva4nIH0sCiAgICAgIHsgdHlwZTogJ2RpdmlkZXInIGFzIGNvbnN0IH0sCiAgICAgIHsga2V5OiAnbG9nb3V0JywgaWNvbjogPExvZ291dE91dGxpbmVkIC8+LCBsYWJlbDogJ+mAgOWHuueZu+W9lScsIGRhbmdlcjogdHJ1ZSB9CiAgICBdLAogICAgb25DbGljazogKHsga2V5IH06IHsga2V5OiBzdHJpbmcgfSkgPT4gewogICAgICBpZiAoa2V5ID09PSAnbG9nb3V0JykgaGFuZGxlTG9nb3V0KCk7CiAgICAgIGVsc2UgaWYgKGtleSA9PT0gJ3NldHRpbmdzJykgeyBuYXZpZ2F0ZSgnL3NldHRpbmdzJyk7IGlmIChpc01vYmlsZSkgc2V0RHJhd2VyVmlzaWJsZShmYWxzZSk7IH0KICAgIH0KICB9OwoKICBjb25zdCBjdXJyZW50R3VpZGUgPSBndWlkZU1hcFtsb2NhdGlvbi5wYXRobmFtZV07CgogIGNvbnN0IHRlbmFudFN3aXRjaGVyID0gKAogICAgPGRpdiBzdHlsZT17eyBwYWRkaW5nOiAnMTBweCAxMnB4JywgYm9yZGVyQm90dG9tOiAnMXB4IHNvbGlkICNmMGYwZjAnLCBmbGV4U2hyaW5rOiAwIH19PgogICAgICA8ZGl2IHN0eWxlPXt7IG1hcmdpbkJvdHRvbTogNiwgZGlzcGxheTogJ2ZsZXgnLCBhbGlnbkl0ZW1zOiAnY2VudGVyJywgZ2FwOiA0IH19PgogICAgICAgIDxTd2FwT3V0bGluZWQgc3R5bGU9e3sgZm9udFNpemU6IDEyLCBjb2xvcjogJyMxNjc3ZmYnIH19IC8+CiAgICAgICAgPFRleHQgdHlwZT0ic2Vjb25kYXJ5IiBzdHlsZT17eyBmb250U2l6ZTogMTEgfX0+5b2T5YmN5biQ5aWXPC9UZXh0PgogICAgICA8L2Rpdj4KICAgICAge3RlbmFudHMubGVuZ3RoID4gMCA/ICgKICAgICAgICA8U2VsZWN0CiAgICAgICAgICB2YWx1ZT17dXNlcj8udGVuYW50SWR9CiAgICAgICAgICBvbkNoYW5nZT17aGFuZGxlU3dpdGNoVGVuYW50fQogICAgICAgICAgc3R5bGU9e3sgd2lkdGg6ICcxMDAlJyB9fQogICAgICAgICAgc2l6ZT0ic21hbGwiCiAgICAgICAgICBvcHRpb25zPXt0ZW5hbnRzLm1hcCh0ID0+ICh7CiAgICAgICAgICAgIHZhbHVlOiB0LmlkLAogICAgICAgICAgICBsYWJlbDogKAogICAgICAgICAgICAgIDxzcGFuIHN0eWxlPXt7IGRpc3BsYXk6ICdmbGV4JywgYWxpZ25JdGVtczogJ2NlbnRlcicsIGdhcDogNiB9fT4KICAgICAgICAgICAgICAgIDxzcGFuPnt0ZW5hbnRJY29uc1t0LmJ1c2luZXNzX3R5cGVdIHx8ICfwn4+iJ308L3NwYW4+CiAgICAgICAgICAgICAgICA8c3Bhbj57dC5uYW1lfTwvc3Bhbj4KICAgICAgICAgICAgICA8L3NwYW4+CiAgICAgICAgICAgICksCiAgICAgICAgICB9KSl9CiAgICAgICAgLz4KICAgICAgKSA6ICgKICAgICAgICA8VGV4dCBzdHlsZT17eyBmb250U2l6ZTogMTMgfX0+CiAgICAgICAgICDwn4+iIHt1c2VyPy50ZW5hbnROYW1lIHx8ICfpu5jorqTluJDlpZcnfQogICAgICAgIDwvVGV4dD4KICAgICAgKX0KICAgIDwvZGl2PgogICk7CgogIGNvbnN0IHNpZGViYXJDb250ZW50ID0gKAogICAgPD4KICAgICAgPGRpdiBzdHlsZT17ewogICAgICAgIGhlaWdodDogNTIsCiAgICAgICAgZGlzcGxheTogJ2ZsZXgnLAogICAgICAgIGFsaWduSXRlbXM6ICdjZW50ZXInLAogICAgICAgIGp1c3RpZnlDb250ZW50OiAnY2VudGVyJywKICAgICAgICBib3JkZXJCb3R0b206ICcxcHggc29saWQgI2YwZjBmMCcsCiAgICAgICAgZmxleFNocmluazogMCwKICAgICAgICBiYWNrZ3JvdW5kOiAnbGluZWFyLWdyYWRpZW50KDEzNWRlZywgIzE2NzdmZiAwJSwgIzA5NThkOSAxMDAlKScsCiAgICAgIH19PgogICAgICAgIDxkaXYgc3R5bGU9e3sgZGlzcGxheTogJ2ZsZXgnLCBhbGlnbkl0ZW1zOiAnY2VudGVyJywgZ2FwOiA4IH19PgogICAgICAgICAgPGRpdiBzdHlsZT17ewogICAgICAgICAgICB3aWR0aDogMjgsIGhlaWdodDogMjgsIGJvcmRlclJhZGl1czogNiwKICAgICAgICAgICAgYmFja2dyb3VuZDogJ3JnYmEoMjU1LDI1NSwyNTUsMC4yKScsCiAgICAgICAgICAgIGRpc3BsYXk6ICdmbGV4JywgYWxpZ25JdGVtczogJ2NlbnRlcicsIGp1c3RpZnlDb250ZW50OiAnY2VudGVyJywKICAgICAgICAgICAgZm9udFNpemU6IDE2LAogICAgICAgICAgfX0+8J+TpjwvZGl2PgogICAgICAgICAgPFRleHQgc3Ryb25nIHN0eWxlPXt7IGZvbnRTaXplOiAxNSwgY29sb3I6ICcjZmZmJywgbGV0dGVyU3BhY2luZzogMC41IH19PuS8geS4mkVSUDwvVGV4dD4KICAgICAgICA8L2Rpdj4KICAgICAgPC9kaXY+CiAgICAgIHt0ZW5hbnRTd2l0Y2hlcn0KICAgICAgPGRpdiBzdHlsZT17eyBmbGV4OiAxLCBvdmVyZmxvdzogJ2F1dG8nIH19PgogICAgICAgIDxNZW51CiAgICAgICAgICBtb2RlPSJpbmxpbmUiCiAgICAgICAgICBzZWxlY3RlZEtleXM9e1tsb2NhdGlvbi5wYXRobmFtZV19CiAgICAgICAgICBkZWZhdWx0T3BlbktleXM9e2lzTW9iaWxlID8gW10gOiBbJ3B1cmNoYXNlLWdyb3VwJywgJ3NhbGVzLWdyb3VwJywgJ2ZpbmFuY2UtZ3JvdXAnXX0KICAgICAgICAgIGl0ZW1zPXtpbmplY3RUb29sdGlwcyhtZW51SXRlbXMpfQogICAgICAgICAgb25DbGljaz17aGFuZGxlTWVudUNsaWNrfQogICAgICAgICAgc3R5bGU9e3sgYm9yZGVyOiAnbm9uZScgfX0KICAgICAgICAvPgogICAgICA8L2Rpdj4KICAgIDwvPgogICk7CgogIHJldHVybiAoCiAgICA8TGF5b3V0IHN0eWxlPXt7IG1pbkhlaWdodDogJzEwMHZoJyB9fT4KICAgICAgeyFpc01vYmlsZSAmJiAoCiAgICAgICAgPExheW91dC5TaWRlciB3aWR0aD17MjEwfSB0aGVtZT0ibGlnaHQiIHN0eWxlPXt7IGJvcmRlclJpZ2h0OiAnMXB4IHNvbGlkICNmMGYwZjAnLCBkaXNwbGF5OiAnZmxleCcsIGZsZXhEaXJlY3Rpb246ICdjb2x1bW4nLCBib3hTaGFkb3c6ICcycHggMCA4cHggcmdiYSgwLDAsMCwwLjA0KScgfX0+CiAgICAgICAgICB7c2lkZWJhckNvbnRlbnR9CiAgICAgICAgPC9MYXlvdXQuU2lkZXI+CiAgICAgICl9CiAgICAgIHtpc01vYmlsZSAmJiAoCiAgICAgICAgPERyYXdlcgogICAgICAgICAgcGxhY2VtZW50PSJsZWZ0IgogICAgICAgICAgb25DbG9zZT17KCkgPT4gc2V0RHJhd2VyVmlzaWJsZShmYWxzZSl9CiAgICAgICAgICBvcGVuPXtkcmF3ZXJWaXNpYmxlfQogICAgICAgICAgd2lkdGg9ezI2MH0KICAgICAgICAgIHN0eWxlcz17eyBib2R5OiB7IHBhZGRpbmc6IDAsIGRpc3BsYXk6ICdmbGV4JywgZmxleERpcmVjdGlvbjogJ2NvbHVtbicgfSB9fQogICAgICAgID4KICAgICAgICAgIHtzaWRlYmFyQ29udGVudH0KICAgICAgICA8L0RyYXdlcj4KICAgICAgKX0KICAgICAgPExheW91dD4KICAgICAgICA8SGVhZGVyIHN0eWxlPXt7CiAgICAgICAgICBiYWNrZ3JvdW5kOiAnI2ZmZicsCiAgICAgICAgICBwYWRkaW5nOiAnMCAxNnB4JywKICAgICAgICAgIGRpc3BsYXk6ICdmbGV4JywKICAgICAgICAgIGFsaWduSXRlbXM6ICdjZW50ZXInLAogICAgICAgICAganVzdGlmeUNvbnRlbnQ6ICdzcGFjZS1iZXR3ZWVuJywKICAgICAgICAgIGJvcmRlckJvdHRvbTogJzFweCBzb2xpZCAjZjBmMGYwJywKICAgICAgICAgIGhlaWdodDogNTIsCiAgICAgICAgICBsaW5lSGVpZ2h0OiAnNTJweCcsCiAgICAgICAgICBib3hTaGFkb3c6ICcwIDFweCA0cHggcmdiYSgwLDAsMCwwLjA0KScsCiAgICAgICAgfX0+CiAgICAgICAgICA8ZGl2IHN0eWxlPXt7IGRpc3BsYXk6ICdmbGV4JywgYWxpZ25JdGVtczogJ2NlbnRlcicsIGdhcDogMTAgfX0+CiAgICAgICAgICAgIHtpc01vYmlsZSAmJiAoCiAgICAgICAgICAgICAgPEJ1dHRvbiB0eXBlPSJ0ZXh0IiBpY29uPXs8TWVudU91dGxpbmVkIHN0eWxlPXt7IGZvbnRTaXplOiAxOCB9fSAvPn0gb25DbGljaz17KCkgPT4gc2V0RHJhd2VyVmlzaWJsZSh0cnVlKX0gLz4KICAgICAgICAgICAgKX0KICAgICAgICAgICAgeyFpc01vYmlsZSAmJiB1c2VyPy50ZW5hbnROYW1lICYmICgKICAgICAgICAgICAgICA8VGFnIGNvbG9yPSJibHVlIiBzdHlsZT17eyBtYXJnaW5SaWdodDogMCwgYm9yZGVyUmFkaXVzOiA0LCBwYWRkaW5nOiAnMnB4IDEwcHgnIH19PgogICAgICAgICAgICAgICAge3RlbmFudEljb25zW3RlbmFudHMuZmluZCh0ID0+IHQuaWQgPT09IHVzZXI/LnRlbmFudElkKT8uYnVzaW5lc3NfdHlwZSB8fCAnJ10gfHwgJ/Cfj6InfSB7dXNlci50ZW5hbnROYW1lfQogICAgICAgICAgICAgIDwvVGFnPgogICAgICAgICAgICApfQogICAgICAgICAgICB7aXNNb2JpbGUgJiYgPFRleHQgc3Ryb25nIHN0eWxlPXt7IGZvbnRTaXplOiAxNCB9fT57dXNlcj8udGVuYW50TmFtZSB8fCAnRVJQJ308L1RleHQ+fQogICAgICAgICAgPC9kaXY+CiAgICAgICAgICA8RHJvcGRvd24gbWVudT17dXNlck1lbnV9IHBsYWNlbWVudD0iYm90dG9tUmlnaHQiPgogICAgICAgICAgICA8U3BhY2Ugc3R5bGU9e3sgY3Vyc29yOiAncG9pbnRlcicgfX0+CiAgICAgICAgICAgICAgPEF2YXRhciBzaXplPSJzbWFsbCIgc3R5bGU9e3sgYmFja2dyb3VuZENvbG9yOiAnIzE2NzdmZicgfX0gaWNvbj17PFVzZXJPdXRsaW5lZCAvPn0gLz4KICAgICAgICAgICAgICA8c3BhbiBzdHlsZT17eyBmb250U2l6ZTogMTMgfX0+e3VzZXI/LnJlYWxOYW1lIHx8IHVzZXI/LnVzZXJuYW1lfTwvc3Bhbj4KICAgICAgICAgICAgICB7IWlzTW9iaWxlICYmIDxUZXh0IHR5cGU9InNlY29uZGFyeSIgc3R5bGU9e3sgZm9udFNpemU6IDEyIH19Pntyb2xlTmFtZXNbdXNlcj8ucm9sZSB8fCAnJ10gfHwgJyd9PC9UZXh0Pn0KICAgICAgICAgICAgPC9TcGFjZT4KICAgICAgICAgIDwvRHJvcGRvd24+CiAgICAgICAgPC9IZWFkZXI+CiAgICAgICAgPENvbnRlbnQgc3R5bGU9e3sKICAgICAgICAgIG1hcmdpbjogaXNNb2JpbGUgPyA4IDogMTYsCiAgICAgICAgICBwYWRkaW5nOiBpc01vYmlsZSA/IDEyIDogMjAsCiAgICAgICAgICBiYWNrZ3JvdW5kOiAnI2Y1ZjdmYScsCiAgICAgICAgICBtaW5IZWlnaHQ6IDI4MCwKICAgICAgICAgIGJvcmRlclJhZGl1czogOCwKICAgICAgICB9fT4KICAgICAgICAgIHtjdXJyZW50R3VpZGUgJiYgKAogICAgICAgICAgICA8QWxlcnQKICAgICAgICAgICAgICB0eXBlPSJpbmZvIgogICAgICAgICAgICAgIHNob3dJY29uCiAgICAgICAgICAgICAgc3R5bGU9e3sgbWFyZ2luQm90dG9tOiBpc01vYmlsZSA/IDEyIDogMTYsIGJvcmRlclJhZGl1czogOCB9fQogICAgICAgICAgICAgIG1lc3NhZ2U9e2N1cnJlbnRHdWlkZX0KICAgICAgICAgICAgICBjbG9zYWJsZQogICAgICAgICAgICAvPgogICAgICAgICAgKX0KICAgICAgICAgIDxPdXRsZXQgLz4KICAgICAgICAgIDxIZWxwR3VpZGUgLz4KICAgICAgICA8L0NvbnRlbnQ+CiAgICAgIDwvTGF5b3V0PgogICAgPC9MYXlvdXQ+CiAgKTsKfTsKCmV4cG9ydCBkZWZhdWx0IE1haW5MYXlvdXQ7Cg==
+import React, { useState, useEffect } from 'react';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
+import { Layout, Menu, Avatar, Dropdown, Space, Typography, Button, Drawer, Tooltip, Alert, Select, Tag } from 'antd';
+import {
+  DashboardOutlined, ShoppingCartOutlined, ShoppingOutlined,
+  DatabaseOutlined, UserOutlined, LogoutOutlined, SettingOutlined,
+  BarChartOutlined, ApiOutlined, AccountBookOutlined,
+  MenuOutlined, TeamOutlined, BankOutlined, SwapOutlined,
+  RobotOutlined, WarningOutlined, HomeOutlined, InboxOutlined,
+  ImportOutlined, ExportOutlined, ThunderboltOutlined, LineChartOutlined,
+  SafetyCertificateOutlined, WalletOutlined, ShopOutlined,
+  FileTextOutlined, AuditOutlined, AppstoreOutlined
+} from '@ant-design/icons';
+import { useAuth } from '../context/AuthContext';
+import HelpGuide from '../components/HelpGuide';
+
+const { Header, Content } = Layout;
+const { Text } = Typography;
+
+const roleNames: Record<string, string> = {
+  owner: '老板', manager: '店长', cashier: '收银员', warehouse: '仓管'
+};
+
+const tenantIcons: Record<string, string> = {
+  supply_coop: '🏘️',
+  market_vendor: '🥬',
+  retail_store: '🏪',
+};
+
+const guideMap: Record<string, string> = {
+  '/dashboard': '查看今日经营数据、待办事项，一目了然掌握门店运营情况',
+  '/purchase': '录入采购订单，到货后点"入库"自动增加库存',
+  '/suppliers': '管理供应商信息：联系方式、银行账户、历史采购记录',
+  '/sales': '创建销售订单，支持POS/线上/批发/电话等多种类型',
+  '/pos': '触屏收银：搜索商品→加入购物车→选择支付方式→结账',
+  '/inventory': '查看实时库存，按仓库筛选，红色标记低于预警值的商品',
+  '/stock-in': '独立入库单管理：采购入库/退货入库/生产入库/调拨入库/其他入库，确认后自动加库存',
+  '/stock-out': '独立出库单管理：销售出库/退货出库/生产领料/报损出库，确认后自动扣库存',
+  '/transfers': '仓库间库存调拨，一步完成调出仓扣减+调入仓增加',
+  '/warehouses': '管理多个仓库，查看各仓库SKU数和库存价值',
+  '/stocktake': '库存盘点：支持全盘、抽盘、循环盘，自动计算盘盈盘亏差异',
+  '/analytics': '数据分析中心：销售趋势、采购对比、利润分析、库存价值、商品排行等图表',
+  '/alerts': '预警中心：自动扫描低库存/零库存/负库存异常，支持语音播报提醒',
+  '/finance': '按平台分开记账，总帐目自动汇总所有平台收支',
+  '/vouchers': '用友风格记账凭证，借贷必相等，支持审核流程与盖章',
+  '/accounts': '会计科目表管理，支持多级科目，预置标准会计科目',
+  '/trial-balance': '试算平衡表，自动汇总各科目的期初、本期、期末借贷方余额',
+  '/seals': '印章管理：真实印章预览，公安备案编号，支持在凭证上盖章',
+  '/payment-settings': '支付渠道配置：微信支付、支付宝、银行转账（预留接口），配置后可启用',
+  '/ai': 'AI智能中心：对话问答、经营诊断、智能补货建议、AI文案生成',
+  '/products': '管理商品档案（名称、条码、售价、成本价、预警值）和商品分类',
+  '/customers': '管理客户和往来单位信息：联系方式、应收应付、交易记录',
+  '/reports': '查看经营日报、利润分析、销售排行等数据报表',
+  '/ecommerce': '管理多平台电商店铺，汇总各平台订单和销售额',
+  '/settings': '设置门店信息、员工账号权限、基础参数等',
+};
+
+const menuItems = [
+  { type: 'group' as const, label: '业务管理', children: [
+    { key: '/dashboard', icon: <DashboardOutlined />, label: '工作台' },
+    { key: 'purchase-group', icon: <AccountBookOutlined />, label: '采购管理', children: [
+      { key: '/purchase', label: '采购订单', icon: <FileTextOutlined /> },
+      { key: '/suppliers', label: '供应商管理', icon: <TeamOutlined /> },
+    ]},
+    { key: 'sales-group', icon: <ShoppingCartOutlined />, label: '销售管理', children: [
+      { key: '/sales', label: '销售订单', icon: <FileTextOutlined /> },
+      { key: '/pos', label: 'POS收银', icon: <ThunderboltOutlined /> },
+    ]},
+  ]},
+  { type: 'group' as const, label: '仓库管理', children: [
+    { key: '/warehouses', icon: <HomeOutlined />, label: '仓库设置' },
+    { key: '/inventory', icon: <DatabaseOutlined />, label: '库存查询' },
+    { key: '/stock-in', icon: <ImportOutlined />, label: '入库管理' },
+    { key: '/stock-out', icon: <ExportOutlined />, label: '出库管理' },
+    { key: '/transfers', icon: <SwapOutlined />, label: '库存调拨' },
+    { key: '/stocktake', icon: <InboxOutlined />, label: '库存盘点' },
+    { key: '/alerts', icon: <WarningOutlined />, label: '预警中心' },
+  ]},
+  { type: 'group' as const, label: '财务管理', children: [
+    { key: '/finance', icon: <WalletOutlined />, label: '收支管理' },
+    { key: '/vouchers', icon: <AuditOutlined />, label: '记账凭证' },
+    { key: '/accounts', icon: <BankOutlined />, label: '会计科目' },
+    { key: '/trial-balance', icon: <LineChartOutlined />, label: '试算平衡' },
+    { key: '/seals', icon: <SafetyCertificateOutlined />, label: '印章管理' },
+    { key: '/payment-settings', icon: <WalletOutlined />, label: '支付渠道' },
+  ]},
+  { type: 'group' as const, label: '数据分析', children: [
+    { key: '/analytics', icon: <BarChartOutlined />, label: '数据分析中心' },
+    { key: '/reports', icon: <AppstoreOutlined />, label: '数据报表' },
+  ]},
+  { type: 'group' as const, label: 'AI智能', children: [
+    { key: '/ai', icon: <RobotOutlined />, label: 'AI智能中心' },
+  ]},
+  { type: 'group' as const, label: '基础数据', children: [
+    { key: '/products', icon: <ShoppingOutlined />, label: '商品管理' },
+    { key: '/customers', icon: <TeamOutlined />, label: '往来单位' },
+    { key: '/ecommerce', icon: <ShopOutlined />, label: '电商管理' },
+  ]},
+  { type: 'group' as const, label: '系统', children: [
+    { key: '/settings', icon: <SettingOutlined />, label: '系统管理' },
+  ]}
+];
+
+const injectTooltips = (items: any[]): any[] => {
+  return items.map(item => {
+    if (item.type === 'group') {
+      return { ...item, children: injectTooltips(item.children || []) };
+    }
+    const desc = guideMap[item.key];
+    if (item.children) {
+      return { ...item, children: injectTooltips(item.children) };
+    }
+    if (desc) {
+      return {
+        ...item,
+        label: (
+          <Tooltip title={desc} placement="right" mouseEnterDelay={0.5}>
+            <span style={{ display: 'block' }}>{item.label as string}</span>
+          </Tooltip>
+        )
+      };
+    }
+    return item;
+  });
+};
+
+const MainLayout: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { user, logout, tenants, switchTenant, loadTenants } = useAuth();
+  const [isMobile, setIsMobile] = useState(false);
+  const [drawerVisible, setDrawerVisible] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  useEffect(() => {
+    if (user) loadTenants();
+  }, [user?.id]);
+
+  const handleLogout = () => { logout(); navigate('/login'); };
+
+  const handleMenuClick = ({ key }: { key: string }) => {
+    if (key.startsWith('/')) {
+      navigate(key);
+      if (isMobile) setDrawerVisible(false);
+    }
+  };
+
+  const handleSwitchTenant = async (tenantId: number) => {
+    if (tenantId === user?.tenantId) return;
+    try {
+      await switchTenant(tenantId);
+      navigate('/dashboard');
+    } catch (err) {
+      console.error('切换帐套失败:', err);
+    }
+  };
+
+  const userMenu = {
+    items: [
+      { key: 'profile', icon: <UserOutlined />, label: '个人信息' },
+      { key: 'settings', icon: <SettingOutlined />, label: '系统设置' },
+      { type: 'divider' as const },
+      { key: 'logout', icon: <LogoutOutlined />, label: '退出登录', danger: true }
+    ],
+    onClick: ({ key }: { key: string }) => {
+      if (key === 'logout') handleLogout();
+      else if (key === 'settings') { navigate('/settings'); if (isMobile) setDrawerVisible(false); }
+    }
+  };
+
+  const currentGuide = guideMap[location.pathname];
+
+  const tenantSwitcher = (
+    <div style={{ padding: '10px 12px', borderBottom: '1px solid #f0f0f0', flexShrink: 0 }}>
+      <div style={{ marginBottom: 6, display: 'flex', alignItems: 'center', gap: 4 }}>
+        <SwapOutlined style={{ fontSize: 12, color: '#1677ff' }} />
+        <Text type="secondary" style={{ fontSize: 11 }}>当前帐套</Text>
+      </div>
+      {tenants.length > 0 ? (
+        <Select
+          value={user?.tenantId}
+          onChange={handleSwitchTenant}
+          style={{ width: '100%' }}
+          size="small"
+          options={tenants.map(t => ({
+            value: t.id,
+            label: (
+              <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <span>{tenantIcons[t.business_type] || '🏢'}</span>
+                <span>{t.name}</span>
+              </span>
+            ),
+          }))}
+        />
+      ) : (
+        <Text style={{ fontSize: 13 }}>
+          🏢 {user?.tenantName || '默认帐套'}
+        </Text>
+      )}
+    </div>
+  );
+
+  const sidebarContent = (
+    <>
+      <div style={{
+        height: 52,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderBottom: '1px solid #f0f0f0',
+        flexShrink: 0,
+        background: 'linear-gradient(135deg, #1677ff 0%, #0958d9 100%)',
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+          <div style={{
+            width: 28, height: 28, borderRadius: 6,
+            background: 'rgba(255,255,255,0.2)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            fontSize: 16,
+          }}>📦</div>
+          <Text strong style={{ fontSize: 15, color: '#fff', letterSpacing: 0.5 }}>企业ERP</Text>
+        </div>
+      </div>
+      {tenantSwitcher}
+      <div style={{ flex: 1, overflow: 'auto' }}>
+        <Menu
+          mode="inline"
+          selectedKeys={[location.pathname]}
+          defaultOpenKeys={isMobile ? [] : ['purchase-group', 'sales-group', 'finance-group']}
+          items={injectTooltips(menuItems)}
+          onClick={handleMenuClick}
+          style={{ border: 'none' }}
+        />
+      </div>
+    </>
+  );
+
+  return (
+    <Layout style={{ minHeight: '100vh' }}>
+      {!isMobile && (
+        <Layout.Sider width={210} theme="light" style={{ borderRight: '1px solid #f0f0f0', display: 'flex', flexDirection: 'column', boxShadow: '2px 0 8px rgba(0,0,0,0.04)' }}>
+          {sidebarContent}
+        </Layout.Sider>
+      )}
+      {isMobile && (
+        <Drawer
+          placement="left"
+          onClose={() => setDrawerVisible(false)}
+          open={drawerVisible}
+          width={260}
+          styles={{ body: { padding: 0, display: 'flex', flexDirection: 'column' } }}
+        >
+          {sidebarContent}
+        </Drawer>
+      )}
+      <Layout>
+        <Header style={{
+          background: '#fff',
+          padding: '0 16px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          borderBottom: '1px solid #f0f0f0',
+          height: 52,
+          lineHeight: '52px',
+          boxShadow: '0 1px 4px rgba(0,0,0,0.04)',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            {isMobile && (
+              <Button type="text" icon={<MenuOutlined style={{ fontSize: 18 }} />} onClick={() => setDrawerVisible(true)} />
+            )}
+            {!isMobile && user?.tenantName && (
+              <Tag color="blue" style={{ marginRight: 0, borderRadius: 4, padding: '2px 10px' }}>
+                {tenantIcons[tenants.find(t => t.id === user?.tenantId)?.business_type || ''] || '🏢'} {user.tenantName}
+              </Tag>
+            )}
+            {isMobile && <Text strong style={{ fontSize: 14 }}>{user?.tenantName || 'ERP'}</Text>}
+          </div>
+          <Dropdown menu={userMenu} placement="bottomRight">
+            <Space style={{ cursor: 'pointer' }}>
+              <Avatar size="small" style={{ backgroundColor: '#1677ff' }} icon={<UserOutlined />} />
+              <span style={{ fontSize: 13 }}>{user?.realName || user?.username}</span>
+              {!isMobile && <Text type="secondary" style={{ fontSize: 12 }}>{roleNames[user?.role || ''] || ''}</Text>}
+            </Space>
+          </Dropdown>
+        </Header>
+        <Content style={{
+          margin: isMobile ? 8 : 16,
+          padding: isMobile ? 12 : 20,
+          background: '#f5f7fa',
+          minHeight: 280,
+          borderRadius: 8,
+        }}>
+          {currentGuide && (
+            <Alert
+              type="info"
+              showIcon
+              style={{ marginBottom: isMobile ? 12 : 16, borderRadius: 8 }}
+              message={currentGuide}
+              closable
+            />
+          )}
+          <Outlet />
+          <HelpGuide />
+        </Content>
+      </Layout>
+    </Layout>
+  );
+};
+
+export default MainLayout;

@@ -1,1 +1,146 @@
-aW1wb3J0IFJlYWN0LCB7IHVzZVN0YXRlLCB1c2VSZWYsIHVzZUVmZmVjdCB9IGZyb20gJ3JlYWN0JzsKaW1wb3J0IHsgQ2FyZCwgSW5wdXQsIEJ1dHRvbiwgQXZhdGFyLCBTcGluLCBUeXBvZ3JhcGh5LCBTcGFjZSwgVGFnLCBSb3csIENvbCwgRW1wdHkgfSBmcm9tICdhbnRkJzsKaW1wb3J0IHsgU2VuZE91dGxpbmVkLCBSb2JvdE91dGxpbmVkLCBVc2VyT3V0bGluZWQsIEJ1bGJPdXRsaW5lZCwgQmFyQ2hhcnRPdXRsaW5lZCB9IGZyb20gJ0BhbnQtZGVzaWduL2ljb25zJzsKaW1wb3J0IHJlcXVlc3QgZnJvbSAnLi4vLi4vYXBpL3JlcXVlc3QnOwppbXBvcnQgeyB2b2ljZVNlcnZpY2UgfSBmcm9tICcuLi8uLi9zZXJ2aWNlcy92b2ljZVNlcnZpY2UnOwoKY29uc3QgeyBUZXh0LCBQYXJhZ3JhcGggfSA9IFR5cG9ncmFwaHk7CmNvbnN0IHsgVGV4dEFyZWEgfSA9IElucHV0OwoKaW50ZXJmYWNlIE1lc3NhZ2UgewogIHJvbGU6ICd1c2VyJyB8ICdhc3Npc3RhbnQnOwogIGNvbnRlbnQ6IHN0cmluZzsKICB0aW1lOiBzdHJpbmc7Cn0KCmNvbnN0IHF1aWNrUXVlc3Rpb25zID0gWwogICfku4rlpKnplIDllK7mg4XlhrXmgI7kuYjmoLfvvJ8nLAogICfmnKzmnIjliKnmtqblpJrlsJHvvJ8nLAogICflk6rkupvllYblk4HljZblvpfmnIDlpb3vvJ8nLAogICflupPlrZjmnInku4DkuYjpooTorabvvJ8nLAogICfnu5nmiJHkuIDkupvnu4/okKXlu7rorq4nLAogICfmnKzmnIjph4fotK3oirHkuoblpJrlsJHvvJ8nCl07Cgpjb25zdCBBSUNoYXQ6IFJlYWN0LkZDID0gKCkgPT4gewogIGNvbnN0IFttZXNzYWdlcywgc2V0TWVzc2FnZXNdID0gdXNlU3RhdGU8TWVzc2FnZVtdPihbCiAgICB7IHJvbGU6ICdhc3Npc3RhbnQnLCBjb250ZW50OiAn5oKo5aW977yB5oiR5piv5oKo55qEQUnnu4/okKXliqnmiYvlsI/mmbog8J+klu+8jOWPr+S7peW4ruaCqOWIhuaekOe7j+iQpeaVsOaNruOAgeino+etlOS4muWKoemXrumimOOAguivleivlemXruaIkSLku4rlpKnljZbkuoblpJrlsJEi5oiWIuW6k+WtmOacieS7gOS5iOmihOitpiLlkKfvvIEnLCB0aW1lOiBuZXcgRGF0ZSgpLnRvTG9jYWxlVGltZVN0cmluZygpIH0KICBdKTsKICBjb25zdCBbaW5wdXQsIHNldElucHV0XSA9IHVzZVN0YXRlKCcnKTsKICBjb25zdCBbbG9hZGluZywgc2V0TG9hZGluZ10gPSB1c2VTdGF0ZShmYWxzZSk7CiAgY29uc3QgW3ZvaWNlT24sIHNldFZvaWNlT25dID0gdXNlU3RhdGUodHJ1ZSk7CiAgY29uc3QgbGlzdFJlZiA9IHVzZVJlZjxIVE1MRGl2RWxlbWVudD4obnVsbCk7CgogIHVzZUVmZmVjdCgoKSA9PiB7CiAgICBpZiAobGlzdFJlZi5jdXJyZW50KSBsaXN0UmVmLmN1cnJlbnQuc2Nyb2xsVG9wID0gbGlzdFJlZi5jdXJyZW50LnNjcm9sbEhlaWdodDsKICB9LCBbbWVzc2FnZXNdKTsKCiAgY29uc3Qgc2VuZCA9IGFzeW5jICh0ZXh0Pzogc3RyaW5nKSA9PiB7CiAgICBjb25zdCBjb250ZW50ID0gKHRleHQgfHwgaW5wdXQpLnRyaW0oKTsKICAgIGlmICghY29udGVudCB8fCBsb2FkaW5nKSByZXR1cm47CiAgICBjb25zdCB1c2VyTXNnOiBNZXNzYWdlID0geyByb2xlOiAndXNlcicsIGNvbnRlbnQsIHRpbWU6IG5ldyBEYXRlKCkudG9Mb2NhbGVUaW1lU3RyaW5nKCkgfTsKICAgIHNldE1lc3NhZ2VzKHByZXYgPT4gWy4uLnByZXYsIHVzZXJNc2ddKTsKICAgIHNldElucHV0KCcnKTsKICAgIHNldExvYWRpbmcodHJ1ZSk7CgogICAgdHJ5IHsKICAgICAgY29uc3QgaGlzdG9yeSA9IG1lc3NhZ2VzLmZpbHRlcihtID0+IG0ucm9sZSAhPT0gJ2Fzc2lzdGFudCcgfHwgbWVzc2FnZXMuaW5kZXhPZihtKSA+IDApLnNsaWNlKC02KS5tYXAobSA9PiAoewogICAgICAgIHJvbGU6IG0ucm9sZSwgY29udGVudDogbS5jb250ZW50CiAgICAgIH0pKTsKICAgICAgY29uc3QgcmVzID0gYXdhaXQgcmVxdWVzdC5wb3N0KCcvYWkvY2hhdCcsIHsgbWVzc2FnZTogY29udGVudCwgaGlzdG9yeSB9KTsKICAgICAgY29uc3QgcmVwbHkgPSByZXMuZGF0YT8uZGF0YT8ucmVwbHkgfHwgcmVzLmRhdGE/LnJlcGx5IHx8ICfmirHmrYnvvIzmiJHmmoLml7bml6Dms5Xlm57nrZTov5nkuKrpl67popjjgIInOwogICAgICBjb25zdCBhaU1zZzogTWVzc2FnZSA9IHsgcm9sZTogJ2Fzc2lzdGFudCcsIGNvbnRlbnQ6IHJlcGx5LCB0aW1lOiBuZXcgRGF0ZSgpLnRvTG9jYWxlVGltZVN0cmluZygpIH07CiAgICAgIHNldE1lc3NhZ2VzKHByZXYgPT4gWy4uLnByZXYsIGFpTXNnXSk7CiAgICAgIGlmICh2b2ljZU9uKSB2b2ljZVNlcnZpY2Uuc3BlYWsocmVwbHkuc2xpY2UoMCwgMjAwKSwgeyByYXRlOiAxLjAgfSk7CiAgICB9IGNhdGNoIChlOiBhbnkpIHsKICAgICAgc2V0TWVzc2FnZXMocHJldiA9PiBbLi4ucHJldiwgeyByb2xlOiAnYXNzaXN0YW50JywgY29udGVudDogYOWHuumUmeS6hu+8miR7ZS5yZXNwb25zZT8uZGF0YT8ubWVzc2FnZSB8fCBlLm1lc3NhZ2V9YCwgdGltZTogbmV3IERhdGUoKS50b0xvY2FsZVRpbWVTdHJpbmcoKSB9XSk7CiAgICB9CiAgICBzZXRMb2FkaW5nKGZhbHNlKTsKICB9OwoKICBjb25zdCBoYW5kbGVLZXlEb3duID0gKGU6IFJlYWN0LktleWJvYXJkRXZlbnQpID0+IHsKICAgIGlmIChlLmtleSA9PT0gJ0VudGVyJyAmJiAhZS5zaGlmdEtleSkgeyBlLnByZXZlbnREZWZhdWx0KCk7IHNlbmQoKTsgfQogIH07CgogIHJldHVybiAoCiAgICA8ZGl2IHN0eWxlPXt7IGRpc3BsYXk6ICdmbGV4JywgZmxleERpcmVjdGlvbjogJ2NvbHVtbicsIGhlaWdodDogJ2NhbGMoMTAwdmggLSAxNDBweCknIH19PgogICAgICA8Q2FyZCBzaXplPSJzbWFsbCIgc3R5bGU9e3sgbWFyZ2luQm90dG9tOiAxMiwgZmxleFNocmluazogMCB9fT4KICAgICAgICA8Um93IGFsaWduPSJtaWRkbGUiIGp1c3RpZnk9InNwYWNlLWJldHdlZW4iPgogICAgICAgICAgPENvbD4KICAgICAgICAgICAgPFNwYWNlPgogICAgICAgICAgICAgIDxBdmF0YXIgaWNvbj17PFJvYm90T3V0bGluZWQgLz59IHN0eWxlPXt7IGJhY2tncm91bmRDb2xvcjogJyMxNjc3ZmYnIH19IC8+CiAgICAgICAgICAgICAgPGRpdj4KICAgICAgICAgICAgICAgIDxUZXh0IHN0cm9uZz5BSee7j+iQpeWKqeaJiyDCtyDlsI/mmbo8L1RleHQ+CiAgICAgICAgICAgICAgICA8ZGl2PjxUYWcgY29sb3I9ImdyZWVuIiBzdHlsZT17eyBmb250U2l6ZTogMTEgfX0+5Zyo57q/PC9UYWc+PFRleHQgdHlwZT0ic2Vjb25kYXJ5IiBzdHlsZT17eyBmb250U2l6ZTogMTEgfX0+5Z+65LqORGVlcFNlZWvlpKfmqKHlnos8L1RleHQ+PC9kaXY+CiAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgIDwvU3BhY2U+CiAgICAgICAgICA8L0NvbD4KICAgICAgICAgIDxDb2w+CiAgICAgICAgICAgIDxTcGFjZT4KICAgICAgICAgICAgICA8QnV0dG9uIHNpemU9InNtYWxsIiB0eXBlPXt2b2ljZU9uID8gJ3ByaW1hcnknIDogJ2RlZmF1bHQnfSBvbkNsaWNrPXsoKSA9PiB7IHNldFZvaWNlT24oIXZvaWNlT24pOyB2b2ljZVNlcnZpY2Uuc2V0RW5hYmxlZCghdm9pY2VPbik7IH19PgogICAgICAgICAgICAgICAge3ZvaWNlT24gPyAn8J+UiiDor63pn7PlvIAnIDogJ/CflIcg6K+t6Z+z5YWzJ30KICAgICAgICAgICAgICA8L0J1dHRvbj4KICAgICAgICAgICAgPC9TcGFjZT4KICAgICAgICAgIDwvQ29sPgogICAgICAgIDwvUm93PgogICAgICA8L0NhcmQ+CgogICAgICB7Lyog5b+r5o236Zeu6aKYICovfQogICAgICB7bWVzc2FnZXMubGVuZ3RoIDw9IDEgJiYgKAogICAgICAgIDxDYXJkIHNpemU9InNtYWxsIiBzdHlsZT17eyBtYXJnaW5Cb3R0b206IDEyLCBmbGV4U2hyaW5rOiAwIH19PgogICAgICAgICAgPFNwYWNlIHdyYXA+CiAgICAgICAgICAgIHtxdWlja1F1ZXN0aW9ucy5tYXAoKHEsIGkpID0+ICgKICAgICAgICAgICAgICA8VGFnIGtleT17aX0gaWNvbj17PEJ1bGJPdXRsaW5lZCAvPn0gY29sb3I9ImJsdWUiIHN0eWxlPXt7IGN1cnNvcjogJ3BvaW50ZXInLCBwYWRkaW5nOiAnNHB4IDEwcHgnLCBmb250U2l6ZTogMTMgfX0KICAgICAgICAgICAgICAgIG9uQ2xpY2s9eygpID0+IHNlbmQocSl9PntxfTwvVGFnPgogICAgICAgICAgICApKX0KICAgICAgICAgIDwvU3BhY2U+CiAgICAgICAgPC9DYXJkPgogICAgICApfQoKICAgICAgey8qIOa2iOaBr+WIl+ihqCAqL30KICAgICAgPGRpdiByZWY9e2xpc3RSZWZ9IHN0eWxlPXt7IGZsZXg6IDEsIG92ZXJmbG93OiAnYXV0bycsIHBhZGRpbmc6ICcwIDRweCcsIG1hcmdpbkJvdHRvbTogMTIgfX0+CiAgICAgICAge21lc3NhZ2VzLm1hcCgobXNnLCBpKSA9PiAoCiAgICAgICAgICA8ZGl2IGtleT17aX0gc3R5bGU9e3sgZGlzcGxheTogJ2ZsZXgnLCBnYXA6IDgsIG1hcmdpbkJvdHRvbTogMTIsIGZsZXhEaXJlY3Rpb246IG1zZy5yb2xlID09PSAndXNlcicgPyAncm93LXJldmVyc2UnIDogJ3JvdycgfX0+CiAgICAgICAgICAgIDxBdmF0YXIgc2l6ZT0ic21hbGwiIGljb249e21zZy5yb2xlID09PSAndXNlcicgPyA8VXNlck91dGxpbmVkIC8+IDogPFJvYm90T3V0bGluZWQgLz59CiAgICAgICAgICAgICAgc3R5bGU9e3sgYmFja2dyb3VuZENvbG9yOiBtc2cucm9sZSA9PT0gJ3VzZXInID8gJyM1MmM0MWEnIDogJyMxNjc3ZmYnLCBmbGV4U2hyaW5rOiAwIH19IC8+CiAgICAgICAgICAgIDxkaXYgc3R5bGU9e3sgbWF4V2lkdGg6ICc4MCUnIH19PgogICAgICAgICAgICAgIDxkaXYgc3R5bGU9e3sKICAgICAgICAgICAgICAgIGJhY2tncm91bmQ6IG1zZy5yb2xlID09PSAndXNlcicgPyAnI2U2ZjRmZicgOiAnI2Y2ZjhmYScsCiAgICAgICAgICAgICAgICBwYWRkaW5nOiAnOHB4IDE0cHgnLCBib3JkZXJSYWRpdXM6IG1zZy5yb2xlID09PSAndXNlcicgPyAnMTRweCAxNHB4IDRweCAxNHB4JyA6ICcxNHB4IDE0cHggMTRweCA0cHgnLAogICAgICAgICAgICAgICAgZm9udFNpemU6IDE0LCBsaW5lSGVpZ2h0OiAxLjYsIHdoaXRlU3BhY2U6ICdwcmUtd3JhcCcsIHdvcmRCcmVhazogJ2JyZWFrLXdvcmQnCiAgICAgICAgICAgICAgfX0+CiAgICAgICAgICAgICAgICB7bXNnLmNvbnRlbnR9CiAgICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICAgICAgPFRleHQgdHlwZT0ic2Vjb25kYXJ5IiBzdHlsZT17eyBmb250U2l6ZTogMTEsIGRpc3BsYXk6ICdibG9jaycsIHRleHRBbGlnbjogbXNnLnJvbGUgPT09ICd1c2VyJyA/ICdyaWdodCcgOiAnbGVmdCcgfX0+e21zZy50aW1lfTwvVGV4dD4KICAgICAgICAgICAgPC9kaXY+CiAgICAgICAgICA8L2Rpdj4KICAgICAgICApKX0KICAgICAgICB7bG9hZGluZyAmJiAoCiAgICAgICAgICA8ZGl2IHN0eWxlPXt7IGRpc3BsYXk6ICdmbGV4JywgZ2FwOiA4LCBhbGlnbkl0ZW1zOiAnY2VudGVyJyB9fT4KICAgICAgICAgICAgPEF2YXRhciBzaXplPSJzbWFsbCIgaWNvbj17PFJvYm90T3V0bGluZWQgLz59IHN0eWxlPXt7IGJhY2tncm91bmRDb2xvcjogJyMxNjc3ZmYnIH19IC8+CiAgICAgICAgICAgIDxTcGluIHNpemU9InNtYWxsIiAvPgogICAgICAgICAgICA8VGV4dCB0eXBlPSJzZWNvbmRhcnkiIHN0eWxlPXt7IGZvbnRTaXplOiAxMiB9fT7lsI/mmbrmraPlnKjmgJ3ogIMuLi48L1RleHQ+CiAgICAgICAgICA8L2Rpdj4KICAgICAgICApfQogICAgICA8L2Rpdj4KCiAgICAgIHsvKiDovpPlhaXljLogKi99CiAgICAgIDxDYXJkIHNpemU9InNtYWxsIiBzdHlsZT17eyBmbGV4U2hyaW5rOiAwIH19PgogICAgICAgIDxTcGFjZS5Db21wYWN0IHN0eWxlPXt7IHdpZHRoOiAnMTAwJScgfX0+CiAgICAgICAgICA8VGV4dEFyZWEKICAgICAgICAgICAgdmFsdWU9e2lucHV0fQogICAgICAgICAgICBvbkNoYW5nZT17ZSA9PiBzZXRJbnB1dChlLnRhcmdldC52YWx1ZSl9CiAgICAgICAgICAgIG9uS2V5RG93bj17aGFuZGxlS2V5RG93bn0KICAgICAgICAgICAgcGxhY2Vob2xkZXI9Iui+k+WFpeaCqOeahOmXrumimO+8jEVudGVy5Y+R6YCB77yMU2hpZnQrRW50ZXLmjaLooYwuLi4iCiAgICAgICAgICAgIGF1dG9TaXplPXt7IG1pblJvd3M6IDEsIG1heFJvd3M6IDQgfX0KICAgICAgICAgICAgZGlzYWJsZWQ9e2xvYWRpbmd9CiAgICAgICAgICAvPgogICAgICAgICAgPEJ1dHRvbiB0eXBlPSJwcmltYXJ5IiBpY29uPXs8U2VuZE91dGxpbmVkIC8+fSBvbkNsaWNrPXsoKSA9PiBzZW5kKCl9IGxvYWRpbmc9e2xvYWRpbmd9CiAgICAgICAgICAgIHN0eWxlPXt7IGhlaWdodDogJ2F1dG8nLCBtaW5XaWR0aDogNzIgfX0+5Y+R6YCBPC9CdXR0b24+CiAgICAgICAgPC9TcGFjZS5Db21wYWN0PgogICAgICA8L0NhcmQ+CiAgICA8L2Rpdj4KICApOwp9OwoKZXhwb3J0IGRlZmF1bHQgQUlDaGF0Owo=
+import React, { useState, useRef, useEffect } from 'react';
+import { Card, Input, Button, Avatar, Spin, Typography, Space, Tag, Row, Col, Empty } from 'antd';
+import { SendOutlined, RobotOutlined, UserOutlined, BulbOutlined, BarChartOutlined } from '@ant-design/icons';
+import request from '../../api/request';
+import { voiceService } from '../../services/voiceService';
+
+const { Text, Paragraph } = Typography;
+const { TextArea } = Input;
+
+interface Message {
+  role: 'user' | 'assistant';
+  content: string;
+  time: string;
+}
+
+const quickQuestions = [
+  '今天销售情况怎么样？',
+  '本月利润多少？',
+  '哪些商品卖得最好？',
+  '库存有什么预警？',
+  '给我一些经营建议',
+  '本月采购花了多少？'
+];
+
+const AIChat: React.FC = () => {
+  const [messages, setMessages] = useState<Message[]>([
+    { role: 'assistant', content: '您好！我是您的AI经营助手小智 🤖，可以帮您分析经营数据、解答业务问题。试试问我"今天卖了多少"或"库存有什么预警"吧！', time: new Date().toLocaleTimeString() }
+  ]);
+  const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [voiceOn, setVoiceOn] = useState(true);
+  const listRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (listRef.current) listRef.current.scrollTop = listRef.current.scrollHeight;
+  }, [messages]);
+
+  const send = async (text?: string) => {
+    const content = (text || input).trim();
+    if (!content || loading) return;
+    const userMsg: Message = { role: 'user', content, time: new Date().toLocaleTimeString() };
+    setMessages(prev => [...prev, userMsg]);
+    setInput('');
+    setLoading(true);
+
+    try {
+      const history = messages.filter(m => m.role !== 'assistant' || messages.indexOf(m) > 0).slice(-6).map(m => ({
+        role: m.role, content: m.content
+      }));
+      const res = await request.post('/ai/chat', { message: content, history });
+      const reply = res.data?.data?.reply || res.data?.reply || '抱歉，我暂时无法回答这个问题。';
+      const aiMsg: Message = { role: 'assistant', content: reply, time: new Date().toLocaleTimeString() };
+      setMessages(prev => [...prev, aiMsg]);
+      if (voiceOn) voiceService.speak(reply.slice(0, 200), { rate: 1.0 });
+    } catch (e: any) {
+      setMessages(prev => [...prev, { role: 'assistant', content: `出错了：${e.response?.data?.message || e.message}`, time: new Date().toLocaleTimeString() }]);
+    }
+    setLoading(false);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+  };
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', height: 'calc(100vh - 140px)' }}>
+      <Card size="small" style={{ marginBottom: 12, flexShrink: 0 }}>
+        <Row align="middle" justify="space-between">
+          <Col>
+            <Space>
+              <Avatar icon={<RobotOutlined />} style={{ backgroundColor: '#1677ff' }} />
+              <div>
+                <Text strong>AI经营助手 · 小智</Text>
+                <div><Tag color="green" style={{ fontSize: 11 }}>在线</Tag><Text type="secondary" style={{ fontSize: 11 }}>基于DeepSeek大模型</Text></div>
+              </div>
+            </Space>
+          </Col>
+          <Col>
+            <Space>
+              <Button size="small" type={voiceOn ? 'primary' : 'default'} onClick={() => { setVoiceOn(!voiceOn); voiceService.setEnabled(!voiceOn); }}>
+                {voiceOn ? '🔊 语音开' : '🔇 语音关'}
+              </Button>
+            </Space>
+          </Col>
+        </Row>
+      </Card>
+
+      {/* 快捷问题 */}
+      {messages.length <= 1 && (
+        <Card size="small" style={{ marginBottom: 12, flexShrink: 0 }}>
+          <Space wrap>
+            {quickQuestions.map((q, i) => (
+              <Tag key={i} icon={<BulbOutlined />} color="blue" style={{ cursor: 'pointer', padding: '4px 10px', fontSize: 13 }}
+                onClick={() => send(q)}>{q}</Tag>
+            ))}
+          </Space>
+        </Card>
+      )}
+
+      {/* 消息列表 */}
+      <div ref={listRef} style={{ flex: 1, overflow: 'auto', padding: '0 4px', marginBottom: 12 }}>
+        {messages.map((msg, i) => (
+          <div key={i} style={{ display: 'flex', gap: 8, marginBottom: 12, flexDirection: msg.role === 'user' ? 'row-reverse' : 'row' }}>
+            <Avatar size="small" icon={msg.role === 'user' ? <UserOutlined /> : <RobotOutlined />}
+              style={{ backgroundColor: msg.role === 'user' ? '#52c41a' : '#1677ff', flexShrink: 0 }} />
+            <div style={{ maxWidth: '80%' }}>
+              <div style={{
+                background: msg.role === 'user' ? '#e6f4ff' : '#f6f8fa',
+                padding: '8px 14px', borderRadius: msg.role === 'user' ? '14px 14px 4px 14px' : '14px 14px 14px 4px',
+                fontSize: 14, lineHeight: 1.6, whiteSpace: 'pre-wrap', wordBreak: 'break-word'
+              }}>
+                {msg.content}
+              </div>
+              <Text type="secondary" style={{ fontSize: 11, display: 'block', textAlign: msg.role === 'user' ? 'right' : 'left' }}>{msg.time}</Text>
+            </div>
+          </div>
+        ))}
+        {loading && (
+          <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+            <Avatar size="small" icon={<RobotOutlined />} style={{ backgroundColor: '#1677ff' }} />
+            <Spin size="small" />
+            <Text type="secondary" style={{ fontSize: 12 }}>小智正在思考...</Text>
+          </div>
+        )}
+      </div>
+
+      {/* 输入区 */}
+      <Card size="small" style={{ flexShrink: 0 }}>
+        <Space.Compact style={{ width: '100%' }}>
+          <TextArea
+            value={input}
+            onChange={e => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="输入您的问题，Enter发送，Shift+Enter换行..."
+            autoSize={{ minRows: 1, maxRows: 4 }}
+            disabled={loading}
+          />
+          <Button type="primary" icon={<SendOutlined />} onClick={() => send()} loading={loading}
+            style={{ height: 'auto', minWidth: 72 }}>发送</Button>
+        </Space.Compact>
+      </Card>
+    </div>
+  );
+};
+
+export default AIChat;

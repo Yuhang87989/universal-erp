@@ -1,1 +1,191 @@
-aW1wb3J0IFJlYWN0LCB7IHVzZVN0YXRlLCB1c2VFZmZlY3QgfSBmcm9tICdyZWFjdCc7CmltcG9ydCB7IENhcmQsIEJ1dHRvbiwgRm9ybSwgSW5wdXQsIElucHV0TnVtYmVyLCBTd2l0Y2gsIFNwYWNlLCBtZXNzYWdlLCBUYWJzLCBUYWcsIERlc2NyaXB0aW9ucywgU3BpbiwgVHlwb2dyYXBoeSwgUm93LCBDb2wsIERpdmlkZXIsIEFsZXJ0IH0gZnJvbSAnYW50ZCc7CmltcG9ydCB7IFNhdmVPdXRsaW5lZCwgQXBpT3V0bGluZWQsIENoZWNrQ2lyY2xlT3V0bGluZWQsIFdhcm5pbmdPdXRsaW5lZCB9IGZyb20gJ0BhbnQtZGVzaWduL2ljb25zJzsKaW1wb3J0IHJlcXVlc3QgZnJvbSAnLi4vLi4vYXBpL3JlcXVlc3QnOwoKY29uc3QgeyBUaXRsZSwgVGV4dCB9ID0gVHlwb2dyYXBoeTsKCmNvbnN0IGNoYW5uZWxNZXRhOiBSZWNvcmQ8c3RyaW5nLCB7IG5hbWU6IHN0cmluZzsgaWNvbjogc3RyaW5nOyBjb2xvcjogc3RyaW5nIH0+ID0gewogIGNhc2g6IHsgbmFtZTogJ+eOsOmHkScsIGljb246ICfwn5K1JywgY29sb3I6ICdncmVlbicgfSwKICB3ZWNoYXRfcGF5OiB7IG5hbWU6ICflvq7kv6HmlK/ku5gnLCBpY29uOiAn8J+SmicsIGNvbG9yOiAnc3VjY2VzcycgfSwKICBhbGlwYXk6IHsgbmFtZTogJ+aUr+S7mOWunScsIGljb246ICfwn5KZJywgY29sb3I6ICdibHVlJyB9LAogIGJhbmtfdHJhbnNmZXI6IHsgbmFtZTogJ+mTtuihjOi9rOi0picsIGljb246ICfwn4+mJywgY29sb3I6ICdnb2xkJyB9Cn07Cgpjb25zdCBQYXltZW50U2V0dGluZ3M6IFJlYWN0LkZDID0gKCkgPT4gewogIGNvbnN0IFtjaGFubmVscywgc2V0Q2hhbm5lbHNdID0gdXNlU3RhdGU8YW55W10+KFtdKTsKICBjb25zdCBbbG9hZGluZywgc2V0TG9hZGluZ10gPSB1c2VTdGF0ZShmYWxzZSk7CiAgY29uc3QgW3NhdmluZywgc2V0U2F2aW5nXSA9IHVzZVN0YXRlKGZhbHNlKTsKICBjb25zdCBbdGVzdGluZywgc2V0VGVzdGluZ10gPSB1c2VTdGF0ZTxudW1iZXIgfCBudWxsPihudWxsKTsKICBjb25zdCBbdGVzdFJlc3VsdHMsIHNldFRlc3RSZXN1bHRzXSA9IHVzZVN0YXRlPFJlY29yZDxudW1iZXIsIGFueT4+KHt9KTsKICBjb25zdCBbZm9ybXNdID0gW0Zvcm0udXNlRm9ybSgpXTsgLy8gcGxhY2Vob2xkZXIKCiAgY29uc3QgbG9hZCA9IGFzeW5jICgpID0+IHsKICAgIHNldExvYWRpbmcodHJ1ZSk7CiAgICB0cnkgewogICAgICBjb25zdCByZXMgPSBhd2FpdCByZXF1ZXN0LmdldCgnL3BheW1lbnQvY2hhbm5lbHMnKTsKICAgICAgc2V0Q2hhbm5lbHMoQXJyYXkuaXNBcnJheShyZXMuZGF0YSkgPyByZXMuZGF0YSA6IChyZXMuZGF0YT8ubGlzdCB8fCByZXMuZGF0YT8uZGF0YSB8fCBbXSkpOwogICAgfSBjYXRjaCAoZSkgeyAvKiBpZ25vcmUgKi8gfQogICAgc2V0TG9hZGluZyhmYWxzZSk7CiAgfTsKCiAgdXNlRWZmZWN0KCgpID0+IHsgbG9hZCgpOyB9LCBbXSk7CgogIGNvbnN0IGhhbmRsZVNhdmUgPSBhc3luYyAoaWQ6IG51bWJlciwgdmFsdWVzOiBhbnkpID0+IHsKICAgIHNldFNhdmluZyh0cnVlKTsKICAgIHRyeSB7CiAgICAgIGF3YWl0IHJlcXVlc3QucHV0KGAvcGF5bWVudC9jaGFubmVscy8ke2lkfWAsIHZhbHVlcyk7CiAgICAgIG1lc3NhZ2Uuc3VjY2Vzcygn6YWN572u5bey5L+d5a2YJyk7CiAgICAgIGxvYWQoKTsKICAgIH0gY2F0Y2ggKGU6IGFueSkgewogICAgICBtZXNzYWdlLmVycm9yKGUucmVzcG9uc2U/LmRhdGE/Lm1lc3NhZ2UgfHwgJ+S/neWtmOWksei0pScpOwogICAgfQogICAgc2V0U2F2aW5nKGZhbHNlKTsKICB9OwoKICBjb25zdCBoYW5kbGVUZXN0ID0gYXN5bmMgKGlkOiBudW1iZXIpID0+IHsKICAgIHNldFRlc3RpbmcoaWQpOwogICAgdHJ5IHsKICAgICAgY29uc3QgcmVzID0gYXdhaXQgcmVxdWVzdC5wb3N0KGAvcGF5bWVudC9jaGFubmVscy8ke2lkfS90ZXN0YCk7CiAgICAgIHNldFRlc3RSZXN1bHRzKHByZXYgPT4gKHsgLi4ucHJldiwgW2lkXTogcmVzLmRhdGEgfHwge30gfSkpOwogICAgICBjb25zdCBkYXRhID0gcmVzLmRhdGEgfHwge307CiAgICAgIGlmIChkYXRhPy5zdGF0dXMgPT09ICdyZWFkeScpIG1lc3NhZ2Uuc3VjY2Vzcygn6YWN572u5qOA5p+l6YCa6L+HJyk7CiAgICAgIGVsc2UgbWVzc2FnZS53YXJuaW5nKCfphY3nva7kuI3lrozmlbTvvIzor7fooaXlhYUnKTsKICAgIH0gY2F0Y2ggKGU6IGFueSkgewogICAgICBtZXNzYWdlLmVycm9yKCfmtYvor5XlpLHotKUnKTsKICAgIH0KICAgIHNldFRlc3RpbmcobnVsbCk7CiAgfTsKCiAgY29uc3QgcmVuZGVyV2VjaGF0Rm9ybSA9IChjaDogYW55KSA9PiAoCiAgICA8Rm9ybSBsYXlvdXQ9InZlcnRpY2FsIiBpbml0aWFsVmFsdWVzPXtjaH0gb25GaW5pc2g9eyh2KSA9PiBoYW5kbGVTYXZlKGNoLmlkLCB2KX0+CiAgICAgIDxSb3cgZ3V0dGVyPXsxNn0+CiAgICAgICAgPENvbCBzcGFuPXsxMn0+PEZvcm0uSXRlbSBuYW1lPSJ3ZWNoYXRfYXBwaWQiIGxhYmVsPSJBcHBJRO+8iOWFrOS8l+WPty/lsI/nqIvluo8vQVBQ77yJIj48SW5wdXQgcGxhY2Vob2xkZXI9Ind45byA5aS055qE5bqU55SoSUQiIC8+PC9Gb3JtLkl0ZW0+PC9Db2w+CiAgICAgICAgPENvbCBzcGFuPXsxMn0+PEZvcm0uSXRlbSBuYW1lPSJ3ZWNoYXRfbWNoX2lkIiBsYWJlbD0i5b6u5L+h5ZWG5oi35Y+3Ij48SW5wdXQgcGxhY2Vob2xkZXI9IuWmgiAxNjAwMDAwMDAwIiAvPjwvRm9ybS5JdGVtPjwvQ29sPgogICAgICA8L1Jvdz4KICAgICAgPFJvdyBndXR0ZXI9ezE2fT4KICAgICAgICA8Q29sIHNwYW49ezEyfT48Rm9ybS5JdGVtIG5hbWU9IndlY2hhdF9hcGlfa2V5IiBsYWJlbD0iQVBJdjPlr4bpkqUiPjxJbnB1dC5QYXNzd29yZCBwbGFjZWhvbGRlcj0i55WZ56m65YiZ5LiN5L+u5pS5IiAvPjwvRm9ybS5JdGVtPjwvQ29sPgogICAgICAgIDxDb2wgc3Bhbj17MTJ9PjxGb3JtLkl0ZW0gbmFtZT0id2VjaGF0X25vdGlmeV91cmwiIGxhYmVsPSLmlK/ku5jlm57osIPlnLDlnYAiPjxJbnB1dCBwbGFjZWhvbGRlcj0iaHR0cHM6Ly95b3VyZG9tYWluLmNvbS9hcGkvcGF5bWVudC9jYWxsYmFjay93ZWNoYXRfcGF5IiAvPjwvRm9ybS5JdGVtPjwvQ29sPgogICAgICA8L1Jvdz4KICAgICAgPEZvcm0uSXRlbSBuYW1lPSJ3ZWNoYXRfY2VydF9wYXRoIiBsYWJlbD0i5ZWG5oi36K+B5Lmm6Lev5b6E77yIYXBpY2xpZW50X2NlcnQucGVt77yJIj48SW5wdXQgcGxhY2Vob2xkZXI9Ii9wYXRoL3RvL2FwaWNsaWVudF9jZXJ0LnBlbSIgLz48L0Zvcm0uSXRlbT4KICAgICAgPERpdmlkZXIgb3JpZW50YXRpb249ImxlZnQiPuaJi+e7rei0ueiuvue9rjwvRGl2aWRlcj4KICAgICAgPFJvdyBndXR0ZXI9ezE2fT4KICAgICAgICA8Q29sIHNwYW49ezEyfT48Rm9ybS5JdGVtIG5hbWU9ImZlZV9yYXRlIiBsYWJlbD0i5omL57ut6LS5546HIj48SW5wdXROdW1iZXIgbWluPXswfSBtYXg9ezF9IHN0ZXA9ezAuMDAxfSBzdHlsZT17eyB3aWR0aDogJzEwMCUnIH19IGFkZG9uQWZ0ZXI9IiUiIGZvcm1hdHRlcj17diA9PiB2ID8gYCR7KE51bWJlcih2KSAqIDEwMCkudG9GaXhlZCgyKX1gIDogJyd9IHBhcnNlcj17diA9PiBOdW1iZXIodikgLyAxMDAgYXMgYW55fSAvPjwvRm9ybS5JdGVtPjwvQ29sPgogICAgICAgIDxDb2wgc3Bhbj17MTJ9PjxGb3JtLkl0ZW0gbmFtZT0iZmVlX2ZpeGVkIiBsYWJlbD0i5q+P56yU5Zu65a6a5omL57ut6LS5Ij48SW5wdXROdW1iZXIgbWluPXswfSBwcmVjaXNpb249ezJ9IHN0eWxlPXt7IHdpZHRoOiAnMTAwJScgfX0gcHJlZml4PSLCpSIgLz48L0Zvcm0uSXRlbT48L0NvbD4KICAgICAgPC9Sb3c+CiAgICAgIDxTcGFjZT4KICAgICAgICA8QnV0dG9uIHR5cGU9InByaW1hcnkiIGh0bWxUeXBlPSJzdWJtaXQiIGljb249ezxTYXZlT3V0bGluZWQgLz59IGxvYWRpbmc9e3NhdmluZ30+5L+d5a2Y6YWN572uPC9CdXR0b24+CiAgICAgICAgPEJ1dHRvbiBpY29uPXs8QXBpT3V0bGluZWQgLz59IGxvYWRpbmc9e3Rlc3RpbmcgPT09IGNoLmlkfSBvbkNsaWNrPXsoKSA9PiBoYW5kbGVUZXN0KGNoLmlkKX0+5rWL6K+V6L+e5o6lPC9CdXR0b24+CiAgICAgICAgPEZvcm0uSXRlbSBuYW1lPSJpc19lbmFibGVkIiB2YWx1ZVByb3BOYW1lPSJjaGVja2VkIiBub1N0eWxlPjxTd2l0Y2ggY2hlY2tlZENoaWxkcmVuPSLlkK/nlKgiIHVuQ2hlY2tlZENoaWxkcmVuPSLlgZznlKgiIC8+PC9Gb3JtLkl0ZW0+CiAgICAgICAgPEZvcm0uSXRlbSBuYW1lPSJpc19kZWZhdWx0IiB2YWx1ZVByb3BOYW1lPSJjaGVja2VkIiBub1N0eWxlPjxTd2l0Y2ggY2hlY2tlZENoaWxkcmVuPSLpu5jorqQiIHVuQ2hlY2tlZENoaWxkcmVuPSLpnZ7pu5jorqQiIC8+PC9Gb3JtLkl0ZW0+CiAgICAgIDwvU3BhY2U+CiAgICAgIHt0ZXN0UmVzdWx0c1tjaC5pZF0gJiYgKAogICAgICAgIDxBbGVydCBzdHlsZT17eyBtYXJnaW5Ub3A6IDE2IH19IHR5cGU9e3Rlc3RSZXN1bHRzW2NoLmlkXS5zdGF0dXMgPT09ICdyZWFkeScgPyAnc3VjY2VzcycgOiAnd2FybmluZyd9CiAgICAgICAgICBtZXNzYWdlPXt0ZXN0UmVzdWx0c1tjaC5pZF0ubWVzc2FnZX0KICAgICAgICAgIGRlc2NyaXB0aW9uPXt0ZXN0UmVzdWx0c1tjaC5pZF0uY2hlY2tzPy5tYXAoKGM6IGFueSwgaTogbnVtYmVyKSA9PiAoCiAgICAgICAgICAgIDxkaXYga2V5PXtpfT57Yy5vayA/IDxDaGVja0NpcmNsZU91dGxpbmVkIHN0eWxlPXt7IGNvbG9yOiAnIzUyYzQxYScgfX0gLz4gOiA8V2FybmluZ091dGxpbmVkIHN0eWxlPXt7IGNvbG9yOiAnI2ZhYWQxNCcgfX0gLz59IHtjLml0ZW19OiB7Yy5tc2d9PC9kaXY+CiAgICAgICAgICApKX0gLz4KICAgICAgKX0KICAgICAgPEFsZXJ0IHN0eWxlPXt7IG1hcmdpblRvcDogMTIgfX0gdHlwZT0iaW5mbyIgc2hvd0ljb24gbWVzc2FnZT0i5a+55o6l6K+05piOIgogICAgICAgIGRlc2NyaXB0aW9uPSLlvq7kv6HmlK/ku5jpnIDkvIHkuJrotYTotKjvvIjokKXkuJrmiafnhacr5a+55YWs6LSm5oi377yJ44CC6YWN572u5a6M5oiQ5ZCO77yM57O757uf5bCG6YCa6L+H5b6u5L+h5pSv5LuYVjMgQVBJ57uf5LiA5LiL5Y2V77yM5pSv5oyBSlNBUEkvQVBQL0g1L05hdGl2ZeaJq+eggeOAguW9k+WJjeS4uuaOpeWPo+mihOeVmemYtuaute+8jOmDqOe9suaXtuWhq+WFpeecn+WunuWVhuaIt+WHreivgeWNs+WPr+WQr+eUqOOAgiIgLz4KICAgIDwvRm9ybT4KICApOwoKICBjb25zdCByZW5kZXJBbGlwYXlGb3JtID0gKGNoOiBhbnkpID0+ICgKICAgIDxGb3JtIGxheW91dD0idmVydGljYWwiIGluaXRpYWxWYWx1ZXM9e2NofSBvbkZpbmlzaD17KHYpID0+IGhhbmRsZVNhdmUoY2guaWQsIHYpfT4KICAgICAgPFJvdyBndXR0ZXI9ezE2fT4KICAgICAgICA8Q29sIHNwYW49ezEyfT48Rm9ybS5JdGVtIG5hbWU9ImFsaXBheV9hcHBfaWQiIGxhYmVsPSLmlK/ku5jlrp3lupTnlKhJRCAoQVBQSUQpIj48SW5wdXQgcGxhY2Vob2xkZXI9IuWmgiAyMDIxMDAwMDAwMDAwMDAwIiAvPjwvRm9ybS5JdGVtPjwvQ29sPgogICAgICAgIDxDb2wgc3Bhbj17MTJ9PjxGb3JtLkl0ZW0gbmFtZT0iYWxpcGF5X3NhbmRib3giIGxhYmVsPSLmspnnrrHnjq/looMiIHZhbHVlUHJvcE5hbWU9ImNoZWNrZWQiPjxTd2l0Y2ggY2hlY2tlZENoaWxkcmVuPSLmspnnrrEiIHVuQ2hlY2tlZENoaWxkcmVuPSLmraPlvI8iIC8+PC9Gb3JtLkl0ZW0+PC9Db2w+CiAgICAgIDwvUm93PgogICAgICA8Rm9ybS5JdGVtIG5hbWU9ImFsaXBheV9wcml2YXRlX2tleSIgbGFiZWw9IuW6lOeUqOengemSpSI+PElucHV0LlRleHRBcmVhIHJvd3M9ezN9IHBsYWNlaG9sZGVyPSLnlZnnqbrliJnkuI3kv67mlLnvvIhSU0Ey56eB6ZKl77yJIiAvPjwvRm9ybS5JdGVtPgogICAgICA8Rm9ybS5JdGVtIG5hbWU9ImFsaXBheV9wdWJsaWNfa2V5IiBsYWJlbD0i5pSv5LuY5a6d5YWs6ZKlIj48SW5wdXQuVGV4dEFyZWEgcm93cz17M30gcGxhY2Vob2xkZXI9IueVmeepuuWImeS4jeS/ruaUuSIgLz48L0Zvcm0uSXRlbT4KICAgICAgPEZvcm0uSXRlbSBuYW1lPSJhbGlwYXlfbm90aWZ5X3VybCIgbGFiZWw9IuW8guatpeWbnuiwg+WcsOWdgCI+PElucHV0IHBsYWNlaG9sZGVyPSJodHRwczovL3lvdXJkb21haW4uY29tL2FwaS9wYXltZW50L2NhbGxiYWNrL2FsaXBheSIgLz48L0Zvcm0uSXRlbT4KICAgICAgPERpdmlkZXIgb3JpZW50YXRpb249ImxlZnQiPuaJi+e7rei0ueiuvue9rjwvRGl2aWRlcj4KICAgICAgPFJvdyBndXR0ZXI9ezE2fT4KICAgICAgICA8Q29sIHNwYW49ezEyfT48Rm9ybS5JdGVtIG5hbWU9ImZlZV9yYXRlIiBsYWJlbD0i5omL57ut6LS5546HIj48SW5wdXROdW1iZXIgbWluPXswfSBtYXg9ezF9IHN0ZXA9ezAuMDAxfSBzdHlsZT17eyB3aWR0aDogJzEwMCUnIH19IGZvcm1hdHRlcj17diA9PiB2ID8gYCR7KE51bWJlcih2KSAqIDEwMCkudG9GaXhlZCgyKX0lYCA6ICcnfSBwYXJzZXI9e3YgPT4gTnVtYmVyKCh2IGFzIHN0cmluZykucmVwbGFjZSgnJScsICcnKSkgLyAxMDAgYXMgYW55fSAvPjwvRm9ybS5JdGVtPjwvQ29sPgogICAgICAgIDxDb2wgc3Bhbj17MTJ9PjxGb3JtLkl0ZW0gbmFtZT0iZmVlX2ZpeGVkIiBsYWJlbD0i5q+P56yU5Zu65a6a5omL57ut6LS5Ij48SW5wdXROdW1iZXIgbWluPXswfSBwcmVjaXNpb249ezJ9IHN0eWxlPXt7IHdpZHRoOiAnMTAwJScgfX0gcHJlZml4PSLCpSIgLz48L0Zvcm0uSXRlbT48L0NvbD4KICAgICAgPC9Sb3c+CiAgICAgIDxTcGFjZT4KICAgICAgICA8QnV0dG9uIHR5cGU9InByaW1hcnkiIGh0bWxUeXBlPSJzdWJtaXQiIGljb249ezxTYXZlT3V0bGluZWQgLz59IGxvYWRpbmc9e3NhdmluZ30+5L+d5a2Y6YWN572uPC9CdXR0b24+CiAgICAgICAgPEJ1dHRvbiBpY29uPXs8QXBpT3V0bGluZWQgLz59IGxvYWRpbmc9e3Rlc3RpbmcgPT09IGNoLmlkfSBvbkNsaWNrPXsoKSA9PiBoYW5kbGVUZXN0KGNoLmlkKX0+5rWL6K+V6L+e5o6lPC9CdXR0b24+CiAgICAgICAgPEZvcm0uSXRlbSBuYW1lPSJpc19lbmFibGVkIiB2YWx1ZVByb3BOYW1lPSJjaGVja2VkIiBub1N0eWxlPjxTd2l0Y2ggY2hlY2tlZENoaWxkcmVuPSLlkK/nlKgiIHVuQ2hlY2tlZENoaWxkcmVuPSLlgZznlKgiIC8+PC9Gb3JtLkl0ZW0+CiAgICAgIDwvU3BhY2U+CiAgICAgIHt0ZXN0UmVzdWx0c1tjaC5pZF0gJiYgKAogICAgICAgIDxBbGVydCBzdHlsZT17eyBtYXJnaW5Ub3A6IDE2IH19IHR5cGU9e3Rlc3RSZXN1bHRzW2NoLmlkXS5zdGF0dXMgPT09ICdyZWFkeScgPyAnc3VjY2VzcycgOiAnd2FybmluZyd9IG1lc3NhZ2U9e3Rlc3RSZXN1bHRzW2NoLmlkXS5tZXNzYWdlfQogICAgICAgICAgZGVzY3JpcHRpb249e3Rlc3RSZXN1bHRzW2NoLmlkXS5jaGVja3M/Lm1hcCgoYzogYW55LCBpOiBudW1iZXIpID0+ICgKICAgICAgICAgICAgPGRpdiBrZXk9e2l9PntjLm9rID8gPENoZWNrQ2lyY2xlT3V0bGluZWQgc3R5bGU9e3sgY29sb3I6ICcjNTJjNDFhJyB9fSAvPiA6IDxXYXJuaW5nT3V0bGluZWQgc3R5bGU9e3sgY29sb3I6ICcjZmFhZDE0JyB9fSAvPn0ge2MuaXRlbX06IHtjLm1zZ308L2Rpdj4KICAgICAgICAgICkpfSAvPgogICAgICApfQogICAgICA8QWxlcnQgc3R5bGU9e3sgbWFyZ2luVG9wOiAxMiB9fSB0eXBlPSJpbmZvIiBzaG93SWNvbiBtZXNzYWdlPSLlr7nmjqXor7TmmI4iCiAgICAgICAgZGVzY3JpcHRpb249IuaUr+S7mOWuneW9k+mdouS7mC/nlLXohJHnvZHnq5nmlK/ku5jpnIDkvIHkuJrmiJbkuKrkvZPlt6XllYbmiLfotYTotKjjgILloavlhaVBUFBJRCtSU0Ey5a+G6ZKl5ZCO5Y2z5Y+v6LCD55SoYWxpcGF5LnRyYWRlLnByZWNyZWF0ZS9jcmVhdGXmjqXlj6PjgILlvZPliY3kuLrmjqXlj6PpooTnlZnpmLbmrrXjgIIiIC8+CiAgICA8L0Zvcm0+CiAgKTsKCiAgY29uc3QgcmVuZGVyQmFua0Zvcm0gPSAoY2g6IGFueSkgPT4gKAogICAgPEZvcm0gbGF5b3V0PSJ2ZXJ0aWNhbCIgaW5pdGlhbFZhbHVlcz17Y2h9IG9uRmluaXNoPXsodikgPT4gaGFuZGxlU2F2ZShjaC5pZCwgdil9PgogICAgICA8QWxlcnQgdHlwZT0id2FybmluZyIgc2hvd0ljb24gc3R5bGU9e3sgbWFyZ2luQm90dG9tOiAxNiB9fQogICAgICAgIG1lc3NhZ2U9IumTtuihjOi9rOi0puS4uue6v+S4i+aUr+S7mOaWueW8jyIKICAgICAgICBkZXNjcmlwdGlvbj0i5a6i5oi36YCa6L+H572R6ZO2L+afnOWPsOi9rOi0puWIsOaMh+WumumTtuihjOi0puaIt++8jOi0ouWKoeehruiupOWIsOi0puWQjuaJi+WKqOagh+iusOaUtuasvuOAguezu+e7n+iusOW9leS6pOaYk+a1geawtO+8jOS4jeebtOaOpeWvueaOpemTtuihjOe9keWFs++8iOWmgumcgOmTtuS8geebtOiBlOmcgOWPpuihjOW8gOmAmu+8ieOAgiIgLz4KICAgICAgPFJvdyBndXR0ZXI9ezE2fT4KICAgICAgICA8Q29sIHNwYW49ezEyfT48Rm9ybS5JdGVtIG5hbWU9ImJhbmtfbmFtZSIgbGFiZWw9IuW8gOaIt+mTtuihjCIgcnVsZXM9e1t7IHJlcXVpcmVkOiB0cnVlIH1dfT48SW5wdXQgcGxhY2Vob2xkZXI9IuWmgiDkuK3lm73lu7rorr7pk7booYwiIC8+PC9Gb3JtLkl0ZW0+PC9Db2w+CiAgICAgICAgPENvbCBzcGFuPXsxMn0+PEZvcm0uSXRlbSBuYW1lPSJiYW5rX2FjY291bnRfbmFtZSIgbGFiZWw9Iui0puaIt+WQjeensCIgcnVsZXM9e1t7IHJlcXVpcmVkOiB0cnVlIH1dfT48SW5wdXQgcGxhY2Vob2xkZXI9IuWmgiDmrabmsYnluILmsZ/lsrjljLrlrofoiKrmmbrojZ/nlLXllYbokKXkuJrpg6giIC8+PC9Gb3JtLkl0ZW0+PC9Db2w+CiAgICAgIDwvUm93PgogICAgICA8Um93IGd1dHRlcj17MTZ9PgogICAgICAgIDxDb2wgc3Bhbj17MTJ9PjxGb3JtLkl0ZW0gbmFtZT0iYmFua19hY2NvdW50X25vIiBsYWJlbD0i6ZO26KGM6LSm5Y+3IiBydWxlcz17W3sgcmVxdWlyZWQ6IHRydWUgfV19PjxJbnB1dCBwbGFjZWhvbGRlcj0i5a+55YWs6ZO26KGM6LSm5Y+3IiAvPjwvRm9ybS5JdGVtPjwvQ29sPgogICAgICAgIDxDb2wgc3Bhbj17MTJ9PjxGb3JtLkl0ZW0gbmFtZT0iYmFua19icmFuY2giIGxhYmVsPSLlvIDmiLfmlK/ooYwiPjxJbnB1dCBwbGFjZWhvbGRlcj0i5aaCIOatpuaxieaxn+WyuOaUr+ihjCIgLz48L0Zvcm0uSXRlbT48L0NvbD4KICAgICAgPC9Sb3c+CiAgICAgIDxTcGFjZT4KICAgICAgICA8QnV0dG9uIHR5cGU9InByaW1hcnkiIGh0bWxUeXBlPSJzdWJtaXQiIGljb249ezxTYXZlT3V0bGluZWQgLz59IGxvYWRpbmc9e3NhdmluZ30+5L+d5a2Y6YWN572uPC9CdXR0b24+CiAgICAgICAgPEJ1dHRvbiBpY29uPXs8QXBpT3V0bGluZWQgLz59IGxvYWRpbmc9e3Rlc3RpbmcgPT09IGNoLmlkfSBvbkNsaWNrPXsoKSA9PiBoYW5kbGVUZXN0KGNoLmlkKX0+6aqM6K+B6YWN572uPC9CdXR0b24+CiAgICAgICAgPEZvcm0uSXRlbSBuYW1lPSJpc19lbmFibGVkIiB2YWx1ZVByb3BOYW1lPSJjaGVja2VkIiBub1N0eWxlPjxTd2l0Y2ggY2hlY2tlZENoaWxkcmVuPSLlkK/nlKgiIHVuQ2hlY2tlZENoaWxkcmVuPSLlgZznlKgiIC8+PC9Gb3JtLkl0ZW0+CiAgICAgICAgPEZvcm0uSXRlbSBuYW1lPSJpc19kZWZhdWx0IiB2YWx1ZVByb3BOYW1lPSJjaGVja2VkIiBub1N0eWxlPjxTd2l0Y2ggY2hlY2tlZENoaWxkcmVuPSLpu5jorqQiIHVuQ2hlY2tlZENoaWxkcmVuPSLpnZ7pu5jorqQiIC8+PC9Gb3JtLkl0ZW0+CiAgICAgIDwvU3BhY2U+CiAgICAgIHt0ZXN0UmVzdWx0c1tjaC5pZF0gJiYgKAogICAgICAgIDxBbGVydCBzdHlsZT17eyBtYXJnaW5Ub3A6IDE2IH19IHR5cGU9e3Rlc3RSZXN1bHRzW2NoLmlkXS5zdGF0dXMgPT09ICdyZWFkeScgPyAnc3VjY2VzcycgOiAnd2FybmluZyd9IG1lc3NhZ2U9e3Rlc3RSZXN1bHRzW2NoLmlkXS5tZXNzYWdlfQogICAgICAgICAgZGVzY3JpcHRpb249e3Rlc3RSZXN1bHRzW2NoLmlkXS5jaGVja3M/Lm1hcCgoYzogYW55LCBpOiBudW1iZXIpID0+ICgKICAgICAgICAgICAgPGRpdiBrZXk9e2l9PntjLm9rID8gPENoZWNrQ2lyY2xlT3V0bGluZWQgc3R5bGU9e3sgY29sb3I6ICcjNTJjNDFhJyB9fSAvPiA6IDxXYXJuaW5nT3V0bGluZWQgc3R5bGU9e3sgY29sb3I6ICcjZmFhZDE0JyB9fSAvPn0ge2MuaXRlbX06IHtjLm1zZ308L2Rpdj4KICAgICAgICAgICkpfSAvPgogICAgICApfQogICAgPC9Gb3JtPgogICk7CgogIGNvbnN0IHJlbmRlckNhc2hGb3JtID0gKGNoOiBhbnkpID0+ICgKICAgIDxGb3JtIGxheW91dD0idmVydGljYWwiIGluaXRpYWxWYWx1ZXM9e2NofSBvbkZpbmlzaD17KHYpID0+IGhhbmRsZVNhdmUoY2guaWQsIHYpfT4KICAgICAgPEFsZXJ0IHR5cGU9InN1Y2Nlc3MiIHNob3dJY29uIHN0eWxlPXt7IG1hcmdpbkJvdHRvbTogMTYgfX0gbWVzc2FnZT0i546w6YeR5pSv5LuY5peg6ZyA6YWN572u77yM55u05o6l5Y+v55SoIiAvPgogICAgICA8Rm9ybS5JdGVtIG5hbWU9ImlzX2VuYWJsZWQiIGxhYmVsPSLlkK/nlKjnjrDph5HmlK/ku5giIHZhbHVlUHJvcE5hbWU9ImNoZWNrZWQiPjxTd2l0Y2ggY2hlY2tlZENoaWxkcmVuPSLlkK/nlKgiIHVuQ2hlY2tlZENoaWxkcmVuPSLlgZznlKgiIC8+PC9Gb3JtLkl0ZW0+CiAgICAgIDxGb3JtLkl0ZW0gbmFtZT0iaXNfZGVmYXVsdCIgbGFiZWw9IuiuvuS4uum7mOiupOaUr+S7mOaWueW8jyIgdmFsdWVQcm9wTmFtZT0iY2hlY2tlZCI+PFN3aXRjaCBjaGVja2VkQ2hpbGRyZW49Ium7mOiupCIgdW5DaGVja2VkQ2hpbGRyZW49Iumdnum7mOiupCIgLz48L0Zvcm0uSXRlbT4KICAgICAgPEZvcm0uSXRlbSBuYW1lPSJyZW1hcmsiIGxhYmVsPSLlpIfms6giPjxJbnB1dC5UZXh0QXJlYSByb3dzPXsyfSAvPjwvRm9ybS5JdGVtPgogICAgICA8QnV0dG9uIHR5cGU9InByaW1hcnkiIGh0bWxUeXBlPSJzdWJtaXQiIGljb249ezxTYXZlT3V0bGluZWQgLz59IGxvYWRpbmc9e3NhdmluZ30+5L+d5a2YPC9CdXR0b24+CiAgICA8L0Zvcm0+CiAgKTsKCiAgY29uc3QgdGFiSXRlbXMgPSBjaGFubmVscy5tYXAoY2ggPT4gKHsKICAgIGtleTogU3RyaW5nKGNoLmlkKSwKICAgIGxhYmVsOiA8U3BhY2U+e2NoYW5uZWxNZXRhW2NoLmNoYW5uZWxfY29kZV0/Lmljb259IHtjaC5jaGFubmVsX25hbWV9CiAgICAgIHtjaC5pc19kZWZhdWx0ICYmIDxUYWcgY29sb3I9ImJsdWUiPum7mOiupDwvVGFnPn0KICAgICAge2NoLmlzX2VuYWJsZWQgPyA8VGFnIGNvbG9yPSJncmVlbiI+5bey5ZCv55SoPC9UYWc+IDogPFRhZz7mnKrlkK/nlKg8L1RhZz59CiAgICA8L1NwYWNlPiwKICAgIGNoaWxkcmVuOiAoCiAgICAgIDxkaXY+CiAgICAgICAgPFRpdGxlIGxldmVsPXs1fT57Y2hhbm5lbE1ldGFbY2guY2hhbm5lbF9jb2RlXT8uaWNvbn0ge2NoLmNoYW5uZWxfbmFtZX0g6YWN572uPC9UaXRsZT4KICAgICAgICB7Y2guY2hhbm5lbF9jb2RlID09PSAnd2VjaGF0X3BheScgJiYgcmVuZGVyV2VjaGF0Rm9ybShjaCl9CiAgICAgICAge2NoLmNoYW5uZWxfY29kZSA9PT0gJ2FsaXBheScgJiYgcmVuZGVyQWxpcGF5Rm9ybShjaCl9CiAgICAgICAge2NoLmNoYW5uZWxfY29kZSA9PT0gJ2JhbmtfdHJhbnNmZXInICYmIHJlbmRlckJhbmtGb3JtKGNoKX0KICAgICAgICB7Y2guY2hhbm5lbF9jb2RlID09PSAnY2FzaCcgJiYgcmVuZGVyQ2FzaEZvcm0oY2gpfQogICAgICA8L2Rpdj4KICAgICkKICB9KSk7CgogIGlmIChsb2FkaW5nKSByZXR1cm4gPFNwaW4gc2l6ZT0ibGFyZ2UiIHN0eWxlPXt7IGRpc3BsYXk6ICdibG9jaycsIG1hcmdpbjogJzEwMHB4IGF1dG8nIH19IC8+OwoKICByZXR1cm4gKAogICAgPGRpdj4KICAgICAgPFRpdGxlIGxldmVsPXs0fSBzdHlsZT17eyBtYXJnaW5Cb3R0b206IDE2IH19PuaUr+S7mOa4oOmBk+mFjee9rjwvVGl0bGU+CiAgICAgIDxDYXJkIHNpemU9InNtYWxsIj4KICAgICAgICA8VGFicyBpdGVtcz17dGFiSXRlbXN9IC8+CiAgICAgIDwvQ2FyZD4KICAgIDwvZGl2PgogICk7Cn07CgpleHBvcnQgZGVmYXVsdCBQYXltZW50U2V0dGluZ3M7Cg==
+import React, { useState, useEffect } from 'react';
+import { Card, Button, Form, Input, InputNumber, Switch, Space, message, Tabs, Tag, Descriptions, Spin, Typography, Row, Col, Divider, Alert } from 'antd';
+import { SaveOutlined, ApiOutlined, CheckCircleOutlined, WarningOutlined } from '@ant-design/icons';
+import request from '../../api/request';
+
+const { Title, Text } = Typography;
+
+const channelMeta: Record<string, { name: string; icon: string; color: string }> = {
+  cash: { name: '现金', icon: '💵', color: 'green' },
+  wechat_pay: { name: '微信支付', icon: '💚', color: 'success' },
+  alipay: { name: '支付宝', icon: '💙', color: 'blue' },
+  bank_transfer: { name: '银行转账', icon: '🏦', color: 'gold' }
+};
+
+const PaymentSettings: React.FC = () => {
+  const [channels, setChannels] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [testing, setTesting] = useState<number | null>(null);
+  const [testResults, setTestResults] = useState<Record<number, any>>({});
+  const [forms] = [Form.useForm()]; // placeholder
+
+  const load = async () => {
+    setLoading(true);
+    try {
+      const res = await request.get('/payment/channels');
+      setChannels(Array.isArray(res.data) ? res.data : (res.data?.list || res.data?.data || []));
+    } catch (e) { /* ignore */ }
+    setLoading(false);
+  };
+
+  useEffect(() => { load(); }, []);
+
+  const handleSave = async (id: number, values: any) => {
+    setSaving(true);
+    try {
+      await request.put(`/payment/channels/${id}`, values);
+      message.success('配置已保存');
+      load();
+    } catch (e: any) {
+      message.error(e.response?.data?.message || '保存失败');
+    }
+    setSaving(false);
+  };
+
+  const handleTest = async (id: number) => {
+    setTesting(id);
+    try {
+      const res = await request.post(`/payment/channels/${id}/test`);
+      setTestResults(prev => ({ ...prev, [id]: res.data || {} }));
+      const data = res.data || {};
+      if (data?.status === 'ready') message.success('配置检查通过');
+      else message.warning('配置不完整，请补充');
+    } catch (e: any) {
+      message.error('测试失败');
+    }
+    setTesting(null);
+  };
+
+  const renderWechatForm = (ch: any) => (
+    <Form layout="vertical" initialValues={ch} onFinish={(v) => handleSave(ch.id, v)}>
+      <Row gutter={16}>
+        <Col span={12}><Form.Item name="wechat_appid" label="AppID（公众号/小程序/APP）"><Input placeholder="wx开头的应用ID" /></Form.Item></Col>
+        <Col span={12}><Form.Item name="wechat_mch_id" label="微信商户号"><Input placeholder="如 1600000000" /></Form.Item></Col>
+      </Row>
+      <Row gutter={16}>
+        <Col span={12}><Form.Item name="wechat_api_key" label="APIv3密钥"><Input.Password placeholder="留空则不修改" /></Form.Item></Col>
+        <Col span={12}><Form.Item name="wechat_notify_url" label="支付回调地址"><Input placeholder="https://yourdomain.com/api/payment/callback/wechat_pay" /></Form.Item></Col>
+      </Row>
+      <Form.Item name="wechat_cert_path" label="商户证书路径（apiclient_cert.pem）"><Input placeholder="/path/to/apiclient_cert.pem" /></Form.Item>
+      <Divider orientation="left">手续费设置</Divider>
+      <Row gutter={16}>
+        <Col span={12}><Form.Item name="fee_rate" label="手续费率"><InputNumber min={0} max={1} step={0.001} style={{ width: '100%' }} addonAfter="%" formatter={v => v ? `${(Number(v) * 100).toFixed(2)}` : ''} parser={v => Number(v) / 100 as any} /></Form.Item></Col>
+        <Col span={12}><Form.Item name="fee_fixed" label="每笔固定手续费"><InputNumber min={0} precision={2} style={{ width: '100%' }} prefix="¥" /></Form.Item></Col>
+      </Row>
+      <Space>
+        <Button type="primary" htmlType="submit" icon={<SaveOutlined />} loading={saving}>保存配置</Button>
+        <Button icon={<ApiOutlined />} loading={testing === ch.id} onClick={() => handleTest(ch.id)}>测试连接</Button>
+        <Form.Item name="is_enabled" valuePropName="checked" noStyle><Switch checkedChildren="启用" unCheckedChildren="停用" /></Form.Item>
+        <Form.Item name="is_default" valuePropName="checked" noStyle><Switch checkedChildren="默认" unCheckedChildren="非默认" /></Form.Item>
+      </Space>
+      {testResults[ch.id] && (
+        <Alert style={{ marginTop: 16 }} type={testResults[ch.id].status === 'ready' ? 'success' : 'warning'}
+          message={testResults[ch.id].message}
+          description={testResults[ch.id].checks?.map((c: any, i: number) => (
+            <div key={i}>{c.ok ? <CheckCircleOutlined style={{ color: '#52c41a' }} /> : <WarningOutlined style={{ color: '#faad14' }} />} {c.item}: {c.msg}</div>
+          ))} />
+      )}
+      <Alert style={{ marginTop: 12 }} type="info" showIcon message="对接说明"
+        description="微信支付需企业资质（营业执照+对公账户）。配置完成后，系统将通过微信支付V3 API统一下单，支持JSAPI/APP/H5/Native扫码。当前为接口预留阶段，部署时填入真实商户凭证即可启用。" />
+    </Form>
+  );
+
+  const renderAlipayForm = (ch: any) => (
+    <Form layout="vertical" initialValues={ch} onFinish={(v) => handleSave(ch.id, v)}>
+      <Row gutter={16}>
+        <Col span={12}><Form.Item name="alipay_app_id" label="支付宝应用ID (APPID)"><Input placeholder="如 2021000000000000" /></Form.Item></Col>
+        <Col span={12}><Form.Item name="alipay_sandbox" label="沙箱环境" valuePropName="checked"><Switch checkedChildren="沙箱" unCheckedChildren="正式" /></Form.Item></Col>
+      </Row>
+      <Form.Item name="alipay_private_key" label="应用私钥"><Input.TextArea rows={3} placeholder="留空则不修改（RSA2私钥）" /></Form.Item>
+      <Form.Item name="alipay_public_key" label="支付宝公钥"><Input.TextArea rows={3} placeholder="留空则不修改" /></Form.Item>
+      <Form.Item name="alipay_notify_url" label="异步回调地址"><Input placeholder="https://yourdomain.com/api/payment/callback/alipay" /></Form.Item>
+      <Divider orientation="left">手续费设置</Divider>
+      <Row gutter={16}>
+        <Col span={12}><Form.Item name="fee_rate" label="手续费率"><InputNumber min={0} max={1} step={0.001} style={{ width: '100%' }} formatter={v => v ? `${(Number(v) * 100).toFixed(2)}%` : ''} parser={v => Number((v as string).replace('%', '')) / 100 as any} /></Form.Item></Col>
+        <Col span={12}><Form.Item name="fee_fixed" label="每笔固定手续费"><InputNumber min={0} precision={2} style={{ width: '100%' }} prefix="¥" /></Form.Item></Col>
+      </Row>
+      <Space>
+        <Button type="primary" htmlType="submit" icon={<SaveOutlined />} loading={saving}>保存配置</Button>
+        <Button icon={<ApiOutlined />} loading={testing === ch.id} onClick={() => handleTest(ch.id)}>测试连接</Button>
+        <Form.Item name="is_enabled" valuePropName="checked" noStyle><Switch checkedChildren="启用" unCheckedChildren="停用" /></Form.Item>
+      </Space>
+      {testResults[ch.id] && (
+        <Alert style={{ marginTop: 16 }} type={testResults[ch.id].status === 'ready' ? 'success' : 'warning'} message={testResults[ch.id].message}
+          description={testResults[ch.id].checks?.map((c: any, i: number) => (
+            <div key={i}>{c.ok ? <CheckCircleOutlined style={{ color: '#52c41a' }} /> : <WarningOutlined style={{ color: '#faad14' }} />} {c.item}: {c.msg}</div>
+          ))} />
+      )}
+      <Alert style={{ marginTop: 12 }} type="info" showIcon message="对接说明"
+        description="支付宝当面付/电脑网站支付需企业或个体工商户资质。填入APPID+RSA2密钥后即可调用alipay.trade.precreate/create接口。当前为接口预留阶段。" />
+    </Form>
+  );
+
+  const renderBankForm = (ch: any) => (
+    <Form layout="vertical" initialValues={ch} onFinish={(v) => handleSave(ch.id, v)}>
+      <Alert type="warning" showIcon style={{ marginBottom: 16 }}
+        message="银行转账为线下支付方式"
+        description="客户通过网银/柜台转账到指定银行账户，财务确认到账后手动标记收款。系统记录交易流水，不直接对接银行网关（如需银企直联需另行开通）。" />
+      <Row gutter={16}>
+        <Col span={12}><Form.Item name="bank_name" label="开户银行" rules={[{ required: true }]}><Input placeholder="如 中国建设银行" /></Form.Item></Col>
+        <Col span={12}><Form.Item name="bank_account_name" label="账户名称" rules={[{ required: true }]}><Input placeholder="如 武汉市江岸区宇航智荟电商营业部" /></Form.Item></Col>
+      </Row>
+      <Row gutter={16}>
+        <Col span={12}><Form.Item name="bank_account_no" label="银行账号" rules={[{ required: true }]}><Input placeholder="对公银行账号" /></Form.Item></Col>
+        <Col span={12}><Form.Item name="bank_branch" label="开户支行"><Input placeholder="如 武汉江岸支行" /></Form.Item></Col>
+      </Row>
+      <Space>
+        <Button type="primary" htmlType="submit" icon={<SaveOutlined />} loading={saving}>保存配置</Button>
+        <Button icon={<ApiOutlined />} loading={testing === ch.id} onClick={() => handleTest(ch.id)}>验证配置</Button>
+        <Form.Item name="is_enabled" valuePropName="checked" noStyle><Switch checkedChildren="启用" unCheckedChildren="停用" /></Form.Item>
+        <Form.Item name="is_default" valuePropName="checked" noStyle><Switch checkedChildren="默认" unCheckedChildren="非默认" /></Form.Item>
+      </Space>
+      {testResults[ch.id] && (
+        <Alert style={{ marginTop: 16 }} type={testResults[ch.id].status === 'ready' ? 'success' : 'warning'} message={testResults[ch.id].message}
+          description={testResults[ch.id].checks?.map((c: any, i: number) => (
+            <div key={i}>{c.ok ? <CheckCircleOutlined style={{ color: '#52c41a' }} /> : <WarningOutlined style={{ color: '#faad14' }} />} {c.item}: {c.msg}</div>
+          ))} />
+      )}
+    </Form>
+  );
+
+  const renderCashForm = (ch: any) => (
+    <Form layout="vertical" initialValues={ch} onFinish={(v) => handleSave(ch.id, v)}>
+      <Alert type="success" showIcon style={{ marginBottom: 16 }} message="现金支付无需配置，直接可用" />
+      <Form.Item name="is_enabled" label="启用现金支付" valuePropName="checked"><Switch checkedChildren="启用" unCheckedChildren="停用" /></Form.Item>
+      <Form.Item name="is_default" label="设为默认支付方式" valuePropName="checked"><Switch checkedChildren="默认" unCheckedChildren="非默认" /></Form.Item>
+      <Form.Item name="remark" label="备注"><Input.TextArea rows={2} /></Form.Item>
+      <Button type="primary" htmlType="submit" icon={<SaveOutlined />} loading={saving}>保存</Button>
+    </Form>
+  );
+
+  const tabItems = channels.map(ch => ({
+    key: String(ch.id),
+    label: <Space>{channelMeta[ch.channel_code]?.icon} {ch.channel_name}
+      {ch.is_default && <Tag color="blue">默认</Tag>}
+      {ch.is_enabled ? <Tag color="green">已启用</Tag> : <Tag>未启用</Tag>}
+    </Space>,
+    children: (
+      <div>
+        <Title level={5}>{channelMeta[ch.channel_code]?.icon} {ch.channel_name} 配置</Title>
+        {ch.channel_code === 'wechat_pay' && renderWechatForm(ch)}
+        {ch.channel_code === 'alipay' && renderAlipayForm(ch)}
+        {ch.channel_code === 'bank_transfer' && renderBankForm(ch)}
+        {ch.channel_code === 'cash' && renderCashForm(ch)}
+      </div>
+    )
+  }));
+
+  if (loading) return <Spin size="large" style={{ display: 'block', margin: '100px auto' }} />;
+
+  return (
+    <div>
+      <Title level={4} style={{ marginBottom: 16 }}>支付渠道配置</Title>
+      <Card size="small">
+        <Tabs items={tabItems} />
+      </Card>
+    </div>
+  );
+};
+
+export default PaymentSettings;

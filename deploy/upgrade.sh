@@ -1,1 +1,153 @@
-IyEvYmluL2Jhc2gKIyA9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQojIEVSUOS4gOmUruWNh+e6p+iEmuacrO+8iOS7jkdpdEh1YuaLieWPlu+8iQojIOWcqDjmnIgyMuaXpemVnOWDj+aBouWkjeWQjueahOacjeWKoeWZqOS4iuaJp+ihjAojID09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09CnNldCAtbyBwaXBlZmFpbAoKQVBQX0RJUj0iL29wdC91bml2ZXJzYWwtZXJwIgpQT1JUQUxfRElSPSIvdmFyL3d3dy9wb3J0YWwiCkRCX1VTRVI9ImVycF91c2VyIgpEQl9QQVNTPSJFcnBAU2VjdXJlMjAyNiIKREJfTkFNRT0iZXJwX2RiIgpERUVQU0VFS19LRVk9IiR7REVFUFNFRUtfS0VZOi19IgoKaWYgWyAteiAiJERFRVBTRUVLX0tFWSIgXTsgdGhlbgogIGVjaG8gIuivt+i+k+WFpURlZXBTZWVrIEFQSSBLZXk6IgogIHJlYWQgLXJzIERFRVBTRUVLX0tFWQogIGVjaG8gIiIKZmkKCmVjaG8gIj09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PSIKZWNobyAiICBFUlAgKyDorqTnn6XlsI/nq5kg5LiA6ZSu5Y2H57qnIgplY2hvICI9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0iCgojID09PT09PT09PT0g56ys5LiA6YOo5YiG77yaRVJQID09PT09PT09PT0KaWYgWyAhIC1kICIkQVBQX0RJUiIgXTsgdGhlbgogIGVjaG8gIuKdjCAkQVBQX0RJUiDkuI3lrZjlnKjvvIzor7fnoa7orqTplZzlg4/mgaLlpI3mraPnoa4iCiAgZXhpdCAxCmZpCgplY2hvICIiCmVjaG8gIj09PT09PT09PT0gWzEvN10gRVJQ77ya5aSH5Lu95b2T5YmN54mI5pysID09PT09PT09PT0iCkJBQ0tVUF9ESVI9Ii9vcHQvZXJwX2JhY2t1cF8kKGRhdGUgKyVZJW0lZF8lSCVNJVMpIgpta2RpciAtcCAiJEJBQ0tVUF9ESVIiCmNwIC1yICIkQVBQX0RJUi9zZXJ2ZXIvc3JjIiAiJEJBQ0tVUF9ESVIvc2VydmVyX3NyYyIgMj4vZGV2L251bGwgfHwgdHJ1ZQpjcCAtciAiJEFQUF9ESVIvY2xpZW50L3NyYyIgIiRCQUNLVVBfRElSL2NsaWVudF9zcmMiIDI+L2Rldi9udWxsIHx8IHRydWUKZWNobyAi4pyFIOWkh+S7veWIsCAkQkFDS1VQX0RJUiIKCmVjaG8gIiIKZWNobyAiPT09PT09PT09PSBbMi83XSBFUlDvvJrku45HaXRIdWLmi4nlj5bmnIDmlrDku6PnoIEgPT09PT09PT09PSIKY2QgIiRBUFBfRElSIgpnaXQgZmV0Y2ggLS1hbGwKZ2l0IHJlc2V0IC0taGFyZCBvcmlnaW4vbWFpbgplY2hvICLinIUg5Luj56CB5bey5pu05pawIgoKZWNobyAiIgplY2hvICI9PT09PT09PT09IFszLzddIEVSUO+8muaVsOaNruW6k+i/geenuyA9PT09PT09PT09IgpjZCAiJEFQUF9ESVIvc2VydmVyIgpmb3Igc3FsIGluIGZpbmFuY2VfdXBncmFkZS5zcWwgd2FyZWhvdXNlX3VwZ3JhZGUuc3FsIHBheW1lbnRfYW5hbHl0aWNzX3VwZ3JhZGUuc3FsOyBkbwogIGVjaG8gIiAg4oaSICRzcWwiCiAgbXlzcWwgLS1mb3JjZSAtdSIkREJfVVNFUiIgLXAiJERCX1BBU1MiICIkREJfTkFNRSIgPCAiZGIvJHNxbCIgMj4mMSB8fCBlY2hvICIgICAg4pqg77iPIOihqOWPr+iDveW3suWtmOWcqO+8jOe7p+e7rSIKZG9uZQplY2hvICIgIOKGkiBkZW1vX3NlZWQuc3Fs77yINOWll+a8lOekuui0puWll++8iSIKbXlzcWwgLS1mb3JjZSAtdSIkREJfVVNFUiIgLXAiJERCX1BBU1MiICIkREJfTkFNRSIgPCBkYi9kZW1vX3NlZWQuc3FsIDI+JjEgfHwgZWNobyAi4pqg77iPIHNlZWTmnInorablkYrkvYblt7Lot7Pov4ciCmVjaG8gIiAg4oaSIGZpeF9hY2NvdW50aW5nLnNxbO+8iOS/ruWkjei0puWlly/np5Hnm64v5Y2w56ugL+WHreivgeaVsOaNru+8iSIKbXlzcWwgLS1mb3JjZSAtdSIkREJfVVNFUiIgLXAiJERCX1BBU1MiICIkREJfTkFNRSIgPCBkYi9maXhfYWNjb3VudGluZy5zcWwgMj4mMQplY2hvICIgIOKGkiBmaXhfcGFzc3dvcmQuc3Fs77yI6YeN572uYWRtaW7lr4bnoIHvvIkiCm15c3FsIC0tZm9yY2UgLXUiJERCX1VTRVIiIC1wIiREQl9QQVNTIiAiJERCX05BTUUiIDwgZGIvZml4X3Bhc3N3b3JkLnNxbCAyPiYxCmVjaG8gIuKchSDmlbDmja7lupPov4Hnp7vlrozmiJAiCgplY2hvICIiCmVjaG8gIj09PT09PT09PT0gWzQvN10gRVJQ77ya6aqM6K+B5ryU56S65pWw5o2uID09PT09PT09PT0iCm15c3FsIC0tZm9yY2UgLXUiJERCX1VTRVIiIC1wIiREQl9QQVNTIiAiJERCX05BTUUiIDwgZGIvdmVyaWZ5X2RlbW8uc3FsIDI+JjEgfCBoZWFkIC0zMAoKCmVjaG8gIiIKZWNobyAiPT09PT09PT09PSBbMy41LzddIEVSUO+8mumFjee9rueOr+Wig+WPmOmHjyA9PT09PT09PT09IgpjYXQgPiAiJEFQUF9ESVIvc2VydmVyLy5lbnYiIDw8ICdFTlYnCkRCX0hPU1Q9MTI3LjAuMC4xCkRCX1BPUlQ9MzMwNgpEQl9OQU1FPWVycF9kYgpEQl9VU0VSPWVycF91c2VyCkRCX1BBU1NXT1JEPUVycEBTZWN1cmUyMDI2CkpXVF9TRUNSRVQ9ZXJwLWp3dC1zZWNyZXQtMjAyNi1wcm9kdWN0aW9uCkpXVF9FWFBJUkVTX0lOPTdkClBPUlQ9MzAwMApFTlYKZWNobyAi4pyFIC5lbnYg5bey6YWN572uIgoKZWNobyAiIgplY2hvICI9PT09PT09PT09IFs1LzddIEVSUO+8muWJjeerr+aWh+S7tu+8iOmihOaehOW7uu+8iSA9PT09PT09PT09IgppZiBbIC1mICIkQVBQX0RJUi9jbGllbnQvZGlzdC9pbmRleC5odG1sIiBdOyB0aGVuCiAgZWNobyAi4pyFIOmihOaehOW7umRpc3Tlt7LlsLHnu6rvvIzot7Pov4ducG0gaW5zdGFsbC9idWlsZCIKZWxzZQogIGVjaG8gIuKaoO+4jyBkaXN05LiN5a2Y5Zyo77yM5bCd6K+V5pys5Zyw5p6E5bu6Li4uIgogIGNkICIkQVBQX0RJUi9jbGllbnQiCiAgbnBtIGluc3RhbGwgMj4mMSB8IHRhaWwgLTMgfHwgZWNobyAn4pqg77iPIG5wbSBpbnN0YWxs5pyJ6K2m5ZGK77yM57un57utJwogIG5wbSBydW4gYnVpbGQgMj4mMSB8IHRhaWwgLTUgfHwgeyBlY2hvICfinYwg5YmN56uv5p6E5bu65aSx6LSlJzsgZXhpdCAxOyB9CmZpCgplY2hvICIiCmVjaG8gIj09PT09PT09PT0gWzYvN10gRVJQ77ya6YWN572u546v5aKD5Y+Y6YePK+mHjeWQryA9PT09PT09PT09IgpTRVJWSUNFX0ZJTEU9Ii9ldGMvc3lzdGVtZC9zeXN0ZW0vZXJwLXNlcnZlci5zZXJ2aWNlIgppZiBbIC1mICIkU0VSVklDRV9GSUxFIiBdOyB0aGVuCiAgaWYgISBncmVwIC1xICJERUVQU0VFS19BUElfS0VZIiAiJFNFUlZJQ0VfRklMRSI7IHRoZW4KICAgIHNlZCAtaSAiL1xbU2VydmljZVxdL2EgRW52aXJvbm1lbnQ9XCJERUVQU0VFS19BUElfS0VZPSRERUVQU0VFS19LRVlcIiIgIiRTRVJWSUNFX0ZJTEUiCiAgZWxzZQogICAgc2VkIC1pICJzfEVudmlyb25tZW50PVwiREVFUFNFRUtfQVBJX0tFWT0uKlwifEVudmlyb25tZW50PVwiREVFUFNFRUtfQVBJX0tFWT0kREVFUFNFRUtfS0VZXCJ8IiAiJFNFUlZJQ0VfRklMRSIKICBmaQogIHN5c3RlbWN0bCBkYWVtb24tcmVsb2FkCiAgc3lzdGVtY3RsIHJlc3RhcnQgZXJwLXNlcnZlcgogIHNsZWVwIDIKICBzeXN0ZW1jdGwgc3RhdHVzIGVycC1zZXJ2ZXIgLS1uby1wYWdlciB8IGhlYWQgLTgKZWxzZQogIHBtMiByZXN0YXJ0IGVycC1zZXJ2ZXIgMj4vZGV2L251bGwgfHwgcG0yIHN0YXJ0IHNyYy9pbmRleC5qcyAtLW5hbWUgZXJwLXNlcnZlcgpmaQoKIyA9PT09PT09PT09IOesrOS6jOmDqOWIhu+8muiupOefpeWwj+ermSA9PT09PT09PT09CmVjaG8gIiIKZWNobyAiPT09PT09PT09PSBbNy83XSDorqTnn6XlsI/nq5nvvJrov5jljp9uby1BSeeJiOacrCA9PT09PT09PT09Igpta2RpciAtcCAiJFBPUlRBTF9ESVIiCmlmIFsgIiQobHMgLUEgJFBPUlRBTF9ESVIgMj4vZGV2L251bGwpIiBdOyB0aGVuCiAgY3AgLXIgIiRQT1JUQUxfRElSIiAiL3Zhci93d3cvcG9ydGFsX2JhY2t1cF8kKGRhdGUgKyVZJW0lZF8lSCVNJVMpIiAyPi9kZXYvbnVsbCB8fCB0cnVlCmZpCnJtIC1yZiAiJHtQT1JUQUxfRElSOj99Ii8qCmNkICIkQVBQX0RJUi9kZXBsb3kiCnVuemlwIC1vIGNvZ25pdGl2ZS10cmFpbmluZy1oNS1ub2FpLnppcCAtZCAiJFBPUlRBTF9ESVIiID4gL2Rldi9udWxsIDI+JjEKY2htb2QgLVIgNzU1ICIkUE9SVEFMX0RJUiIKY2hvd24gLVIgbmdpbng6bmdpbnggIiRQT1JUQUxfRElSIiAyPi9kZXYvbnVsbCB8fCBjaG93biAtUiBhcGFjaGU6YXBhY2hlICIkUE9SVEFMX0RJUiIgMj4vZGV2L251bGwgfHwgdHJ1ZQplY2hvICLinIUg6K6k55+l5bCP56uZ5bey6L+Y5Y6fIgoKIyDnoa7kv51uZ2lueOmFjee9rgppZiBbICEgLWYgL2V0Yy9uZ2lueC9jb25mLmQvZXJwLmNvbmYgXTsgdGhlbgogIGNhdCA+IC9ldGMvbmdpbngvY29uZi5kL2VycC5jb25mIDw8ICdOR0lOWCcKc2VydmVyIHsKICAgIGxpc3RlbiA4MDsKICAgIHNlcnZlcl9uYW1lIGVycC5xaXV5aGFuZzE2ODguY29tLmNuOwogICAgcm9vdCAvb3B0L3VuaXZlcnNhbC1lcnAvY2xpZW50L2Rpc3Q7CiAgICBpbmRleCBpbmRleC5odG1sOwogICAgbG9jYXRpb24gL2FwaS8gewogICAgICAgIHByb3h5X3Bhc3MgaHR0cDovLzEyNy4wLjAuMTozMDAwL2FwaS87CiAgICAgICAgcHJveHlfc2V0X2hlYWRlciBIb3N0ICRob3N0OwogICAgICAgIHByb3h5X3NldF9oZWFkZXIgWC1SZWFsLUlQICRyZW1vdGVfYWRkcjsKICAgIH0KICAgIGxvY2F0aW9uIC8geyB0cnlfZmlsZXMgJHVyaSAkdXJpLyAvaW5kZXguaHRtbDsgfQp9Ck5HSU5YCmZpCm5naW54IC10IDI+JjEgJiYgc3lzdGVtY3RsIHJlbG9hZCBuZ2lueAoKZWNobyAiIgplY2hvICI9PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0iCmVjaG8gIiAg4pyFIOWFqOmDqOWujOaIkO+8gSIKZWNobyAiPT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09IgplY2hvICIiCmVjaG8gIuiupOefpeWwj+ermTogIGh0dHBzOi8vcWl1eWhhbmcxNjg4LmNvbS5jbiIKZWNobyAiRVJQ57O757ufOiAgIGh0dHA6Ly9lcnAucWl1eWhhbmcxNjg4LmNvbS5jbiIKZWNobyAiIgplY2hvICJFUlDmvJTnpLrotKblj7fvvIjlr4bnoIEgYWRtaW4xMjPvvInvvJoiCmVjaG8gIiAg6LSm5aWXMiAtIOmynOaDoOekvuWMuueUn+mynOi2heW4gu+8iDLku5PlupMr6LCD5ouo77yJIgplY2hvICIgIOi0puWllzMgLSDmgqbpgInmlbDnoIHnlLXllYYiCmVjaG8gIiAg6LSm5aWXNCAtIOW6t+e+juWkp+iNr+aIvyIKZWNobyAiICDotKblpZc1IC0g576O5ZGz54OY54SZ5bel5Z2KIgo=
+#!/bin/bash
+# ============================================
+# ERP一键升级脚本（从GitHub拉取）
+# 在8月22日镜像恢复后的服务器上执行
+# ============================================
+set -o pipefail
+
+APP_DIR="/opt/universal-erp"
+PORTAL_DIR="/var/www/portal"
+DB_USER="erp_user"
+DB_PASS="Erp@Secure2026"
+DB_NAME="erp_db"
+DEEPSEEK_KEY="${DEEPSEEK_KEY:-}"
+
+if [ -z "$DEEPSEEK_KEY" ]; then
+  echo "请输入DeepSeek API Key:"
+  read -rs DEEPSEEK_KEY
+  echo ""
+fi
+
+echo "=========================================="
+echo "  ERP + 认知小站 一键升级"
+echo "=========================================="
+
+# ========== 第一部分：ERP ==========
+if [ ! -d "$APP_DIR" ]; then
+  echo "❌ $APP_DIR 不存在，请确认镜像恢复正确"
+  exit 1
+fi
+
+echo ""
+echo "========== [1/7] ERP：备份当前版本 =========="
+BACKUP_DIR="/opt/erp_backup_$(date +%Y%m%d_%H%M%S)"
+mkdir -p "$BACKUP_DIR"
+cp -r "$APP_DIR/server/src" "$BACKUP_DIR/server_src" 2>/dev/null || true
+cp -r "$APP_DIR/client/src" "$BACKUP_DIR/client_src" 2>/dev/null || true
+echo "✅ 备份到 $BACKUP_DIR"
+
+echo ""
+echo "========== [2/7] ERP：从GitHub拉取最新代码 =========="
+cd "$APP_DIR"
+git fetch --all
+git reset --hard origin/main
+echo "✅ 代码已更新"
+
+echo ""
+echo "========== [3/7] ERP：数据库迁移 =========="
+cd "$APP_DIR/server"
+for sql in finance_upgrade.sql warehouse_upgrade.sql payment_analytics_upgrade.sql; do
+  echo "  → $sql"
+  mysql --force -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" < "db/$sql" 2>&1 || echo "    ⚠️ 表可能已存在，继续"
+done
+echo "  → demo_seed.sql（4套演示账套）"
+mysql --force -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" < db/demo_seed.sql 2>&1 || echo "⚠️ seed有警告但已跳过"
+echo "  → fix_accounting.sql（修复账套/科目/印章/凭证数据）"
+mysql --force -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" < db/fix_accounting.sql 2>&1
+echo "  → fix_password.sql（重置admin密码）"
+mysql --force -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" < db/fix_password.sql 2>&1
+echo "✅ 数据库迁移完成"
+
+echo ""
+echo "========== [4/7] ERP：验证演示数据 =========="
+mysql --force -u"$DB_USER" -p"$DB_PASS" "$DB_NAME" < db/verify_demo.sql 2>&1 | head -30
+
+
+echo ""
+echo "========== [3.5/7] ERP：配置环境变量 =========="
+cat > "$APP_DIR/server/.env" << 'ENV'
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_NAME=erp_db
+DB_USER=erp_user
+DB_PASSWORD=Erp@Secure2026
+JWT_SECRET=erp-jwt-secret-2026-production
+JWT_EXPIRES_IN=7d
+PORT=3000
+ENV
+echo "✅ .env 已配置"
+
+echo ""
+echo "========== [5/7] ERP：前端文件（预构建） =========="
+if [ -f "$APP_DIR/client/dist/index.html" ]; then
+  echo "✅ 预构建dist已就绪，跳过npm install/build"
+else
+  echo "⚠️ dist不存在，尝试本地构建..."
+  cd "$APP_DIR/client"
+  npm install 2>&1 | tail -3 || echo '⚠️ npm install有警告，继续'
+  npm run build 2>&1 | tail -5 || { echo '❌ 前端构建失败'; exit 1; }
+fi
+
+echo ""
+echo "========== [6/7] ERP：配置环境变量+重启 =========="
+SERVICE_FILE="/etc/systemd/system/erp-server.service"
+if [ -f "$SERVICE_FILE" ]; then
+  if ! grep -q "DEEPSEEK_API_KEY" "$SERVICE_FILE"; then
+    sed -i "/\[Service\]/a Environment=\"DEEPSEEK_API_KEY=$DEEPSEEK_KEY\"" "$SERVICE_FILE"
+  else
+    sed -i "s|Environment=\"DEEPSEEK_API_KEY=.*\"|Environment=\"DEEPSEEK_API_KEY=$DEEPSEEK_KEY\"|" "$SERVICE_FILE"
+  fi
+  systemctl daemon-reload
+  systemctl restart erp-server
+  sleep 2
+  systemctl status erp-server --no-pager | head -8
+else
+  pm2 restart erp-server 2>/dev/null || pm2 start src/index.js --name erp-server
+fi
+
+# ========== 第二部分：认知小站 ==========
+echo ""
+echo "========== [7/7] 认知小站：还原no-AI版本 =========="
+mkdir -p "$PORTAL_DIR"
+if [ "$(ls -A $PORTAL_DIR 2>/dev/null)" ]; then
+  cp -r "$PORTAL_DIR" "/var/www/portal_backup_$(date +%Y%m%d_%H%M%S)" 2>/dev/null || true
+fi
+rm -rf "${PORTAL_DIR:?}"/*
+cd "$APP_DIR/deploy"
+unzip -o cognitive-training-h5-noai.zip -d "$PORTAL_DIR" > /dev/null 2>&1
+chmod -R 755 "$PORTAL_DIR"
+chown -R nginx:nginx "$PORTAL_DIR" 2>/dev/null || chown -R apache:apache "$PORTAL_DIR" 2>/dev/null || true
+echo "✅ 认知小站已还原"
+
+# 确保nginx配置
+if [ ! -f /etc/nginx/conf.d/erp.conf ]; then
+  cat > /etc/nginx/conf.d/erp.conf << 'NGINX'
+server {
+    listen 80;
+    server_name erp.qiuyhang1688.com.cn;
+    root /opt/universal-erp/client/dist;
+    index index.html;
+    location /api/ {
+        proxy_pass http://127.0.0.1:3000/api/;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+    location / { try_files $uri $uri/ /index.html; }
+}
+NGINX
+fi
+nginx -t 2>&1 && systemctl reload nginx
+
+echo ""
+echo "=========================================="
+echo "  ✅ 全部完成！"
+echo "=========================================="
+echo ""
+echo "认知小站:  https://qiuyhang1688.com.cn"
+echo "ERP系统:   http://erp.qiuyhang1688.com.cn"
+echo ""
+echo "ERP演示账号（密码 admin123）："
+echo "  账套2 - 鲜惠社区生鲜超市（2仓库+调拨）"
+echo "  账套3 - 悦选数码电商"
+echo "  账套4 - 康美大药房"
+echo "  账套5 - 美味烘焙工坊"

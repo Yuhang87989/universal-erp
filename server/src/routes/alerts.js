@@ -1,1 +1,194 @@
-Y29uc3QgZXhwcmVzcyA9IHJlcXVpcmUoJ2V4cHJlc3MnKTsKY29uc3QgcG9vbCA9IHJlcXVpcmUoJy4uL2NvbmZpZy9kYicpOwpjb25zdCB7IGF1dGhlbnRpY2F0ZSwgcmVxdWlyZVJvbGUgfSA9IHJlcXVpcmUoJy4uL21pZGRsZXdhcmUvYXV0aCcpOwpjb25zdCBkYXlqcyA9IHJlcXVpcmUoJ2RheWpzJyk7Cgpjb25zdCByb3V0ZXIgPSBleHByZXNzLlJvdXRlcigpOwpyb3V0ZXIudXNlKGF1dGhlbnRpY2F0ZSk7Cgpjb25zdCBhbGVydFR5cGVNYXAgPSB7CiAgbG93X3N0b2NrOiB7IGxhYmVsOiAn5bqT5a2Y5LiN6LazJywgY29sb3I6ICdyZWQnLCBpY29uOiAn4pqg77iPJyB9LAogIG92ZXJfc3RvY2s6IHsgbGFiZWw6ICflupPlrZjnp6/ljosnLCBjb2xvcjogJ29yYW5nZScsIGljb246ICfwn5OmJyB9LAogIHplcm9fc3RvY2s6IHsgbGFiZWw6ICfpm7blupPlrZgnLCBjb2xvcjogJ2RlZmF1bHQnLCBpY29uOiAn8J+aqycgfSwKICBuZWdhdGl2ZTogeyBsYWJlbDogJ+i0n+W6k+WtmCcsIGNvbG9yOiAncmVkJywgaWNvbjogJ+KdlycgfSwKICBleHBpcnk6IHsgbGFiZWw6ICfkuLTmnJ/pooToraYnLCBjb2xvcjogJ29yYW5nZScsIGljb246ICfij7AnIH0KfTsKCmNvbnN0IGxldmVsTWFwID0gewogIGluZm86IHsgbGFiZWw6ICfmj5DnpLonLCBjb2xvcjogJ2JsdWUnIH0sCiAgd2FybmluZzogeyBsYWJlbDogJ+itpuWRiicsIGNvbG9yOiAnb3JhbmdlJyB9LAogIGNyaXRpY2FsOiB7IGxhYmVsOiAn5Lil6YeNJywgY29sb3I6ICdyZWQnIH0KfTsKCi8vIOaJq+aPj+W5tueUn+aIkOmihOitpu+8iOWPr+WumuaXtuiwg+eUqOaIluaJi+WKqOinpuWPke+8iQpyb3V0ZXIucG9zdCgnL3NjYW4nLCByZXF1aXJlUm9sZSgnb3duZXInLCAnbWFuYWdlcicpLCBhc3luYyAocmVxLCByZXMpID0+IHsKICB0cnkgewogICAgLy8gMS4g5L2O5bqT5a2Y6aKE6K2mCiAgICBjb25zdCBbbG93U3RvY2tJdGVtc10gPSBhd2FpdCBwb29sLnF1ZXJ5KAogICAgICBgU0VMRUNUIGkucHJvZHVjdF9pZCwgaS53YXJlaG91c2VfaWQsIGkucXVhbnRpdHksIHAubmFtZSwgcC5taW5fc3RvY2ssIHAudW5pdAogICAgICAgRlJPTSBpbnZlbnRvcnkgaSBKT0lOIHByb2R1Y3RzIHAgT04gaS5wcm9kdWN0X2lkID0gcC5pZAogICAgICAgV0hFUkUgaS50ZW5hbnRfaWQgPSA/IEFORCBwLm1pbl9zdG9jayA+IDAgQU5EIGkucXVhbnRpdHkgPD0gcC5taW5fc3RvY2sgQU5EIHAuc3RhdHVzID0gJ2FjdGl2ZSdgLAogICAgICBbcmVxLnRlbmFudElkXQogICAgKTsKCiAgICBsZXQgbmV3Q291bnQgPSAwOwogICAgZm9yIChjb25zdCBpdGVtIG9mIGxvd1N0b2NrSXRlbXMpIHsKICAgICAgLy8g5qOA5p+l5piv5ZCm5bey5pyJYWN0aXZl6aKE6K2mCiAgICAgIGNvbnN0IFtleGlzdGluZ10gPSBhd2FpdCBwb29sLnF1ZXJ5KAogICAgICAgICJTRUxFQ1QgaWQgRlJPTSBzdG9ja19hbGVydHMgV0hFUkUgdGVuYW50X2lkID0gPyBBTkQgcHJvZHVjdF9pZCA9ID8gQU5EIHdhcmVob3VzZV9pZCA9ID8gQU5EIGFsZXJ0X3R5cGUgPSAnbG93X3N0b2NrJyBBTkQgc3RhdHVzID0gJ2FjdGl2ZSciLAogICAgICAgIFtyZXEudGVuYW50SWQsIGl0ZW0ucHJvZHVjdF9pZCwgaXRlbS53YXJlaG91c2VfaWRdCiAgICAgICk7CiAgICAgIGlmIChleGlzdGluZy5sZW5ndGggPT09IDApIHsKICAgICAgICBjb25zdCBsZXZlbCA9IGl0ZW0ucXVhbnRpdHkgPD0gMCA/ICdjcml0aWNhbCcgOiAoaXRlbS5xdWFudGl0eSA8PSBpdGVtLm1pbl9zdG9jayAqIDAuNSA/ICdjcml0aWNhbCcgOiAnd2FybmluZycpOwogICAgICAgIGF3YWl0IHBvb2wucXVlcnkoCiAgICAgICAgICBgSU5TRVJUIElOVE8gc3RvY2tfYWxlcnRzICh0ZW5hbnRfaWQsIGFsZXJ0X3R5cGUsIHByb2R1Y3RfaWQsIHdhcmVob3VzZV9pZCwgdGhyZXNob2xkX3ZhbHVlLCBjdXJyZW50X3ZhbHVlLCBhbGVydF9sZXZlbCwgc3RhdHVzLCBtZXNzYWdlKQogICAgICAgICAgIFZBTFVFUyAoPywgJ2xvd19zdG9jaycsID8sID8sID8sID8sID8sICdhY3RpdmUnLCA/KWAsCiAgICAgICAgICBbcmVxLnRlbmFudElkLCBpdGVtLnByb2R1Y3RfaWQsIGl0ZW0ud2FyZWhvdXNlX2lkLCBpdGVtLm1pbl9zdG9jaywgaXRlbS5xdWFudGl0eSwgbGV2ZWwsCiAgICAgICAgICAgYOWVhuWTgeOAjCR7aXRlbS5uYW1lfeOAjeW6k+WtmCR7aXRlbS5xdWFudGl0eX0ke2l0ZW0udW5pdH3vvIzkvY7kuo7pooTorablgLwke2l0ZW0ubWluX3N0b2NrfSR7aXRlbS51bml0fWBdCiAgICAgICAgKTsKICAgICAgICBuZXdDb3VudCsrOwogICAgICB9IGVsc2UgewogICAgICAgIC8vIOabtOaWsOW9k+WJjeWAvAogICAgICAgIGF3YWl0IHBvb2wucXVlcnkoCiAgICAgICAgICAnVVBEQVRFIHN0b2NrX2FsZXJ0cyBTRVQgY3VycmVudF92YWx1ZSA9ID8gV0hFUkUgaWQgPSA/JywKICAgICAgICAgIFtpdGVtLnF1YW50aXR5LCBleGlzdGluZ1swXS5pZF0KICAgICAgICApOwogICAgICB9CiAgICB9CgogICAgLy8gMi4g6Zu25bqT5a2Y6aKE6K2mCiAgICBjb25zdCBbemVyb1N0b2NrSXRlbXNdID0gYXdhaXQgcG9vbC5xdWVyeSgKICAgICAgYFNFTEVDVCBpLnByb2R1Y3RfaWQsIGkud2FyZWhvdXNlX2lkLCBwLm5hbWUsIHAudW5pdAogICAgICAgRlJPTSBpbnZlbnRvcnkgaSBKT0lOIHByb2R1Y3RzIHAgT04gaS5wcm9kdWN0X2lkID0gcC5pZAogICAgICAgV0hFUkUgaS50ZW5hbnRfaWQgPSA/IEFORCBpLnF1YW50aXR5ID0gMCBBTkQgcC5zdGF0dXMgPSAnYWN0aXZlJyBBTkQgcC5taW5fc3RvY2sgPiAwYCwKICAgICAgW3JlcS50ZW5hbnRJZF0KICAgICk7CiAgICBmb3IgKGNvbnN0IGl0ZW0gb2YgemVyb1N0b2NrSXRlbXMpIHsKICAgICAgY29uc3QgW2V4aXN0aW5nXSA9IGF3YWl0IHBvb2wucXVlcnkoCiAgICAgICAgIlNFTEVDVCBpZCBGUk9NIHN0b2NrX2FsZXJ0cyBXSEVSRSB0ZW5hbnRfaWQgPSA/IEFORCBwcm9kdWN0X2lkID0gPyBBTkQgd2FyZWhvdXNlX2lkID0gPyBBTkQgYWxlcnRfdHlwZSA9ICd6ZXJvX3N0b2NrJyBBTkQgc3RhdHVzID0gJ2FjdGl2ZSciLAogICAgICAgIFtyZXEudGVuYW50SWQsIGl0ZW0ucHJvZHVjdF9pZCwgaXRlbS53YXJlaG91c2VfaWRdCiAgICAgICk7CiAgICAgIGlmIChleGlzdGluZy5sZW5ndGggPT09IDApIHsKICAgICAgICBhd2FpdCBwb29sLnF1ZXJ5KAogICAgICAgICAgYElOU0VSVCBJTlRPIHN0b2NrX2FsZXJ0cyAodGVuYW50X2lkLCBhbGVydF90eXBlLCBwcm9kdWN0X2lkLCB3YXJlaG91c2VfaWQsIGN1cnJlbnRfdmFsdWUsIGFsZXJ0X2xldmVsLCBzdGF0dXMsIG1lc3NhZ2UpCiAgICAgICAgICAgVkFMVUVTICg/LCAnemVyb19zdG9jaycsID8sID8sIDAsICdjcml0aWNhbCcsICdhY3RpdmUnLCA/KWAsCiAgICAgICAgICBbcmVxLnRlbmFudElkLCBpdGVtLnByb2R1Y3RfaWQsIGl0ZW0ud2FyZWhvdXNlX2lkLCBg5ZWG5ZOB44CMJHtpdGVtLm5hbWV944CN5bey6Zu25bqT5a2YYF0KICAgICAgICApOwogICAgICAgIG5ld0NvdW50Kys7CiAgICAgIH0KICAgIH0KCiAgICAvLyAzLiDotJ/lupPlrZjlvILluLjvvIjnkIborrrkuIrkuI3lupTlh7rnjrDvvIkKICAgIGNvbnN0IFtuZWdJdGVtc10gPSBhd2FpdCBwb29sLnF1ZXJ5KAogICAgICBgU0VMRUNUIGkucHJvZHVjdF9pZCwgaS53YXJlaG91c2VfaWQsIGkucXVhbnRpdHksIHAubmFtZSwgcC51bml0CiAgICAgICBGUk9NIGludmVudG9yeSBpIEpPSU4gcHJvZHVjdHMgcCBPTiBpLnByb2R1Y3RfaWQgPSBwLmlkCiAgICAgICBXSEVSRSBpLnRlbmFudF9pZCA9ID8gQU5EIGkucXVhbnRpdHkgPCAwYCwKICAgICAgW3JlcS50ZW5hbnRJZF0KICAgICk7CiAgICBmb3IgKGNvbnN0IGl0ZW0gb2YgbmVnSXRlbXMpIHsKICAgICAgY29uc3QgW2V4aXN0aW5nXSA9IGF3YWl0IHBvb2wucXVlcnkoCiAgICAgICAgIlNFTEVDVCBpZCBGUk9NIHN0b2NrX2FsZXJ0cyBXSEVSRSB0ZW5hbnRfaWQgPSA/IEFORCBwcm9kdWN0X2lkID0gPyBBTkQgd2FyZWhvdXNlX2lkID0gPyBBTkQgYWxlcnRfdHlwZSA9ICduZWdhdGl2ZScgQU5EIHN0YXR1cyA9ICdhY3RpdmUnIiwKICAgICAgICBbcmVxLnRlbmFudElkLCBpdGVtLnByb2R1Y3RfaWQsIGl0ZW0ud2FyZWhvdXNlX2lkXQogICAgICApOwogICAgICBpZiAoZXhpc3RpbmcubGVuZ3RoID09PSAwKSB7CiAgICAgICAgYXdhaXQgcG9vbC5xdWVyeSgKICAgICAgICAgIGBJTlNFUlQgSU5UTyBzdG9ja19hbGVydHMgKHRlbmFudF9pZCwgYWxlcnRfdHlwZSwgcHJvZHVjdF9pZCwgd2FyZWhvdXNlX2lkLCBjdXJyZW50X3ZhbHVlLCBhbGVydF9sZXZlbCwgc3RhdHVzLCBtZXNzYWdlKQogICAgICAgICAgIFZBTFVFUyAoPywgJ25lZ2F0aXZlJywgPywgPywgPywgJ2NyaXRpY2FsJywgJ2FjdGl2ZScsID8pYCwKICAgICAgICAgIFtyZXEudGVuYW50SWQsIGl0ZW0ucHJvZHVjdF9pZCwgaXRlbS53YXJlaG91c2VfaWQsIGl0ZW0ucXVhbnRpdHksIGDllYblk4HjgIwke2l0ZW0ubmFtZX3jgI3lupPlrZjkuLrotJ/mlbAoJHtpdGVtLnF1YW50aXR5fSR7aXRlbS51bml0fSnvvIzmlbDmja7lvILluLhgXQogICAgICAgICk7CiAgICAgICAgbmV3Q291bnQrKzsKICAgICAgfQogICAgfQoKICAgIC8vIOiHquWKqOino+WGs+W3suaBouWkjeeahOmihOitpgogICAgYXdhaXQgcG9vbC5xdWVyeSgKICAgICAgYFVQREFURSBzdG9ja19hbGVydHMgc2EgU0VUIHNhLnN0YXR1cyA9ICdyZXNvbHZlZCcsIHNhLnJlc29sdmVkX2F0ID0gTk9XKCkKICAgICAgIFdIRVJFIHNhLnRlbmFudF9pZCA9ID8gQU5EIHNhLnN0YXR1cyA9ICdhY3RpdmUnIEFORCBzYS5hbGVydF90eXBlID0gJ2xvd19zdG9jaycKICAgICAgIEFORCBFWElTVFMgKAogICAgICAgICBTRUxFQ1QgMSBGUk9NIGludmVudG9yeSBpIEpPSU4gcHJvZHVjdHMgcCBPTiBpLnByb2R1Y3RfaWQgPSBwLmlkCiAgICAgICAgIFdIRVJFIGkucHJvZHVjdF9pZCA9IHNhLnByb2R1Y3RfaWQgQU5EIGkud2FyZWhvdXNlX2lkID0gc2Eud2FyZWhvdXNlX2lkCiAgICAgICAgIEFORCBpLnF1YW50aXR5ID4gcC5taW5fc3RvY2sKICAgICAgIClgLAogICAgICBbcmVxLnRlbmFudElkXQogICAgKTsKCiAgICBjb25zdCBbW3sgYWN0aXZlX2NvdW50IH1dXSA9IGF3YWl0IHBvb2wucXVlcnkoCiAgICAgICJTRUxFQ1QgQ09VTlQoKikgYXMgYWN0aXZlX2NvdW50IEZST00gc3RvY2tfYWxlcnRzIFdIRVJFIHRlbmFudF9pZCA9ID8gQU5EIHN0YXR1cyA9ICdhY3RpdmUnIiwKICAgICAgW3JlcS50ZW5hbnRJZF0KICAgICk7CgogICAgcmVzLmpzb24oewogICAgICBjb2RlOiAwLAogICAgICBtZXNzYWdlOiBg5omr5o+P5a6M5oiQ77yM5paw5aKeJHtuZXdDb3VudH3mnaHpooToraZgLAogICAgICBkYXRhOiB7IG5ld19hbGVydHM6IG5ld0NvdW50LCBhY3RpdmVfYWxlcnRzOiBhY3RpdmVfY291bnQgfQogICAgfSk7CiAgfSBjYXRjaCAoZXJyKSB7CiAgICBjb25zb2xlLmVycm9yKCfpooTorabmiavmj4/lpLHotKU6JywgZXJyKTsKICAgIHJlcy5zdGF0dXMoNTAwKS5qc29uKHsgY29kZTogNTAwLCBtZXNzYWdlOiBlcnIubWVzc2FnZSB9KTsKICB9Cn0pOwoKLy8g6aKE6K2m5YiX6KGoCnJvdXRlci5nZXQoJy8nLCBhc3luYyAocmVxLCByZXMpID0+IHsKICB0cnkgewogICAgY29uc3QgeyBwYWdlID0gMSwgcGFnZVNpemUgPSAyMCwgc3RhdHVzID0gJ2FjdGl2ZScsIGFsZXJ0X3R5cGUsIGFsZXJ0X2xldmVsIH0gPSByZXEucXVlcnk7CiAgICBjb25zdCBvZmZzZXQgPSAocGFnZSAtIDEpICogcGFnZVNpemU7CiAgICBsZXQgd2hlcmUgPSAnV0hFUkUgc2EudGVuYW50X2lkID0gPyc7CiAgICBjb25zdCBwYXJhbXMgPSBbcmVxLnRlbmFudElkXTsKICAgIGlmIChzdGF0dXMpIHsgd2hlcmUgKz0gJyBBTkQgc2Euc3RhdHVzID0gPyc7IHBhcmFtcy5wdXNoKHN0YXR1cyk7IH0KICAgIGlmIChhbGVydF90eXBlKSB7IHdoZXJlICs9ICcgQU5EIHNhLmFsZXJ0X3R5cGUgPSA/JzsgcGFyYW1zLnB1c2goYWxlcnRfdHlwZSk7IH0KICAgIGlmIChhbGVydF9sZXZlbCkgeyB3aGVyZSArPSAnIEFORCBzYS5hbGVydF9sZXZlbCA9ID8nOyBwYXJhbXMucHVzaChhbGVydF9sZXZlbCk7IH0KCiAgICBjb25zdCBbW3sgdG90YWwgfV1dID0gYXdhaXQgcG9vbC5xdWVyeShgU0VMRUNUIENPVU5UKCopIGFzIHRvdGFsIEZST00gc3RvY2tfYWxlcnRzIHNhICR7d2hlcmV9YCwgcGFyYW1zKTsKICAgIGNvbnN0IFtyb3dzXSA9IGF3YWl0IHBvb2wucXVlcnkoCiAgICAgIGBTRUxFQ1Qgc2EuKiwgcC5uYW1lIGFzIHByb2R1Y3RfbmFtZSwgcC51bml0LCBwLmJhcmNvZGUsIHAubWluX3N0b2NrLAogICAgICAgICAgICAgIHcubmFtZSBhcyB3YXJlaG91c2VfbmFtZQogICAgICAgRlJPTSBzdG9ja19hbGVydHMgc2EKICAgICAgIEpPSU4gcHJvZHVjdHMgcCBPTiBzYS5wcm9kdWN0X2lkID0gcC5pZAogICAgICAgTEVGVCBKT0lOIHdhcmVob3VzZXMgdyBPTiBzYS53YXJlaG91c2VfaWQgPSB3LmlkCiAgICAgICAke3doZXJlfSBPUkRFUiBCWQogICAgICAgICBDQVNFIHNhLmFsZXJ0X2xldmVsIFdIRU4gJ2NyaXRpY2FsJyBUSEVOIDEgV0hFTiAnd2FybmluZycgVEhFTiAyIEVMU0UgMyBFTkQsCiAgICAgICAgIHNhLmNyZWF0ZWRfYXQgREVTQwogICAgICAgTElNSVQgPyBPRkZTRVQgP2AsCiAgICAgIFsuLi5wYXJhbXMsIHBhcnNlSW50KHBhZ2VTaXplKSwgb2Zmc2V0XQogICAgKTsKICAgIHJlcy5qc29uKHsgY29kZTogMCwgZGF0YTogeyBsaXN0OiByb3dzLCB0b3RhbCwgcGFnZTogcGFyc2VJbnQocGFnZSksIHBhZ2VTaXplOiBwYXJzZUludChwYWdlU2l6ZSkgfSB9KTsKICB9IGNhdGNoIChlcnIpIHsKICAgIHJlcy5zdGF0dXMoNTAwKS5qc29uKHsgY29kZTogNTAwLCBtZXNzYWdlOiBlcnIubWVzc2FnZSB9KTsKICB9Cn0pOwoKLy8g6aKE6K2m57uf6K6h77yIRGFzaGJvYXJk55So77yJCnJvdXRlci5nZXQoJy9zdGF0cycsIGFzeW5jIChyZXEsIHJlcykgPT4gewogIHRyeSB7CiAgICBjb25zdCBbcm93c10gPSBhd2FpdCBwb29sLnF1ZXJ5KAogICAgICBgU0VMRUNUIGFsZXJ0X3R5cGUsIGFsZXJ0X2xldmVsLCBDT1VOVCgqKSBhcyBjbnQKICAgICAgIEZST00gc3RvY2tfYWxlcnRzIFdIRVJFIHRlbmFudF9pZCA9ID8gQU5EIHN0YXR1cyA9ICdhY3RpdmUnCiAgICAgICBHUk9VUCBCWSBhbGVydF90eXBlLCBhbGVydF9sZXZlbGAsCiAgICAgIFtyZXEudGVuYW50SWRdCiAgICApOwogICAgY29uc3QgW3RvdGFsXSA9IGF3YWl0IHBvb2wucXVlcnkoCiAgICAgICJTRUxFQ1QgQ09VTlQoKikgYXMgdG90YWwgRlJPTSBzdG9ja19hbGVydHMgV0hFUkUgdGVuYW50X2lkID0gPyBBTkQgc3RhdHVzID0gJ2FjdGl2ZSciLAogICAgICBbcmVxLnRlbmFudElkXQogICAgKTsKICAgIHJlcy5qc29uKHsgY29kZTogMCwgZGF0YTogeyBicmVha2Rvd246IHJvd3MsIHRvdGFsOiB0b3RhbFswXS50b3RhbCB9IH0pOwogIH0gY2F0Y2ggKGVycikgewogICAgcmVzLnN0YXR1cyg1MDApLmpzb24oeyBjb2RlOiA1MDAsIG1lc3NhZ2U6IGVyci5tZXNzYWdlIH0pOwogIH0KfSk7CgovLyDlpITnkIbpooTorabvvIjlv73nlaUv6Kej5Yaz77yJCnJvdXRlci5wdXQoJy86aWQnLCByZXF1aXJlUm9sZSgnb3duZXInLCAnbWFuYWdlcicpLCBhc3luYyAocmVxLCByZXMpID0+IHsKICB0cnkgewogICAgY29uc3QgeyBzdGF0dXMgfSA9IHJlcS5ib2R5OyAvLyByZXNvbHZlZCAvIGlnbm9yZWQKICAgIGF3YWl0IHBvb2wucXVlcnkoCiAgICAgICdVUERBVEUgc3RvY2tfYWxlcnRzIFNFVCBzdGF0dXMgPSA/LCByZXNvbHZlZF9hdCA9IE5PVygpLCByZXNvbHZlZF9ieSA9ID8gV0hFUkUgaWQgPSA/IEFORCB0ZW5hbnRfaWQgPSA/JywKICAgICAgW3N0YXR1cywgcmVxLnVzZXIuaWQsIHJlcS5wYXJhbXMuaWQsIHJlcS50ZW5hbnRJZF0KICAgICk7CiAgICByZXMuanNvbih7IGNvZGU6IDAsIG1lc3NhZ2U6ICfpooTorablt7LlpITnkIYnIH0pOwogIH0gY2F0Y2ggKGVycikgewogICAgcmVzLnN0YXR1cyg1MDApLmpzb24oeyBjb2RlOiA1MDAsIG1lc3NhZ2U6IGVyci5tZXNzYWdlIH0pOwogIH0KfSk7Cgptb2R1bGUuZXhwb3J0cyA9IHJvdXRlcjsK
+const express = require('express');
+const pool = require('../config/db');
+const { authenticate, requireRole } = require('../middleware/auth');
+const dayjs = require('dayjs');
+
+const router = express.Router();
+router.use(authenticate);
+
+const alertTypeMap = {
+  low_stock: { label: '库存不足', color: 'red', icon: '⚠️' },
+  over_stock: { label: '库存积压', color: 'orange', icon: '📦' },
+  zero_stock: { label: '零库存', color: 'default', icon: '🚫' },
+  negative: { label: '负库存', color: 'red', icon: '❗' },
+  expiry: { label: '临期预警', color: 'orange', icon: '⏰' }
+};
+
+const levelMap = {
+  info: { label: '提示', color: 'blue' },
+  warning: { label: '警告', color: 'orange' },
+  critical: { label: '严重', color: 'red' }
+};
+
+// 扫描并生成预警（可定时调用或手动触发）
+router.post('/scan', requireRole('owner', 'manager'), async (req, res) => {
+  try {
+    // 1. 低库存预警
+    const [lowStockItems] = await pool.query(
+      `SELECT i.product_id, i.warehouse_id, i.quantity, p.name, p.min_stock, p.unit
+       FROM inventory i JOIN products p ON i.product_id = p.id
+       WHERE i.tenant_id = ? AND p.min_stock > 0 AND i.quantity <= p.min_stock AND p.status = 'active'`,
+      [req.tenantId]
+    );
+
+    let newCount = 0;
+    for (const item of lowStockItems) {
+      // 检查是否已有active预警
+      const [existing] = await pool.query(
+        "SELECT id FROM stock_alerts WHERE tenant_id = ? AND product_id = ? AND warehouse_id = ? AND alert_type = 'low_stock' AND status = 'active'",
+        [req.tenantId, item.product_id, item.warehouse_id]
+      );
+      if (existing.length === 0) {
+        const level = item.quantity <= 0 ? 'critical' : (item.quantity <= item.min_stock * 0.5 ? 'critical' : 'warning');
+        await pool.query(
+          `INSERT INTO stock_alerts (tenant_id, alert_type, product_id, warehouse_id, threshold_value, current_value, alert_level, status, message)
+           VALUES (?, 'low_stock', ?, ?, ?, ?, ?, 'active', ?)`,
+          [req.tenantId, item.product_id, item.warehouse_id, item.min_stock, item.quantity, level,
+           `商品「${item.name}」库存${item.quantity}${item.unit}，低于预警值${item.min_stock}${item.unit}`]
+        );
+        newCount++;
+      } else {
+        // 更新当前值
+        await pool.query(
+          'UPDATE stock_alerts SET current_value = ? WHERE id = ?',
+          [item.quantity, existing[0].id]
+        );
+      }
+    }
+
+    // 2. 零库存预警
+    const [zeroStockItems] = await pool.query(
+      `SELECT i.product_id, i.warehouse_id, p.name, p.unit
+       FROM inventory i JOIN products p ON i.product_id = p.id
+       WHERE i.tenant_id = ? AND i.quantity = 0 AND p.status = 'active' AND p.min_stock > 0`,
+      [req.tenantId]
+    );
+    for (const item of zeroStockItems) {
+      const [existing] = await pool.query(
+        "SELECT id FROM stock_alerts WHERE tenant_id = ? AND product_id = ? AND warehouse_id = ? AND alert_type = 'zero_stock' AND status = 'active'",
+        [req.tenantId, item.product_id, item.warehouse_id]
+      );
+      if (existing.length === 0) {
+        await pool.query(
+          `INSERT INTO stock_alerts (tenant_id, alert_type, product_id, warehouse_id, current_value, alert_level, status, message)
+           VALUES (?, 'zero_stock', ?, ?, 0, 'critical', 'active', ?)`,
+          [req.tenantId, item.product_id, item.warehouse_id, `商品「${item.name}」已零库存`]
+        );
+        newCount++;
+      }
+    }
+
+    // 3. 负库存异常（理论上不应出现）
+    const [negItems] = await pool.query(
+      `SELECT i.product_id, i.warehouse_id, i.quantity, p.name, p.unit
+       FROM inventory i JOIN products p ON i.product_id = p.id
+       WHERE i.tenant_id = ? AND i.quantity < 0`,
+      [req.tenantId]
+    );
+    for (const item of negItems) {
+      const [existing] = await pool.query(
+        "SELECT id FROM stock_alerts WHERE tenant_id = ? AND product_id = ? AND warehouse_id = ? AND alert_type = 'negative' AND status = 'active'",
+        [req.tenantId, item.product_id, item.warehouse_id]
+      );
+      if (existing.length === 0) {
+        await pool.query(
+          `INSERT INTO stock_alerts (tenant_id, alert_type, product_id, warehouse_id, current_value, alert_level, status, message)
+           VALUES (?, 'negative', ?, ?, ?, 'critical', 'active', ?)`,
+          [req.tenantId, item.product_id, item.warehouse_id, item.quantity, `商品「${item.name}」库存为负数(${item.quantity}${item.unit})，数据异常`]
+        );
+        newCount++;
+      }
+    }
+
+    // 自动解决已恢复的预警
+    await pool.query(
+      `UPDATE stock_alerts sa SET sa.status = 'resolved', sa.resolved_at = NOW()
+       WHERE sa.tenant_id = ? AND sa.status = 'active' AND sa.alert_type = 'low_stock'
+       AND EXISTS (
+         SELECT 1 FROM inventory i JOIN products p ON i.product_id = p.id
+         WHERE i.product_id = sa.product_id AND i.warehouse_id = sa.warehouse_id
+         AND i.quantity > p.min_stock
+       )`,
+      [req.tenantId]
+    );
+
+    const [[{ active_count }]] = await pool.query(
+      "SELECT COUNT(*) as active_count FROM stock_alerts WHERE tenant_id = ? AND status = 'active'",
+      [req.tenantId]
+    );
+
+    res.json({
+      code: 0,
+      message: `扫描完成，新增${newCount}条预警`,
+      data: { new_alerts: newCount, active_alerts: active_count }
+    });
+  } catch (err) {
+    console.error('预警扫描失败:', err);
+    res.status(500).json({ code: 500, message: err.message });
+  }
+});
+
+// 预警列表
+router.get('/', async (req, res) => {
+  try {
+    const { page = 1, pageSize = 20, status = 'active', alert_type, alert_level } = req.query;
+    const offset = (page - 1) * pageSize;
+    let where = 'WHERE sa.tenant_id = ?';
+    const params = [req.tenantId];
+    if (status) { where += ' AND sa.status = ?'; params.push(status); }
+    if (alert_type) { where += ' AND sa.alert_type = ?'; params.push(alert_type); }
+    if (alert_level) { where += ' AND sa.alert_level = ?'; params.push(alert_level); }
+
+    const [[{ total }]] = await pool.query(`SELECT COUNT(*) as total FROM stock_alerts sa ${where}`, params);
+    const [rows] = await pool.query(
+      `SELECT sa.*, p.name as product_name, p.unit, p.barcode, p.min_stock,
+              w.name as warehouse_name
+       FROM stock_alerts sa
+       JOIN products p ON sa.product_id = p.id
+       LEFT JOIN warehouses w ON sa.warehouse_id = w.id
+       ${where} ORDER BY
+         CASE sa.alert_level WHEN 'critical' THEN 1 WHEN 'warning' THEN 2 ELSE 3 END,
+         sa.created_at DESC
+       LIMIT ? OFFSET ?`,
+      [...params, parseInt(pageSize), offset]
+    );
+    res.json({ code: 0, data: { list: rows, total, page: parseInt(page), pageSize: parseInt(pageSize) } });
+  } catch (err) {
+    res.status(500).json({ code: 500, message: err.message });
+  }
+});
+
+// 预警统计（Dashboard用）
+router.get('/stats', async (req, res) => {
+  try {
+    const [rows] = await pool.query(
+      `SELECT alert_type, alert_level, COUNT(*) as cnt
+       FROM stock_alerts WHERE tenant_id = ? AND status = 'active'
+       GROUP BY alert_type, alert_level`,
+      [req.tenantId]
+    );
+    const [total] = await pool.query(
+      "SELECT COUNT(*) as total FROM stock_alerts WHERE tenant_id = ? AND status = 'active'",
+      [req.tenantId]
+    );
+    res.json({ code: 0, data: { breakdown: rows, total: total[0].total } });
+  } catch (err) {
+    res.status(500).json({ code: 500, message: err.message });
+  }
+});
+
+// 处理预警（忽略/解决）
+router.put('/:id', requireRole('owner', 'manager'), async (req, res) => {
+  try {
+    const { status } = req.body; // resolved / ignored
+    await pool.query(
+      'UPDATE stock_alerts SET status = ?, resolved_at = NOW(), resolved_by = ? WHERE id = ? AND tenant_id = ?',
+      [status, req.user.id, req.params.id, req.tenantId]
+    );
+    res.json({ code: 0, message: '预警已处理' });
+  } catch (err) {
+    res.status(500).json({ code: 500, message: err.message });
+  }
+});
+
+module.exports = router;

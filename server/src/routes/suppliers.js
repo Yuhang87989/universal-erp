@@ -1,1 +1,122 @@
-Y29uc3QgZXhwcmVzcyA9IHJlcXVpcmUoJ2V4cHJlc3MnKTsKY29uc3QgcG9vbCA9IHJlcXVpcmUoJy4uL2NvbmZpZy9kYicpOwpjb25zdCB7IGF1dGhlbnRpY2F0ZSB9ID0gcmVxdWlyZSgnLi4vbWlkZGxld2FyZS9hdXRoJyk7Cgpjb25zdCByb3V0ZXIgPSBleHByZXNzLlJvdXRlcigpOwpyb3V0ZXIudXNlKGF1dGhlbnRpY2F0ZSk7CgovLyDojrflj5bkvpvlupTllYbliJfooagKcm91dGVyLmdldCgnLycsIGFzeW5jIChyZXEsIHJlcykgPT4gewogIHRyeSB7CiAgICBjb25zdCB7IHBhZ2UgPSAxLCBwYWdlU2l6ZSA9IDIwLCBrZXl3b3JkIH0gPSByZXEucXVlcnk7CiAgICBjb25zdCBvZmZzZXQgPSAocGFnZSAtIDEpICogcGFnZVNpemU7CiAgICBsZXQgd2hlcmUgPSAnV0hFUkUgdGVuYW50X2lkID0gPyc7CiAgICBjb25zdCBwYXJhbXMgPSBbcmVxLnRlbmFudElkXTsKCiAgICBpZiAoa2V5d29yZCkgewogICAgICB3aGVyZSArPSAnIEFORCAobmFtZSBMSUtFID8gT1IgY29udGFjdF9uYW1lIExJS0UgPyBPUiBwaG9uZSBMSUtFID8pJzsKICAgICAgcGFyYW1zLnB1c2goYCUke2tleXdvcmR9JWAsIGAlJHtrZXl3b3JkfSVgLCBgJSR7a2V5d29yZH0lYCk7CiAgICB9CgogICAgY29uc3QgW2NvdW50UmVzdWx0XSA9IGF3YWl0IHBvb2wucXVlcnkoYFNFTEVDVCBDT1VOVCgqKSBhcyB0b3RhbCBGUk9NIHN1cHBsaWVycyAke3doZXJlfWAsIHBhcmFtcyk7CgogICAgY29uc3QgW3N1cHBsaWVyc10gPSBhd2FpdCBwb29sLnF1ZXJ5KAogICAgICBgU0VMRUNUICogRlJPTSBzdXBwbGllcnMgJHt3aGVyZX0gT1JERVIgQlkgaWQgREVTQyBMSU1JVCA/IE9GRlNFVCA/YCwKICAgICAgWy4uLnBhcmFtcywgcGFyc2VJbnQocGFnZVNpemUpLCBvZmZzZXRdCiAgICApOwoKICAgIC8vIOe7n+iuoeavj+S4quS+m+W6lOWVhueahOmHh+i0reWNleaVsOWSjOaAu+mHkeminQogICAgZm9yIChjb25zdCBzIG9mIHN1cHBsaWVycykgewogICAgICBjb25zdCBbc3RhdHNdID0gYXdhaXQgcG9vbC5xdWVyeSgKICAgICAgICBgU0VMRUNUIENPVU5UKCopIGFzIHRvdGFsT3JkZXJzLCBDT0FMRVNDRShTVU0odG90YWxfYW1vdW50KSwgMCkgYXMgdG90YWxBbW91bnQgRlJPTSBwdXJjaGFzZV9vcmRlcnMgV0hFUkUgc3VwcGxpZXJfaWQgPSA/IEFORCB0ZW5hbnRfaWQgPSA/YCwKICAgICAgICBbcy5pZCwgcmVxLnRlbmFudElkXQogICAgICApOwogICAgICBzLnRvdGFsT3JkZXJzID0gc3RhdHNbMF0udG90YWxPcmRlcnM7CiAgICAgIHMudG90YWxBbW91bnQgPSBzdGF0c1swXS50b3RhbEFtb3VudDsKICAgIH0KCiAgICByZXMuanNvbih7CiAgICAgIGNvZGU6IDAsCiAgICAgIGRhdGE6IHsgbGlzdDogc3VwcGxpZXJzLCB0b3RhbDogY291bnRSZXN1bHRbMF0udG90YWwsIHBhZ2U6IHBhcnNlSW50KHBhZ2UpLCBwYWdlU2l6ZTogcGFyc2VJbnQocGFnZVNpemUpIH0KICAgIH0pOwogIH0gY2F0Y2ggKGVycikgewogICAgcmVzLnN0YXR1cyg1MDApLmpzb24oeyBjb2RlOiA1MDAsIG1lc3NhZ2U6ICfojrflj5bkvpvlupTllYbliJfooajlpLHotKUnIH0pOwogIH0KfSk7CgovLyDojrflj5bkvpvlupTllYbor6bmg4UKcm91dGVyLmdldCgnLzppZCcsIGFzeW5jIChyZXEsIHJlcykgPT4gewogIHRyeSB7CiAgICBjb25zdCBbc3VwcGxpZXJzXSA9IGF3YWl0IHBvb2wucXVlcnkoCiAgICAgICdTRUxFQ1QgKiBGUk9NIHN1cHBsaWVycyBXSEVSRSBpZCA9ID8gQU5EIHRlbmFudF9pZCA9ID8nLAogICAgICBbcmVxLnBhcmFtcy5pZCwgcmVxLnRlbmFudElkXQogICAgKTsKICAgIGlmICghc3VwcGxpZXJzLmxlbmd0aCkgcmV0dXJuIHJlcy5zdGF0dXMoNDA0KS5qc29uKHsgY29kZTogNDA0LCBtZXNzYWdlOiAn5L6b5bqU5ZWG5LiN5a2Y5ZyoJyB9KTsKCiAgICBjb25zdCBzdXBwbGllciA9IHN1cHBsaWVyc1swXTsKCiAgICAvLyDojrflj5bov5HmnJ/ph4fotK3ljZUKICAgIGNvbnN0IFtvcmRlcnNdID0gYXdhaXQgcG9vbC5xdWVyeSgKICAgICAgYFNFTEVDVCBpZCwgb3JkZXJfbm8sIG9yZGVyX2RhdGUsIHRvdGFsX2Ftb3VudCwgc3RhdHVzIEZST00gcHVyY2hhc2Vfb3JkZXJzCiAgICAgICBXSEVSRSBzdXBwbGllcl9pZCA9ID8gQU5EIHRlbmFudF9pZCA9ID8gT1JERVIgQlkgb3JkZXJfZGF0ZSBERVNDIExJTUlUIDEwYCwKICAgICAgW3JlcS5wYXJhbXMuaWQsIHJlcS50ZW5hbnRJZF0KICAgICk7CiAgICBzdXBwbGllci5yZWNlbnRPcmRlcnMgPSBvcmRlcnM7CgogICAgcmVzLmpzb24oeyBjb2RlOiAwLCBkYXRhOiBzdXBwbGllciB9KTsKICB9IGNhdGNoIChlcnIpIHsKICAgIHJlcy5zdGF0dXMoNTAwKS5qc29uKHsgY29kZTogNTAwLCBtZXNzYWdlOiAn6I635Y+W5L6b5bqU5ZWG6K+m5oOF5aSx6LSlJyB9KTsKICB9Cn0pOwoKLy8g5paw5aKe5L6b5bqU5ZWGCnJvdXRlci5wb3N0KCcvJywgYXN5bmMgKHJlcSwgcmVzKSA9PiB7CiAgdHJ5IHsKICAgIGNvbnN0IHsgbmFtZSwgY29udGFjdE5hbWUsIHBob25lLCBhZGRyZXNzLCBiYW5rTmFtZSwgYmFua0FjY291bnQsIG5vdGVzIH0gPSByZXEuYm9keTsKICAgIGlmICghbmFtZSkgdGhyb3cgbmV3IEVycm9yKCfkvpvlupTllYblkI3np7DkuI3og73kuLrnqbonKTsKCiAgICBjb25zdCBbcmVzdWx0XSA9IGF3YWl0IHBvb2wucXVlcnkoCiAgICAgIGBJTlNFUlQgSU5UTyBzdXBwbGllcnMgKHRlbmFudF9pZCwgbmFtZSwgY29udGFjdF9uYW1lLCBwaG9uZSwgYWRkcmVzcywgYmFua19uYW1lLCBiYW5rX2FjY291bnQsIHJlbWFyaykKICAgICAgIFZBTFVFUyAoPywgPywgPywgPywgPywgPywgPywgPylgLAogICAgICBbcmVxLnRlbmFudElkLCBuYW1lLCBjb250YWN0TmFtZSB8fCBudWxsLCBwaG9uZSB8fCBudWxsLCBhZGRyZXNzIHx8IG51bGwsIGJhbmtOYW1lIHx8IG51bGwsIGJhbmtBY2NvdW50IHx8IG51bGwsIG5vdGVzIHx8IG51bGxdCiAgICApOwogICAgcmVzLmpzb24oeyBjb2RlOiAwLCBtZXNzYWdlOiAn5L6b5bqU5ZWG5re75Yqg5oiQ5YqfJywgZGF0YTogeyBpZDogcmVzdWx0Lmluc2VydElkIH0gfSk7CiAgfSBjYXRjaCAoZXJyKSB7CiAgICByZXMuc3RhdHVzKDQwMCkuanNvbih7IGNvZGU6IDQwMCwgbWVzc2FnZTogZXJyLm1lc3NhZ2UgfSk7CiAgfQp9KTsKCi8vIOabtOaWsOS+m+W6lOWVhgpyb3V0ZXIucHV0KCcvOmlkJywgYXN5bmMgKHJlcSwgcmVzKSA9PiB7CiAgdHJ5IHsKICAgIGNvbnN0IHsgbmFtZSwgY29udGFjdE5hbWUsIHBob25lLCBhZGRyZXNzLCBiYW5rTmFtZSwgYmFua0FjY291bnQsIG5vdGVzIH0gPSByZXEuYm9keTsKICAgIGF3YWl0IHBvb2wucXVlcnkoCiAgICAgIGBVUERBVEUgc3VwcGxpZXJzIFNFVCBuYW1lPT8sIGNvbnRhY3RfbmFtZT0/LCBwaG9uZT0/LCBhZGRyZXNzPT8sIGJhbmtfbmFtZT0/LCBiYW5rX2FjY291bnQ9PywgcmVtYXJrPT8KICAgICAgIFdIRVJFIGlkPT8gQU5EIHRlbmFudF9pZD0/YCwKICAgICAgW25hbWUsIGNvbnRhY3ROYW1lLCBwaG9uZSwgYWRkcmVzcywgYmFua05hbWUsIGJhbmtBY2NvdW50LCBub3RlcywgcmVxLnBhcmFtcy5pZCwgcmVxLnRlbmFudElkXQogICAgKTsKICAgIHJlcy5qc29uKHsgY29kZTogMCwgbWVzc2FnZTogJ+S+m+W6lOWVhuabtOaWsOaIkOWKnycgfSk7CiAgfSBjYXRjaCAoZXJyKSB7CiAgICByZXMuc3RhdHVzKDQwMCkuanNvbih7IGNvZGU6IDQwMCwgbWVzc2FnZTogZXJyLm1lc3NhZ2UgfSk7CiAgfQp9KTsKCi8vIOWIoOmZpOS+m+W6lOWVhgpyb3V0ZXIuZGVsZXRlKCcvOmlkJywgYXN5bmMgKHJlcSwgcmVzKSA9PiB7CiAgdHJ5IHsKICAgIC8vIOajgOafpeaYr+WQpuacieWFs+iBlOeahOmHh+i0reWNlQogICAgY29uc3QgW29yZGVyc10gPSBhd2FpdCBwb29sLnF1ZXJ5KAogICAgICAnU0VMRUNUIENPVU5UKCopIGFzIGNudCBGUk9NIHB1cmNoYXNlX29yZGVycyBXSEVSRSBzdXBwbGllcl9pZCA9ID8gQU5EIHRlbmFudF9pZCA9ID8nLAogICAgICBbcmVxLnBhcmFtcy5pZCwgcmVxLnRlbmFudElkXQogICAgKTsKICAgIGlmIChvcmRlcnNbMF0uY250ID4gMCkgewogICAgICByZXR1cm4gcmVzLnN0YXR1cyg0MDApLmpzb24oeyBjb2RlOiA0MDAsIG1lc3NhZ2U6ICfor6XkvpvlupTllYblrZjlnKjlhbPogZTph4fotK3ljZXvvIzml6Dms5XliKDpmaQnIH0pOwogICAgfQogICAgYXdhaXQgcG9vbC5xdWVyeSgnREVMRVRFIEZST00gc3VwcGxpZXJzIFdIRVJFIGlkPT8gQU5EIHRlbmFudF9pZD0/JywgW3JlcS5wYXJhbXMuaWQsIHJlcS50ZW5hbnRJZF0pOwogICAgcmVzLmpzb24oeyBjb2RlOiAwLCBtZXNzYWdlOiAn5L6b5bqU5ZWG5bey5Yig6ZmkJyB9KTsKICB9IGNhdGNoIChlcnIpIHsKICAgIHJlcy5zdGF0dXMoNTAwKS5qc29uKHsgY29kZTogNTAwLCBtZXNzYWdlOiAn5Yig6Zmk5aSx6LSlJyB9KTsKICB9Cn0pOwoKbW9kdWxlLmV4cG9ydHMgPSByb3V0ZXI7Cg==
+const express = require('express');
+const pool = require('../config/db');
+const { authenticate } = require('../middleware/auth');
+
+const router = express.Router();
+router.use(authenticate);
+
+// 获取供应商列表
+router.get('/', async (req, res) => {
+  try {
+    const { page = 1, pageSize = 20, keyword } = req.query;
+    const offset = (page - 1) * pageSize;
+    let where = 'WHERE tenant_id = ?';
+    const params = [req.tenantId];
+
+    if (keyword) {
+      where += ' AND (name LIKE ? OR contact_name LIKE ? OR phone LIKE ?)';
+      params.push(`%${keyword}%`, `%${keyword}%`, `%${keyword}%`);
+    }
+
+    const [countResult] = await pool.query(`SELECT COUNT(*) as total FROM suppliers ${where}`, params);
+
+    const [suppliers] = await pool.query(
+      `SELECT * FROM suppliers ${where} ORDER BY id DESC LIMIT ? OFFSET ?`,
+      [...params, parseInt(pageSize), offset]
+    );
+
+    // 统计每个供应商的采购单数和总金额
+    for (const s of suppliers) {
+      const [stats] = await pool.query(
+        `SELECT COUNT(*) as totalOrders, COALESCE(SUM(total_amount), 0) as totalAmount FROM purchase_orders WHERE supplier_id = ? AND tenant_id = ?`,
+        [s.id, req.tenantId]
+      );
+      s.totalOrders = stats[0].totalOrders;
+      s.totalAmount = stats[0].totalAmount;
+    }
+
+    res.json({
+      code: 0,
+      data: { list: suppliers, total: countResult[0].total, page: parseInt(page), pageSize: parseInt(pageSize) }
+    });
+  } catch (err) {
+    res.status(500).json({ code: 500, message: '获取供应商列表失败' });
+  }
+});
+
+// 获取供应商详情
+router.get('/:id', async (req, res) => {
+  try {
+    const [suppliers] = await pool.query(
+      'SELECT * FROM suppliers WHERE id = ? AND tenant_id = ?',
+      [req.params.id, req.tenantId]
+    );
+    if (!suppliers.length) return res.status(404).json({ code: 404, message: '供应商不存在' });
+
+    const supplier = suppliers[0];
+
+    // 获取近期采购单
+    const [orders] = await pool.query(
+      `SELECT id, order_no, order_date, total_amount, status FROM purchase_orders
+       WHERE supplier_id = ? AND tenant_id = ? ORDER BY order_date DESC LIMIT 10`,
+      [req.params.id, req.tenantId]
+    );
+    supplier.recentOrders = orders;
+
+    res.json({ code: 0, data: supplier });
+  } catch (err) {
+    res.status(500).json({ code: 500, message: '获取供应商详情失败' });
+  }
+});
+
+// 新增供应商
+router.post('/', async (req, res) => {
+  try {
+    const { name, contactName, phone, address, bankName, bankAccount, notes } = req.body;
+    if (!name) throw new Error('供应商名称不能为空');
+
+    const [result] = await pool.query(
+      `INSERT INTO suppliers (tenant_id, name, contact_name, phone, address, bank_name, bank_account, remark)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [req.tenantId, name, contactName || null, phone || null, address || null, bankName || null, bankAccount || null, notes || null]
+    );
+    res.json({ code: 0, message: '供应商添加成功', data: { id: result.insertId } });
+  } catch (err) {
+    res.status(400).json({ code: 400, message: err.message });
+  }
+});
+
+// 更新供应商
+router.put('/:id', async (req, res) => {
+  try {
+    const { name, contactName, phone, address, bankName, bankAccount, notes } = req.body;
+    await pool.query(
+      `UPDATE suppliers SET name=?, contact_name=?, phone=?, address=?, bank_name=?, bank_account=?, remark=?
+       WHERE id=? AND tenant_id=?`,
+      [name, contactName, phone, address, bankName, bankAccount, notes, req.params.id, req.tenantId]
+    );
+    res.json({ code: 0, message: '供应商更新成功' });
+  } catch (err) {
+    res.status(400).json({ code: 400, message: err.message });
+  }
+});
+
+// 删除供应商
+router.delete('/:id', async (req, res) => {
+  try {
+    // 检查是否有关联的采购单
+    const [orders] = await pool.query(
+      'SELECT COUNT(*) as cnt FROM purchase_orders WHERE supplier_id = ? AND tenant_id = ?',
+      [req.params.id, req.tenantId]
+    );
+    if (orders[0].cnt > 0) {
+      return res.status(400).json({ code: 400, message: '该供应商存在关联采购单，无法删除' });
+    }
+    await pool.query('DELETE FROM suppliers WHERE id=? AND tenant_id=?', [req.params.id, req.tenantId]);
+    res.json({ code: 0, message: '供应商已删除' });
+  } catch (err) {
+    res.status(500).json({ code: 500, message: '删除失败' });
+  }
+});
+
+module.exports = router;

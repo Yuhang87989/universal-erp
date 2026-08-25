@@ -1,1 +1,210 @@
-Y29uc3QgZXhwcmVzcyA9IHJlcXVpcmUoJ2V4cHJlc3MnKTsKY29uc3QgcG9vbCA9IHJlcXVpcmUoJy4uL2NvbmZpZy9kYicpOwpjb25zdCB7IGF1dGhlbnRpY2F0ZSwgcmVxdWlyZVJvbGUgfSA9IHJlcXVpcmUoJy4uL21pZGRsZXdhcmUvYXV0aCcpOwpjb25zdCBkYXlqcyA9IHJlcXVpcmUoJ2RheWpzJyk7Cgpjb25zdCByb3V0ZXIgPSBleHByZXNzLlJvdXRlcigpOwpyb3V0ZXIudXNlKGF1dGhlbnRpY2F0ZSk7CgovLyDnlJ/miJDlhaXlupPljZXlj7cKY29uc3QgZ2VuT3JkZXJObyA9IGFzeW5jICh0ZW5hbnRJZCkgPT4gewogIGNvbnN0IHRvZGF5ID0gZGF5anMoKS5mb3JtYXQoJ1lZWVlNTUREJyk7CiAgY29uc3QgcHJlZml4ID0gYFJLJHt0b2RheX1gOwogIGNvbnN0IFtyb3dzXSA9IGF3YWl0IHBvb2wucXVlcnkoCiAgICAiU0VMRUNUIG9yZGVyX25vIEZST00gc3RvY2tfaW5fb3JkZXJzIFdIRVJFIHRlbmFudF9pZCA9ID8gQU5EIG9yZGVyX25vIExJS0UgPyBPUkRFUiBCWSBpZCBERVNDIExJTUlUIDEiLAogICAgW3RlbmFudElkLCBgJHtwcmVmaXh9JWBdCiAgKTsKICBjb25zdCBzZXEgPSByb3dzLmxlbmd0aCA/IHBhcnNlSW50KHJvd3NbMF0ub3JkZXJfbm8uc2xpY2UoLTMpKSArIDEgOiAxOwogIHJldHVybiBgJHtwcmVmaXh9JHtTdHJpbmcoc2VxKS5wYWRTdGFydCgzLCAnMCcpfWA7Cn07CgovLyDlhaXlupPnsbvlnovmmKDlsIQKY29uc3QgdHlwZU1hcCA9IHsKICBwdXJjaGFzZTogJ+mHh+i0reWFpeW6kycsIHJldHVybjogJ+mAgOi0p+WFpeW6kycsIHByb2R1Y3Rpb25faW46ICfnlJ/kuqflhaXlupMnLAogIHRyYW5zZmVyX2luOiAn6LCD5ouo5YWl5bqTJywgYWRqdXN0X2luOiAn6LCD5pW05YWl5bqTJywgb3RoZXI6ICflhbbku5blhaXlupMnCn07CgovLyDliJfooagKcm91dGVyLmdldCgnLycsIGFzeW5jIChyZXEsIHJlcykgPT4gewogIHRyeSB7CiAgICBjb25zdCB7IHBhZ2UgPSAxLCBwYWdlU2l6ZSA9IDIwLCBzdGF0dXMsIGluX3R5cGUsIGtleXdvcmQsIHdhcmVob3VzZV9pZCwgc3RhcnREYXRlLCBlbmREYXRlIH0gPSByZXEucXVlcnk7CiAgICBjb25zdCBvZmZzZXQgPSAocGFnZSAtIDEpICogcGFnZVNpemU7CiAgICBsZXQgd2hlcmUgPSAnV0hFUkUgc2lvLnRlbmFudF9pZCA9ID8nOwogICAgY29uc3QgcGFyYW1zID0gW3JlcS50ZW5hbnRJZF07CiAgICBpZiAoc3RhdHVzKSB7IHdoZXJlICs9ICcgQU5EIHNpby5zdGF0dXMgPSA/JzsgcGFyYW1zLnB1c2goc3RhdHVzKTsgfQogICAgaWYgKGluX3R5cGUpIHsgd2hlcmUgKz0gJyBBTkQgc2lvLmluX3R5cGUgPSA/JzsgcGFyYW1zLnB1c2goaW5fdHlwZSk7IH0KICAgIGlmICh3YXJlaG91c2VfaWQpIHsgd2hlcmUgKz0gJyBBTkQgc2lvLndhcmVob3VzZV9pZCA9ID8nOyBwYXJhbXMucHVzaCh3YXJlaG91c2VfaWQpOyB9CiAgICBpZiAoa2V5d29yZCkgeyB3aGVyZSArPSAnIEFORCAoc2lvLm9yZGVyX25vIExJS0UgPyBPUiBzdXAubmFtZSBMSUtFID8pJzsgcGFyYW1zLnB1c2goYCUke2tleXdvcmR9JWAsIGAlJHtrZXl3b3JkfSVgKTsgfQogICAgaWYgKHN0YXJ0RGF0ZSkgeyB3aGVyZSArPSAnIEFORCBzaW8uY3JlYXRlZF9hdCA+PSA/JzsgcGFyYW1zLnB1c2goc3RhcnREYXRlKTsgfQogICAgaWYgKGVuZERhdGUpIHsgd2hlcmUgKz0gJyBBTkQgc2lvLmNyZWF0ZWRfYXQgPD0gPyc7IHBhcmFtcy5wdXNoKGVuZERhdGUgKyAnIDIzOjU5OjU5Jyk7IH0KCiAgICBjb25zdCBbW3sgdG90YWwgfV1dID0gYXdhaXQgcG9vbC5xdWVyeShgU0VMRUNUIENPVU5UKCopIGFzIHRvdGFsIEZST00gc3RvY2tfaW5fb3JkZXJzIHNpbyBMRUZUIEpPSU4gc3VwcGxpZXJzIHN1cCBPTiBzaW8uc3VwcGxpZXJfaWQgPSBzdXAuaWQgJHt3aGVyZX1gLCBwYXJhbXMpOwogICAgY29uc3QgW29yZGVyc10gPSBhd2FpdCBwb29sLnF1ZXJ5KAogICAgICBgU0VMRUNUIHNpby4qLCB3Lm5hbWUgYXMgd2FyZWhvdXNlX25hbWUsIHN1cC5uYW1lIGFzIHN1cHBsaWVyX25hbWUsIHUucmVhbF9uYW1lIGFzIG9wZXJhdG9yX25hbWUsIGMucmVhbF9uYW1lIGFzIGNvbmZpcm1lcl9uYW1lCiAgICAgICBGUk9NIHN0b2NrX2luX29yZGVycyBzaW8KICAgICAgIExFRlQgSk9JTiB3YXJlaG91c2VzIHcgT04gc2lvLndhcmVob3VzZV9pZCA9IHcuaWQKICAgICAgIExFRlQgSk9JTiBzdXBwbGllcnMgc3VwIE9OIHNpby5zdXBwbGllcl9pZCA9IHN1cC5pZAogICAgICAgTEVGVCBKT0lOIHVzZXJzIHUgT04gc2lvLm9wZXJhdG9yX2lkID0gdS5pZAogICAgICAgTEVGVCBKT0lOIHVzZXJzIGMgT04gc2lvLmNvbmZpcm1lcl9pZCA9IGMuaWQKICAgICAgICR7d2hlcmV9IE9SREVSIEJZIHNpby5pZCBERVNDIExJTUlUID8gT0ZGU0VUID9gLAogICAgICBbLi4ucGFyYW1zLCBwYXJzZUludChwYWdlU2l6ZSksIG9mZnNldF0KICAgICk7CgogICAgZm9yIChjb25zdCBvIG9mIG9yZGVycykgewogICAgICBjb25zdCBbaXRlbXNdID0gYXdhaXQgcG9vbC5xdWVyeSgKICAgICAgICBgU0VMRUNUIHNpaS4qLCBwLm5hbWUgYXMgcHJvZHVjdF9uYW1lLCBwLnVuaXQsIHAuYmFyY29kZSBGUk9NIHN0b2NrX2luX2l0ZW1zIHNpaQogICAgICAgICBKT0lOIHByb2R1Y3RzIHAgT04gc2lpLnByb2R1Y3RfaWQgPSBwLmlkIFdIRVJFIHNpaS5zdG9ja19pbl9pZCA9ID9gLAogICAgICAgIFtvLmlkXQogICAgICApOwogICAgICBvLml0ZW1zID0gaXRlbXM7CiAgICAgIG8uaXRlbV9jb3VudCA9IGl0ZW1zLmxlbmd0aDsKICAgIH0KCiAgICByZXMuanNvbih7IGNvZGU6IDAsIGRhdGE6IHsgbGlzdDogb3JkZXJzLCB0b3RhbCwgcGFnZTogcGFyc2VJbnQocGFnZSksIHBhZ2VTaXplOiBwYXJzZUludChwYWdlU2l6ZSkgfSB9KTsKICB9IGNhdGNoIChlcnIpIHsKICAgIGNvbnNvbGUuZXJyb3IoJ+iOt+WPluWFpeW6k+WNleWIl+ihqOWksei0pTonLCBlcnIpOwogICAgcmVzLnN0YXR1cyg1MDApLmpzb24oeyBjb2RlOiA1MDAsIG1lc3NhZ2U6ICfojrflj5bliJfooajlpLHotKUnIH0pOwogIH0KfSk7CgovLyDor6bmg4UKcm91dGVyLmdldCgnLzppZCcsIGFzeW5jIChyZXEsIHJlcykgPT4gewogIHRyeSB7CiAgICBjb25zdCBbW29yZGVyXV0gPSBhd2FpdCBwb29sLnF1ZXJ5KAogICAgICBgU0VMRUNUIHNpby4qLCB3Lm5hbWUgYXMgd2FyZWhvdXNlX25hbWUsIHN1cC5uYW1lIGFzIHN1cHBsaWVyX25hbWUsIHUucmVhbF9uYW1lIGFzIG9wZXJhdG9yX25hbWUsIGMucmVhbF9uYW1lIGFzIGNvbmZpcm1lcl9uYW1lCiAgICAgICBGUk9NIHN0b2NrX2luX29yZGVycyBzaW8KICAgICAgIExFRlQgSk9JTiB3YXJlaG91c2VzIHcgT04gc2lvLndhcmVob3VzZV9pZCA9IHcuaWQKICAgICAgIExFRlQgSk9JTiBzdXBwbGllcnMgc3VwIE9OIHNpby5zdXBwbGllcl9pZCA9IHN1cC5pZAogICAgICAgTEVGVCBKT0lOIHVzZXJzIHUgT04gc2lvLm9wZXJhdG9yX2lkID0gdS5pZAogICAgICAgTEVGVCBKT0lOIHVzZXJzIGMgT04gc2lvLmNvbmZpcm1lcl9pZCA9IGMuaWQKICAgICAgIFdIRVJFIHNpby5pZCA9ID8gQU5EIHNpby50ZW5hbnRfaWQgPSA/YCwKICAgICAgW3JlcS5wYXJhbXMuaWQsIHJlcS50ZW5hbnRJZF0KICAgICk7CiAgICBpZiAoIW9yZGVyKSByZXR1cm4gcmVzLnN0YXR1cyg0MDQpLmpzb24oeyBjb2RlOiA0MDQsIG1lc3NhZ2U6ICflhaXlupPljZXkuI3lrZjlnKgnIH0pOwogICAgY29uc3QgW2l0ZW1zXSA9IGF3YWl0IHBvb2wucXVlcnkoCiAgICAgIGBTRUxFQ1Qgc2lpLiosIHAubmFtZSBhcyBwcm9kdWN0X25hbWUsIHAudW5pdCwgcC5iYXJjb2RlLCBwLmNvc3RfcHJpY2UgYXMgY3VycmVudF9jb3N0CiAgICAgICBGUk9NIHN0b2NrX2luX2l0ZW1zIHNpaSBKT0lOIHByb2R1Y3RzIHAgT04gc2lpLnByb2R1Y3RfaWQgPSBwLmlkIFdIRVJFIHNpaS5zdG9ja19pbl9pZCA9ID9gLAogICAgICBbb3JkZXIuaWRdCiAgICApOwogICAgb3JkZXIuaXRlbXMgPSBpdGVtczsKICAgIHJlcy5qc29uKHsgY29kZTogMCwgZGF0YTogb3JkZXIgfSk7CiAgfSBjYXRjaCAoZXJyKSB7CiAgICByZXMuc3RhdHVzKDUwMCkuanNvbih7IGNvZGU6IDUwMCwgbWVzc2FnZTogJ+iOt+WPluivpuaDheWksei0pScgfSk7CiAgfQp9KTsKCi8vIOaWsOW7uuWFpeW6k+WNle+8iOiNieeov++8iQpyb3V0ZXIucG9zdCgnLycsIHJlcXVpcmVSb2xlKCdvd25lcicsICdtYW5hZ2VyJywgJ3dhcmVob3VzZScpLCBhc3luYyAocmVxLCByZXMpID0+IHsKICB0cnkgewogICAgY29uc3QgeyB3YXJlaG91c2VfaWQsIGluX3R5cGUsIHN1cHBsaWVyX2lkLCBpdGVtcywgcmVtYXJrIH0gPSByZXEuYm9keTsKICAgIGlmICghd2FyZWhvdXNlX2lkIHx8ICFpdGVtcz8ubGVuZ3RoKSByZXR1cm4gcmVzLnN0YXR1cyg0MDApLmpzb24oeyBjb2RlOiA0MDAsIG1lc3NhZ2U6ICfor7fpgInmi6nku5PlupPlubbmt7vliqDllYblk4EnIH0pOwoKICAgIGNvbnN0IG9yZGVyTm8gPSBhd2FpdCBnZW5PcmRlck5vKHJlcS50ZW5hbnRJZCk7CiAgICBsZXQgdG90YWxBbW91bnQgPSAwOwogICAgaXRlbXMuZm9yRWFjaChpID0+IHsgdG90YWxBbW91bnQgKz0gKGkucXVhbnRpdHkgfHwgMCkgKiAoaS51bml0X2Nvc3QgfHwgMCk7IH0pOwoKICAgIGNvbnN0IGNvbm4gPSBhd2FpdCBwb29sLmdldENvbm5lY3Rpb24oKTsKICAgIGF3YWl0IGNvbm4uYmVnaW5UcmFuc2FjdGlvbigpOwogICAgdHJ5IHsKICAgICAgY29uc3QgW3Jlc3VsdF0gPSBhd2FpdCBjb25uLnF1ZXJ5KAogICAgICAgIGBJTlNFUlQgSU5UTyBzdG9ja19pbl9vcmRlcnMgKHRlbmFudF9pZCwgb3JkZXJfbm8sIHdhcmVob3VzZV9pZCwgaW5fdHlwZSwgc3VwcGxpZXJfaWQsIHRvdGFsX2Ftb3VudCwgc3RhdHVzLCBvcGVyYXRvcl9pZCwgcmVtYXJrKQogICAgICAgICBWQUxVRVMgKD8sID8sID8sID8sID8sID8sICdkcmFmdCcsID8sID8pYCwKICAgICAgICBbcmVxLnRlbmFudElkLCBvcmRlck5vLCB3YXJlaG91c2VfaWQsIGluX3R5cGUgfHwgJ290aGVyJywgc3VwcGxpZXJfaWQgfHwgbnVsbCwgdG90YWxBbW91bnQsIHJlcS51c2VyLmlkLCByZW1hcmsgfHwgbnVsbF0KICAgICAgKTsKICAgICAgZm9yIChjb25zdCBpdGVtIG9mIGl0ZW1zKSB7CiAgICAgICAgYXdhaXQgY29ubi5xdWVyeSgKICAgICAgICAgICdJTlNFUlQgSU5UTyBzdG9ja19pbl9pdGVtcyAoc3RvY2tfaW5faWQsIHByb2R1Y3RfaWQsIHF1YW50aXR5LCB1bml0X2Nvc3QsIHJlbWFyaykgVkFMVUVTICg/LCA/LCA/LCA/LCA/KScsCiAgICAgICAgICBbcmVzdWx0Lmluc2VydElkLCBpdGVtLnByb2R1Y3RfaWQsIGl0ZW0ucXVhbnRpdHksIGl0ZW0udW5pdF9jb3N0IHx8IDAsIGl0ZW0ucmVtYXJrIHx8IG51bGxdCiAgICAgICAgKTsKICAgICAgfQogICAgICBhd2FpdCBjb25uLmNvbW1pdCgpOwogICAgICByZXMuanNvbih7IGNvZGU6IDAsIG1lc3NhZ2U6ICflhaXlupPljZXliJvlu7rmiJDlip8nLCBkYXRhOiB7IGlkOiByZXN1bHQuaW5zZXJ0SWQsIG9yZGVyX25vOiBvcmRlck5vIH0gfSk7CiAgICB9IGNhdGNoIChlKSB7CiAgICAgIGF3YWl0IGNvbm4ucm9sbGJhY2soKTsgdGhyb3cgZTsKICAgIH0gZmluYWxseSB7IGNvbm4ucmVsZWFzZSgpOyB9CiAgfSBjYXRjaCAoZXJyKSB7CiAgICBjb25zb2xlLmVycm9yKCfliJvlu7rlhaXlupPljZXlpLHotKU6JywgZXJyKTsKICAgIHJlcy5zdGF0dXMoNTAwKS5qc29uKHsgY29kZTogNTAwLCBtZXNzYWdlOiBlcnIubWVzc2FnZSB9KTsKICB9Cn0pOwoKLy8g56Gu6K6k5YWl5bqT77yI6I2J56i/4oaS5bey56Gu6K6k77yM5aKe5Yqg5bqT5a2YK+WGmea1geawtCvmm7TmlrDmiJDmnKzku7fvvIkKcm91dGVyLnBvc3QoJy86aWQvY29uZmlybScsIHJlcXVpcmVSb2xlKCdvd25lcicsICdtYW5hZ2VyJywgJ3dhcmVob3VzZScpLCBhc3luYyAocmVxLCByZXMpID0+IHsKICBjb25zdCBjb25uID0gYXdhaXQgcG9vbC5nZXRDb25uZWN0aW9uKCk7CiAgdHJ5IHsKICAgIGF3YWl0IGNvbm4uYmVnaW5UcmFuc2FjdGlvbigpOwogICAgY29uc3QgW1tvcmRlcl1dID0gYXdhaXQgY29ubi5xdWVyeSgKICAgICAgJ1NFTEVDVCAqIEZST00gc3RvY2tfaW5fb3JkZXJzIFdIRVJFIGlkID0gPyBBTkQgdGVuYW50X2lkID0gPyBBTkQgc3RhdHVzID0gImRyYWZ0IiBGT1IgVVBEQVRFJywKICAgICAgW3JlcS5wYXJhbXMuaWQsIHJlcS50ZW5hbnRJZF0KICAgICk7CiAgICBpZiAoIW9yZGVyKSB7IGF3YWl0IGNvbm4ucm9sbGJhY2soKTsgcmV0dXJuIHJlcy5zdGF0dXMoNDAwKS5qc29uKHsgY29kZTogNDAwLCBtZXNzYWdlOiAn5YWl5bqT5Y2V5LiN5a2Y5Zyo5oiW5bey56Gu6K6kJyB9KTsgfQoKICAgIGNvbnN0IFtpdGVtc10gPSBhd2FpdCBjb25uLnF1ZXJ5KCdTRUxFQ1QgKiBGUk9NIHN0b2NrX2luX2l0ZW1zIFdIRVJFIHN0b2NrX2luX2lkID0gPycsIFtvcmRlci5pZF0pOwoKICAgIGZvciAoY29uc3QgaXRlbSBvZiBpdGVtcykgewogICAgICAvLyDmn6XlvZPliY3lupPlrZgKICAgICAgY29uc3QgW2ludl0gPSBhd2FpdCBjb25uLnF1ZXJ5KAogICAgICAgICdTRUxFQ1QgcXVhbnRpdHkgRlJPTSBpbnZlbnRvcnkgV0hFUkUgdGVuYW50X2lkID0gPyBBTkQgcHJvZHVjdF9pZCA9ID8gQU5EIHdhcmVob3VzZV9pZCA9ID8nLAogICAgICAgIFtyZXEudGVuYW50SWQsIGl0ZW0ucHJvZHVjdF9pZCwgb3JkZXIud2FyZWhvdXNlX2lkXQogICAgICApOwogICAgICBjb25zdCBiZWZvcmVRdHkgPSBpbnYubGVuZ3RoID8gcGFyc2VGbG9hdChpbnZbMF0ucXVhbnRpdHkpIDogMDsKICAgICAgY29uc3QgYWZ0ZXJRdHkgPSBiZWZvcmVRdHkgKyBwYXJzZUZsb2F0KGl0ZW0ucXVhbnRpdHkpOwoKICAgICAgaWYgKGludi5sZW5ndGgpIHsKICAgICAgICBhd2FpdCBjb25uLnF1ZXJ5KCdVUERBVEUgaW52ZW50b3J5IFNFVCBxdWFudGl0eSA9ID8gV0hFUkUgaWQgPSA/JywgW2FmdGVyUXR5LCBpbnZbMF0uaWRdKTsKICAgICAgfSBlbHNlIHsKICAgICAgICBhd2FpdCBjb25uLnF1ZXJ5KAogICAgICAgICAgJ0lOU0VSVCBJTlRPIGludmVudG9yeSAodGVuYW50X2lkLCBwcm9kdWN0X2lkLCB3YXJlaG91c2VfaWQsIHF1YW50aXR5KSBWQUxVRVMgKD8sID8sID8sID8pJywKICAgICAgICAgIFtyZXEudGVuYW50SWQsIGl0ZW0ucHJvZHVjdF9pZCwgb3JkZXIud2FyZWhvdXNlX2lkLCBhZnRlclF0eV0KICAgICAgICApOwogICAgICB9CgogICAgICAvLyDlhpnmtYHmsLQKICAgICAgYXdhaXQgY29ubi5xdWVyeSgKICAgICAgICBgSU5TRVJUIElOVE8gaW52ZW50b3J5X2xvZ3MgKHRlbmFudF9pZCwgcHJvZHVjdF9pZCwgd2FyZWhvdXNlX2lkLCBjaGFuZ2VfdHlwZSwgcXVhbnRpdHksIGJlZm9yZV9xdWFudGl0eSwgYWZ0ZXJfcXVhbnRpdHksIHVuaXRfY29zdCwgcmVmZXJlbmNlX3R5cGUsIHJlZmVyZW5jZV9pZCwgb3BlcmF0b3JfaWQsIHJlbWFyaykKICAgICAgICAgVkFMVUVTICg/LCA/LCA/LCA/LCA/LCA/LCA/LCA/LCAnc3RvY2tfaW4nLCA/LCA/LCA/KWAsCiAgICAgICAgW3JlcS50ZW5hbnRJZCwgaXRlbS5wcm9kdWN0X2lkLCBvcmRlci53YXJlaG91c2VfaWQsICdzdG9ja19pbicsIGl0ZW0ucXVhbnRpdHksIGJlZm9yZVF0eSwgYWZ0ZXJRdHksCiAgICAgICAgIGl0ZW0udW5pdF9jb3N0LCBvcmRlci5pZCwgcmVxLnVzZXIuaWQsIGAke3R5cGVNYXBbb3JkZXIuaW5fdHlwZV0gfHwgJ+WFpeW6kyd9IC0gJHtvcmRlci5vcmRlcl9ub31gXQogICAgICApOwoKICAgICAgLy8g5pu05paw5ZWG5ZOB5oiQ5pys5Lu377yI6YeH6LSt5YWl5bqT5pe277yJCiAgICAgIGlmIChvcmRlci5pbl90eXBlID09PSAncHVyY2hhc2UnICYmIGl0ZW0udW5pdF9jb3N0ID4gMCkgewogICAgICAgIGF3YWl0IGNvbm4ucXVlcnkoJ1VQREFURSBwcm9kdWN0cyBTRVQgY29zdF9wcmljZSA9ID8gV0hFUkUgaWQgPSA/IEFORCB0ZW5hbnRfaWQgPSA/JywgW2l0ZW0udW5pdF9jb3N0LCBpdGVtLnByb2R1Y3RfaWQsIHJlcS50ZW5hbnRJZF0pOwogICAgICB9CiAgICB9CgogICAgYXdhaXQgY29ubi5xdWVyeSgKICAgICAgIlVQREFURSBzdG9ja19pbl9vcmRlcnMgU0VUIHN0YXR1cyA9ICdjb25maXJtZWQnLCBjb25maXJtZXJfaWQgPSA/LCBjb25maXJtX3RpbWUgPSBOT1coKSBXSEVSRSBpZCA9ID8iLAogICAgICBbcmVxLnVzZXIuaWQsIG9yZGVyLmlkXQogICAgKTsKCiAgICBhd2FpdCBjb25uLmNvbW1pdCgpOwogICAgcmVzLmpzb24oeyBjb2RlOiAwLCBtZXNzYWdlOiAn5YWl5bqT56Gu6K6k5oiQ5Yqf77yM5bqT5a2Y5bey5pu05pawJyB9KTsKICB9IGNhdGNoIChlcnIpIHsKICAgIGF3YWl0IGNvbm4ucm9sbGJhY2soKTsKICAgIGNvbnNvbGUuZXJyb3IoJ+ehruiupOWFpeW6k+Wksei0pTonLCBlcnIpOwogICAgcmVzLnN0YXR1cyg1MDApLmpzb24oeyBjb2RlOiA1MDAsIG1lc3NhZ2U6IGVyci5tZXNzYWdlIH0pOwogIH0gZmluYWxseSB7IGNvbm4ucmVsZWFzZSgpOyB9Cn0pOwoKLy8g5Yig6Zmk77yI5LuF6I2J56i/77yJCnJvdXRlci5kZWxldGUoJy86aWQnLCByZXF1aXJlUm9sZSgnb3duZXInLCAnbWFuYWdlcicpLCBhc3luYyAocmVxLCByZXMpID0+IHsKICBjb25zdCBjb25uID0gYXdhaXQgcG9vbC5nZXRDb25uZWN0aW9uKCk7CiAgdHJ5IHsKICAgIGF3YWl0IGNvbm4uYmVnaW5UcmFuc2FjdGlvbigpOwogICAgY29uc3QgW1tvcmRlcl1dID0gYXdhaXQgY29ubi5xdWVyeSgKICAgICAgIlNFTEVDVCAqIEZST00gc3RvY2tfaW5fb3JkZXJzIFdIRVJFIGlkID0gPyBBTkQgdGVuYW50X2lkID0gPyBBTkQgc3RhdHVzID0gJ2RyYWZ0JyIsCiAgICAgIFtyZXEucGFyYW1zLmlkLCByZXEudGVuYW50SWRdCiAgICApOwogICAgaWYgKCFvcmRlcikgeyBhd2FpdCBjb25uLnJvbGxiYWNrKCk7IHJldHVybiByZXMuc3RhdHVzKDQwMCkuanNvbih7IGNvZGU6IDQwMCwgbWVzc2FnZTogJ+WFpeW6k+WNleS4jeWtmOWcqOaIluaXoOazleWIoOmZpCcgfSk7IH0KICAgIGF3YWl0IGNvbm4ucXVlcnkoJ0RFTEVURSBGUk9NIHN0b2NrX2luX2l0ZW1zIFdIRVJFIHN0b2NrX2luX2lkID0gPycsIFtvcmRlci5pZF0pOwogICAgYXdhaXQgY29ubi5xdWVyeSgnREVMRVRFIEZST00gc3RvY2tfaW5fb3JkZXJzIFdIRVJFIGlkID0gPycsIFtvcmRlci5pZF0pOwogICAgYXdhaXQgY29ubi5jb21taXQoKTsKICAgIHJlcy5qc29uKHsgY29kZTogMCwgbWVzc2FnZTogJ+WFpeW6k+WNleW3suWIoOmZpCcgfSk7CiAgfSBjYXRjaCAoZXJyKSB7CiAgICBhd2FpdCBjb25uLnJvbGxiYWNrKCk7CiAgICByZXMuc3RhdHVzKDUwMCkuanNvbih7IGNvZGU6IDUwMCwgbWVzc2FnZTogZXJyLm1lc3NhZ2UgfSk7CiAgfSBmaW5hbGx5IHsgY29ubi5yZWxlYXNlKCk7IH0KfSk7Cgptb2R1bGUuZXhwb3J0cyA9IHJvdXRlcjsK
+const express = require('express');
+const pool = require('../config/db');
+const { authenticate, requireRole } = require('../middleware/auth');
+const dayjs = require('dayjs');
+
+const router = express.Router();
+router.use(authenticate);
+
+// 生成入库单号
+const genOrderNo = async (tenantId) => {
+  const today = dayjs().format('YYYYMMDD');
+  const prefix = `RK${today}`;
+  const [rows] = await pool.query(
+    "SELECT order_no FROM stock_in_orders WHERE tenant_id = ? AND order_no LIKE ? ORDER BY id DESC LIMIT 1",
+    [tenantId, `${prefix}%`]
+  );
+  const seq = rows.length ? parseInt(rows[0].order_no.slice(-3)) + 1 : 1;
+  return `${prefix}${String(seq).padStart(3, '0')}`;
+};
+
+// 入库类型映射
+const typeMap = {
+  purchase: '采购入库', return: '退货入库', production_in: '生产入库',
+  transfer_in: '调拨入库', adjust_in: '调整入库', other: '其他入库'
+};
+
+// 列表
+router.get('/', async (req, res) => {
+  try {
+    const { page = 1, pageSize = 20, status, in_type, keyword, warehouse_id, startDate, endDate } = req.query;
+    const offset = (page - 1) * pageSize;
+    let where = 'WHERE sio.tenant_id = ?';
+    const params = [req.tenantId];
+    if (status) { where += ' AND sio.status = ?'; params.push(status); }
+    if (in_type) { where += ' AND sio.in_type = ?'; params.push(in_type); }
+    if (warehouse_id) { where += ' AND sio.warehouse_id = ?'; params.push(warehouse_id); }
+    if (keyword) { where += ' AND (sio.order_no LIKE ? OR sup.name LIKE ?)'; params.push(`%${keyword}%`, `%${keyword}%`); }
+    if (startDate) { where += ' AND sio.created_at >= ?'; params.push(startDate); }
+    if (endDate) { where += ' AND sio.created_at <= ?'; params.push(endDate + ' 23:59:59'); }
+
+    const [[{ total }]] = await pool.query(`SELECT COUNT(*) as total FROM stock_in_orders sio LEFT JOIN suppliers sup ON sio.supplier_id = sup.id ${where}`, params);
+    const [orders] = await pool.query(
+      `SELECT sio.*, w.name as warehouse_name, sup.name as supplier_name, u.real_name as operator_name, c.real_name as confirmer_name
+       FROM stock_in_orders sio
+       LEFT JOIN warehouses w ON sio.warehouse_id = w.id
+       LEFT JOIN suppliers sup ON sio.supplier_id = sup.id
+       LEFT JOIN users u ON sio.operator_id = u.id
+       LEFT JOIN users c ON sio.confirmer_id = c.id
+       ${where} ORDER BY sio.id DESC LIMIT ? OFFSET ?`,
+      [...params, parseInt(pageSize), offset]
+    );
+
+    for (const o of orders) {
+      const [items] = await pool.query(
+        `SELECT sii.*, p.name as product_name, p.unit, p.barcode FROM stock_in_items sii
+         JOIN products p ON sii.product_id = p.id WHERE sii.stock_in_id = ?`,
+        [o.id]
+      );
+      o.items = items;
+      o.item_count = items.length;
+    }
+
+    res.json({ code: 0, data: { list: orders, total, page: parseInt(page), pageSize: parseInt(pageSize) } });
+  } catch (err) {
+    console.error('获取入库单列表失败:', err);
+    res.status(500).json({ code: 500, message: '获取列表失败' });
+  }
+});
+
+// 详情
+router.get('/:id', async (req, res) => {
+  try {
+    const [[order]] = await pool.query(
+      `SELECT sio.*, w.name as warehouse_name, sup.name as supplier_name, u.real_name as operator_name, c.real_name as confirmer_name
+       FROM stock_in_orders sio
+       LEFT JOIN warehouses w ON sio.warehouse_id = w.id
+       LEFT JOIN suppliers sup ON sio.supplier_id = sup.id
+       LEFT JOIN users u ON sio.operator_id = u.id
+       LEFT JOIN users c ON sio.confirmer_id = c.id
+       WHERE sio.id = ? AND sio.tenant_id = ?`,
+      [req.params.id, req.tenantId]
+    );
+    if (!order) return res.status(404).json({ code: 404, message: '入库单不存在' });
+    const [items] = await pool.query(
+      `SELECT sii.*, p.name as product_name, p.unit, p.barcode, p.cost_price as current_cost
+       FROM stock_in_items sii JOIN products p ON sii.product_id = p.id WHERE sii.stock_in_id = ?`,
+      [order.id]
+    );
+    order.items = items;
+    res.json({ code: 0, data: order });
+  } catch (err) {
+    res.status(500).json({ code: 500, message: '获取详情失败' });
+  }
+});
+
+// 新建入库单（草稿）
+router.post('/', requireRole('owner', 'manager', 'warehouse'), async (req, res) => {
+  try {
+    const { warehouse_id, in_type, supplier_id, items, remark } = req.body;
+    if (!warehouse_id || !items?.length) return res.status(400).json({ code: 400, message: '请选择仓库并添加商品' });
+
+    const orderNo = await genOrderNo(req.tenantId);
+    let totalAmount = 0;
+    items.forEach(i => { totalAmount += (i.quantity || 0) * (i.unit_cost || 0); });
+
+    const conn = await pool.getConnection();
+    await conn.beginTransaction();
+    try {
+      const [result] = await conn.query(
+        `INSERT INTO stock_in_orders (tenant_id, order_no, warehouse_id, in_type, supplier_id, total_amount, status, operator_id, remark)
+         VALUES (?, ?, ?, ?, ?, ?, 'draft', ?, ?)`,
+        [req.tenantId, orderNo, warehouse_id, in_type || 'other', supplier_id || null, totalAmount, req.user.id, remark || null]
+      );
+      for (const item of items) {
+        await conn.query(
+          'INSERT INTO stock_in_items (stock_in_id, product_id, quantity, unit_cost, remark) VALUES (?, ?, ?, ?, ?)',
+          [result.insertId, item.product_id, item.quantity, item.unit_cost || 0, item.remark || null]
+        );
+      }
+      await conn.commit();
+      res.json({ code: 0, message: '入库单创建成功', data: { id: result.insertId, order_no: orderNo } });
+    } catch (e) {
+      await conn.rollback(); throw e;
+    } finally { conn.release(); }
+  } catch (err) {
+    console.error('创建入库单失败:', err);
+    res.status(500).json({ code: 500, message: err.message });
+  }
+});
+
+// 确认入库（草稿→已确认，增加库存+写流水+更新成本价）
+router.post('/:id/confirm', requireRole('owner', 'manager', 'warehouse'), async (req, res) => {
+  const conn = await pool.getConnection();
+  try {
+    await conn.beginTransaction();
+    const [[order]] = await conn.query(
+      'SELECT * FROM stock_in_orders WHERE id = ? AND tenant_id = ? AND status = "draft" FOR UPDATE',
+      [req.params.id, req.tenantId]
+    );
+    if (!order) { await conn.rollback(); return res.status(400).json({ code: 400, message: '入库单不存在或已确认' }); }
+
+    const [items] = await conn.query('SELECT * FROM stock_in_items WHERE stock_in_id = ?', [order.id]);
+
+    for (const item of items) {
+      // 查当前库存
+      const [inv] = await conn.query(
+        'SELECT quantity FROM inventory WHERE tenant_id = ? AND product_id = ? AND warehouse_id = ?',
+        [req.tenantId, item.product_id, order.warehouse_id]
+      );
+      const beforeQty = inv.length ? parseFloat(inv[0].quantity) : 0;
+      const afterQty = beforeQty + parseFloat(item.quantity);
+
+      if (inv.length) {
+        await conn.query('UPDATE inventory SET quantity = ? WHERE id = ?', [afterQty, inv[0].id]);
+      } else {
+        await conn.query(
+          'INSERT INTO inventory (tenant_id, product_id, warehouse_id, quantity) VALUES (?, ?, ?, ?)',
+          [req.tenantId, item.product_id, order.warehouse_id, afterQty]
+        );
+      }
+
+      // 写流水
+      await conn.query(
+        `INSERT INTO inventory_logs (tenant_id, product_id, warehouse_id, change_type, quantity, before_quantity, after_quantity, unit_cost, reference_type, reference_id, operator_id, remark)
+         VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'stock_in', ?, ?, ?)`,
+        [req.tenantId, item.product_id, order.warehouse_id, 'stock_in', item.quantity, beforeQty, afterQty,
+         item.unit_cost, order.id, req.user.id, `${typeMap[order.in_type] || '入库'} - ${order.order_no}`]
+      );
+
+      // 更新商品成本价（采购入库时）
+      if (order.in_type === 'purchase' && item.unit_cost > 0) {
+        await conn.query('UPDATE products SET cost_price = ? WHERE id = ? AND tenant_id = ?', [item.unit_cost, item.product_id, req.tenantId]);
+      }
+    }
+
+    await conn.query(
+      "UPDATE stock_in_orders SET status = 'confirmed', confirmer_id = ?, confirm_time = NOW() WHERE id = ?",
+      [req.user.id, order.id]
+    );
+
+    await conn.commit();
+    res.json({ code: 0, message: '入库确认成功，库存已更新' });
+  } catch (err) {
+    await conn.rollback();
+    console.error('确认入库失败:', err);
+    res.status(500).json({ code: 500, message: err.message });
+  } finally { conn.release(); }
+});
+
+// 删除（仅草稿）
+router.delete('/:id', requireRole('owner', 'manager'), async (req, res) => {
+  const conn = await pool.getConnection();
+  try {
+    await conn.beginTransaction();
+    const [[order]] = await conn.query(
+      "SELECT * FROM stock_in_orders WHERE id = ? AND tenant_id = ? AND status = 'draft'",
+      [req.params.id, req.tenantId]
+    );
+    if (!order) { await conn.rollback(); return res.status(400).json({ code: 400, message: '入库单不存在或无法删除' }); }
+    await conn.query('DELETE FROM stock_in_items WHERE stock_in_id = ?', [order.id]);
+    await conn.query('DELETE FROM stock_in_orders WHERE id = ?', [order.id]);
+    await conn.commit();
+    res.json({ code: 0, message: '入库单已删除' });
+  } catch (err) {
+    await conn.rollback();
+    res.status(500).json({ code: 500, message: err.message });
+  } finally { conn.release(); }
+});
+
+module.exports = router;

@@ -1,1 +1,438 @@
-aW1wb3J0IFJlYWN0LCB7IHVzZVN0YXRlLCB1c2VFZmZlY3QsIHVzZUNhbGxiYWNrIH0gZnJvbSAncmVhY3QnOwppbXBvcnQgewogIENhcmQsIFRhYmxlLCBCdXR0b24sIE1vZGFsLCBGb3JtLCBJbnB1dCwgSW5wdXROdW1iZXIsIFNlbGVjdCwgRGF0ZVBpY2tlciwKICBTcGFjZSwgVGFnLCBtZXNzYWdlLCBUeXBvZ3JhcGh5LCBSb3csIENvbCwgU3RhdGlzdGljLCBQb3Bjb25maXJtLCBEaXZpZGVyCn0gZnJvbSAnYW50ZCc7CmltcG9ydCB7CiAgUGx1c091dGxpbmVkLCBEZWxldGVPdXRsaW5lZCwgQ2hlY2tPdXRsaW5lZCwgU3RvcE91dGxpbmVkLAogIEZpbGVUZXh0T3V0bGluZWQsIEF1ZGl0T3V0bGluZWQKfSBmcm9tICdAYW50LWRlc2lnbi9pY29ucyc7CmltcG9ydCBkYXlqcyBmcm9tICdkYXlqcyc7CmltcG9ydCByZXF1ZXN0IGZyb20gJy4uLy4uL2FwaS9yZXF1ZXN0JzsKCmNvbnN0IHsgVGl0bGUsIFRleHQgfSA9IFR5cG9ncmFwaHk7Cgpjb25zdCB2b3VjaGVyVHlwZU9wdGlvbnMgPSBbCiAgeyB2YWx1ZTogJ2dlbmVyYWwnLCBsYWJlbDogJ+iusCcgfSwKICB7IHZhbHVlOiAncmVjZWlwdCcsIGxhYmVsOiAn5pS2JyB9LAogIHsgdmFsdWU6ICdwYXltZW50JywgbGFiZWw6ICfku5gnIH0sCiAgeyB2YWx1ZTogJ3RyYW5zZmVyJywgbGFiZWw6ICfovawnIH0sCl07Cgpjb25zdCBzdGF0dXNNYXA6IFJlY29yZDxzdHJpbmcsIHsgY29sb3I6IHN0cmluZzsgbGFiZWw6IHN0cmluZyB9PiA9IHsKICBkcmFmdDogeyBjb2xvcjogJ2RlZmF1bHQnLCBsYWJlbDogJ+iNieeovycgfSwKICBwZW5kaW5nX2F1ZGl0OiB7IGNvbG9yOiAncHJvY2Vzc2luZycsIGxhYmVsOiAn5b6F5a6h5qC4JyB9LAogIGF1ZGl0ZWQ6IHsgY29sb3I6ICdzdWNjZXNzJywgbGFiZWw6ICflt7LlrqHmoLgnIH0sCiAgcG9zdGVkOiB7IGNvbG9yOiAnYmx1ZScsIGxhYmVsOiAn5bey6L+H6LSmJyB9LAogIHZvaWQ6IHsgY29sb3I6ICdlcnJvcicsIGxhYmVsOiAn5bey5L2c5bqfJyB9LAp9OwoKY29uc3QgVm91Y2hlckxpc3Q6IFJlYWN0LkZDID0gKCkgPT4gewogIGNvbnN0IFt2b3VjaGVycywgc2V0Vm91Y2hlcnNdID0gdXNlU3RhdGU8YW55W10+KFtdKTsKICBjb25zdCBbdG90YWwsIHNldFRvdGFsXSA9IHVzZVN0YXRlKDApOwogIGNvbnN0IFtwYWdlLCBzZXRQYWdlXSA9IHVzZVN0YXRlKDEpOwogIGNvbnN0IFtsb2FkaW5nLCBzZXRMb2FkaW5nXSA9IHVzZVN0YXRlKGZhbHNlKTsKICBjb25zdCBbbW9kYWxPcGVuLCBzZXRNb2RhbE9wZW5dID0gdXNlU3RhdGUoZmFsc2UpOwogIGNvbnN0IFtlZGl0aW5nLCBzZXRFZGl0aW5nXSA9IHVzZVN0YXRlPGFueT4obnVsbCk7CiAgY29uc3QgW2RldGFpbCwgc2V0RGV0YWlsXSA9IHVzZVN0YXRlPGFueT4obnVsbCk7CiAgY29uc3QgW2RldGFpbE9wZW4sIHNldERldGFpbE9wZW5dID0gdXNlU3RhdGUoZmFsc2UpOwogIGNvbnN0IFtmaWx0ZXJTdGF0dXMsIHNldEZpbHRlclN0YXR1c10gPSB1c2VTdGF0ZTxzdHJpbmcgfCB1bmRlZmluZWQ+KCk7CiAgY29uc3QgW2ZpbHRlclR5cGUsIHNldEZpbHRlclR5cGVdID0gdXNlU3RhdGU8c3RyaW5nIHwgdW5kZWZpbmVkPigpOwogIGNvbnN0IFtzdW1tYXJ5LCBzZXRTdW1tYXJ5XSA9IHVzZVN0YXRlPGFueT4oe30pOwogIGNvbnN0IFthY2NvdW50cywgc2V0QWNjb3VudHNdID0gdXNlU3RhdGU8YW55W10+KFtdKTsKICBjb25zdCBbZm9ybV0gPSBGb3JtLnVzZUZvcm0oKTsKICBjb25zdCBbaXRlbXMsIHNldEl0ZW1zXSA9IHVzZVN0YXRlPGFueVtdPihbCiAgICB7IGtleTogRGF0ZS5ub3coKSwgYWNjb3VudF9pZDogdW5kZWZpbmVkLCBzdW1tYXJ5OiAnJywgZGViaXRfYW1vdW50OiAwLCBjcmVkaXRfYW1vdW50OiAwIH0KICBdKTsKCiAgY29uc3QgbG9hZFZvdWNoZXJzID0gdXNlQ2FsbGJhY2soYXN5bmMgKHAgPSAxKSA9PiB7CiAgICBzZXRMb2FkaW5nKHRydWUpOwogICAgdHJ5IHsKICAgICAgY29uc3QgcGFyYW1zOiBhbnkgPSB7IHBhZ2U6IHAsIHBhZ2VTaXplOiAyMCB9OwogICAgICBpZiAoZmlsdGVyU3RhdHVzKSBwYXJhbXMuc3RhdHVzID0gZmlsdGVyU3RhdHVzOwogICAgICBpZiAoZmlsdGVyVHlwZSkgcGFyYW1zLnZvdWNoZXJfdHlwZSA9IGZpbHRlclR5cGU7CiAgICAgIGNvbnN0IHJlcyA9IGF3YWl0IHJlcXVlc3QuZ2V0KCcvdm91Y2hlcnMnLCB7IHBhcmFtcyB9KTsKICAgICAgY29uc3QgZGF0YSA9IHJlcy5kYXRhPy5kYXRhIHx8IHJlcy5kYXRhIHx8IHt9OwogICAgICBzZXRWb3VjaGVycyhkYXRhPy5saXN0IHx8IFtdKTsKICAgICAgc2V0VG90YWwoZGF0YT8udG90YWwgfHwgMCk7CiAgICAgIGlmIChkYXRhPy5zdW1tYXJ5KSBzZXRTdW1tYXJ5KGRhdGEuc3VtbWFyeSk7CiAgICB9IGNhdGNoIChlcnIpIHsKICAgICAgY29uc29sZS5lcnJvcihlcnIpOwogICAgfSBmaW5hbGx5IHsKICAgICAgc2V0TG9hZGluZyhmYWxzZSk7CiAgICB9CiAgfSwgW2ZpbHRlclN0YXR1cywgZmlsdGVyVHlwZV0pOwoKICBjb25zdCBsb2FkQWNjb3VudHMgPSBhc3luYyAoKSA9PiB7CiAgICB0cnkgewogICAgICBjb25zdCByZXMgPSBhd2FpdCByZXF1ZXN0LmdldCgnL2FjY291bnRzJyk7CiAgICAgIHNldEFjY291bnRzKHJlcy5kYXRhPy5kYXRhIHx8IHJlcy5kYXRhIHx8IFtdKTsKICAgIH0gY2F0Y2ggKGVycikgewogICAgICBjb25zb2xlLmVycm9yKGVycik7CiAgICB9CiAgfTsKCiAgdXNlRWZmZWN0KCgpID0+IHsgbG9hZFZvdWNoZXJzKCk7IH0sIFtsb2FkVm91Y2hlcnNdKTsKICB1c2VFZmZlY3QoKCkgPT4geyBsb2FkQWNjb3VudHMoKTsgfSwgW10pOwoKICBjb25zdCBoYW5kbGVBZGQgPSAoKSA9PiB7CiAgICBzZXRFZGl0aW5nKG51bGwpOwogICAgZm9ybS5yZXNldEZpZWxkcygpOwogICAgZm9ybS5zZXRGaWVsZHNWYWx1ZSh7IHZvdWNoZXJfdHlwZTogJ2dlbmVyYWwnLCB2b3VjaGVyX2RhdGU6IGRheWpzKCksIGF0dGFjaG1lbnRfY291bnQ6IDAgfSk7CiAgICBzZXRJdGVtcyhbeyBrZXk6IERhdGUubm93KCksIGFjY291bnRfaWQ6IHVuZGVmaW5lZCwgc3VtbWFyeTogJycsIGRlYml0X2Ftb3VudDogMCwgY3JlZGl0X2Ftb3VudDogMCB9XSk7CiAgICBzZXRNb2RhbE9wZW4odHJ1ZSk7CiAgfTsKCiAgY29uc3QgaGFuZGxlRWRpdCA9IGFzeW5jIChyZWNvcmQ6IGFueSkgPT4gewogICAgdHJ5IHsKICAgICAgY29uc3QgcmVzID0gYXdhaXQgcmVxdWVzdC5nZXQoYC92b3VjaGVycy8ke3JlY29yZC5pZH1gKTsKICAgICAgY29uc3QgZGF0YSA9IHJlcy5kYXRhPy5kYXRhIHx8IHJlcy5kYXRhIHx8IHt9OwogICAgICBzZXRFZGl0aW5nKGRhdGEpOwogICAgICBmb3JtLnNldEZpZWxkc1ZhbHVlKHsKICAgICAgICB2b3VjaGVyX3R5cGU6IGRhdGEudm91Y2hlcl90eXBlLAogICAgICAgIHZvdWNoZXJfZGF0ZTogZGF5anMoZGF0YS52b3VjaGVyX2RhdGUpLAogICAgICAgIGF0dGFjaG1lbnRfY291bnQ6IGRhdGEuYXR0YWNobWVudF9jb3VudCwKICAgICAgICByZW1hcms6IGRhdGEucmVtYXJrLAogICAgICB9KTsKICAgICAgc2V0SXRlbXMoZGF0YS5pdGVtcy5tYXAoKGl0ZW06IGFueSwgaTogbnVtYmVyKSA9PiAoewogICAgICAgIGtleTogaSwKICAgICAgICBhY2NvdW50X2lkOiBpdGVtLmFjY291bnRfaWQsCiAgICAgICAgc3VtbWFyeTogaXRlbS5zdW1tYXJ5LAogICAgICAgIGRlYml0X2Ftb3VudDogcGFyc2VGbG9hdChpdGVtLmRlYml0X2Ftb3VudCkgfHwgMCwKICAgICAgICBjcmVkaXRfYW1vdW50OiBwYXJzZUZsb2F0KGl0ZW0uY3JlZGl0X2Ftb3VudCkgfHwgMCwKICAgICAgfSkpKTsKICAgICAgc2V0TW9kYWxPcGVuKHRydWUpOwogICAgfSBjYXRjaCAoZXJyKSB7CiAgICAgIG1lc3NhZ2UuZXJyb3IoJ+iOt+WPluWHreivgeivpuaDheWksei0pScpOwogICAgfQogIH07CgogIGNvbnN0IGhhbmRsZVZpZXdEZXRhaWwgPSBhc3luYyAocmVjb3JkOiBhbnkpID0+IHsKICAgIHRyeSB7CiAgICAgIGNvbnN0IHJlcyA9IGF3YWl0IHJlcXVlc3QuZ2V0KGAvdm91Y2hlcnMvJHtyZWNvcmQuaWR9YCk7CiAgICAgIHNldERldGFpbChyZXMuZGF0YT8uZGF0YSB8fCByZXMuZGF0YSk7CiAgICAgIHNldERldGFpbE9wZW4odHJ1ZSk7CiAgICB9IGNhdGNoIChlcnIpIHsKICAgICAgbWVzc2FnZS5lcnJvcign6I635Y+W5Yet6K+B6K+m5oOF5aSx6LSlJyk7CiAgICB9CiAgfTsKCiAgY29uc3QgYWRkSXRlbSA9ICgpID0+IHsKICAgIHNldEl0ZW1zKFsuLi5pdGVtcywgeyBrZXk6IERhdGUubm93KCksIGFjY291bnRfaWQ6IHVuZGVmaW5lZCwgc3VtbWFyeTogJycsIGRlYml0X2Ftb3VudDogMCwgY3JlZGl0X2Ftb3VudDogMCB9XSk7CiAgfTsKCiAgY29uc3QgcmVtb3ZlSXRlbSA9IChrZXk6IG51bWJlcikgPT4gewogICAgaWYgKGl0ZW1zLmxlbmd0aCA8PSAyKSB7IG1lc3NhZ2Uud2FybmluZygn6Iez5bCR6ZyA6KaB5Lik6KGM5YiG5b2VJyk7IHJldHVybjsgfQogICAgc2V0SXRlbXMoaXRlbXMuZmlsdGVyKGkgPT4gaS5rZXkgIT09IGtleSkpOwogIH07CgogIGNvbnN0IHVwZGF0ZUl0ZW0gPSAoa2V5OiBudW1iZXIsIGZpZWxkOiBzdHJpbmcsIHZhbHVlOiBhbnkpID0+IHsKICAgIHNldEl0ZW1zKGl0ZW1zLm1hcChpID0+IGkua2V5ID09PSBrZXkgPyB7IC4uLmksIFtmaWVsZF06IHZhbHVlIH0gOiBpKSk7CiAgfTsKCiAgY29uc3QgdG90YWxEZWJpdCA9IGl0ZW1zLnJlZHVjZSgocywgaSkgPT4gcyArIChwYXJzZUZsb2F0KGkuZGViaXRfYW1vdW50KSB8fCAwKSwgMCk7CiAgY29uc3QgdG90YWxDcmVkaXQgPSBpdGVtcy5yZWR1Y2UoKHMsIGkpID0+IHMgKyAocGFyc2VGbG9hdChpLmNyZWRpdF9hbW91bnQpIHx8IDApLCAwKTsKICBjb25zdCBpc0JhbGFuY2VkID0gTWF0aC5yb3VuZCh0b3RhbERlYml0ICogMTAwKSA9PT0gTWF0aC5yb3VuZCh0b3RhbENyZWRpdCAqIDEwMCk7CgogIGNvbnN0IGhhbmRsZVNhdmUgPSBhc3luYyAoKSA9PiB7CiAgICB0cnkgewogICAgICBhd2FpdCBmb3JtLnZhbGlkYXRlRmllbGRzKCk7CiAgICAgIGZvciAoY29uc3QgaXRlbSBvZiBpdGVtcykgewogICAgICAgIGlmICghaXRlbS5hY2NvdW50X2lkKSB7IG1lc3NhZ2Uud2FybmluZygn6K+36YCJ5oup56eR55uuJyk7IHJldHVybjsgfQogICAgICAgIGlmICghaXRlbS5zdW1tYXJ5KSB7IG1lc3NhZ2Uud2FybmluZygn6K+35aGr5YaZ5pGY6KaBJyk7IHJldHVybjsgfQogICAgICB9CiAgICAgIGlmICghaXNCYWxhbmNlZCkgeyBtZXNzYWdlLmVycm9yKGDlgJ/otLfkuI3lubPooaHvvIHlgJ/mlrkgwqUke3RvdGFsRGViaXQudG9GaXhlZCgyKX0g4omgIOi0t+aWuSDCpSR7dG90YWxDcmVkaXQudG9GaXhlZCgyKX1gKTsgcmV0dXJuOyB9CgogICAgICBjb25zdCB2YWx1ZXMgPSBmb3JtLmdldEZpZWxkc1ZhbHVlKCk7CiAgICAgIGNvbnN0IHBheWxvYWQgPSB7CiAgICAgICAgLi4udmFsdWVzLAogICAgICAgIHZvdWNoZXJfZGF0ZTogdmFsdWVzLnZvdWNoZXJfZGF0ZT8uZm9ybWF0KCdZWVlZLU1NLUREJyksCiAgICAgICAgaXRlbXM6IGl0ZW1zLm1hcChpID0+ICh7CiAgICAgICAgICBhY2NvdW50X2lkOiBpLmFjY291bnRfaWQsCiAgICAgICAgICBzdW1tYXJ5OiBpLnN1bW1hcnksCiAgICAgICAgICBkZWJpdF9hbW91bnQ6IHBhcnNlRmxvYXQoaS5kZWJpdF9hbW91bnQpIHx8IDAsCiAgICAgICAgICBjcmVkaXRfYW1vdW50OiBwYXJzZUZsb2F0KGkuY3JlZGl0X2Ftb3VudCkgfHwgMCwKICAgICAgICB9KSksCiAgICAgIH07CgogICAgICBpZiAoZWRpdGluZykgewogICAgICAgIGF3YWl0IHJlcXVlc3QucHV0KGAvdm91Y2hlcnMvJHtlZGl0aW5nLmlkfWAsIHBheWxvYWQpOwogICAgICAgIG1lc3NhZ2Uuc3VjY2Vzcygn5Yet6K+B5pu05paw5oiQ5YqfJyk7CiAgICAgIH0gZWxzZSB7CiAgICAgICAgYXdhaXQgcmVxdWVzdC5wb3N0KCcvdm91Y2hlcnMnLCBwYXlsb2FkKTsKICAgICAgICBtZXNzYWdlLnN1Y2Nlc3MoJ+WHreivgeS/neWtmOaIkOWKnycpOwogICAgICB9CiAgICAgIHNldE1vZGFsT3BlbihmYWxzZSk7CiAgICAgIGxvYWRWb3VjaGVycygpOwogICAgfSBjYXRjaCAoZXJyOiBhbnkpIHsKICAgICAgaWYgKGVyci5yZXNwb25zZT8uZGF0YT8ubWVzc2FnZSkgbWVzc2FnZS5lcnJvcihlcnIucmVzcG9uc2UuZGF0YS5tZXNzYWdlKTsKICAgICAgZWxzZSBpZiAoZXJyLmVycm9yRmllbGRzKSByZXR1cm47CiAgICAgIGVsc2UgbWVzc2FnZS5lcnJvcign5pON5L2c5aSx6LSlJyk7CiAgICB9CiAgfTsKCiAgY29uc3QgaGFuZGxlQXVkaXQgPSBhc3luYyAoaWQ6IG51bWJlcikgPT4gewogICAgdHJ5IHsKICAgICAgYXdhaXQgcmVxdWVzdC5wb3N0KGAvdm91Y2hlcnMvJHtpZH0vYXVkaXRgKTsKICAgICAgbWVzc2FnZS5zdWNjZXNzKCflrqHmoLjpgJrov4cnKTsKICAgICAgbG9hZFZvdWNoZXJzKCk7CiAgICB9IGNhdGNoIChlcnI6IGFueSkgewogICAgICBtZXNzYWdlLmVycm9yKGVyci5yZXNwb25zZT8uZGF0YT8ubWVzc2FnZSB8fCAn5a6h5qC45aSx6LSlJyk7CiAgICB9CiAgfTsKCiAgY29uc3QgaGFuZGxlVm9pZCA9IGFzeW5jIChpZDogbnVtYmVyKSA9PiB7CiAgICB0cnkgewogICAgICBhd2FpdCByZXF1ZXN0LnBvc3QoYC92b3VjaGVycy8ke2lkfS92b2lkYCk7CiAgICAgIG1lc3NhZ2Uuc3VjY2Vzcygn5Yet6K+B5bey5L2c5bqfJyk7CiAgICAgIGxvYWRWb3VjaGVycygpOwogICAgfSBjYXRjaCAoZXJyOiBhbnkpIHsKICAgICAgbWVzc2FnZS5lcnJvcihlcnIucmVzcG9uc2U/LmRhdGE/Lm1lc3NhZ2UgfHwgJ+aTjeS9nOWksei0pScpOwogICAgfQogIH07CgogIGNvbnN0IGhhbmRsZURlbGV0ZSA9IGFzeW5jIChpZDogbnVtYmVyKSA9PiB7CiAgICB0cnkgewogICAgICBhd2FpdCByZXF1ZXN0LmRlbGV0ZShgL3ZvdWNoZXJzLyR7aWR9YCk7CiAgICAgIG1lc3NhZ2Uuc3VjY2Vzcygn5Yet6K+B5bey5Yig6ZmkJyk7CiAgICAgIGxvYWRWb3VjaGVycygpOwogICAgfSBjYXRjaCAoZXJyOiBhbnkpIHsKICAgICAgbWVzc2FnZS5lcnJvcihlcnIucmVzcG9uc2U/LmRhdGE/Lm1lc3NhZ2UgfHwgJ+WIoOmZpOWksei0pScpOwogICAgfQogIH07CgogIGNvbnN0IGNvbHVtbnMgPSBbCiAgICB7IHRpdGxlOiAn5Yet6K+B57yW5Y+3JywgZGF0YUluZGV4OiAndm91Y2hlcl9ubycsIHdpZHRoOiAxNDAsIHJlbmRlcjogKHY6IHN0cmluZywgcjogYW55KSA9PiAoCiAgICAgIDxhIG9uQ2xpY2s9eygpID0+IGhhbmRsZVZpZXdEZXRhaWwocil9Pnt2fTwvYT4KICAgICl9LAogICAgeyB0aXRsZTogJ+exu+WeiycsIGRhdGFJbmRleDogJ3ZvdWNoZXJfdHlwZScsIHdpZHRoOiA2MCwgcmVuZGVyOiAodjogc3RyaW5nKSA9PiB7CiAgICAgIGNvbnN0IG9wdCA9IHZvdWNoZXJUeXBlT3B0aW9ucy5maW5kKG8gPT4gby52YWx1ZSA9PT0gdik7CiAgICAgIHJldHVybiA8VGFnPntvcHQ/LmxhYmVsIHx8IHZ9PC9UYWc+OwogICAgfX0sCiAgICB7IHRpdGxlOiAn5pel5pyfJywgZGF0YUluZGV4OiAndm91Y2hlcl9kYXRlJywgd2lkdGg6IDExMCwgcmVuZGVyOiAodjogc3RyaW5nKSA9PiB2Py5zbGljZSgwLCAxMCkgfSwKICAgIHsgdGl0bGU6ICflgJ/mlrnlkIjorqEnLCBkYXRhSW5kZXg6ICd0b3RhbF9kZWJpdCcsIHdpZHRoOiAxMTAsIHJlbmRlcjogKHY6IG51bWJlcikgPT4gKAogICAgICA8c3BhbiBzdHlsZT17eyBjb2xvcjogJyNjZjEzMjInLCBmb250V2VpZ2h0OiA1MDAgfX0+wqV7TnVtYmVyKHYgfHwgMCkudG9GaXhlZCgyKX08L3NwYW4+CiAgICApfSwKICAgIHsgdGl0bGU6ICfotLfmlrnlkIjorqEnLCBkYXRhSW5kZXg6ICd0b3RhbF9jcmVkaXQnLCB3aWR0aDogMTEwLCByZW5kZXI6ICh2OiBudW1iZXIpID0+ICgKICAgICAgPHNwYW4gc3R5bGU9e3sgY29sb3I6ICcjM2Y4NjAwJywgZm9udFdlaWdodDogNTAwIH19PsKle051bWJlcih2IHx8IDApLnRvRml4ZWQoMil9PC9zcGFuPgogICAgKX0sCiAgICB7IHRpdGxlOiAn54q25oCBJywgZGF0YUluZGV4OiAnc3RhdHVzJywgd2lkdGg6IDgwLCByZW5kZXI6ICh2OiBzdHJpbmcpID0+IHsKICAgICAgY29uc3QgcyA9IHN0YXR1c01hcFt2XSB8fCB7IGNvbG9yOiAnZGVmYXVsdCcsIGxhYmVsOiB2IH07CiAgICAgIHJldHVybiA8VGFnIGNvbG9yPXtzLmNvbG9yfT57cy5sYWJlbH08L1RhZz47CiAgICB9fSwKICAgIHsgdGl0bGU6ICfliLbljZXkuronLCBkYXRhSW5kZXg6ICdjcmVhdG9yX25hbWUnLCB3aWR0aDogODAgfSwKICAgIHsgdGl0bGU6ICflrqHmoLjkuronLCBkYXRhSW5kZXg6ICdhdWRpdG9yX25hbWUnLCB3aWR0aDogODAsIHJlbmRlcjogKHY6IHN0cmluZykgPT4gdiB8fCAnLScgfSwKICAgIHsgdGl0bGU6ICfmk43kvZwnLCBrZXk6ICdhY3Rpb24nLCB3aWR0aDogMTUwLCByZW5kZXI6IChfOiBhbnksIHJlY29yZDogYW55KSA9PiAoCiAgICAgIDxTcGFjZSBzaXplPSJzbWFsbCI+CiAgICAgICAge3JlY29yZC5zdGF0dXMgPT09ICdkcmFmdCcgJiYgKAogICAgICAgICAgPD4KICAgICAgICAgICAgPEJ1dHRvbiB0eXBlPSJsaW5rIiBzaXplPSJzbWFsbCIgb25DbGljaz17KCkgPT4gaGFuZGxlRWRpdChyZWNvcmQpfT7nvJbovpE8L0J1dHRvbj4KICAgICAgICAgICAgPEJ1dHRvbiB0eXBlPSJsaW5rIiBzaXplPSJzbWFsbCIgaWNvbj17PENoZWNrT3V0bGluZWQgLz59IG9uQ2xpY2s9eygpID0+IGhhbmRsZUF1ZGl0KHJlY29yZC5pZCl9IHN0eWxlPXt7IGNvbG9yOiAnIzUyYzQxYScgfX0+5a6h5qC4PC9CdXR0b24+CiAgICAgICAgICAgIDxQb3Bjb25maXJtIHRpdGxlPSLnoa7lrprkvZzlup/mraTlh63or4HvvJ8iIG9uQ29uZmlybT17KCkgPT4gaGFuZGxlVm9pZChyZWNvcmQuaWQpfT4KICAgICAgICAgICAgICA8QnV0dG9uIHR5cGU9ImxpbmsiIHNpemU9InNtYWxsIiBkYW5nZXIgaWNvbj17PFN0b3BPdXRsaW5lZCAvPn0+5L2c5bqfPC9CdXR0b24+CiAgICAgICAgICAgIDwvUG9wY29uZmlybT4KICAgICAgICAgIDwvPgogICAgICAgICl9CiAgICAgICAge3JlY29yZC5zdGF0dXMgIT09ICdkcmFmdCcgJiYgcmVjb3JkLnN0YXR1cyAhPT0gJ3ZvaWQnICYmICgKICAgICAgICAgIDxCdXR0b24gdHlwZT0ibGluayIgc2l6ZT0ic21hbGwiIG9uQ2xpY2s9eygpID0+IGhhbmRsZVZpZXdEZXRhaWwocmVjb3JkKX0+5p+l55yLPC9CdXR0b24+CiAgICAgICAgKX0KICAgICAgICB7cmVjb3JkLnN0YXR1cyA9PT0gJ2RyYWZ0JyAmJiAoCiAgICAgICAgICA8UG9wY29uZmlybSB0aXRsZT0i56Gu5a6a5Yig6Zmk5q2k5Yet6K+B77yfIiBvbkNvbmZpcm09eygpID0+IGhhbmRsZURlbGV0ZShyZWNvcmQuaWQpfT4KICAgICAgICAgICAgPEJ1dHRvbiB0eXBlPSJsaW5rIiBzaXplPSJzbWFsbCIgZGFuZ2VyIGljb249ezxEZWxldGVPdXRsaW5lZCAvPn0gLz4KICAgICAgICAgIDwvUG9wY29uZmlybT4KICAgICAgICApfQogICAgICA8L1NwYWNlPgogICAgKX0sCiAgXTsKCiAgcmV0dXJuICgKICAgIDxkaXY+CiAgICAgIDxUaXRsZSBsZXZlbD17NH0+6K6w6LSm5Yet6K+BPC9UaXRsZT4KCiAgICAgIDxSb3cgZ3V0dGVyPXtbMTYsIDE2XX0gc3R5bGU9e3sgbWFyZ2luQm90dG9tOiAxNiB9fT4KICAgICAgICA8Q29sIHhzPXsxMn0gbWQ9ezZ9PgogICAgICAgICAgPENhcmQgc2l6ZT0ic21hbGwiPgogICAgICAgICAgICA8U3RhdGlzdGljIHRpdGxlPSLlh63or4HmgLvmlbAiIHZhbHVlPXtzdW1tYXJ5LnRvdGFsX2NvdW50IHx8IDB9IHByZWZpeD17PEZpbGVUZXh0T3V0bGluZWQgLz59IC8+CiAgICAgICAgICA8L0NhcmQ+CiAgICAgICAgPC9Db2w+CiAgICAgICAgPENvbCB4cz17MTJ9IG1kPXs2fT4KICAgICAgICAgIDxDYXJkIHNpemU9InNtYWxsIj4KICAgICAgICAgICAgPFN0YXRpc3RpYyB0aXRsZT0i57Sv6K6h6YeR6aKdIiB2YWx1ZT17c3VtbWFyeS50b3RhbF9hbW91bnQgfHwgMH0gcHJlY2lzaW9uPXsyfSBwcmVmaXg9IsKlIiAvPgogICAgICAgICAgPC9DYXJkPgogICAgICAgIDwvQ29sPgogICAgICAgIDxDb2wgeHM9ezEyfSBtZD17Nn0+CiAgICAgICAgICA8Q2FyZCBzaXplPSJzbWFsbCI+CiAgICAgICAgICAgIDxTdGF0aXN0aWMgdGl0bGU9IuW+heWuoeaguCIgdmFsdWU9e3N1bW1hcnkuZHJhZnRfY291bnQgfHwgMH0gcHJlZml4PXs8QXVkaXRPdXRsaW5lZCAvPn0gdmFsdWVTdHlsZT17eyBjb2xvcjogJyNmYWFkMTQnIH19IC8+CiAgICAgICAgICA8L0NhcmQ+CiAgICAgICAgPC9Db2w+CiAgICAgICAgPENvbCB4cz17MTJ9IG1kPXs2fT4KICAgICAgICAgIDxDYXJkIHNpemU9InNtYWxsIj4KICAgICAgICAgICAgPFN0YXRpc3RpYyB0aXRsZT0i5bey5a6h5qC4IiB2YWx1ZT17c3VtbWFyeS5hdWRpdGVkX2NvdW50IHx8IDB9IHZhbHVlU3R5bGU9e3sgY29sb3I6ICcjM2Y4NjAwJyB9fSAvPgogICAgICAgICAgPC9DYXJkPgogICAgICAgIDwvQ29sPgogICAgICA8L1Jvdz4KCiAgICAgIDxDYXJkIHNpemU9InNtYWxsIiBzdHlsZT17eyBtYXJnaW5Cb3R0b206IDE2IH19PgogICAgICAgIDxTcGFjZSB3cmFwPgogICAgICAgICAgPFNlbGVjdCBwbGFjZWhvbGRlcj0i54q25oCB562b6YCJIiBhbGxvd0NsZWFyIHN0eWxlPXt7IHdpZHRoOiAxMjAgfX0gb3B0aW9ucz17T2JqZWN0LmVudHJpZXMoc3RhdHVzTWFwKS5tYXAoKFtrLCB2XSkgPT4gKHsgdmFsdWU6IGssIGxhYmVsOiB2LmxhYmVsIH0pKX0gdmFsdWU9e2ZpbHRlclN0YXR1c30gb25DaGFuZ2U9e3YgPT4geyBzZXRGaWx0ZXJTdGF0dXModik7IHNldFBhZ2UoMSk7IH19IC8+CiAgICAgICAgICA8U2VsZWN0IHBsYWNlaG9sZGVyPSLnsbvlnovnrZvpgIkiIGFsbG93Q2xlYXIgc3R5bGU9e3sgd2lkdGg6IDEwMCB9fSBvcHRpb25zPXt2b3VjaGVyVHlwZU9wdGlvbnN9IHZhbHVlPXtmaWx0ZXJUeXBlfSBvbkNoYW5nZT17diA9PiB7IHNldEZpbHRlclR5cGUodik7IHNldFBhZ2UoMSk7IH19IC8+CiAgICAgICAgICA8QnV0dG9uIHR5cGU9InByaW1hcnkiIGljb249ezxQbHVzT3V0bGluZWQgLz59IG9uQ2xpY2s9e2hhbmRsZUFkZH0+5paw5bu65Yet6K+BPC9CdXR0b24+CiAgICAgICAgPC9TcGFjZT4KICAgICAgPC9DYXJkPgoKICAgICAgPFRhYmxlIGNvbHVtbnM9e2NvbHVtbnN9IGRhdGFTb3VyY2U9e3ZvdWNoZXJzfSByb3dLZXk9ImlkIiBsb2FkaW5nPXtsb2FkaW5nfSBzaXplPSJzbWFsbCIKICAgICAgICBzY3JvbGw9e3sgeDogOTAwIH19CiAgICAgICAgcGFnaW5hdGlvbj17eyBjdXJyZW50OiBwYWdlLCB0b3RhbCwgc2hvd1RvdGFsOiB0ID0+IGDlhbEgJHt0fSDmnaFgLCBvbkNoYW5nZTogcCA9PiBzZXRQYWdlKHApIH19CiAgICAgIC8+CgogICAgICB7Lyog5paw5bu6L+e8lui+keWHreivgeW8ueeqlyAqL30KICAgICAgPE1vZGFsCiAgICAgICAgdGl0bGU9e2VkaXRpbmcgPyBg57yW6L6R5Yet6K+BICR7ZWRpdGluZy52b3VjaGVyX25vfWAgOiAn5paw5bu66K6w6LSm5Yet6K+BJ30KICAgICAgICBvcGVuPXttb2RhbE9wZW59CiAgICAgICAgb25Paz17aGFuZGxlU2F2ZX0KICAgICAgICBvbkNhbmNlbD17KCkgPT4gc2V0TW9kYWxPcGVuKGZhbHNlKX0KICAgICAgICB3aWR0aD17ODAwfQogICAgICAgIG9rVGV4dD17aXNCYWxhbmNlZCA/ICfkv53lrZgnIDogJ+WAn+i0t+S4jeW5s++8jOaXoOazleS/neWtmCd9CiAgICAgICAgb2tCdXR0b25Qcm9wcz17eyBkaXNhYmxlZDogIWlzQmFsYW5jZWQgfX0KICAgICAgPgogICAgICAgIDxGb3JtIGZvcm09e2Zvcm19IGxheW91dD0iaW5saW5lIiBzdHlsZT17eyBtYXJnaW5Cb3R0b206IDE2LCBmbGV4V3JhcDogJ3dyYXAnLCBnYXA6IDggfX0+CiAgICAgICAgICA8Rm9ybS5JdGVtIG5hbWU9InZvdWNoZXJfdHlwZSIgbGFiZWw9Iuexu+WeiyIgcnVsZXM9e1t7IHJlcXVpcmVkOiB0cnVlIH1dfT4KICAgICAgICAgICAgPFNlbGVjdCBvcHRpb25zPXt2b3VjaGVyVHlwZU9wdGlvbnN9IHN0eWxlPXt7IHdpZHRoOiA4MCB9fSAvPgogICAgICAgICAgPC9Gb3JtLkl0ZW0+CiAgICAgICAgICA8Rm9ybS5JdGVtIG5hbWU9InZvdWNoZXJfZGF0ZSIgbGFiZWw9IuaXpeacnyIgcnVsZXM9e1t7IHJlcXVpcmVkOiB0cnVlIH1dfT4KICAgICAgICAgICAgPERhdGVQaWNrZXIgLz4KICAgICAgICAgIDwvRm9ybS5JdGVtPgogICAgICAgICAgPEZvcm0uSXRlbSBuYW1lPSJhdHRhY2htZW50X2NvdW50IiBsYWJlbD0i6ZmE5Lu25pWwIj4KICAgICAgICAgICAgPElucHV0TnVtYmVyIG1pbj17MH0gc3R5bGU9e3sgd2lkdGg6IDgwIH19IC8+CiAgICAgICAgICA8L0Zvcm0uSXRlbT4KICAgICAgICAgIDxGb3JtLkl0ZW0gbmFtZT0icmVtYXJrIiBsYWJlbD0i5aSH5rOoIj4KICAgICAgICAgICAgPElucHV0IHN0eWxlPXt7IHdpZHRoOiAyMDAgfX0gLz4KICAgICAgICAgIDwvRm9ybS5JdGVtPgogICAgICAgIDwvRm9ybT4KCiAgICAgICAgPERpdmlkZXIgb3JpZW50YXRpb249ImxlZnQiIHN0eWxlPXt7IG1hcmdpbjogJzhweCAwJyB9fT7kvJrorqHliIblvZU8L0RpdmlkZXI+CgogICAgICAgIDxkaXYgc3R5bGU9e3sgbWF4SGVpZ2h0OiAzNTAsIG92ZXJmbG93WTogJ2F1dG8nLCBtYXJnaW5Cb3R0b206IDggfX0+CiAgICAgICAgICA8dGFibGUgc3R5bGU9e3sgd2lkdGg6ICcxMDAlJywgYm9yZGVyQ29sbGFwc2U6ICdjb2xsYXBzZScsIGZvbnRTaXplOiAxMyB9fT4KICAgICAgICAgICAgPHRoZWFkPgogICAgICAgICAgICAgIDx0ciBzdHlsZT17eyBiYWNrZ3JvdW5kOiAnI2ZhZmFmYScgfX0+CiAgICAgICAgICAgICAgICA8dGggc3R5bGU9e3sgcGFkZGluZzogJzhweCA0cHgnLCB0ZXh0QWxpZ246ICdsZWZ0Jywgd2lkdGg6IDMwIH19PiM8L3RoPgogICAgICAgICAgICAgICAgPHRoIHN0eWxlPXt7IHBhZGRpbmc6ICc4cHggNHB4JywgdGV4dEFsaWduOiAnbGVmdCcgfX0+5pGY6KaBPC90aD4KICAgICAgICAgICAgICAgIDx0aCBzdHlsZT17eyBwYWRkaW5nOiAnOHB4IDRweCcsIHRleHRBbGlnbjogJ2xlZnQnLCB3aWR0aDogMjAwIH19PuS8muiuoeenkeebrjwvdGg+CiAgICAgICAgICAgICAgICA8dGggc3R5bGU9e3sgcGFkZGluZzogJzhweCA0cHgnLCB0ZXh0QWxpZ246ICdyaWdodCcsIHdpZHRoOiAxMTAgfX0+5YCf5pa56YeR6aKdPC90aD4KICAgICAgICAgICAgICAgIDx0aCBzdHlsZT17eyBwYWRkaW5nOiAnOHB4IDRweCcsIHRleHRBbGlnbjogJ3JpZ2h0Jywgd2lkdGg6IDExMCB9fT7otLfmlrnph5Hpop08L3RoPgogICAgICAgICAgICAgICAgPHRoIHN0eWxlPXt7IHBhZGRpbmc6ICc4cHggNHB4Jywgd2lkdGg6IDQwIH19PjwvdGg+CiAgICAgICAgICAgICAgPC90cj4KICAgICAgICAgICAgPC90aGVhZD4KICAgICAgICAgICAgPHRib2R5PgogICAgICAgICAgICAgIHtpdGVtcy5tYXAoKGl0ZW0sIGlkeCkgPT4gKAogICAgICAgICAgICAgICAgPHRyIGtleT17aXRlbS5rZXl9IHN0eWxlPXt7IGJvcmRlckJvdHRvbTogJzFweCBzb2xpZCAjZjBmMGYwJyB9fT4KICAgICAgICAgICAgICAgICAgPHRkIHN0eWxlPXt7IHBhZGRpbmc6ICc2cHggNHB4JyB9fT57aWR4ICsgMX08L3RkPgogICAgICAgICAgICAgICAgICA8dGQgc3R5bGU9e3sgcGFkZGluZzogJzZweCA0cHgnIH19PgogICAgICAgICAgICAgICAgICAgIDxJbnB1dCBzaXplPSJzbWFsbCIgdmFsdWU9e2l0ZW0uc3VtbWFyeX0gcGxhY2Vob2xkZXI9IuaRmOimgSIKICAgICAgICAgICAgICAgICAgICAgIG9uQ2hhbmdlPXtlID0+IHVwZGF0ZUl0ZW0oaXRlbS5rZXksICdzdW1tYXJ5JywgZS50YXJnZXQudmFsdWUpfSAvPgogICAgICAgICAgICAgICAgICA8L3RkPgogICAgICAgICAgICAgICAgICA8dGQgc3R5bGU9e3sgcGFkZGluZzogJzZweCA0cHgnIH19PgogICAgICAgICAgICAgICAgICAgIDxTZWxlY3Qgc2l6ZT0ic21hbGwiIHN0eWxlPXt7IHdpZHRoOiAnMTAwJScgfX0gdmFsdWU9e2l0ZW0uYWNjb3VudF9pZH0KICAgICAgICAgICAgICAgICAgICAgIHBsYWNlaG9sZGVyPSLpgInmi6nnp5Hnm64iIHNob3dTZWFyY2ggb3B0aW9uRmlsdGVyUHJvcD0ibGFiZWwiCiAgICAgICAgICAgICAgICAgICAgICBvbkNoYW5nZT17diA9PiB1cGRhdGVJdGVtKGl0ZW0ua2V5LCAnYWNjb3VudF9pZCcsIHYpfQogICAgICAgICAgICAgICAgICAgICAgb3B0aW9ucz17YWNjb3VudHMubWFwKChhOiBhbnkpID0+ICh7CiAgICAgICAgICAgICAgICAgICAgICAgIHZhbHVlOiBhLmlkLAogICAgICAgICAgICAgICAgICAgICAgICBsYWJlbDogYCR7YS5jb2RlfSAke2EubmFtZX1gCiAgICAgICAgICAgICAgICAgICAgICB9KSl9CiAgICAgICAgICAgICAgICAgICAgLz4KICAgICAgICAgICAgICAgICAgPC90ZD4KICAgICAgICAgICAgICAgICAgPHRkIHN0eWxlPXt7IHBhZGRpbmc6ICc2cHggNHB4JyB9fT4KICAgICAgICAgICAgICAgICAgICA8SW5wdXROdW1iZXIgc2l6ZT0ic21hbGwiIHN0eWxlPXt7IHdpZHRoOiAnMTAwJScgfX0gdmFsdWU9e2l0ZW0uZGViaXRfYW1vdW50fQogICAgICAgICAgICAgICAgICAgICAgbWluPXswfSBwcmVjaXNpb249ezJ9IHBsYWNlaG9sZGVyPSIwLjAwIgogICAgICAgICAgICAgICAgICAgICAgb25DaGFuZ2U9e3YgPT4gdXBkYXRlSXRlbShpdGVtLmtleSwgJ2RlYml0X2Ftb3VudCcsIHYgfHwgMCl9CiAgICAgICAgICAgICAgICAgICAgICBvbkZvY3VzPXsoKSA9PiB7IGlmIChpdGVtLmNyZWRpdF9hbW91bnQgPiAwKSB1cGRhdGVJdGVtKGl0ZW0ua2V5LCAnY3JlZGl0X2Ftb3VudCcsIDApOyB9fQogICAgICAgICAgICAgICAgICAgIC8+CiAgICAgICAgICAgICAgICAgIDwvdGQ+CiAgICAgICAgICAgICAgICAgIDx0ZCBzdHlsZT17eyBwYWRkaW5nOiAnNnB4IDRweCcgfX0+CiAgICAgICAgICAgICAgICAgICAgPElucHV0TnVtYmVyIHNpemU9InNtYWxsIiBzdHlsZT17eyB3aWR0aDogJzEwMCUnIH19IHZhbHVlPXtpdGVtLmNyZWRpdF9hbW91bnR9CiAgICAgICAgICAgICAgICAgICAgICBtaW49ezB9IHByZWNpc2lvbj17Mn0gcGxhY2Vob2xkZXI9IjAuMDAiCiAgICAgICAgICAgICAgICAgICAgICBvbkNoYW5nZT17diA9PiB1cGRhdGVJdGVtKGl0ZW0ua2V5LCAnY3JlZGl0X2Ftb3VudCcsIHYgfHwgMCl9CiAgICAgICAgICAgICAgICAgICAgICBvbkZvY3VzPXsoKSA9PiB7IGlmIChpdGVtLmRlYml0X2Ftb3VudCA+IDApIHVwZGF0ZUl0ZW0oaXRlbS5rZXksICdkZWJpdF9hbW91bnQnLCAwKTsgfX0KICAgICAgICAgICAgICAgICAgICAvPgogICAgICAgICAgICAgICAgICA8L3RkPgogICAgICAgICAgICAgICAgICA8dGQgc3R5bGU9e3sgcGFkZGluZzogJzZweCA0cHgnIH19PgogICAgICAgICAgICAgICAgICAgIDxCdXR0b24gdHlwZT0idGV4dCIgc2l6ZT0ic21hbGwiIGRhbmdlciBpY29uPXs8RGVsZXRlT3V0bGluZWQgLz59IG9uQ2xpY2s9eygpID0+IHJlbW92ZUl0ZW0oaXRlbS5rZXkpfSAvPgogICAgICAgICAgICAgICAgICA8L3RkPgogICAgICAgICAgICAgICAgPC90cj4KICAgICAgICAgICAgICApKX0KICAgICAgICAgICAgPC90Ym9keT4KICAgICAgICAgICAgPHRmb290PgogICAgICAgICAgICAgIDx0ciBzdHlsZT17eyBiYWNrZ3JvdW5kOiAnI2ZhZmFmYScsIGZvbnRXZWlnaHQ6IDYwMCB9fT4KICAgICAgICAgICAgICAgIDx0ZCBjb2xTcGFuPXszfSBzdHlsZT17eyBwYWRkaW5nOiAnOHB4IDRweCcsIHRleHRBbGlnbjogJ3JpZ2h0JyB9fT7lkIjorqE8L3RkPgogICAgICAgICAgICAgICAgPHRkIHN0eWxlPXt7IHBhZGRpbmc6ICc4cHggNHB4JywgdGV4dEFsaWduOiAncmlnaHQnLCBjb2xvcjogJyNjZjEzMjInIH19PsKle3RvdGFsRGViaXQudG9GaXhlZCgyKX08L3RkPgogICAgICAgICAgICAgICAgPHRkIHN0eWxlPXt7IHBhZGRpbmc6ICc4cHggNHB4JywgdGV4dEFsaWduOiAncmlnaHQnLCBjb2xvcjogJyMzZjg2MDAnIH19PsKle3RvdGFsQ3JlZGl0LnRvRml4ZWQoMil9PC90ZD4KICAgICAgICAgICAgICAgIDx0ZD48L3RkPgogICAgICAgICAgICAgIDwvdHI+CiAgICAgICAgICAgIDwvdGZvb3Q+CiAgICAgICAgICA8L3RhYmxlPgogICAgICAgIDwvZGl2PgoKICAgICAgICA8ZGl2IHN0eWxlPXt7IGRpc3BsYXk6ICdmbGV4JywganVzdGlmeUNvbnRlbnQ6ICdzcGFjZS1iZXR3ZWVuJywgYWxpZ25JdGVtczogJ2NlbnRlcicgfX0+CiAgICAgICAgICA8QnV0dG9uIHR5cGU9ImRhc2hlZCIgc2l6ZT0ic21hbGwiIGljb249ezxQbHVzT3V0bGluZWQgLz59IG9uQ2xpY2s9e2FkZEl0ZW19Pua3u+WKoOWIhuW9lTwvQnV0dG9uPgogICAgICAgICAgPFRhZyBjb2xvcj17aXNCYWxhbmNlZCA/ICdzdWNjZXNzJyA6ICdlcnJvcid9IHN0eWxlPXt7IGZvbnRTaXplOiAxMywgcGFkZGluZzogJzRweCAxMnB4JyB9fT4KICAgICAgICAgICAge2lzQmFsYW5jZWQgPyAn4pyTIOWAn+i0t+W5s+ihoScgOiBg4pyXIOWAn+i0t+W3ruminSDCpSR7KHRvdGFsRGViaXQgLSB0b3RhbENyZWRpdCkudG9GaXhlZCgyKX1gfQogICAgICAgICAgPC9UYWc+CiAgICAgICAgPC9kaXY+CiAgICAgIDwvTW9kYWw+CgogICAgICB7Lyog5Yet6K+B6K+m5oOF5by556qXICovfQogICAgICA8TW9kYWwgdGl0bGU9e2Dlh63or4Hor6bmg4UgLSAke2RldGFpbD8udm91Y2hlcl9ubyB8fCAnJ31gfSBvcGVuPXtkZXRhaWxPcGVufSBvbkNhbmNlbD17KCkgPT4gc2V0RGV0YWlsT3BlbihmYWxzZSl9IGZvb3Rlcj17bnVsbH0gd2lkdGg9ezcwMH0+CiAgICAgICAge2RldGFpbCAmJiAoCiAgICAgICAgICA8ZGl2PgogICAgICAgICAgICA8Um93IGd1dHRlcj17MTZ9IHN0eWxlPXt7IG1hcmdpbkJvdHRvbTogMTYgfX0+CiAgICAgICAgICAgICAgPENvbCBzcGFuPXs4fT48VGV4dCB0eXBlPSJzZWNvbmRhcnkiPuexu+Wei++8mjwvVGV4dD48VGFnPnt2b3VjaGVyVHlwZU9wdGlvbnMuZmluZChvID0+IG8udmFsdWUgPT09IGRldGFpbC52b3VjaGVyX3R5cGUpPy5sYWJlbH08L1RhZz48L0NvbD4KICAgICAgICAgICAgICA8Q29sIHNwYW49ezh9PjxUZXh0IHR5cGU9InNlY29uZGFyeSI+5pel5pyf77yaPC9UZXh0PntkZXRhaWwudm91Y2hlcl9kYXRlPy5zbGljZSgwLCAxMCl9PC9Db2w+CiAgICAgICAgICAgICAgPENvbCBzcGFuPXs4fT48VGV4dCB0eXBlPSJzZWNvbmRhcnkiPueKtuaAge+8mjwvVGV4dD48VGFnIGNvbG9yPXtzdGF0dXNNYXBbZGV0YWlsLnN0YXR1c10/LmNvbG9yfT57c3RhdHVzTWFwW2RldGFpbC5zdGF0dXNdPy5sYWJlbH08L1RhZz48L0NvbD4KICAgICAgICAgICAgPC9Sb3c+CiAgICAgICAgICAgIDx0YWJsZSBzdHlsZT17eyB3aWR0aDogJzEwMCUnLCBib3JkZXJDb2xsYXBzZTogJ2NvbGxhcHNlJywgZm9udFNpemU6IDEzIH19PgogICAgICAgICAgICAgIDx0aGVhZD4KICAgICAgICAgICAgICAgIDx0ciBzdHlsZT17eyBiYWNrZ3JvdW5kOiAnI2ZhZmFmYScsIGJvcmRlckJvdHRvbTogJzJweCBzb2xpZCAjZDlkOWQ5JyB9fT4KICAgICAgICAgICAgICAgICAgPHRoIHN0eWxlPXt7IHBhZGRpbmc6ICc4cHgnLCB0ZXh0QWxpZ246ICdsZWZ0JyB9fT7mkZjopoE8L3RoPgogICAgICAgICAgICAgICAgICA8dGggc3R5bGU9e3sgcGFkZGluZzogJzhweCcsIHRleHRBbGlnbjogJ2xlZnQnIH19PuenkeebrjwvdGg+CiAgICAgICAgICAgICAgICAgIDx0aCBzdHlsZT17eyBwYWRkaW5nOiAnOHB4JywgdGV4dEFsaWduOiAncmlnaHQnIH19PuWAn+aWuTwvdGg+CiAgICAgICAgICAgICAgICAgIDx0aCBzdHlsZT17eyBwYWRkaW5nOiAnOHB4JywgdGV4dEFsaWduOiAncmlnaHQnIH19Pui0t+aWuTwvdGg+CiAgICAgICAgICAgICAgICA8L3RyPgogICAgICAgICAgICAgIDwvdGhlYWQ+CiAgICAgICAgICAgICAgPHRib2R5PgogICAgICAgICAgICAgICAge2RldGFpbC5pdGVtcz8ubWFwKChpdGVtOiBhbnkpID0+ICgKICAgICAgICAgICAgICAgICAgPHRyIGtleT17aXRlbS5pZH0gc3R5bGU9e3sgYm9yZGVyQm90dG9tOiAnMXB4IHNvbGlkICNmMGYwZjAnIH19PgogICAgICAgICAgICAgICAgICAgIDx0ZCBzdHlsZT17eyBwYWRkaW5nOiAnOHB4JyB9fT57aXRlbS5zdW1tYXJ5fTwvdGQ+CiAgICAgICAgICAgICAgICAgICAgPHRkIHN0eWxlPXt7IHBhZGRpbmc6ICc4cHgnIH19PntpdGVtLmFjY291bnRfY29kZX0ge2l0ZW0uYWNjb3VudF9uYW1lfTwvdGQ+CiAgICAgICAgICAgICAgICAgICAgPHRkIHN0eWxlPXt7IHBhZGRpbmc6ICc4cHgnLCB0ZXh0QWxpZ246ICdyaWdodCcsIGNvbG9yOiAnI2NmMTMyMicgfX0+e3BhcnNlRmxvYXQoaXRlbS5kZWJpdF9hbW91bnQpID4gMCA/IGDCpSR7cGFyc2VGbG9hdChpdGVtLmRlYml0X2Ftb3VudCkudG9GaXhlZCgyKX1gIDogJyd9PC90ZD4KICAgICAgICAgICAgICAgICAgICA8dGQgc3R5bGU9e3sgcGFkZGluZzogJzhweCcsIHRleHRBbGlnbjogJ3JpZ2h0JywgY29sb3I6ICcjM2Y4NjAwJyB9fT57cGFyc2VGbG9hdChpdGVtLmNyZWRpdF9hbW91bnQpID4gMCA/IGDCpSR7cGFyc2VGbG9hdChpdGVtLmNyZWRpdF9hbW91bnQpLnRvRml4ZWQoMil9YCA6ICcnfTwvdGQ+CiAgICAgICAgICAgICAgICAgIDwvdHI+CiAgICAgICAgICAgICAgICApKX0KICAgICAgICAgICAgICAgIDx0ciBzdHlsZT17eyBmb250V2VpZ2h0OiA2MDAsIGJvcmRlclRvcDogJzJweCBzb2xpZCAjZDlkOWQ5JyB9fT4KICAgICAgICAgICAgICAgICAgPHRkIGNvbFNwYW49ezJ9IHN0eWxlPXt7IHBhZGRpbmc6ICc4cHgnLCB0ZXh0QWxpZ246ICdyaWdodCcgfX0+5ZCI6K6hPC90ZD4KICAgICAgICAgICAgICAgICAgPHRkIHN0eWxlPXt7IHBhZGRpbmc6ICc4cHgnLCB0ZXh0QWxpZ246ICdyaWdodCcsIGNvbG9yOiAnI2NmMTMyMicgfX0+wqV7TnVtYmVyKGRldGFpbC50b3RhbF9kZWJpdCkudG9GaXhlZCgyKX08L3RkPgogICAgICAgICAgICAgICAgICA8dGQgc3R5bGU9e3sgcGFkZGluZzogJzhweCcsIHRleHRBbGlnbjogJ3JpZ2h0JywgY29sb3I6ICcjM2Y4NjAwJyB9fT7CpXtOdW1iZXIoZGV0YWlsLnRvdGFsX2NyZWRpdCkudG9GaXhlZCgyKX08L3RkPgogICAgICAgICAgICAgICAgPC90cj4KICAgICAgICAgICAgICA8L3Rib2R5PgogICAgICAgICAgICA8L3RhYmxlPgogICAgICAgICAgICB7ZGV0YWlsLnNlYWxzPy5sZW5ndGggPiAwICYmICgKICAgICAgICAgICAgICA8ZGl2IHN0eWxlPXt7IG1hcmdpblRvcDogMTYgfX0+CiAgICAgICAgICAgICAgICA8VGV4dCB0eXBlPSJzZWNvbmRhcnkiPueblueroO+8mjwvVGV4dD4KICAgICAgICAgICAgICAgIHtkZXRhaWwuc2VhbHMubWFwKChzOiBhbnkpID0+ICgKICAgICAgICAgICAgICAgICAgPFRhZyBrZXk9e3MuaWR9IGNvbG9yPSJyZWQiPntzLnNlYWxfbmFtZX17cy5zZWFsX2NvZGUgPyBgICgke3Muc2VhbF9jb2RlfSlgIDogJyd9PC9UYWc+CiAgICAgICAgICAgICAgICApKX0KICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgKX0KICAgICAgICAgICAgPFJvdyBndXR0ZXI9ezE2fSBzdHlsZT17eyBtYXJnaW5Ub3A6IDE2IH19PgogICAgICAgICAgICAgIDxDb2wgc3Bhbj17OH0+PFRleHQgdHlwZT0ic2Vjb25kYXJ5Ij7liLbljZXkurrvvJo8L1RleHQ+e2RldGFpbC5jcmVhdG9yX25hbWV9PC9Db2w+CiAgICAgICAgICAgICAgPENvbCBzcGFuPXs4fT48VGV4dCB0eXBlPSJzZWNvbmRhcnkiPuWuoeaguOS6uu+8mjwvVGV4dD57ZGV0YWlsLmF1ZGl0b3JfbmFtZSB8fCAnLSd9PC9Db2w+CiAgICAgICAgICAgICAgPENvbCBzcGFuPXs4fT48VGV4dCB0eXBlPSJzZWNvbmRhcnkiPumZhOS7tuaVsO+8mjwvVGV4dD57ZGV0YWlsLmF0dGFjaG1lbnRfY291bnR9PC9Db2w+CiAgICAgICAgICAgIDwvUm93PgogICAgICAgICAgPC9kaXY+CiAgICAgICAgKX0KICAgICAgPC9Nb2RhbD4KICAgIDwvZGl2PgogICk7Cn07CgpleHBvcnQgZGVmYXVsdCBWb3VjaGVyTGlzdDsK
+import React, { useState, useEffect, useCallback } from 'react';
+import {
+  Card, Table, Button, Modal, Form, Input, InputNumber, Select, DatePicker,
+  Space, Tag, message, Typography, Row, Col, Statistic, Popconfirm, Divider
+} from 'antd';
+import {
+  PlusOutlined, DeleteOutlined, CheckOutlined, StopOutlined,
+  FileTextOutlined, AuditOutlined
+} from '@ant-design/icons';
+import dayjs from 'dayjs';
+import request from '../../api/request';
+
+const { Title, Text } = Typography;
+
+const voucherTypeOptions = [
+  { value: 'general', label: '记' },
+  { value: 'receipt', label: '收' },
+  { value: 'payment', label: '付' },
+  { value: 'transfer', label: '转' },
+];
+
+const statusMap: Record<string, { color: string; label: string }> = {
+  draft: { color: 'default', label: '草稿' },
+  pending_audit: { color: 'processing', label: '待审核' },
+  audited: { color: 'success', label: '已审核' },
+  posted: { color: 'blue', label: '已过账' },
+  void: { color: 'error', label: '已作废' },
+};
+
+const VoucherList: React.FC = () => {
+  const [vouchers, setVouchers] = useState<any[]>([]);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editing, setEditing] = useState<any>(null);
+  const [detail, setDetail] = useState<any>(null);
+  const [detailOpen, setDetailOpen] = useState(false);
+  const [filterStatus, setFilterStatus] = useState<string | undefined>();
+  const [filterType, setFilterType] = useState<string | undefined>();
+  const [summary, setSummary] = useState<any>({});
+  const [accounts, setAccounts] = useState<any[]>([]);
+  const [form] = Form.useForm();
+  const [items, setItems] = useState<any[]>([
+    { key: Date.now(), account_id: undefined, summary: '', debit_amount: 0, credit_amount: 0 }
+  ]);
+
+  const loadVouchers = useCallback(async (p = 1) => {
+    setLoading(true);
+    try {
+      const params: any = { page: p, pageSize: 20 };
+      if (filterStatus) params.status = filterStatus;
+      if (filterType) params.voucher_type = filterType;
+      const res = await request.get('/vouchers', { params });
+      const data = res.data?.data || res.data || {};
+      setVouchers(data?.list || []);
+      setTotal(data?.total || 0);
+      if (data?.summary) setSummary(data.summary);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  }, [filterStatus, filterType]);
+
+  const loadAccounts = async () => {
+    try {
+      const res = await request.get('/accounts');
+      setAccounts(res.data?.data || res.data || []);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => { loadVouchers(); }, [loadVouchers]);
+  useEffect(() => { loadAccounts(); }, []);
+
+  const handleAdd = () => {
+    setEditing(null);
+    form.resetFields();
+    form.setFieldsValue({ voucher_type: 'general', voucher_date: dayjs(), attachment_count: 0 });
+    setItems([{ key: Date.now(), account_id: undefined, summary: '', debit_amount: 0, credit_amount: 0 }]);
+    setModalOpen(true);
+  };
+
+  const handleEdit = async (record: any) => {
+    try {
+      const res = await request.get(`/vouchers/${record.id}`);
+      const data = res.data?.data || res.data || {};
+      setEditing(data);
+      form.setFieldsValue({
+        voucher_type: data.voucher_type,
+        voucher_date: dayjs(data.voucher_date),
+        attachment_count: data.attachment_count,
+        remark: data.remark,
+      });
+      setItems(data.items.map((item: any, i: number) => ({
+        key: i,
+        account_id: item.account_id,
+        summary: item.summary,
+        debit_amount: parseFloat(item.debit_amount) || 0,
+        credit_amount: parseFloat(item.credit_amount) || 0,
+      })));
+      setModalOpen(true);
+    } catch (err) {
+      message.error('获取凭证详情失败');
+    }
+  };
+
+  const handleViewDetail = async (record: any) => {
+    try {
+      const res = await request.get(`/vouchers/${record.id}`);
+      setDetail(res.data?.data || res.data);
+      setDetailOpen(true);
+    } catch (err) {
+      message.error('获取凭证详情失败');
+    }
+  };
+
+  const addItem = () => {
+    setItems([...items, { key: Date.now(), account_id: undefined, summary: '', debit_amount: 0, credit_amount: 0 }]);
+  };
+
+  const removeItem = (key: number) => {
+    if (items.length <= 2) { message.warning('至少需要两行分录'); return; }
+    setItems(items.filter(i => i.key !== key));
+  };
+
+  const updateItem = (key: number, field: string, value: any) => {
+    setItems(items.map(i => i.key === key ? { ...i, [field]: value } : i));
+  };
+
+  const totalDebit = items.reduce((s, i) => s + (parseFloat(i.debit_amount) || 0), 0);
+  const totalCredit = items.reduce((s, i) => s + (parseFloat(i.credit_amount) || 0), 0);
+  const isBalanced = Math.round(totalDebit * 100) === Math.round(totalCredit * 100);
+
+  const handleSave = async () => {
+    try {
+      await form.validateFields();
+      for (const item of items) {
+        if (!item.account_id) { message.warning('请选择科目'); return; }
+        if (!item.summary) { message.warning('请填写摘要'); return; }
+      }
+      if (!isBalanced) { message.error(`借贷不平衡！借方 ¥${totalDebit.toFixed(2)} ≠ 贷方 ¥${totalCredit.toFixed(2)}`); return; }
+
+      const values = form.getFieldsValue();
+      const payload = {
+        ...values,
+        voucher_date: values.voucher_date?.format('YYYY-MM-DD'),
+        items: items.map(i => ({
+          account_id: i.account_id,
+          summary: i.summary,
+          debit_amount: parseFloat(i.debit_amount) || 0,
+          credit_amount: parseFloat(i.credit_amount) || 0,
+        })),
+      };
+
+      if (editing) {
+        await request.put(`/vouchers/${editing.id}`, payload);
+        message.success('凭证更新成功');
+      } else {
+        await request.post('/vouchers', payload);
+        message.success('凭证保存成功');
+      }
+      setModalOpen(false);
+      loadVouchers();
+    } catch (err: any) {
+      if (err.response?.data?.message) message.error(err.response.data.message);
+      else if (err.errorFields) return;
+      else message.error('操作失败');
+    }
+  };
+
+  const handleAudit = async (id: number) => {
+    try {
+      await request.post(`/vouchers/${id}/audit`);
+      message.success('审核通过');
+      loadVouchers();
+    } catch (err: any) {
+      message.error(err.response?.data?.message || '审核失败');
+    }
+  };
+
+  const handleVoid = async (id: number) => {
+    try {
+      await request.post(`/vouchers/${id}/void`);
+      message.success('凭证已作废');
+      loadVouchers();
+    } catch (err: any) {
+      message.error(err.response?.data?.message || '操作失败');
+    }
+  };
+
+  const handleDelete = async (id: number) => {
+    try {
+      await request.delete(`/vouchers/${id}`);
+      message.success('凭证已删除');
+      loadVouchers();
+    } catch (err: any) {
+      message.error(err.response?.data?.message || '删除失败');
+    }
+  };
+
+  const columns = [
+    { title: '凭证编号', dataIndex: 'voucher_no', width: 140, render: (v: string, r: any) => (
+      <a onClick={() => handleViewDetail(r)}>{v}</a>
+    )},
+    { title: '类型', dataIndex: 'voucher_type', width: 60, render: (v: string) => {
+      const opt = voucherTypeOptions.find(o => o.value === v);
+      return <Tag>{opt?.label || v}</Tag>;
+    }},
+    { title: '日期', dataIndex: 'voucher_date', width: 110, render: (v: string) => v?.slice(0, 10) },
+    { title: '借方合计', dataIndex: 'total_debit', width: 110, render: (v: number) => (
+      <span style={{ color: '#cf1322', fontWeight: 500 }}>¥{Number(v || 0).toFixed(2)}</span>
+    )},
+    { title: '贷方合计', dataIndex: 'total_credit', width: 110, render: (v: number) => (
+      <span style={{ color: '#3f8600', fontWeight: 500 }}>¥{Number(v || 0).toFixed(2)}</span>
+    )},
+    { title: '状态', dataIndex: 'status', width: 80, render: (v: string) => {
+      const s = statusMap[v] || { color: 'default', label: v };
+      return <Tag color={s.color}>{s.label}</Tag>;
+    }},
+    { title: '制单人', dataIndex: 'creator_name', width: 80 },
+    { title: '审核人', dataIndex: 'auditor_name', width: 80, render: (v: string) => v || '-' },
+    { title: '操作', key: 'action', width: 150, render: (_: any, record: any) => (
+      <Space size="small">
+        {record.status === 'draft' && (
+          <>
+            <Button type="link" size="small" onClick={() => handleEdit(record)}>编辑</Button>
+            <Button type="link" size="small" icon={<CheckOutlined />} onClick={() => handleAudit(record.id)} style={{ color: '#52c41a' }}>审核</Button>
+            <Popconfirm title="确定作废此凭证？" onConfirm={() => handleVoid(record.id)}>
+              <Button type="link" size="small" danger icon={<StopOutlined />}>作废</Button>
+            </Popconfirm>
+          </>
+        )}
+        {record.status !== 'draft' && record.status !== 'void' && (
+          <Button type="link" size="small" onClick={() => handleViewDetail(record)}>查看</Button>
+        )}
+        {record.status === 'draft' && (
+          <Popconfirm title="确定删除此凭证？" onConfirm={() => handleDelete(record.id)}>
+            <Button type="link" size="small" danger icon={<DeleteOutlined />} />
+          </Popconfirm>
+        )}
+      </Space>
+    )},
+  ];
+
+  return (
+    <div>
+      <Title level={4}>记账凭证</Title>
+
+      <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
+        <Col xs={12} md={6}>
+          <Card size="small">
+            <Statistic title="凭证总数" value={summary.total_count || 0} prefix={<FileTextOutlined />} />
+          </Card>
+        </Col>
+        <Col xs={12} md={6}>
+          <Card size="small">
+            <Statistic title="累计金额" value={summary.total_amount || 0} precision={2} prefix="¥" />
+          </Card>
+        </Col>
+        <Col xs={12} md={6}>
+          <Card size="small">
+            <Statistic title="待审核" value={summary.draft_count || 0} prefix={<AuditOutlined />} valueStyle={{ color: '#faad14' }} />
+          </Card>
+        </Col>
+        <Col xs={12} md={6}>
+          <Card size="small">
+            <Statistic title="已审核" value={summary.audited_count || 0} valueStyle={{ color: '#3f8600' }} />
+          </Card>
+        </Col>
+      </Row>
+
+      <Card size="small" style={{ marginBottom: 16 }}>
+        <Space wrap>
+          <Select placeholder="状态筛选" allowClear style={{ width: 120 }} options={Object.entries(statusMap).map(([k, v]) => ({ value: k, label: v.label }))} value={filterStatus} onChange={v => { setFilterStatus(v); setPage(1); }} />
+          <Select placeholder="类型筛选" allowClear style={{ width: 100 }} options={voucherTypeOptions} value={filterType} onChange={v => { setFilterType(v); setPage(1); }} />
+          <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>新建凭证</Button>
+        </Space>
+      </Card>
+
+      <Table columns={columns} dataSource={vouchers} rowKey="id" loading={loading} size="small"
+        scroll={{ x: 900 }}
+        pagination={{ current: page, total, showTotal: t => `共 ${t} 条`, onChange: p => setPage(p) }}
+      />
+
+      {/* 新建/编辑凭证弹窗 */}
+      <Modal
+        title={editing ? `编辑凭证 ${editing.voucher_no}` : '新建记账凭证'}
+        open={modalOpen}
+        onOk={handleSave}
+        onCancel={() => setModalOpen(false)}
+        width={800}
+        okText={isBalanced ? '保存' : '借贷不平，无法保存'}
+        okButtonProps={{ disabled: !isBalanced }}
+      >
+        <Form form={form} layout="inline" style={{ marginBottom: 16, flexWrap: 'wrap', gap: 8 }}>
+          <Form.Item name="voucher_type" label="类型" rules={[{ required: true }]}>
+            <Select options={voucherTypeOptions} style={{ width: 80 }} />
+          </Form.Item>
+          <Form.Item name="voucher_date" label="日期" rules={[{ required: true }]}>
+            <DatePicker />
+          </Form.Item>
+          <Form.Item name="attachment_count" label="附件数">
+            <InputNumber min={0} style={{ width: 80 }} />
+          </Form.Item>
+          <Form.Item name="remark" label="备注">
+            <Input style={{ width: 200 }} />
+          </Form.Item>
+        </Form>
+
+        <Divider orientation="left" style={{ margin: '8px 0' }}>会计分录</Divider>
+
+        <div style={{ maxHeight: 350, overflowY: 'auto', marginBottom: 8 }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+            <thead>
+              <tr style={{ background: '#fafafa' }}>
+                <th style={{ padding: '8px 4px', textAlign: 'left', width: 30 }}>#</th>
+                <th style={{ padding: '8px 4px', textAlign: 'left' }}>摘要</th>
+                <th style={{ padding: '8px 4px', textAlign: 'left', width: 200 }}>会计科目</th>
+                <th style={{ padding: '8px 4px', textAlign: 'right', width: 110 }}>借方金额</th>
+                <th style={{ padding: '8px 4px', textAlign: 'right', width: 110 }}>贷方金额</th>
+                <th style={{ padding: '8px 4px', width: 40 }}></th>
+              </tr>
+            </thead>
+            <tbody>
+              {items.map((item, idx) => (
+                <tr key={item.key} style={{ borderBottom: '1px solid #f0f0f0' }}>
+                  <td style={{ padding: '6px 4px' }}>{idx + 1}</td>
+                  <td style={{ padding: '6px 4px' }}>
+                    <Input size="small" value={item.summary} placeholder="摘要"
+                      onChange={e => updateItem(item.key, 'summary', e.target.value)} />
+                  </td>
+                  <td style={{ padding: '6px 4px' }}>
+                    <Select size="small" style={{ width: '100%' }} value={item.account_id}
+                      placeholder="选择科目" showSearch optionFilterProp="label"
+                      onChange={v => updateItem(item.key, 'account_id', v)}
+                      options={accounts.map((a: any) => ({
+                        value: a.id,
+                        label: `${a.code} ${a.name}`
+                      }))}
+                    />
+                  </td>
+                  <td style={{ padding: '6px 4px' }}>
+                    <InputNumber size="small" style={{ width: '100%' }} value={item.debit_amount}
+                      min={0} precision={2} placeholder="0.00"
+                      onChange={v => updateItem(item.key, 'debit_amount', v || 0)}
+                      onFocus={() => { if (item.credit_amount > 0) updateItem(item.key, 'credit_amount', 0); }}
+                    />
+                  </td>
+                  <td style={{ padding: '6px 4px' }}>
+                    <InputNumber size="small" style={{ width: '100%' }} value={item.credit_amount}
+                      min={0} precision={2} placeholder="0.00"
+                      onChange={v => updateItem(item.key, 'credit_amount', v || 0)}
+                      onFocus={() => { if (item.debit_amount > 0) updateItem(item.key, 'debit_amount', 0); }}
+                    />
+                  </td>
+                  <td style={{ padding: '6px 4px' }}>
+                    <Button type="text" size="small" danger icon={<DeleteOutlined />} onClick={() => removeItem(item.key)} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+            <tfoot>
+              <tr style={{ background: '#fafafa', fontWeight: 600 }}>
+                <td colSpan={3} style={{ padding: '8px 4px', textAlign: 'right' }}>合计</td>
+                <td style={{ padding: '8px 4px', textAlign: 'right', color: '#cf1322' }}>¥{totalDebit.toFixed(2)}</td>
+                <td style={{ padding: '8px 4px', textAlign: 'right', color: '#3f8600' }}>¥{totalCredit.toFixed(2)}</td>
+                <td></td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Button type="dashed" size="small" icon={<PlusOutlined />} onClick={addItem}>添加分录</Button>
+          <Tag color={isBalanced ? 'success' : 'error'} style={{ fontSize: 13, padding: '4px 12px' }}>
+            {isBalanced ? '✓ 借贷平衡' : `✗ 借贷差额 ¥${(totalDebit - totalCredit).toFixed(2)}`}
+          </Tag>
+        </div>
+      </Modal>
+
+      {/* 凭证详情弹窗 */}
+      <Modal title={`凭证详情 - ${detail?.voucher_no || ''}`} open={detailOpen} onCancel={() => setDetailOpen(false)} footer={null} width={700}>
+        {detail && (
+          <div>
+            <Row gutter={16} style={{ marginBottom: 16 }}>
+              <Col span={8}><Text type="secondary">类型：</Text><Tag>{voucherTypeOptions.find(o => o.value === detail.voucher_type)?.label}</Tag></Col>
+              <Col span={8}><Text type="secondary">日期：</Text>{detail.voucher_date?.slice(0, 10)}</Col>
+              <Col span={8}><Text type="secondary">状态：</Text><Tag color={statusMap[detail.status]?.color}>{statusMap[detail.status]?.label}</Tag></Col>
+            </Row>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
+              <thead>
+                <tr style={{ background: '#fafafa', borderBottom: '2px solid #d9d9d9' }}>
+                  <th style={{ padding: '8px', textAlign: 'left' }}>摘要</th>
+                  <th style={{ padding: '8px', textAlign: 'left' }}>科目</th>
+                  <th style={{ padding: '8px', textAlign: 'right' }}>借方</th>
+                  <th style={{ padding: '8px', textAlign: 'right' }}>贷方</th>
+                </tr>
+              </thead>
+              <tbody>
+                {detail.items?.map((item: any) => (
+                  <tr key={item.id} style={{ borderBottom: '1px solid #f0f0f0' }}>
+                    <td style={{ padding: '8px' }}>{item.summary}</td>
+                    <td style={{ padding: '8px' }}>{item.account_code} {item.account_name}</td>
+                    <td style={{ padding: '8px', textAlign: 'right', color: '#cf1322' }}>{parseFloat(item.debit_amount) > 0 ? `¥${parseFloat(item.debit_amount).toFixed(2)}` : ''}</td>
+                    <td style={{ padding: '8px', textAlign: 'right', color: '#3f8600' }}>{parseFloat(item.credit_amount) > 0 ? `¥${parseFloat(item.credit_amount).toFixed(2)}` : ''}</td>
+                  </tr>
+                ))}
+                <tr style={{ fontWeight: 600, borderTop: '2px solid #d9d9d9' }}>
+                  <td colSpan={2} style={{ padding: '8px', textAlign: 'right' }}>合计</td>
+                  <td style={{ padding: '8px', textAlign: 'right', color: '#cf1322' }}>¥{Number(detail.total_debit).toFixed(2)}</td>
+                  <td style={{ padding: '8px', textAlign: 'right', color: '#3f8600' }}>¥{Number(detail.total_credit).toFixed(2)}</td>
+                </tr>
+              </tbody>
+            </table>
+            {detail.seals?.length > 0 && (
+              <div style={{ marginTop: 16 }}>
+                <Text type="secondary">盖章：</Text>
+                {detail.seals.map((s: any) => (
+                  <Tag key={s.id} color="red">{s.seal_name}{s.seal_code ? ` (${s.seal_code})` : ''}</Tag>
+                ))}
+              </div>
+            )}
+            <Row gutter={16} style={{ marginTop: 16 }}>
+              <Col span={8}><Text type="secondary">制单人：</Text>{detail.creator_name}</Col>
+              <Col span={8}><Text type="secondary">审核人：</Text>{detail.auditor_name || '-'}</Col>
+              <Col span={8}><Text type="secondary">附件数：</Text>{detail.attachment_count}</Col>
+            </Row>
+          </div>
+        )}
+      </Modal>
+    </div>
+  );
+};
+
+export default VoucherList;

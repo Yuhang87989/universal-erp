@@ -1,1 +1,245 @@
-aW1wb3J0IFJlYWN0LCB7IHVzZVN0YXRlLCB1c2VFZmZlY3QgfSBmcm9tICdyZWFjdCc7CmltcG9ydCB7CiAgVGFibGUsIEJ1dHRvbiwgTW9kYWwsIEZvcm0sIElucHV0LCBJbnB1dE51bWJlciwgU2VsZWN0LCBEYXRlUGlja2VyLAogIFRhZywgU3BhY2UsIG1lc3NhZ2UsIENhcmQsIFJvdywgQ29sLCBQb3Bjb25maXJtLCBEZXNjcmlwdGlvbnMsIFR5cG9ncmFwaHkKfSBmcm9tICdhbnRkJzsKaW1wb3J0IHsgUGx1c091dGxpbmVkLCBFeWVPdXRsaW5lZCB9IGZyb20gJ0BhbnQtZGVzaWduL2ljb25zJzsKaW1wb3J0IGRheWpzIGZyb20gJ2RheWpzJzsKaW1wb3J0IHJlcXVlc3QgZnJvbSAnLi4vLi4vYXBpL3JlcXVlc3QnOwoKY29uc3QgeyBPcHRpb24gfSA9IFNlbGVjdDsKY29uc3QgeyBUaXRsZSB9ID0gVHlwb2dyYXBoeTsKCmNvbnN0IFNhbGVzOiBSZWFjdC5GQyA9ICgpID0+IHsKICBjb25zdCBbb3JkZXJzLCBzZXRPcmRlcnNdID0gdXNlU3RhdGU8YW55W10+KFtdKTsKICBjb25zdCBbbG9hZGluZywgc2V0TG9hZGluZ10gPSB1c2VTdGF0ZShmYWxzZSk7CiAgY29uc3QgW29yZGVyTW9kYWwsIHNldE9yZGVyTW9kYWxdID0gdXNlU3RhdGUoZmFsc2UpOwogIGNvbnN0IFtkZXRhaWxNb2RhbCwgc2V0RGV0YWlsTW9kYWxdID0gdXNlU3RhdGUoZmFsc2UpOwogIGNvbnN0IFtjdXJyZW50T3JkZXIsIHNldEN1cnJlbnRPcmRlcl0gPSB1c2VTdGF0ZTxhbnk+KG51bGwpOwogIGNvbnN0IFtvcmRlckZvcm1dID0gRm9ybS51c2VGb3JtKCk7CiAgY29uc3QgW29yZGVySXRlbXMsIHNldE9yZGVySXRlbXNdID0gdXNlU3RhdGUoW3sgcHJvZHVjdElkOiBudWxsLCBxdWFudGl0eTogMSwgdW5pdFByaWNlOiAwIH1dKTsKICBjb25zdCBbcHJvZHVjdHMsIHNldFByb2R1Y3RzXSA9IHVzZVN0YXRlPGFueVtdPihbXSk7CiAgY29uc3QgW2N1c3RvbWVycywgc2V0Q3VzdG9tZXJzXSA9IHVzZVN0YXRlPGFueVtdPihbXSk7CiAgY29uc3QgW3BhZ2luYXRpb24sIHNldFBhZ2luYXRpb25dID0gdXNlU3RhdGUoeyBjdXJyZW50OiAxLCBwYWdlU2l6ZTogMjAsIHRvdGFsOiAwIH0pOwogIGNvbnN0IFtmaWx0ZXJzLCBzZXRGaWx0ZXJzXSA9IHVzZVN0YXRlKHsgc3RhdHVzOiB1bmRlZmluZWQsIG9yZGVyVHlwZTogdW5kZWZpbmVkIH0pOwoKICBjb25zdCBsb2FkT3JkZXJzID0gYXN5bmMgKHBhZ2UgPSAxLCBleHRyYUZpbHRlcnMgPSB7fSkgPT4gewogICAgc2V0TG9hZGluZyh0cnVlKTsKICAgIHRyeSB7CiAgICAgIGNvbnN0IHBhcmFtczogYW55ID0geyBwYWdlLCBwYWdlU2l6ZTogMjAsIC4uLmZpbHRlcnMsIC4uLmV4dHJhRmlsdGVycyB9OwogICAgICBjb25zdCByZXMgPSBhd2FpdCByZXF1ZXN0LmdldCgnL3NhbGVzJywgeyBwYXJhbXMgfSk7CiAgICAgIGNvbnN0IHBheWxvYWQgPSByZXMuZGF0YT8uZGF0YSB8fCByZXMuZGF0YSB8fCB7fTsKICAgICAgc2V0T3JkZXJzKHBheWxvYWQubGlzdCB8fCBwYXlsb2FkIHx8IFtdKTsKICAgICAgc2V0UGFnaW5hdGlvbih7IGN1cnJlbnQ6IHBhZ2UsIHBhZ2VTaXplOiAyMCwgdG90YWw6IHBheWxvYWQudG90YWwgfHwgMCB9KTsKICAgIH0gY2F0Y2ggKGUpIHsgLyogaWdub3JlICovIH0KICAgIHNldExvYWRpbmcoZmFsc2UpOwogIH07CgogIGNvbnN0IGxvYWRQcm9kdWN0cyA9IGFzeW5jICgpID0+IHsKICAgIHRyeSB7CiAgICAgIGNvbnN0IHJlcyA9IGF3YWl0IHJlcXVlc3QuZ2V0KCcvcHJvZHVjdHMnLCB7IHBhcmFtczogeyBwYWdlU2l6ZTogMjAwIH0gfSk7CiAgICAgIGNvbnN0IGQgPSByZXMuZGF0YT8uZGF0YSB8fCByZXMuZGF0YSB8fCB7fTsKICAgICAgc2V0UHJvZHVjdHMoZC5saXN0IHx8IGQgfHwgW10pOwogICAgfSBjYXRjaCAoZSkgeyAvKiBpZ25vcmUgKi8gfQogIH07CgogIGNvbnN0IGxvYWRDdXN0b21lcnMgPSBhc3luYyAoKSA9PiB7CiAgICB0cnkgewogICAgICBjb25zdCByZXMgPSBhd2FpdCByZXF1ZXN0LmdldCgnL2N1c3RvbWVycycsIHsgcGFyYW1zOiB7IHBhZ2VTaXplOiAyMDAgfSB9KTsKICAgICAgY29uc3QgZCA9IHJlcy5kYXRhPy5kYXRhIHx8IHJlcy5kYXRhIHx8IHt9OwogICAgICBzZXRDdXN0b21lcnMoZC5saXN0IHx8IGQgfHwgW10pOwogICAgfSBjYXRjaCAoZSkgeyAvKiBpZ25vcmUgKi8gfQogIH07CgogIHVzZUVmZmVjdCgoKSA9PiB7CiAgICBsb2FkT3JkZXJzKCk7CiAgICBsb2FkUHJvZHVjdHMoKTsKICAgIGxvYWRDdXN0b21lcnMoKTsKICB9LCBbXSk7CgogIGNvbnN0IGhhbmRsZUNyZWF0ZU9yZGVyID0gYXN5bmMgKCkgPT4gewogICAgdHJ5IHsKICAgICAgY29uc3QgdmFsdWVzID0gYXdhaXQgb3JkZXJGb3JtLnZhbGlkYXRlRmllbGRzKCk7CiAgICAgIGNvbnN0IHZhbGlkSXRlbXMgPSBvcmRlckl0ZW1zLmZpbHRlcihpID0+IGkucHJvZHVjdElkICYmIGkucXVhbnRpdHkgPiAwKTsKICAgICAgaWYgKHZhbGlkSXRlbXMubGVuZ3RoID09PSAwKSB7IG1lc3NhZ2Uud2FybmluZygn6K+35re75Yqg6Iez5bCR5LiA5Liq5ZWG5ZOBJyk7IHJldHVybjsgfQogICAgICBhd2FpdCByZXF1ZXN0LnBvc3QoJy9zYWxlcycsIHsKICAgICAgICBjdXN0b21lcklkOiB2YWx1ZXMuY3VzdG9tZXJJZCB8fCBudWxsLAogICAgICAgIGl0ZW1zOiB2YWxpZEl0ZW1zLAogICAgICAgIG9yZGVyVHlwZTogdmFsdWVzLm9yZGVyVHlwZSB8fCAncG9zJywKICAgICAgICBwYXltZW50TWV0aG9kOiB2YWx1ZXMucGF5bWVudE1ldGhvZCB8fCAnY2FzaCcsCiAgICAgICAgZGlzY291bnRBbW91bnQ6IHZhbHVlcy5kaXNjb3VudEFtb3VudCB8fCAwLAogICAgICAgIHJlbWFyazogdmFsdWVzLnJlbWFyawogICAgICB9KTsKICAgICAgbWVzc2FnZS5zdWNjZXNzKCfplIDllK7ljZXliJvlu7rmiJDlip8nKTsKICAgICAgc2V0T3JkZXJNb2RhbChmYWxzZSk7CiAgICAgIG9yZGVyRm9ybS5yZXNldEZpZWxkcygpOwogICAgICBzZXRPcmRlckl0ZW1zKFt7IHByb2R1Y3RJZDogbnVsbCwgcXVhbnRpdHk6IDEsIHVuaXRQcmljZTogMCB9XSk7CiAgICAgIGxvYWRPcmRlcnMoKTsKICAgIH0gY2F0Y2ggKGU6IGFueSkgewogICAgICBpZiAoZS5lcnJvckZpZWxkcykgcmV0dXJuOwogICAgICBtZXNzYWdlLmVycm9yKGUucmVzcG9uc2U/LmRhdGE/Lm1lc3NhZ2UgfHwgJ+WIm+W7uuWksei0pScpOwogICAgfQogIH07CgogIGNvbnN0IGhhbmRsZVZpZXdEZXRhaWwgPSBhc3luYyAoaWQ6IG51bWJlcikgPT4gewogICAgdHJ5IHsKICAgICAgY29uc3QgcmVzID0gYXdhaXQgcmVxdWVzdC5nZXQoYC9zYWxlcy8ke2lkfWApOwogICAgICBzZXRDdXJyZW50T3JkZXIocmVzLmRhdGE/LmRhdGEgfHwgcmVzLmRhdGEpOwogICAgICBzZXREZXRhaWxNb2RhbCh0cnVlKTsKICAgIH0gY2F0Y2ggKGUpIHsgbWVzc2FnZS5lcnJvcign6I635Y+W6K+m5oOF5aSx6LSlJyk7IH0KICB9OwoKICBjb25zdCBhZGRJdGVtID0gKCkgPT4gc2V0T3JkZXJJdGVtcyhbLi4ub3JkZXJJdGVtcywgeyBwcm9kdWN0SWQ6IG51bGwsIHF1YW50aXR5OiAxLCB1bml0UHJpY2U6IDAgfV0pOwogIGNvbnN0IHJlbW92ZUl0ZW0gPSAoaW5kZXg6IG51bWJlcikgPT4gc2V0T3JkZXJJdGVtcyhvcmRlckl0ZW1zLmZpbHRlcigoXywgaSkgPT4gaSAhPT0gaW5kZXgpKTsKICBjb25zdCB1cGRhdGVJdGVtID0gKGluZGV4OiBudW1iZXIsIGZpZWxkOiBzdHJpbmcsIHZhbHVlOiBhbnkpID0+IHsKICAgIGNvbnN0IG5ld0l0ZW1zID0gWy4uLm9yZGVySXRlbXNdOwogICAgbmV3SXRlbXNbaW5kZXhdID0geyAuLi5uZXdJdGVtc1tpbmRleF0sIFtmaWVsZF06IHZhbHVlIH07CiAgICBpZiAoZmllbGQgPT09ICdwcm9kdWN0SWQnICYmIHZhbHVlKSB7CiAgICAgIGNvbnN0IHByb2R1Y3QgPSBwcm9kdWN0cy5maW5kKChwOiBhbnkpID0+IHAuaWQgPT09IHZhbHVlKTsKICAgICAgaWYgKHByb2R1Y3Q/LnNlbGxfcHJpY2UpIG5ld0l0ZW1zW2luZGV4XS51bml0UHJpY2UgPSBwcm9kdWN0LnNlbGxfcHJpY2U7CiAgICB9CiAgICBzZXRPcmRlckl0ZW1zKG5ld0l0ZW1zKTsKICB9OwoKICBjb25zdCBzdGF0dXNNYXA6IFJlY29yZDxzdHJpbmcsIHsgdGV4dDogc3RyaW5nOyBjb2xvcjogc3RyaW5nIH0+ID0gewogICAgcGVuZGluZzogeyB0ZXh0OiAn5b6F5aSE55CGJywgY29sb3I6ICdvcmFuZ2UnIH0sCiAgICBjb21wbGV0ZWQ6IHsgdGV4dDogJ+W3suWujOaIkCcsIGNvbG9yOiAnZ3JlZW4nIH0sCiAgICByZWZ1bmRlZDogeyB0ZXh0OiAn5bey6YCA5qy+JywgY29sb3I6ICdkZWZhdWx0JyB9LAogICAgY2FuY2VsbGVkOiB7IHRleHQ6ICflt7Llj5bmtognLCBjb2xvcjogJ2RlZmF1bHQnIH0KICB9OwoKICBjb25zdCB0eXBlTWFwOiBSZWNvcmQ8c3RyaW5nLCBzdHJpbmc+ID0gewogICAgcG9zOiAnUE9TJywgb25saW5lOiAn57q/5LiKJywgd2hvbGVzYWxlOiAn5om55Y+RJywgcGhvbmU6ICfnlLXor50nCiAgfTsKCiAgY29uc3QgY29sdW1ucyA9IFsKICAgIHsgdGl0bGU6ICfplIDllK7ljZXlj7cnLCBkYXRhSW5kZXg6ICdvcmRlcl9ubycsIGtleTogJ29yZGVyX25vJywgd2lkdGg6IDE1MCB9LAogICAgeyB0aXRsZTogJ+WuouaItycsIGRhdGFJbmRleDogJ2N1c3RvbWVyX25hbWUnLCBrZXk6ICdjdXN0b21lcl9uYW1lJywgcmVuZGVyOiAodjogc3RyaW5nKSA9PiB2IHx8ICctJyB9LAogICAgeyB0aXRsZTogJ+exu+WeiycsIGRhdGFJbmRleDogJ29yZGVyX3R5cGUnLCBrZXk6ICdvcmRlcl90eXBlJywgd2lkdGg6IDgwLCByZW5kZXI6ICh2OiBzdHJpbmcpID0+IHR5cGVNYXBbdl0gfHwgdiB9LAogICAgeyB0aXRsZTogJ+aAu+mHkeminScsIGRhdGFJbmRleDogJ3RvdGFsX2Ftb3VudCcsIGtleTogJ3RvdGFsX2Ftb3VudCcsIHdpZHRoOiAxMDAsIHJlbmRlcjogKHY6IG51bWJlcikgPT4gYMKlJHtOdW1iZXIodiB8fCAwKS50b0ZpeGVkKDIpfWAgfSwKICAgIHsgdGl0bGU6ICflrp7mlLYnLCBkYXRhSW5kZXg6ICdhY3R1YWxfYW1vdW50Jywga2V5OiAnYWN0dWFsX2Ftb3VudCcsIHdpZHRoOiAxMDAsIHJlbmRlcjogKHY6IG51bWJlcikgPT4gYMKlJHtOdW1iZXIodiB8fCAwKS50b0ZpeGVkKDIpfWAgfSwKICAgIHsKICAgICAgdGl0bGU6ICfnirbmgIEnLCBkYXRhSW5kZXg6ICdzdGF0dXMnLCBrZXk6ICdzdGF0dXMnLCB3aWR0aDogOTAsCiAgICAgIHJlbmRlcjogKHY6IHN0cmluZykgPT4gPFRhZyBjb2xvcj17c3RhdHVzTWFwW3ZdPy5jb2xvcn0+e3N0YXR1c01hcFt2XT8udGV4dCB8fCB2fTwvVGFnPgogICAgfSwKICAgIHsgdGl0bGU6ICfml6XmnJ8nLCBkYXRhSW5kZXg6ICdvcmRlcl9kYXRlJywga2V5OiAnb3JkZXJfZGF0ZScsIHdpZHRoOiAxMTAsIHJlbmRlcjogKHY6IHN0cmluZykgPT4gdj8uc2xpY2UoMCwgMTApIH0sCiAgICB7CiAgICAgIHRpdGxlOiAn5pON5L2cJywga2V5OiAnYWN0aW9uJywgd2lkdGg6IDgwLAogICAgICByZW5kZXI6IChfOiBhbnksIHJlY29yZDogYW55KSA9PiAoCiAgICAgICAgPEJ1dHRvbiB0eXBlPSJsaW5rIiBpY29uPXs8RXllT3V0bGluZWQgLz59IHNpemU9InNtYWxsIiBvbkNsaWNrPXsoKSA9PiBoYW5kbGVWaWV3RGV0YWlsKHJlY29yZC5pZCl9PuivpuaDhTwvQnV0dG9uPgogICAgICApCiAgICB9CiAgXTsKCiAgcmV0dXJuICgKICAgIDxkaXY+CiAgICAgIDxUaXRsZSBsZXZlbD17NH0gc3R5bGU9e3sgbWFyZ2luQm90dG9tOiAxNiB9fT7plIDllK7nrqHnkIY8L1RpdGxlPgoKICAgICAgPENhcmQgc2l6ZT0ic21hbGwiIHN0eWxlPXt7IG1hcmdpbkJvdHRvbTogMTYgfX0+CiAgICAgICAgPFNwYWNlIHdyYXA+CiAgICAgICAgICA8U2VsZWN0IHBsYWNlaG9sZGVyPSLorqLljZXnsbvlnosiIGFsbG93Q2xlYXIgc3R5bGU9e3sgd2lkdGg6IDEyMCB9fQogICAgICAgICAgICBvcHRpb25zPXtbeyB2YWx1ZTogJ3BvcycsIGxhYmVsOiAnUE9TJyB9LCB7IHZhbHVlOiAnb25saW5lJywgbGFiZWw6ICfnur/kuIonIH0sIHsgdmFsdWU6ICd3aG9sZXNhbGUnLCBsYWJlbDogJ+aJueWPkScgfV19CiAgICAgICAgICAgIG9uQ2hhbmdlPXt2ID0+IHNldEZpbHRlcnMoZiA9PiAoeyAuLi5mLCBvcmRlclR5cGU6IHYgfSkpfSAvPgogICAgICAgICAgPFNlbGVjdCBwbGFjZWhvbGRlcj0i54q25oCBIiBhbGxvd0NsZWFyIHN0eWxlPXt7IHdpZHRoOiAxMjAgfX0KICAgICAgICAgICAgb3B0aW9ucz17W3sgdmFsdWU6ICdwZW5kaW5nJywgbGFiZWw6ICflvoXlpITnkIYnIH0sIHsgdmFsdWU6ICdjb21wbGV0ZWQnLCBsYWJlbDogJ+W3suWujOaIkCcgfSwgeyB2YWx1ZTogJ3JlZnVuZGVkJywgbGFiZWw6ICflt7LpgIDmrL4nIH1dfQogICAgICAgICAgICBvbkNoYW5nZT17diA9PiBzZXRGaWx0ZXJzKGYgPT4gKHsgLi4uZiwgc3RhdHVzOiB2IH0pKX0gLz4KICAgICAgICAgIDxCdXR0b24gdHlwZT0icHJpbWFyeSIgb25DbGljaz17KCkgPT4gbG9hZE9yZGVycygxKX0+5p+l6K+iPC9CdXR0b24+CiAgICAgICAgICA8QnV0dG9uIHR5cGU9InByaW1hcnkiIGljb249ezxQbHVzT3V0bGluZWQgLz59IG9uQ2xpY2s9eygpID0+IHsgb3JkZXJGb3JtLnJlc2V0RmllbGRzKCk7IHNldE9yZGVySXRlbXMoW3sgcHJvZHVjdElkOiBudWxsLCBxdWFudGl0eTogMSwgdW5pdFByaWNlOiAwIH1dKTsgc2V0T3JkZXJNb2RhbCh0cnVlKTsgfX0+CiAgICAgICAgICAgIOaWsOW7uumUgOWUruWNlQogICAgICAgICAgPC9CdXR0b24+CiAgICAgICAgPC9TcGFjZT4KICAgICAgPC9DYXJkPgoKICAgICAgPFRhYmxlIGNvbHVtbnM9e2NvbHVtbnN9IGRhdGFTb3VyY2U9e29yZGVyc30gcm93S2V5PSJpZCIgbG9hZGluZz17bG9hZGluZ30gc2l6ZT0ic21hbGwiIHNjcm9sbD17eyB4OiA4MDAgfX0KICAgICAgICBwYWdpbmF0aW9uPXt7IGN1cnJlbnQ6IHBhZ2luYXRpb24uY3VycmVudCwgcGFnZVNpemU6IHBhZ2luYXRpb24ucGFnZVNpemUsIHRvdGFsOiBwYWdpbmF0aW9uLnRvdGFsLCBzaG93VG90YWw6IHQgPT4gYOWFsSAke3R9IOadoWAsIG9uQ2hhbmdlOiBwID0+IGxvYWRPcmRlcnMocCkgfX0gLz4KCiAgICAgIHsvKiDmlrDlu7rplIDllK7ljZUgKi99CiAgICAgIDxNb2RhbCB0aXRsZT0i5paw5bu66ZSA5ZSu5Y2VIiBvcGVuPXtvcmRlck1vZGFsfSBvbk9rPXtoYW5kbGVDcmVhdGVPcmRlcn0gb25DYW5jZWw9eygpID0+IHNldE9yZGVyTW9kYWwoZmFsc2UpfSB3aWR0aD17NzAwfSBva1RleHQ9IuaPkOS6pCIgc3R5bGU9e3sgdG9wOiAyMCB9fT4KICAgICAgICA8Rm9ybSBmb3JtPXtvcmRlckZvcm19IGxheW91dD0idmVydGljYWwiPgogICAgICAgICAgPFJvdyBndXR0ZXI9e1sxNiwgMF19PgogICAgICAgICAgICA8Q29sIHhzPXsyNH0gbWQ9ezEyfT4KICAgICAgICAgICAgICA8Rm9ybS5JdGVtIG5hbWU9ImN1c3RvbWVySWQiIGxhYmVsPSLlrqLmiLciPgogICAgICAgICAgICAgICAgPFNlbGVjdCBwbGFjZWhvbGRlcj0i6YCJ5oup5a6i5oi377yI5Y+v6YCJ77yJIiBhbGxvd0NsZWFyIHNob3dTZWFyY2ggb3B0aW9uRmlsdGVyUHJvcD0ibGFiZWwiCiAgICAgICAgICAgICAgICAgIG9wdGlvbnM9e2N1c3RvbWVycy5tYXAoKGM6IGFueSkgPT4gKHsgbGFiZWw6IGAke2MubmFtZX0gKCR7Yy5waG9uZSB8fCAnJ30pYCwgdmFsdWU6IGMuaWQgfSkpfSAvPgogICAgICAgICAgICAgIDwvRm9ybS5JdGVtPgogICAgICAgICAgICA8L0NvbD4KICAgICAgICAgICAgPENvbCB4cz17MTJ9IG1kPXs2fT4KICAgICAgICAgICAgICA8Rm9ybS5JdGVtIG5hbWU9Im9yZGVyVHlwZSIgbGFiZWw9Iuexu+WeiyIgaW5pdGlhbFZhbHVlPSJwb3MiPgogICAgICAgICAgICAgICAgPFNlbGVjdCBvcHRpb25zPXtbeyB2YWx1ZTogJ3BvcycsIGxhYmVsOiAnUE9TJyB9LCB7IHZhbHVlOiAnb25saW5lJywgbGFiZWw6ICfnur/kuIonIH0sIHsgdmFsdWU6ICd3aG9sZXNhbGUnLCBsYWJlbDogJ+aJueWPkScgfSwgeyB2YWx1ZTogJ3Bob25lJywgbGFiZWw6ICfnlLXor50nIH1dfSAvPgogICAgICAgICAgICAgIDwvRm9ybS5JdGVtPgogICAgICAgICAgICA8L0NvbD4KICAgICAgICAgICAgPENvbCB4cz17MTJ9IG1kPXs2fT4KICAgICAgICAgICAgICA8Rm9ybS5JdGVtIG5hbWU9InBheW1lbnRNZXRob2QiIGxhYmVsPSLmlK/ku5jmlrnlvI8iIGluaXRpYWxWYWx1ZT0iY2FzaCI+CiAgICAgICAgICAgICAgICA8U2VsZWN0IG9wdGlvbnM9e1t7IHZhbHVlOiAnY2FzaCcsIGxhYmVsOiAn546w6YeRJyB9LCB7IHZhbHVlOiAnd2VjaGF0JywgbGFiZWw6ICflvq7kv6EnIH0sIHsgdmFsdWU6ICdhbGlwYXknLCBsYWJlbDogJ+aUr+S7mOWunScgfSwgeyB2YWx1ZTogJ2NhcmQnLCBsYWJlbDogJ+mTtuihjOWNoScgfV19IC8+CiAgICAgICAgICAgICAgPC9Gb3JtLkl0ZW0+CiAgICAgICAgICAgIDwvQ29sPgogICAgICAgICAgPC9Sb3c+CiAgICAgICAgICA8ZGl2IHN0eWxlPXt7IGJvcmRlcjogJzFweCBzb2xpZCAjZjBmMGYwJywgYm9yZGVyUmFkaXVzOiA4LCBwYWRkaW5nOiAxMiwgbWFyZ2luQm90dG9tOiAxNiB9fT4KICAgICAgICAgICAgPGRpdiBzdHlsZT17eyBtYXJnaW5Cb3R0b206IDgsIGZvbnRXZWlnaHQ6IDUwMCB9fT7llYblk4HmmI7nu4Y8L2Rpdj4KICAgICAgICAgICAge29yZGVySXRlbXMubWFwKChpdGVtLCBpbmRleCkgPT4gKAogICAgICAgICAgICAgIDxkaXYga2V5PXtpbmRleH0gc3R5bGU9e3sgbWFyZ2luQm90dG9tOiA4LCBwYWRkaW5nOiA4LCBiYWNrZ3JvdW5kOiAnI2ZhZmFmYScsIGJvcmRlclJhZGl1czogNiB9fT4KICAgICAgICAgICAgICAgIDxSb3cgZ3V0dGVyPXtbOCwgOF19IGFsaWduPSJtaWRkbGUiPgogICAgICAgICAgICAgICAgICA8Q29sIHhzPXsyNH0gbWQ9ezEwfT4KICAgICAgICAgICAgICAgICAgICA8U2VsZWN0IHN0eWxlPXt7IHdpZHRoOiAnMTAwJScgfX0gcGxhY2Vob2xkZXI9IumAieaLqeWVhuWTgSIgc2hvd1NlYXJjaCBvcHRpb25GaWx0ZXJQcm9wPSJsYWJlbCIKICAgICAgICAgICAgICAgICAgICAgIHZhbHVlPXtpdGVtLnByb2R1Y3RJZH0gb25DaGFuZ2U9e3YgPT4gdXBkYXRlSXRlbShpbmRleCwgJ3Byb2R1Y3RJZCcsIHYpfQogICAgICAgICAgICAgICAgICAgICAgb3B0aW9ucz17cHJvZHVjdHMubWFwKChwOiBhbnkpID0+ICh7IGxhYmVsOiBgJHtwLm5hbWV9ICjCpSR7cC5zZWxsX3ByaWNlfSlgLCB2YWx1ZTogcC5pZCB9KSl9IC8+CiAgICAgICAgICAgICAgICAgIDwvQ29sPgogICAgICAgICAgICAgICAgICA8Q29sIHhzPXsxMn0gbWQ9ezV9PgogICAgICAgICAgICAgICAgICAgIDxJbnB1dE51bWJlciBzdHlsZT17eyB3aWR0aDogJzEwMCUnIH19IG1pbj17MX0gcGxhY2Vob2xkZXI9IuaVsOmHjyIgdmFsdWU9e2l0ZW0ucXVhbnRpdHl9IG9uQ2hhbmdlPXt2ID0+IHVwZGF0ZUl0ZW0oaW5kZXgsICdxdWFudGl0eScsIHYpfSAvPgogICAgICAgICAgICAgICAgICA8L0NvbD4KICAgICAgICAgICAgICAgICAgPENvbCB4cz17MTJ9IG1kPXs2fT4KICAgICAgICAgICAgICAgICAgICA8SW5wdXROdW1iZXIgc3R5bGU9e3sgd2lkdGg6ICcxMDAlJyB9fSBtaW49ezB9IHByZWNpc2lvbj17Mn0gcGxhY2Vob2xkZXI9IuWNleS7tyIgcHJlZml4PSLCpSIgdmFsdWU9e2l0ZW0udW5pdFByaWNlfSBvbkNoYW5nZT17diA9PiB1cGRhdGVJdGVtKGluZGV4LCAndW5pdFByaWNlJywgdil9IC8+CiAgICAgICAgICAgICAgICAgIDwvQ29sPgogICAgICAgICAgICAgICAgICA8Q29sIHhzPXsyNH0gbWQ9ezN9IHN0eWxlPXt7IHRleHRBbGlnbjogJ2NlbnRlcicgfX0+CiAgICAgICAgICAgICAgICAgICAge29yZGVySXRlbXMubGVuZ3RoID4gMSAmJiA8QnV0dG9uIGRhbmdlciBzaXplPSJzbWFsbCIgb25DbGljaz17KCkgPT4gcmVtb3ZlSXRlbShpbmRleCl9PuWIoOmZpDwvQnV0dG9uPn0KICAgICAgICAgICAgICAgICAgPC9Db2w+CiAgICAgICAgICAgICAgICA8L1Jvdz4KICAgICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgICAgKSl9CiAgICAgICAgICAgIDxCdXR0b24gdHlwZT0iZGFzaGVkIiBibG9jayBvbkNsaWNrPXthZGRJdGVtfSBpY29uPXs8UGx1c091dGxpbmVkIC8+fT7mt7vliqDllYblk4E8L0J1dHRvbj4KICAgICAgICAgICAgPGRpdiBzdHlsZT17eyB0ZXh0QWxpZ246ICdyaWdodCcsIG1hcmdpblRvcDogOCwgZm9udFdlaWdodDogNjAwIH19PgogICAgICAgICAgICAgIOWQiOiuoe+8msKle29yZGVySXRlbXMucmVkdWNlKChzdW0sIGkpID0+IHN1bSArIChpLnF1YW50aXR5IHx8IDApICogKGkudW5pdFByaWNlIHx8IDApLCAwKS50b0ZpeGVkKDIpfQogICAgICAgICAgICA8L2Rpdj4KICAgICAgICAgIDwvZGl2PgogICAgICAgICAgPFJvdyBndXR0ZXI9e1sxNiwgMF19PgogICAgICAgICAgICA8Q29sIHhzPXsyNH0gbWQ9ezEyfT4KICAgICAgICAgICAgICA8Rm9ybS5JdGVtIG5hbWU9ImRpc2NvdW50QW1vdW50IiBsYWJlbD0i5LyY5oOg6YeR6aKdIj4KICAgICAgICAgICAgICAgIDxJbnB1dE51bWJlciBtaW49ezB9IHByZWNpc2lvbj17Mn0gcGxhY2Vob2xkZXI9IjAuMDAiIHByZWZpeD0iwqUiIHN0eWxlPXt7IHdpZHRoOiAnMTAwJScgfX0gLz4KICAgICAgICAgICAgICA8L0Zvcm0uSXRlbT4KICAgICAgICAgICAgPC9Db2w+CiAgICAgICAgICA8L1Jvdz4KICAgICAgICAgIDxGb3JtLkl0ZW0gbmFtZT0icmVtYXJrIiBsYWJlbD0i5aSH5rOoIj4KICAgICAgICAgICAgPElucHV0LlRleHRBcmVhIHJvd3M9ezJ9IHBsYWNlaG9sZGVyPSLlpIfms6jvvIjlj6/pgInvvIkiIC8+CiAgICAgICAgICA8L0Zvcm0uSXRlbT4KICAgICAgICA8L0Zvcm0+CiAgICAgIDwvTW9kYWw+CgogICAgICB7Lyog6K+m5oOF5by556qXICovfQogICAgICA8TW9kYWwgdGl0bGU9e2DplIDllK7ljZXor6bmg4UgLSAke2N1cnJlbnRPcmRlcj8ub3JkZXJfbm8gfHwgJyd9YH0gb3Blbj17ZGV0YWlsTW9kYWx9IG9uQ2FuY2VsPXsoKSA9PiBzZXREZXRhaWxNb2RhbChmYWxzZSl9IGZvb3Rlcj17bnVsbH0gd2lkdGg9ezY1MH0+CiAgICAgICAge2N1cnJlbnRPcmRlciAmJiAoCiAgICAgICAgICA8PgogICAgICAgICAgICA8RGVzY3JpcHRpb25zIGJvcmRlcmVkIHNpemU9InNtYWxsIiBjb2x1bW49ezJ9IHN0eWxlPXt7IG1hcmdpbkJvdHRvbTogMTYgfX0+CiAgICAgICAgICAgICAgPERlc2NyaXB0aW9ucy5JdGVtIGxhYmVsPSLplIDllK7ljZXlj7ciPntjdXJyZW50T3JkZXIub3JkZXJfbm99PC9EZXNjcmlwdGlvbnMuSXRlbT4KICAgICAgICAgICAgICA8RGVzY3JpcHRpb25zLkl0ZW0gbGFiZWw9IueKtuaAgSI+PFRhZyBjb2xvcj17c3RhdHVzTWFwW2N1cnJlbnRPcmRlci5zdGF0dXNdPy5jb2xvcn0+e3N0YXR1c01hcFtjdXJyZW50T3JkZXIuc3RhdHVzXT8udGV4dH08L1RhZz48L0Rlc2NyaXB0aW9ucy5JdGVtPgogICAgICAgICAgICAgIDxEZXNjcmlwdGlvbnMuSXRlbSBsYWJlbD0i5a6i5oi3Ij57Y3VycmVudE9yZGVyLmN1c3RvbWVyX25hbWUgfHwgJy0nfTwvRGVzY3JpcHRpb25zLkl0ZW0+CiAgICAgICAgICAgICAgPERlc2NyaXB0aW9ucy5JdGVtIGxhYmVsPSLnsbvlnosiPnt0eXBlTWFwW2N1cnJlbnRPcmRlci5vcmRlcl90eXBlXSB8fCBjdXJyZW50T3JkZXIub3JkZXJfdHlwZX08L0Rlc2NyaXB0aW9ucy5JdGVtPgogICAgICAgICAgICAgIDxEZXNjcmlwdGlvbnMuSXRlbSBsYWJlbD0i5pel5pyfIj57Y3VycmVudE9yZGVyLm9yZGVyX2RhdGU/LnNsaWNlKDAsIDEwKX08L0Rlc2NyaXB0aW9ucy5JdGVtPgogICAgICAgICAgICAgIDxEZXNjcmlwdGlvbnMuSXRlbSBsYWJlbD0i5pSv5LuY5pa55byPIj57Y3VycmVudE9yZGVyLnBheW1lbnRfbWV0aG9kfTwvRGVzY3JpcHRpb25zLkl0ZW0+CiAgICAgICAgICAgICAgPERlc2NyaXB0aW9ucy5JdGVtIGxhYmVsPSLmgLvph5Hpop0iPsKle051bWJlcihjdXJyZW50T3JkZXIudG90YWxfYW1vdW50IHx8IDApLnRvRml4ZWQoMil9PC9EZXNjcmlwdGlvbnMuSXRlbT4KICAgICAgICAgICAgICA8RGVzY3JpcHRpb25zLkl0ZW0gbGFiZWw9IuWunuaUtiI+wqV7TnVtYmVyKGN1cnJlbnRPcmRlci5hY3R1YWxfYW1vdW50IHx8IDApLnRvRml4ZWQoMil9PC9EZXNjcmlwdGlvbnMuSXRlbT4KICAgICAgICAgICAgPC9EZXNjcmlwdGlvbnM+CiAgICAgICAgICAgIDxUYWJsZSBzaXplPSJzbWFsbCIgZGF0YVNvdXJjZT17Y3VycmVudE9yZGVyLml0ZW1zIHx8IFtdfSByb3dLZXk9ImlkIiBwYWdpbmF0aW9uPXtmYWxzZX0KICAgICAgICAgICAgICBjb2x1bW5zPXtbCiAgICAgICAgICAgICAgICB7IHRpdGxlOiAn5ZWG5ZOBJywgZGF0YUluZGV4OiAncHJvZHVjdF9uYW1lJyB9LAogICAgICAgICAgICAgICAgeyB0aXRsZTogJ+aVsOmHjycsIGRhdGFJbmRleDogJ3F1YW50aXR5JyB9LAogICAgICAgICAgICAgICAgeyB0aXRsZTogJ+WNleS7tycsIGRhdGFJbmRleDogJ3VuaXRfcHJpY2UnLCByZW5kZXI6ICh2OiBudW1iZXIpID0+IGDCpSR7TnVtYmVyKHYpLnRvRml4ZWQoMil9YCB9LAogICAgICAgICAgICAgICAgeyB0aXRsZTogJ+Wwj+iuoScsIGRhdGFJbmRleDogJ3N1YnRvdGFsJywgcmVuZGVyOiAodjogbnVtYmVyKSA9PiBgwqUke051bWJlcih2KS50b0ZpeGVkKDIpfWAgfQogICAgICAgICAgICAgIF19IC8+CiAgICAgICAgICA8Lz4KICAgICAgICApfQogICAgICA8L01vZGFsPgogICAgPC9kaXY+CiAgKTsKfTsKCmV4cG9ydCBkZWZhdWx0IFNhbGVzOwo=
+import React, { useState, useEffect } from 'react';
+import {
+  Table, Button, Modal, Form, Input, InputNumber, Select, DatePicker,
+  Tag, Space, message, Card, Row, Col, Popconfirm, Descriptions, Typography
+} from 'antd';
+import { PlusOutlined, EyeOutlined } from '@ant-design/icons';
+import dayjs from 'dayjs';
+import request from '../../api/request';
+
+const { Option } = Select;
+const { Title } = Typography;
+
+const Sales: React.FC = () => {
+  const [orders, setOrders] = useState<any[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [orderModal, setOrderModal] = useState(false);
+  const [detailModal, setDetailModal] = useState(false);
+  const [currentOrder, setCurrentOrder] = useState<any>(null);
+  const [orderForm] = Form.useForm();
+  const [orderItems, setOrderItems] = useState([{ productId: null, quantity: 1, unitPrice: 0 }]);
+  const [products, setProducts] = useState<any[]>([]);
+  const [customers, setCustomers] = useState<any[]>([]);
+  const [pagination, setPagination] = useState({ current: 1, pageSize: 20, total: 0 });
+  const [filters, setFilters] = useState({ status: undefined, orderType: undefined });
+
+  const loadOrders = async (page = 1, extraFilters = {}) => {
+    setLoading(true);
+    try {
+      const params: any = { page, pageSize: 20, ...filters, ...extraFilters };
+      const res = await request.get('/sales', { params });
+      const payload = res.data?.data || res.data || {};
+      setOrders(payload.list || payload || []);
+      setPagination({ current: page, pageSize: 20, total: payload.total || 0 });
+    } catch (e) { /* ignore */ }
+    setLoading(false);
+  };
+
+  const loadProducts = async () => {
+    try {
+      const res = await request.get('/products', { params: { pageSize: 200 } });
+      const d = res.data?.data || res.data || {};
+      setProducts(d.list || d || []);
+    } catch (e) { /* ignore */ }
+  };
+
+  const loadCustomers = async () => {
+    try {
+      const res = await request.get('/customers', { params: { pageSize: 200 } });
+      const d = res.data?.data || res.data || {};
+      setCustomers(d.list || d || []);
+    } catch (e) { /* ignore */ }
+  };
+
+  useEffect(() => {
+    loadOrders();
+    loadProducts();
+    loadCustomers();
+  }, []);
+
+  const handleCreateOrder = async () => {
+    try {
+      const values = await orderForm.validateFields();
+      const validItems = orderItems.filter(i => i.productId && i.quantity > 0);
+      if (validItems.length === 0) { message.warning('请添加至少一个商品'); return; }
+      await request.post('/sales', {
+        customerId: values.customerId || null,
+        items: validItems,
+        orderType: values.orderType || 'pos',
+        paymentMethod: values.paymentMethod || 'cash',
+        discountAmount: values.discountAmount || 0,
+        remark: values.remark
+      });
+      message.success('销售单创建成功');
+      setOrderModal(false);
+      orderForm.resetFields();
+      setOrderItems([{ productId: null, quantity: 1, unitPrice: 0 }]);
+      loadOrders();
+    } catch (e: any) {
+      if (e.errorFields) return;
+      message.error(e.response?.data?.message || '创建失败');
+    }
+  };
+
+  const handleViewDetail = async (id: number) => {
+    try {
+      const res = await request.get(`/sales/${id}`);
+      setCurrentOrder(res.data?.data || res.data);
+      setDetailModal(true);
+    } catch (e) { message.error('获取详情失败'); }
+  };
+
+  const addItem = () => setOrderItems([...orderItems, { productId: null, quantity: 1, unitPrice: 0 }]);
+  const removeItem = (index: number) => setOrderItems(orderItems.filter((_, i) => i !== index));
+  const updateItem = (index: number, field: string, value: any) => {
+    const newItems = [...orderItems];
+    newItems[index] = { ...newItems[index], [field]: value };
+    if (field === 'productId' && value) {
+      const product = products.find((p: any) => p.id === value);
+      if (product?.sell_price) newItems[index].unitPrice = product.sell_price;
+    }
+    setOrderItems(newItems);
+  };
+
+  const statusMap: Record<string, { text: string; color: string }> = {
+    pending: { text: '待处理', color: 'orange' },
+    completed: { text: '已完成', color: 'green' },
+    refunded: { text: '已退款', color: 'default' },
+    cancelled: { text: '已取消', color: 'default' }
+  };
+
+  const typeMap: Record<string, string> = {
+    pos: 'POS', online: '线上', wholesale: '批发', phone: '电话'
+  };
+
+  const columns = [
+    { title: '销售单号', dataIndex: 'order_no', key: 'order_no', width: 150 },
+    { title: '客户', dataIndex: 'customer_name', key: 'customer_name', render: (v: string) => v || '-' },
+    { title: '类型', dataIndex: 'order_type', key: 'order_type', width: 80, render: (v: string) => typeMap[v] || v },
+    { title: '总金额', dataIndex: 'total_amount', key: 'total_amount', width: 100, render: (v: number) => `¥${Number(v || 0).toFixed(2)}` },
+    { title: '实收', dataIndex: 'actual_amount', key: 'actual_amount', width: 100, render: (v: number) => `¥${Number(v || 0).toFixed(2)}` },
+    {
+      title: '状态', dataIndex: 'status', key: 'status', width: 90,
+      render: (v: string) => <Tag color={statusMap[v]?.color}>{statusMap[v]?.text || v}</Tag>
+    },
+    { title: '日期', dataIndex: 'order_date', key: 'order_date', width: 110, render: (v: string) => v?.slice(0, 10) },
+    {
+      title: '操作', key: 'action', width: 80,
+      render: (_: any, record: any) => (
+        <Button type="link" icon={<EyeOutlined />} size="small" onClick={() => handleViewDetail(record.id)}>详情</Button>
+      )
+    }
+  ];
+
+  return (
+    <div>
+      <Title level={4} style={{ marginBottom: 16 }}>销售管理</Title>
+
+      <Card size="small" style={{ marginBottom: 16 }}>
+        <Space wrap>
+          <Select placeholder="订单类型" allowClear style={{ width: 120 }}
+            options={[{ value: 'pos', label: 'POS' }, { value: 'online', label: '线上' }, { value: 'wholesale', label: '批发' }]}
+            onChange={v => setFilters(f => ({ ...f, orderType: v }))} />
+          <Select placeholder="状态" allowClear style={{ width: 120 }}
+            options={[{ value: 'pending', label: '待处理' }, { value: 'completed', label: '已完成' }, { value: 'refunded', label: '已退款' }]}
+            onChange={v => setFilters(f => ({ ...f, status: v }))} />
+          <Button type="primary" onClick={() => loadOrders(1)}>查询</Button>
+          <Button type="primary" icon={<PlusOutlined />} onClick={() => { orderForm.resetFields(); setOrderItems([{ productId: null, quantity: 1, unitPrice: 0 }]); setOrderModal(true); }}>
+            新建销售单
+          </Button>
+        </Space>
+      </Card>
+
+      <Table columns={columns} dataSource={orders} rowKey="id" loading={loading} size="small" scroll={{ x: 800 }}
+        pagination={{ current: pagination.current, pageSize: pagination.pageSize, total: pagination.total, showTotal: t => `共 ${t} 条`, onChange: p => loadOrders(p) }} />
+
+      {/* 新建销售单 */}
+      <Modal title="新建销售单" open={orderModal} onOk={handleCreateOrder} onCancel={() => setOrderModal(false)} width={700} okText="提交" style={{ top: 20 }}>
+        <Form form={orderForm} layout="vertical">
+          <Row gutter={[16, 0]}>
+            <Col xs={24} md={12}>
+              <Form.Item name="customerId" label="客户">
+                <Select placeholder="选择客户（可选）" allowClear showSearch optionFilterProp="label"
+                  options={customers.map((c: any) => ({ label: `${c.name} (${c.phone || ''})`, value: c.id }))} />
+              </Form.Item>
+            </Col>
+            <Col xs={12} md={6}>
+              <Form.Item name="orderType" label="类型" initialValue="pos">
+                <Select options={[{ value: 'pos', label: 'POS' }, { value: 'online', label: '线上' }, { value: 'wholesale', label: '批发' }, { value: 'phone', label: '电话' }]} />
+              </Form.Item>
+            </Col>
+            <Col xs={12} md={6}>
+              <Form.Item name="paymentMethod" label="支付方式" initialValue="cash">
+                <Select options={[{ value: 'cash', label: '现金' }, { value: 'wechat', label: '微信' }, { value: 'alipay', label: '支付宝' }, { value: 'card', label: '银行卡' }]} />
+              </Form.Item>
+            </Col>
+          </Row>
+          <div style={{ border: '1px solid #f0f0f0', borderRadius: 8, padding: 12, marginBottom: 16 }}>
+            <div style={{ marginBottom: 8, fontWeight: 500 }}>商品明细</div>
+            {orderItems.map((item, index) => (
+              <div key={index} style={{ marginBottom: 8, padding: 8, background: '#fafafa', borderRadius: 6 }}>
+                <Row gutter={[8, 8]} align="middle">
+                  <Col xs={24} md={10}>
+                    <Select style={{ width: '100%' }} placeholder="选择商品" showSearch optionFilterProp="label"
+                      value={item.productId} onChange={v => updateItem(index, 'productId', v)}
+                      options={products.map((p: any) => ({ label: `${p.name} (¥${p.sell_price})`, value: p.id }))} />
+                  </Col>
+                  <Col xs={12} md={5}>
+                    <InputNumber style={{ width: '100%' }} min={1} placeholder="数量" value={item.quantity} onChange={v => updateItem(index, 'quantity', v)} />
+                  </Col>
+                  <Col xs={12} md={6}>
+                    <InputNumber style={{ width: '100%' }} min={0} precision={2} placeholder="单价" prefix="¥" value={item.unitPrice} onChange={v => updateItem(index, 'unitPrice', v)} />
+                  </Col>
+                  <Col xs={24} md={3} style={{ textAlign: 'center' }}>
+                    {orderItems.length > 1 && <Button danger size="small" onClick={() => removeItem(index)}>删除</Button>}
+                  </Col>
+                </Row>
+              </div>
+            ))}
+            <Button type="dashed" block onClick={addItem} icon={<PlusOutlined />}>添加商品</Button>
+            <div style={{ textAlign: 'right', marginTop: 8, fontWeight: 600 }}>
+              合计：¥{orderItems.reduce((sum, i) => sum + (i.quantity || 0) * (i.unitPrice || 0), 0).toFixed(2)}
+            </div>
+          </div>
+          <Row gutter={[16, 0]}>
+            <Col xs={24} md={12}>
+              <Form.Item name="discountAmount" label="优惠金额">
+                <InputNumber min={0} precision={2} placeholder="0.00" prefix="¥" style={{ width: '100%' }} />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Form.Item name="remark" label="备注">
+            <Input.TextArea rows={2} placeholder="备注（可选）" />
+          </Form.Item>
+        </Form>
+      </Modal>
+
+      {/* 详情弹窗 */}
+      <Modal title={`销售单详情 - ${currentOrder?.order_no || ''}`} open={detailModal} onCancel={() => setDetailModal(false)} footer={null} width={650}>
+        {currentOrder && (
+          <>
+            <Descriptions bordered size="small" column={2} style={{ marginBottom: 16 }}>
+              <Descriptions.Item label="销售单号">{currentOrder.order_no}</Descriptions.Item>
+              <Descriptions.Item label="状态"><Tag color={statusMap[currentOrder.status]?.color}>{statusMap[currentOrder.status]?.text}</Tag></Descriptions.Item>
+              <Descriptions.Item label="客户">{currentOrder.customer_name || '-'}</Descriptions.Item>
+              <Descriptions.Item label="类型">{typeMap[currentOrder.order_type] || currentOrder.order_type}</Descriptions.Item>
+              <Descriptions.Item label="日期">{currentOrder.order_date?.slice(0, 10)}</Descriptions.Item>
+              <Descriptions.Item label="支付方式">{currentOrder.payment_method}</Descriptions.Item>
+              <Descriptions.Item label="总金额">¥{Number(currentOrder.total_amount || 0).toFixed(2)}</Descriptions.Item>
+              <Descriptions.Item label="实收">¥{Number(currentOrder.actual_amount || 0).toFixed(2)}</Descriptions.Item>
+            </Descriptions>
+            <Table size="small" dataSource={currentOrder.items || []} rowKey="id" pagination={false}
+              columns={[
+                { title: '商品', dataIndex: 'product_name' },
+                { title: '数量', dataIndex: 'quantity' },
+                { title: '单价', dataIndex: 'unit_price', render: (v: number) => `¥${Number(v).toFixed(2)}` },
+                { title: '小计', dataIndex: 'subtotal', render: (v: number) => `¥${Number(v).toFixed(2)}` }
+              ]} />
+          </>
+        )}
+      </Modal>
+    </div>
+  );
+};
+
+export default Sales;

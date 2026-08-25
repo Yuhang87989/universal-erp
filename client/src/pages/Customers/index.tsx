@@ -1,1 +1,205 @@
-aW1wb3J0IFJlYWN0LCB7IHVzZVN0YXRlLCB1c2VFZmZlY3QsIHVzZUNhbGxiYWNrIH0gZnJvbSAncmVhY3QnOwppbXBvcnQgeyBDYXJkLCBUYWJsZSwgQnV0dG9uLCBNb2RhbCwgRm9ybSwgSW5wdXQsIFNlbGVjdCwgRGF0ZVBpY2tlciwgU3BhY2UsIFRhZywgbWVzc2FnZSwgVHlwb2dyYXBoeSwgVGFicywgUm93LCBDb2wsIFN0YXRpc3RpYyB9IGZyb20gJ2FudGQnOwppbXBvcnQgeyBQbHVzT3V0bGluZWQsIFNlYXJjaE91dGxpbmVkLCBFZGl0T3V0bGluZWQsIFVzZXJPdXRsaW5lZCwgVGVhbU91dGxpbmVkIH0gZnJvbSAnQGFudC1kZXNpZ24vaWNvbnMnOwppbXBvcnQgZGF5anMgZnJvbSAnZGF5anMnOwppbXBvcnQgcmVxdWVzdCBmcm9tICcuLi8uLi9hcGkvcmVxdWVzdCc7Cgpjb25zdCB7IFRpdGxlIH0gPSBUeXBvZ3JhcGh5OwoKY29uc3QgbGV2ZWxPcHRpb25zID0gWwogIHsgdmFsdWU6ICdub3JtYWwnLCBsYWJlbDogJ+aZrumAmuS8muWRmCcsIGNvbG9yOiAnZGVmYXVsdCcgfSwKICB7IHZhbHVlOiAnc2lsdmVyJywgbGFiZWw6ICfpk7bljaHkvJrlkZgnLCBjb2xvcjogJ2JsdWUnIH0sCiAgeyB2YWx1ZTogJ2dvbGQnLCBsYWJlbDogJ+mHkeWNoeS8muWRmCcsIGNvbG9yOiAnZ29sZCcgfSwKICB7IHZhbHVlOiAndmlwJywgbGFiZWw6ICdWSVDkvJrlkZgnLCBjb2xvcjogJ3B1cnBsZScgfSwKXTsKCmNvbnN0IGdlbmRlck9wdGlvbnMgPSBbCiAgeyB2YWx1ZTogJ3Vua25vd24nLCBsYWJlbDogJ+acquefpScgfSwKICB7IHZhbHVlOiAnbWFsZScsIGxhYmVsOiAn55S3JyB9LAogIHsgdmFsdWU6ICdmZW1hbGUnLCBsYWJlbDogJ+WlsycgfSwKXTsKCmNvbnN0IEN1c3RvbWVyczogUmVhY3QuRkMgPSAoKSA9PiB7CiAgY29uc3QgW2FjdGl2ZVRhYiwgc2V0QWN0aXZlVGFiXSA9IHVzZVN0YXRlKCdjdXN0b21lcnMnKTsKCiAgLy8g5a6i5oi355u45YWzCiAgY29uc3QgW2N1c3RvbWVycywgc2V0Q3VzdG9tZXJzXSA9IHVzZVN0YXRlPGFueVtdPihbXSk7CiAgY29uc3QgW3RvdGFsLCBzZXRUb3RhbF0gPSB1c2VTdGF0ZSgwKTsKICBjb25zdCBbcGFnZSwgc2V0UGFnZV0gPSB1c2VTdGF0ZSgxKTsKICBjb25zdCBbbG9hZGluZywgc2V0TG9hZGluZ10gPSB1c2VTdGF0ZShmYWxzZSk7CiAgY29uc3QgW21vZGFsT3Blbiwgc2V0TW9kYWxPcGVuXSA9IHVzZVN0YXRlKGZhbHNlKTsKICBjb25zdCBbZWRpdGluZywgc2V0RWRpdGluZ10gPSB1c2VTdGF0ZTxhbnk+KG51bGwpOwogIGNvbnN0IFtrZXl3b3JkLCBzZXRLZXl3b3JkXSA9IHVzZVN0YXRlKCcnKTsKICBjb25zdCBbZm9ybV0gPSBGb3JtLnVzZUZvcm0oKTsKCiAgLy8g5L6b5bqU5ZWG55u45YWzCiAgY29uc3QgW3N1cHBsaWVycywgc2V0U3VwcGxpZXJzXSA9IHVzZVN0YXRlPGFueVtdPihbXSk7CiAgY29uc3QgW3N1cHBsaWVyVG90YWwsIHNldFN1cHBsaWVyVG90YWxdID0gdXNlU3RhdGUoMCk7CiAgY29uc3QgW3N1cHBsaWVyUGFnZSwgc2V0U3VwcGxpZXJQYWdlXSA9IHVzZVN0YXRlKDEpOwogIGNvbnN0IFtzdXBwbGllckxvYWRpbmcsIHNldFN1cHBsaWVyTG9hZGluZ10gPSB1c2VTdGF0ZShmYWxzZSk7CgogIGNvbnN0IGxvYWRDdXN0b21lcnMgPSB1c2VDYWxsYmFjayhhc3luYyAocCA9IDEpID0+IHsKICAgIHNldExvYWRpbmcodHJ1ZSk7CiAgICB0cnkgewogICAgICBjb25zdCBwYXJhbXM6IGFueSA9IHsgcGFnZTogcCwgcGFnZVNpemU6IDIwIH07CiAgICAgIGlmIChrZXl3b3JkKSBwYXJhbXMua2V5d29yZCA9IGtleXdvcmQ7CiAgICAgIGNvbnN0IHJlcyA9IGF3YWl0IHJlcXVlc3QuZ2V0KCcvY3VzdG9tZXJzJywgeyBwYXJhbXMgfSk7CiAgICAgIGNvbnN0IGQgPSByZXMuZGF0YT8uZGF0YSB8fCByZXMuZGF0YSB8fCB7fTsgc2V0Q3VzdG9tZXJzKGQubGlzdCB8fCBkIHx8IFtdKTsKICAgICAgc2V0VG90YWwoZD8udG90YWwgfHwgMCk7CiAgICB9IGNhdGNoIChlcnIpIHsKICAgICAgY29uc29sZS5lcnJvcihlcnIpOwogICAgfSBmaW5hbGx5IHsKICAgICAgc2V0TG9hZGluZyhmYWxzZSk7CiAgICB9CiAgfSwgW2tleXdvcmRdKTsKCiAgY29uc3QgbG9hZFN1cHBsaWVycyA9IHVzZUNhbGxiYWNrKGFzeW5jIChwID0gMSkgPT4gewogICAgc2V0U3VwcGxpZXJMb2FkaW5nKHRydWUpOwogICAgdHJ5IHsKICAgICAgY29uc3QgcmVzID0gYXdhaXQgcmVxdWVzdC5nZXQoJy9zdXBwbGllcnMnLCB7IHBhcmFtczogeyBwYWdlOiBwLCBwYWdlU2l6ZTogMjAgfSB9KTsKICAgICAgY29uc3Qgc2QgPSByZXMuZGF0YT8uZGF0YSB8fCByZXMuZGF0YSB8fCB7fTsgc2V0U3VwcGxpZXJzKHNkLmxpc3QgfHwgc2QgfHwgW10pOwogICAgICBzZXRTdXBwbGllclRvdGFsKHNkPy50b3RhbCB8fCAwKTsKICAgIH0gY2F0Y2ggKGVycikgewogICAgICBjb25zb2xlLmVycm9yKGVycik7CiAgICB9IGZpbmFsbHkgewogICAgICBzZXRTdXBwbGllckxvYWRpbmcoZmFsc2UpOwogICAgfQogIH0sIFtdKTsKCiAgdXNlRWZmZWN0KCgpID0+IHsgbG9hZEN1c3RvbWVycygpOyBsb2FkU3VwcGxpZXJzKCk7IH0sIFtsb2FkQ3VzdG9tZXJzLCBsb2FkU3VwcGxpZXJzXSk7CgogIGNvbnN0IGhhbmRsZUFkZCA9ICgpID0+IHsgc2V0RWRpdGluZyhudWxsKTsgZm9ybS5yZXNldEZpZWxkcygpOyBzZXRNb2RhbE9wZW4odHJ1ZSk7IH07CiAgY29uc3QgaGFuZGxlRWRpdCA9IChyZWNvcmQ6IGFueSkgPT4gewogICAgc2V0RWRpdGluZyhyZWNvcmQpOwogICAgZm9ybS5zZXRGaWVsZHNWYWx1ZSh7CiAgICAgIC4uLnJlY29yZCwKICAgICAgYmlydGhkYXk6IHJlY29yZC5iaXJ0aGRheSA/IGRheWpzKHJlY29yZC5iaXJ0aGRheSkgOiBudWxsLAogICAgfSk7CiAgICBzZXRNb2RhbE9wZW4odHJ1ZSk7CiAgfTsKCiAgY29uc3QgaGFuZGxlU2F2ZSA9IGFzeW5jICgpID0+IHsKICAgIHRyeSB7CiAgICAgIGNvbnN0IHZhbHVlcyA9IGF3YWl0IGZvcm0udmFsaWRhdGVGaWVsZHMoKTsKICAgICAgY29uc3QgcGF5bG9hZCA9IHsgLi4udmFsdWVzLCBiaXJ0aGRheTogdmFsdWVzLmJpcnRoZGF5Py5mb3JtYXQoJ1lZWVktTU0tREQnKSB9OwogICAgICBpZiAoZWRpdGluZykgewogICAgICAgIGF3YWl0IHJlcXVlc3QucHV0KGAvY3VzdG9tZXJzLyR7ZWRpdGluZy5pZH1gLCBwYXlsb2FkKTsKICAgICAgICBtZXNzYWdlLnN1Y2Nlc3MoJ+WuouaIt+abtOaWsOaIkOWKnycpOwogICAgICB9IGVsc2UgewogICAgICAgIGF3YWl0IHJlcXVlc3QucG9zdCgnL2N1c3RvbWVycycsIHBheWxvYWQpOwogICAgICAgIG1lc3NhZ2Uuc3VjY2Vzcygn5a6i5oi35re75Yqg5oiQ5YqfJyk7CiAgICAgIH0KICAgICAgc2V0TW9kYWxPcGVuKGZhbHNlKTsKICAgICAgbG9hZEN1c3RvbWVycygpOwogICAgfSBjYXRjaCAoZXJyOiBhbnkpIHsKICAgICAgaWYgKGVyci5lcnJvckZpZWxkcykgcmV0dXJuOwogICAgICBtZXNzYWdlLmVycm9yKGVyci5yZXNwb25zZT8uZGF0YT8ubWVzc2FnZSB8fCAn5pON5L2c5aSx6LSlJyk7CiAgICB9CiAgfTsKCiAgY29uc3QgY3VzdG9tZXJDb2x1bW5zID0gWwogICAgeyB0aXRsZTogJ+WuouaIt+WQjeensCcsIGRhdGFJbmRleDogJ25hbWUnLCBrZXk6ICduYW1lJywgd2lkdGg6IDEyMCB9LAogICAgeyB0aXRsZTogJ+eUteivnScsIGRhdGFJbmRleDogJ3Bob25lJywga2V5OiAncGhvbmUnLCB3aWR0aDogMTMwLCByZW5kZXI6ICh2OiBzdHJpbmcpID0+IHYgfHwgJy0nIH0sCiAgICB7IHRpdGxlOiAn5oCn5YirJywgZGF0YUluZGV4OiAnZ2VuZGVyJywga2V5OiAnZ2VuZGVyJywgd2lkdGg6IDcwLCByZW5kZXI6ICh2OiBzdHJpbmcpID0+IGdlbmRlck9wdGlvbnMuZmluZChnID0+IGcudmFsdWUgPT09IHYpPy5sYWJlbCB8fCAnLScgfSwKICAgIHsKICAgICAgdGl0bGU6ICfnrYnnuqcnLCBkYXRhSW5kZXg6ICdsZXZlbCcsIGtleTogJ2xldmVsJywgd2lkdGg6IDEwMCwKICAgICAgcmVuZGVyOiAodjogc3RyaW5nKSA9PiB7IGNvbnN0IG9wdCA9IGxldmVsT3B0aW9ucy5maW5kKGwgPT4gbC52YWx1ZSA9PT0gdik7IHJldHVybiBvcHQgPyA8VGFnIGNvbG9yPXtvcHQuY29sb3J9PntvcHQubGFiZWx9PC9UYWc+IDogdiB8fCAn5pmu6YCaJzsgfQogICAgfSwKICAgIHsgdGl0bGU6ICfntK/orqHmtojotLknLCBkYXRhSW5kZXg6ICd0b3RhbF9zcGVudCcsIGtleTogJ3RvdGFsX3NwZW50Jywgd2lkdGg6IDEwMCwgcmVuZGVyOiAodjogbnVtYmVyKSA9PiB2ID8gYMKlJHtOdW1iZXIodikudG9GaXhlZCgyKX1gIDogJ8KlMC4wMCcgfSwKICAgIHsgdGl0bGU6ICfnlJ/ml6UnLCBkYXRhSW5kZXg6ICdiaXJ0aGRheScsIGtleTogJ2JpcnRoZGF5Jywgd2lkdGg6IDEwMCwgcmVuZGVyOiAodjogc3RyaW5nKSA9PiB2Py5zbGljZSgwLCAxMCkgfHwgJy0nIH0sCiAgICB7IHRpdGxlOiAn5aSH5rOoJywgZGF0YUluZGV4OiAnbm90ZXMnLCBrZXk6ICdub3RlcycsIGVsbGlwc2lzOiB0cnVlLCByZW5kZXI6ICh2OiBzdHJpbmcpID0+IHYgfHwgJy0nIH0sCiAgICB7CiAgICAgIHRpdGxlOiAn5pON5L2cJywga2V5OiAnYWN0aW9uJywgd2lkdGg6IDEwMCwKICAgICAgcmVuZGVyOiAoXzogYW55LCByZWNvcmQ6IGFueSkgPT4gKAogICAgICAgIDxCdXR0b24gdHlwZT0ibGluayIgc2l6ZT0ic21hbGwiIGljb249ezxFZGl0T3V0bGluZWQgLz59IG9uQ2xpY2s9eygpID0+IGhhbmRsZUVkaXQocmVjb3JkKX0+57yW6L6RPC9CdXR0b24+CiAgICAgICkKICAgIH0KICBdOwoKICBjb25zdCBzdXBwbGllckNvbHVtbnMgPSBbCiAgICB7IHRpdGxlOiAn5L6b5bqU5ZWG5ZCN56ewJywgZGF0YUluZGV4OiAnbmFtZScsIGtleTogJ25hbWUnLCB3aWR0aDogMTQwIH0sCiAgICB7IHRpdGxlOiAn6IGU57O75Lq6JywgZGF0YUluZGV4OiAnY29udGFjdF9uYW1lJywga2V5OiAnY29udGFjdF9uYW1lJywgd2lkdGg6IDEwMCwgcmVuZGVyOiAodjogc3RyaW5nKSA9PiB2IHx8ICctJyB9LAogICAgeyB0aXRsZTogJ+eUteivnScsIGRhdGFJbmRleDogJ3Bob25lJywga2V5OiAncGhvbmUnLCB3aWR0aDogMTMwLCByZW5kZXI6ICh2OiBzdHJpbmcpID0+IHYgfHwgJy0nIH0sCiAgICB7IHRpdGxlOiAn5Zyw5Z2AJywgZGF0YUluZGV4OiAnYWRkcmVzcycsIGtleTogJ2FkZHJlc3MnLCBlbGxpcHNpczogdHJ1ZSwgcmVuZGVyOiAodjogc3RyaW5nKSA9PiB2IHx8ICctJyB9LAogICAgewogICAgICB0aXRsZTogJ+aTjeS9nCcsIGtleTogJ2FjdGlvbicsIHdpZHRoOiA4MCwKICAgICAgcmVuZGVyOiAoKSA9PiA8VGFnPuWOu+S+m+W6lOWVhueuoeeQhumhtee8lui+kTwvVGFnPgogICAgfQogIF07CgogIHJldHVybiAoCiAgICA8ZGl2PgogICAgICA8VGl0bGUgbGV2ZWw9ezR9IHN0eWxlPXt7IG1hcmdpbkJvdHRvbTogMTYgfX0+5b6A5p2l5Y2V5L2NPC9UaXRsZT4KCiAgICAgIDxUYWJzIGFjdGl2ZUtleT17YWN0aXZlVGFifSBvbkNoYW5nZT17c2V0QWN0aXZlVGFifT4KICAgICAgICA8VGFicy5UYWJQYW5lIHRhYj17PHNwYW4+PFVzZXJPdXRsaW5lZCAvPuWuouaIt+aho+ahiDwvc3Bhbj59IGtleT0iY3VzdG9tZXJzIj4KICAgICAgICAgIDxDYXJkIHNpemU9InNtYWxsIiBzdHlsZT17eyBtYXJnaW5Cb3R0b206IDEyIH19PgogICAgICAgICAgICA8U3BhY2Ugd3JhcD4KICAgICAgICAgICAgICA8SW5wdXQKICAgICAgICAgICAgICAgIHBsYWNlaG9sZGVyPSLmkJzntKLlrqLmiLflkI3np7Av55S16K+dIgogICAgICAgICAgICAgICAgcHJlZml4PXs8U2VhcmNoT3V0bGluZWQgLz59CiAgICAgICAgICAgICAgICB2YWx1ZT17a2V5d29yZH0KICAgICAgICAgICAgICAgIG9uQ2hhbmdlPXtlID0+IHNldEtleXdvcmQoZS50YXJnZXQudmFsdWUpfQogICAgICAgICAgICAgICAgb25QcmVzc0VudGVyPXsoKSA9PiB7IHNldFBhZ2UoMSk7IGxvYWRDdXN0b21lcnMoKTsgfX0KICAgICAgICAgICAgICAgIHN0eWxlPXt7IHdpZHRoOiAyMDAgfX0KICAgICAgICAgICAgICAgIGFsbG93Q2xlYXIKICAgICAgICAgICAgICAvPgogICAgICAgICAgICAgIDxCdXR0b24gdHlwZT0icHJpbWFyeSIgaWNvbj17PFBsdXNPdXRsaW5lZCAvPn0gb25DbGljaz17aGFuZGxlQWRkfT7mlrDlop7lrqLmiLc8L0J1dHRvbj4KICAgICAgICAgICAgPC9TcGFjZT4KICAgICAgICAgIDwvQ2FyZD4KICAgICAgICAgIDxUYWJsZSBjb2x1bW5zPXtjdXN0b21lckNvbHVtbnN9IGRhdGFTb3VyY2U9e2N1c3RvbWVyc30gcm93S2V5PSJpZCIgbG9hZGluZz17bG9hZGluZ30gc2l6ZT0ic21hbGwiIHNjcm9sbD17eyB4OiA4MDAgfX0KICAgICAgICAgICAgcGFnaW5hdGlvbj17eyBjdXJyZW50OiBwYWdlLCB0b3RhbCwgc2hvd1RvdGFsOiB0ID0+IGDlhbEgJHt0fSDkvY3lrqLmiLdgLCBvbkNoYW5nZTogcCA9PiBzZXRQYWdlKHApIH19IC8+CiAgICAgICAgPC9UYWJzLlRhYlBhbmU+CgogICAgICAgIDxUYWJzLlRhYlBhbmUgdGFiPXs8c3Bhbj48VGVhbU91dGxpbmVkIC8+5L6b5bqU5ZWG5qGj5qGIPC9zcGFuPn0ga2V5PSJzdXBwbGllcnMiPgogICAgICAgICAgPENhcmQgc2l6ZT0ic21hbGwiIHN0eWxlPXt7IG1hcmdpbkJvdHRvbTogMTIgfX0+CiAgICAgICAgICAgIDxTcGFjZT4KICAgICAgICAgICAgICA8VGFnIGNvbG9yPSJibHVlIj7lhbEge3N1cHBsaWVyVG90YWx9IOWutuS+m+W6lOWVhjwvVGFnPgogICAgICAgICAgICAgIDxCdXR0b24gdHlwZT0icHJpbWFyeSIgaHJlZj0iL3N1cHBsaWVycyIgaWNvbj17PFRlYW1PdXRsaW5lZCAvPn0+5Y675L6b5bqU5ZWG566h55CGPC9CdXR0b24+CiAgICAgICAgICAgIDwvU3BhY2U+CiAgICAgICAgICA8L0NhcmQ+CiAgICAgICAgICA8VGFibGUgY29sdW1ucz17c3VwcGxpZXJDb2x1bW5zfSBkYXRhU291cmNlPXtzdXBwbGllcnN9IHJvd0tleT0iaWQiIGxvYWRpbmc9e3N1cHBsaWVyTG9hZGluZ30gc2l6ZT0ic21hbGwiIHNjcm9sbD17eyB4OiA2MDAgfX0KICAgICAgICAgICAgcGFnaW5hdGlvbj17eyBjdXJyZW50OiBzdXBwbGllclBhZ2UsIHRvdGFsOiBzdXBwbGllclRvdGFsLCBzaG93VG90YWw6IHQgPT4gYOWFsSAke3R9IOWutmAsIG9uQ2hhbmdlOiBwID0+IHsgc2V0U3VwcGxpZXJQYWdlKHApOyBsb2FkU3VwcGxpZXJzKHApOyB9IH19IC8+CiAgICAgICAgPC9UYWJzLlRhYlBhbmU+CiAgICAgIDwvVGFicz4KCiAgICAgIHsvKiDlrqLmiLflvLnnqpcgKi99CiAgICAgIDxNb2RhbCB0aXRsZT17ZWRpdGluZyA/ICfnvJbovpHlrqLmiLcnIDogJ+aWsOWinuWuouaItyd9IG9wZW49e21vZGFsT3Blbn0gb25Paz17aGFuZGxlU2F2ZX0gb25DYW5jZWw9eygpID0+IHNldE1vZGFsT3BlbihmYWxzZSl9IGRlc3Ryb3lPbkNsb3NlPgogICAgICAgIDxGb3JtIGZvcm09e2Zvcm19IGxheW91dD0idmVydGljYWwiIHN0eWxlPXt7IG1hcmdpblRvcDogMTYgfX0+CiAgICAgICAgICA8Rm9ybS5JdGVtIG5hbWU9Im5hbWUiIGxhYmVsPSLlrqLmiLflkI3np7AiIHJ1bGVzPXtbeyByZXF1aXJlZDogdHJ1ZSwgbWVzc2FnZTogJ+ivt+i+k+WFpeWuouaIt+WQjeensCcgfV19PgogICAgICAgICAgICA8SW5wdXQgcGxhY2Vob2xkZXI9IuWuouaIt+Wnk+WQjeaIluWNleS9jeWQjeensCIgLz4KICAgICAgICAgIDwvRm9ybS5JdGVtPgogICAgICAgICAgPFJvdyBndXR0ZXI9e1sxNiwgMF19PgogICAgICAgICAgICA8Q29sIHhzPXsyNH0gbWQ9ezEyfT4KICAgICAgICAgICAgICA8Rm9ybS5JdGVtIG5hbWU9InBob25lIiBsYWJlbD0i6IGU57O755S16K+dIj4KICAgICAgICAgICAgICAgIDxJbnB1dCBwbGFjZWhvbGRlcj0i5omL5py65Y+356CBIiAvPgogICAgICAgICAgICAgIDwvRm9ybS5JdGVtPgogICAgICAgICAgICA8L0NvbD4KICAgICAgICAgICAgPENvbCB4cz17MjR9IG1kPXsxMn0+CiAgICAgICAgICAgICAgPEZvcm0uSXRlbSBuYW1lPSJnZW5kZXIiIGxhYmVsPSLmgKfliKsiIGluaXRpYWxWYWx1ZT0idW5rbm93biI+CiAgICAgICAgICAgICAgICA8U2VsZWN0IG9wdGlvbnM9e2dlbmRlck9wdGlvbnN9IC8+CiAgICAgICAgICAgICAgPC9Gb3JtLkl0ZW0+CiAgICAgICAgICAgIDwvQ29sPgogICAgICAgICAgPC9Sb3c+CiAgICAgICAgICA8Um93IGd1dHRlcj17WzE2LCAwXX0+CiAgICAgICAgICAgIDxDb2wgeHM9ezI0fSBtZD17MTJ9PgogICAgICAgICAgICAgIDxGb3JtLkl0ZW0gbmFtZT0ibGV2ZWwiIGxhYmVsPSLkvJrlkZjnrYnnuqciIGluaXRpYWxWYWx1ZT0ibm9ybWFsIj4KICAgICAgICAgICAgICAgIDxTZWxlY3Qgb3B0aW9ucz17bGV2ZWxPcHRpb25zfSAvPgogICAgICAgICAgICAgIDwvRm9ybS5JdGVtPgogICAgICAgICAgICA8L0NvbD4KICAgICAgICAgICAgPENvbCB4cz17MjR9IG1kPXsxMn0+CiAgICAgICAgICAgICAgPEZvcm0uSXRlbSBuYW1lPSJiaXJ0aGRheSIgbGFiZWw9IueUn+aXpSI+CiAgICAgICAgICAgICAgICA8RGF0ZVBpY2tlciBzdHlsZT17eyB3aWR0aDogJzEwMCUnIH19IC8+CiAgICAgICAgICAgICAgPC9Gb3JtLkl0ZW0+CiAgICAgICAgICAgIDwvQ29sPgogICAgICAgICAgPC9Sb3c+CiAgICAgICAgICA8Rm9ybS5JdGVtIG5hbWU9Im5vdGVzIiBsYWJlbD0i5aSH5rOoIj4KICAgICAgICAgICAgPElucHV0LlRleHRBcmVhIHJvd3M9ezJ9IHBsYWNlaG9sZGVyPSLlgY/lpb3jgIHnu5PnrpfmlrnlvI/nrYkiIC8+CiAgICAgICAgICA8L0Zvcm0uSXRlbT4KICAgICAgICA8L0Zvcm0+CiAgICAgIDwvTW9kYWw+CiAgICA8L2Rpdj4KICApOwp9OwoKZXhwb3J0IGRlZmF1bHQgQ3VzdG9tZXJzOwo=
+import React, { useState, useEffect, useCallback } from 'react';
+import { Card, Table, Button, Modal, Form, Input, Select, DatePicker, Space, Tag, message, Typography, Tabs, Row, Col, Statistic } from 'antd';
+import { PlusOutlined, SearchOutlined, EditOutlined, UserOutlined, TeamOutlined } from '@ant-design/icons';
+import dayjs from 'dayjs';
+import request from '../../api/request';
+
+const { Title } = Typography;
+
+const levelOptions = [
+  { value: 'normal', label: '普通会员', color: 'default' },
+  { value: 'silver', label: '银卡会员', color: 'blue' },
+  { value: 'gold', label: '金卡会员', color: 'gold' },
+  { value: 'vip', label: 'VIP会员', color: 'purple' },
+];
+
+const genderOptions = [
+  { value: 'unknown', label: '未知' },
+  { value: 'male', label: '男' },
+  { value: 'female', label: '女' },
+];
+
+const Customers: React.FC = () => {
+  const [activeTab, setActiveTab] = useState('customers');
+
+  // 客户相关
+  const [customers, setCustomers] = useState<any[]>([]);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editing, setEditing] = useState<any>(null);
+  const [keyword, setKeyword] = useState('');
+  const [form] = Form.useForm();
+
+  // 供应商相关
+  const [suppliers, setSuppliers] = useState<any[]>([]);
+  const [supplierTotal, setSupplierTotal] = useState(0);
+  const [supplierPage, setSupplierPage] = useState(1);
+  const [supplierLoading, setSupplierLoading] = useState(false);
+
+  const loadCustomers = useCallback(async (p = 1) => {
+    setLoading(true);
+    try {
+      const params: any = { page: p, pageSize: 20 };
+      if (keyword) params.keyword = keyword;
+      const res = await request.get('/customers', { params });
+      const d = res.data?.data || res.data || {}; setCustomers(d.list || d || []);
+      setTotal(d?.total || 0);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  }, [keyword]);
+
+  const loadSuppliers = useCallback(async (p = 1) => {
+    setSupplierLoading(true);
+    try {
+      const res = await request.get('/suppliers', { params: { page: p, pageSize: 20 } });
+      const sd = res.data?.data || res.data || {}; setSuppliers(sd.list || sd || []);
+      setSupplierTotal(sd?.total || 0);
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setSupplierLoading(false);
+    }
+  }, []);
+
+  useEffect(() => { loadCustomers(); loadSuppliers(); }, [loadCustomers, loadSuppliers]);
+
+  const handleAdd = () => { setEditing(null); form.resetFields(); setModalOpen(true); };
+  const handleEdit = (record: any) => {
+    setEditing(record);
+    form.setFieldsValue({
+      ...record,
+      birthday: record.birthday ? dayjs(record.birthday) : null,
+    });
+    setModalOpen(true);
+  };
+
+  const handleSave = async () => {
+    try {
+      const values = await form.validateFields();
+      const payload = { ...values, birthday: values.birthday?.format('YYYY-MM-DD') };
+      if (editing) {
+        await request.put(`/customers/${editing.id}`, payload);
+        message.success('客户更新成功');
+      } else {
+        await request.post('/customers', payload);
+        message.success('客户添加成功');
+      }
+      setModalOpen(false);
+      loadCustomers();
+    } catch (err: any) {
+      if (err.errorFields) return;
+      message.error(err.response?.data?.message || '操作失败');
+    }
+  };
+
+  const customerColumns = [
+    { title: '客户名称', dataIndex: 'name', key: 'name', width: 120 },
+    { title: '电话', dataIndex: 'phone', key: 'phone', width: 130, render: (v: string) => v || '-' },
+    { title: '性别', dataIndex: 'gender', key: 'gender', width: 70, render: (v: string) => genderOptions.find(g => g.value === v)?.label || '-' },
+    {
+      title: '等级', dataIndex: 'level', key: 'level', width: 100,
+      render: (v: string) => { const opt = levelOptions.find(l => l.value === v); return opt ? <Tag color={opt.color}>{opt.label}</Tag> : v || '普通'; }
+    },
+    { title: '累计消费', dataIndex: 'total_spent', key: 'total_spent', width: 100, render: (v: number) => v ? `¥${Number(v).toFixed(2)}` : '¥0.00' },
+    { title: '生日', dataIndex: 'birthday', key: 'birthday', width: 100, render: (v: string) => v?.slice(0, 10) || '-' },
+    { title: '备注', dataIndex: 'notes', key: 'notes', ellipsis: true, render: (v: string) => v || '-' },
+    {
+      title: '操作', key: 'action', width: 100,
+      render: (_: any, record: any) => (
+        <Button type="link" size="small" icon={<EditOutlined />} onClick={() => handleEdit(record)}>编辑</Button>
+      )
+    }
+  ];
+
+  const supplierColumns = [
+    { title: '供应商名称', dataIndex: 'name', key: 'name', width: 140 },
+    { title: '联系人', dataIndex: 'contact_name', key: 'contact_name', width: 100, render: (v: string) => v || '-' },
+    { title: '电话', dataIndex: 'phone', key: 'phone', width: 130, render: (v: string) => v || '-' },
+    { title: '地址', dataIndex: 'address', key: 'address', ellipsis: true, render: (v: string) => v || '-' },
+    {
+      title: '操作', key: 'action', width: 80,
+      render: () => <Tag>去供应商管理页编辑</Tag>
+    }
+  ];
+
+  return (
+    <div>
+      <Title level={4} style={{ marginBottom: 16 }}>往来单位</Title>
+
+      <Tabs activeKey={activeTab} onChange={setActiveTab}>
+        <Tabs.TabPane tab={<span><UserOutlined />客户档案</span>} key="customers">
+          <Card size="small" style={{ marginBottom: 12 }}>
+            <Space wrap>
+              <Input
+                placeholder="搜索客户名称/电话"
+                prefix={<SearchOutlined />}
+                value={keyword}
+                onChange={e => setKeyword(e.target.value)}
+                onPressEnter={() => { setPage(1); loadCustomers(); }}
+                style={{ width: 200 }}
+                allowClear
+              />
+              <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>新增客户</Button>
+            </Space>
+          </Card>
+          <Table columns={customerColumns} dataSource={customers} rowKey="id" loading={loading} size="small" scroll={{ x: 800 }}
+            pagination={{ current: page, total, showTotal: t => `共 ${t} 位客户`, onChange: p => setPage(p) }} />
+        </Tabs.TabPane>
+
+        <Tabs.TabPane tab={<span><TeamOutlined />供应商档案</span>} key="suppliers">
+          <Card size="small" style={{ marginBottom: 12 }}>
+            <Space>
+              <Tag color="blue">共 {supplierTotal} 家供应商</Tag>
+              <Button type="primary" href="/suppliers" icon={<TeamOutlined />}>去供应商管理</Button>
+            </Space>
+          </Card>
+          <Table columns={supplierColumns} dataSource={suppliers} rowKey="id" loading={supplierLoading} size="small" scroll={{ x: 600 }}
+            pagination={{ current: supplierPage, total: supplierTotal, showTotal: t => `共 ${t} 家`, onChange: p => { setSupplierPage(p); loadSuppliers(p); } }} />
+        </Tabs.TabPane>
+      </Tabs>
+
+      {/* 客户弹窗 */}
+      <Modal title={editing ? '编辑客户' : '新增客户'} open={modalOpen} onOk={handleSave} onCancel={() => setModalOpen(false)} destroyOnClose>
+        <Form form={form} layout="vertical" style={{ marginTop: 16 }}>
+          <Form.Item name="name" label="客户名称" rules={[{ required: true, message: '请输入客户名称' }]}>
+            <Input placeholder="客户姓名或单位名称" />
+          </Form.Item>
+          <Row gutter={[16, 0]}>
+            <Col xs={24} md={12}>
+              <Form.Item name="phone" label="联系电话">
+                <Input placeholder="手机号码" />
+              </Form.Item>
+            </Col>
+            <Col xs={24} md={12}>
+              <Form.Item name="gender" label="性别" initialValue="unknown">
+                <Select options={genderOptions} />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={[16, 0]}>
+            <Col xs={24} md={12}>
+              <Form.Item name="level" label="会员等级" initialValue="normal">
+                <Select options={levelOptions} />
+              </Form.Item>
+            </Col>
+            <Col xs={24} md={12}>
+              <Form.Item name="birthday" label="生日">
+                <DatePicker style={{ width: '100%' }} />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Form.Item name="notes" label="备注">
+            <Input.TextArea rows={2} placeholder="偏好、结算方式等" />
+          </Form.Item>
+        </Form>
+      </Modal>
+    </div>
+  );
+};
+
+export default Customers;
