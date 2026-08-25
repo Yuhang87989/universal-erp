@@ -32,7 +32,7 @@ const AICopywriting: React.FC = () => {
     setLoading(true);
     try {
       const res = await request.post('/ai/copywriting', { type, productInfo, tone });
-      setResult(res.data?.text || '生成失败');
+      setResult(res.data?.data?.text || res.data?.text || '生成失败');
     } catch (e: any) {
       message.error(e.response?.data?.message || '生成失败');
     }

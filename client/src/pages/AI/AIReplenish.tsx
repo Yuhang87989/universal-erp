@@ -13,7 +13,7 @@ const AIReplenish: React.FC = () => {
     setLoading(true);
     try {
       const res = await request.get('/ai/replenish');
-      setList(res.data || []);
+      setList(res.data?.data || res.data || []);
     } catch (e) { /* ignore */ }
     setLoading(false);
   };

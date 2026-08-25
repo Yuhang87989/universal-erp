@@ -14,7 +14,7 @@ const AISettings: React.FC = () => {
   const load = async () => {
     try {
       const res = await request.get('/ai/config');
-      const data = res.data || {};
+      const data = res.data?.data || res.data || {};
       setConfig(data);
       form.setFieldsValue({
         api_url: data.api_url || 'https://api.deepseek.com/v1/chat/completions',

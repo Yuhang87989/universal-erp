@@ -48,7 +48,7 @@ const AIChat: React.FC = () => {
         role: m.role, content: m.content
       }));
       const res = await request.post('/ai/chat', { message: content, history });
-      const reply = res.data?.reply || '抱歉，我暂时无法回答这个问题。';
+      const reply = res.data?.data?.reply || res.data?.reply || '抱歉，我暂时无法回答这个问题。';
       const aiMsg: Message = { role: 'assistant', content: reply, time: new Date().toLocaleTimeString() };
       setMessages(prev => [...prev, aiMsg]);
       if (voiceOn) voiceService.speak(reply.slice(0, 200), { rate: 1.0 });

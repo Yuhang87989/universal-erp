@@ -15,8 +15,8 @@ const AIDiagnosis: React.FC = () => {
     setLoading(true);
     try {
       const res = await request.get('/ai/diagnosis');
-      setDiagnosis(res.data?.diagnosis);
-      setRawData(res.data?.raw_data);
+      setDiagnosis(res.data?.data?.diagnosis || res.data?.diagnosis);
+      setRawData(res.data?.data?.raw_data || res.data?.raw_data);
     } catch (e: any) {
       console.error(e);
     }

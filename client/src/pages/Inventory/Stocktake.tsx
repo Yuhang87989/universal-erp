@@ -311,13 +311,13 @@ const Stocktake: React.FC = () => {
                   <span>{r.actual_quantity}</span>
                 )},
                 { title: '差异', width: 80, align: 'right', render: (_: any, r: any) => {
-                  const diff = (r.edit_quantity || r.actual_quantity || 0) - (r.system_quantity || 0);
+                  const diff = Number(r.edit_quantity || r.actual_quantity || 0) - Number(r.system_quantity || 0);
                   if (diff === 0) return <Tag>0</Tag>;
                   return <Tag color={diff > 0 ? 'success' : 'error'}>{diff > 0 ? '+' : ''}{diff}</Tag>;
                 }},
                 { title: '差异金额', width: 100, align: 'right', render: (_: any, r: any) => {
-                  const diff = (r.edit_quantity || r.actual_quantity || 0) - (r.system_quantity || 0);
-                  const amount = diff * (r.unit_cost || 0);
+                  const diff = Number(r.edit_quantity || r.actual_quantity || 0) - Number(r.system_quantity || 0);
+                  const amount = diff * Number(r.unit_cost || 0);
                   if (amount === 0) return '-';
                   return <span style={{ color: amount > 0 ? '#3f8600' : '#cf1322' }}>
                     {amount > 0 ? '+' : ''}¥{amount.toFixed(2)}
