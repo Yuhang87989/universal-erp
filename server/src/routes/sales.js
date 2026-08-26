@@ -59,6 +59,36 @@ router.get('/', async (req, res) => {
   }
 });
 
+// 获取销售单详情
+router.get('/:id', async (req, res) => {
+  try {
+    const [orders] = await pool.query(
+      `SELECT so.*, c.name as customer_name, c.phone as customer_phone, u.real_name as operator_name
+       FROM sales_orders so
+       LEFT JOIN customers c ON so.customer_id = c.id
+       LEFT JOIN users u ON so.operator_id = u.id
+       WHERE so.id = ? AND so.tenant_id = ?`,
+      [req.params.id, req.tenantId]
+    );
+    if (!orders.length) return res.status(404).json({ code: 404, message: '销售单不存在' });
+
+    const [items] = await pool.query(
+      `SELECT si.*, p.name as product_name, p.sku, p.unit
+       FROM sale_items si
+       LEFT JOIN products p ON si.product_id = p.id
+       WHERE si.sales_order_id = ?`,
+      [req.params.id]
+    );
+
+    const order = orders[0];
+    order.items = items;
+    res.json({ code: 0, data: order });
+  } catch (err) {
+    console.error('销售详情错误:', err);
+    res.status(500).json({ code: 500, message: '获取销售单详情失败' });
+  }
+});
+
 // 创建销售单（POS收银/手动录入）
 router.post('/', async (req, res) => {
   const conn = await pool.getConnection();
