@@ -35,44 +35,59 @@ router.post('/', async (req, res) => {
     await conn.beginTransaction();
     const { name, ownerName, phone, address, businessType, businessDesc, creditCode, username, password } = req.body;
     if (!name) { await conn.rollback(); return res.status(400).json({ code: 400, message: '帐套名称不能为空' }); }
+
+    // Map businessType to entity_type
+    const entityTypeMap = { retail: 'individual', supply_coop: 'individual', market: 'individual', ecommerce: 'individual', other: 'other' };
+    const entityType = entityTypeMap[businessType] || 'individual';
+
+    // 1. Create tenant
     const [tResult] = await conn.query(
-      'INSERT INTO tenants (name, owner_name, phone, address, business_type, business_desc, credit_code, status) VALUES (?,?,?,?,?,?,?,?)',
-      [name, ownerName || null, phone || null, address || null, businessType || 'other', businessDesc || null, creditCode || null, 'active']
+      'INSERT INTO tenants (name, owner_name, phone, address, business_type, status) VALUES (?,?,?,?,?,?)',
+      [name, ownerName || null, phone || null, address || null, businessType || 'retail', 'active']
     );
     const tenantId = tResult.insertId;
+
+    // 2. Create admin user
     const bcrypt = require('bcryptjs');
     const hash = await bcrypt.hash(password || 'admin123', 10);
     const [uResult] = await conn.query(
       'INSERT INTO users (tenant_id, username, password_hash, real_name, phone, role, status) VALUES (?,?,?,?,?,?,?)',
       [tenantId, username || 'admin', hash, ownerName || '管理员', phone || null, 'owner', 'active']
     );
-    await conn.query(
-      'INSERT INTO accounting_books (tenant_id, name, book_type, fiscal_year, start_month, status, is_active) VALUES (?,?,?,?,?,?,?)',
-      [tenantId, name + ' - 默认账套', 'general', new Date().getFullYear(), 1, 'active', true]
+
+    // 3. Create accounting_book (correct schema)
+    const [bResult] = await conn.query(
+      `INSERT INTO accounting_books (tenant_id, book_name, entity_name, credit_code, entity_type, currency, fiscal_year_start, accounting_standard, is_active, created_by)
+       VALUES (?,?,?,?,?,?,?,?,TRUE,?)`,
+      [tenantId, name, name, creditCode || null, entityType, 'CNY', 1, 'small_enterprise', uResult.insertId]
     );
+    const bookId = bResult.insertId;
+
+    // 4. Create standard chart of accounts (correct schema: book_id, category, direction)
     const subjects = [
-      ['1001','库存现金','asset',1],['1002','银行存款','asset',1],['1012','其他货币资金','asset',1],
-      ['1122','应收账款','asset',1],['1221','其他应收款','asset',1],['1402','在途物资','asset',1],
-      ['1403','原材料','asset',1],['1405','库存商品','asset',1],['1411','周转材料','asset',1],
-      ['1601','固定资产','asset',1],['1602','累计折旧','asset',2],['1701','无形资产','asset',1],
-      ['2001','短期借款','liability',1],['2202','应付账款','liability',1],['2211','应付职工薪酬','liability',1],
-      ['2221','应交税费','liability',1],['2231','应付利息','liability',1],['2241','其他应付款','liability',1],
-      ['2501','长期借款','liability',1],['4001','实收资本','equity',1],['4002','资本公积','equity',1],
-      ['4101','盈余公积','equity',1],['4103','本年利润','equity',1],['4104','利润分配','equity',1],
-      ['5001','生产成本','cost',1],['5101','制造费用','cost',1],
-      ['6001','主营业务收入','revenue',1],['6051','其他业务收入','revenue',1],['6111','投资收益','revenue',1],
-      ['6301','营业外收入','revenue',1],['6401','主营业务成本','expense',1],['6402','其他业务成本','expense',1],
-      ['6403','税金及附加','expense',1],['6601','销售费用','expense',1],['6602','管理费用','expense',1],
-      ['6603','财务费用','expense',1],['6711','营业外支出','expense',1],['6801','所得税费用','expense',1]
+      ['1001','库存现金','asset','debit'],['1002','银行存款','asset','debit'],['1012','其他货币资金','asset','debit'],
+      ['1122','应收账款','asset','debit'],['1221','其他应收款','asset','debit'],['1402','在途物资','asset','debit'],
+      ['1403','原材料','asset','debit'],['1405','库存商品','asset','debit'],['1411','周转材料','asset','debit'],
+      ['1601','固定资产','asset','debit'],['1602','累计折旧','asset','credit'],['1701','无形资产','asset','debit'],
+      ['2001','短期借款','liability','credit'],['2202','应付账款','liability','credit'],['2211','应付职工薪酬','liability','credit'],
+      ['2221','应交税费','liability','credit'],['2231','应付利息','liability','credit'],['2241','其他应付款','liability','credit'],
+      ['2501','长期借款','liability','credit'],['4001','实收资本','equity','credit'],['4002','资本公积','equity','credit'],
+      ['4101','盈余公积','equity','credit'],['4103','本年利润','equity','credit'],['4104','利润分配','equity','credit'],
+      ['5001','生产成本','expense','debit'],['5101','制造费用','expense','debit'],
+      ['6001','主营业务收入','revenue','credit'],['6051','其他业务收入','revenue','credit'],['6111','投资收益','revenue','credit'],
+      ['6301','营业外收入','revenue','credit'],['6401','主营业务成本','expense','debit'],['6402','其他业务成本','expense','debit'],
+      ['6403','税金及附加','expense','debit'],['6601','销售费用','expense','debit'],['6602','管理费用','expense','debit'],
+      ['6603','财务费用','expense','debit'],['6711','营业外支出','expense','debit'],['6801','所得税费用','expense','debit']
     ];
-    for (const [code, sname, stype, dir] of subjects) {
+    for (const [code, sname, cat, dir] of subjects) {
       await conn.query(
-        'INSERT INTO accounts (tenant_id, code, name, type, balance_direction, is_leaf, status) VALUES (?,?,?,?,?,?,?)',
-        [tenantId, code, sname, stype, dir, 1, 'active']
+        'INSERT INTO accounting_accounts (book_id, code, name, category, direction, level, is_enabled, sort_order) VALUES (?,?,?,?,?,1,TRUE,0)',
+        [bookId, code, sname, cat, dir]
       );
     }
+
     await conn.commit();
-    res.json({ code: 0, data: { tenantId, userId: uResult.insertId }, message: '帐套创建成功，管理员: ' + (username||'admin') });
+    res.json({ code: 0, data: { tenantId, bookId, userId: uResult.insertId }, message: '帐套创建成功！管理员账号: ' + (username||'admin') + ' / ' + (password||'admin123') });
   } catch (err) {
     await conn.rollback();
     console.error('新建帐套失败:', err);
