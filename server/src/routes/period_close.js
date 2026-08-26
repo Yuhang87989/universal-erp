@@ -117,14 +117,14 @@ router.post('/close', requireRole('owner', 'manager'), async (req, res) => {
       return res.status(400).json({ code: 400, message: '本期无收入/费用发生额，无需结转' });
     }
 
-    // 找4103本年利润科目
+    // 找本年利润科目（兼容4103企业准则和3104小企业准则）
     const [profitAcc] = await conn.query(
-      "SELECT id FROM accounting_accounts WHERE book_id = ? AND code = '4103' LIMIT 1",
+      "SELECT id FROM accounting_accounts WHERE book_id = ? AND code IN ('4103','3104') ORDER BY code LIMIT 1",
       [bid]
     );
     if (!profitAcc.length) {
       await conn.rollback();
-      return res.status(400).json({ code: 400, message: '未找到4103本年利润科目，请检查科目设置' });
+      return res.status(400).json({ code: 400, message: '未找到本年利润科目(4103/3104)，请检查科目设置' });
     }
     const profitAccountId = profitAcc[0].id;
 

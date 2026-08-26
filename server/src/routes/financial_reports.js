@@ -115,8 +115,11 @@ router.get('/balance-sheet', async (req, res) => {
     const otherReceivables = val('1221'); // 其他应收款
     const inventory = val('1403') + val('1405') + val('1411'); // 原材料+库存商品+周转材料
     const inTransit = val('1402'); // 在途物资
-    const fixedAssets = val('1601') - val('1602'); // 固定资产-累计折旧
-    const intangible = val('1701'); // 无形资产
+    // 固定资产：兼容1501/1502（小企业准则）和1601/1602（企业准则）
+    const fixedCost = val('1501') || val('1601');
+    const accumDep = val('1502') || val('1602');
+    const fixedAssets = fixedCost - accumDep;
+    const intangible = val('1701') || val('1511'); // 无形资产
     const currentAssetsTotal = monetary + receivables + otherReceivables + inventory + inTransit;
     const nonCurrentAssetsTotal = fixedAssets + intangible;
     const totalAssets = currentAssetsTotal + nonCurrentAssetsTotal;
@@ -133,12 +136,11 @@ router.get('/balance-sheet', async (req, res) => {
     const nonCurrentLiabilitiesTotal = longTermLoan;
     const totalLiabilities = currentLiabilitiesTotal + nonCurrentLiabilitiesTotal;
 
-    // 所有者权益
-    const paidInCapital = val('4001') + val('4002'); // 实收资本+资本公积
-    const surplusReserve = val('4101');
-    // 未分配利润 = 本年利润 + 利润分配 + 收入-费用（期末结转前）
-    const currentYearProfit = val('4103');
-    const retainedProfit = val('4104');
+    // 所有者权益：兼容小企业准则(3001实收/3101盈余/3104本年利润)和企业准则(4001/4101/4103/4104)
+    const paidInCapital = val('4001') + val('4002') + val('3001'); // 实收资本+资本公积
+    const surplusReserve = val('4101') + val('3101'); // 盈余公积
+    const currentYearProfit = val('4103') + val('3104'); // 本年利润
+    const retainedProfit = val('4104'); // 利润分配-未分配利润
     // 当期损益净额（收入类贷方-费用类借方），用于未结转时显示
     let revenueTotal = 0, expenseTotal = 0;
     rows.forEach(acc => {
@@ -208,6 +210,7 @@ router.get('/balance-sheet', async (req, res) => {
 });
 
 // =================== 利润表 ===================
+// 按科目名称智能匹配，兼容小企业准则(5001/6001/6401/6601)和企业准则(6001/6401/6601/6602)
 router.get('/income-statement', async (req, res) => {
   try {
     const { book_id, period } = req.query;
@@ -216,70 +219,77 @@ router.get('/income-statement', async (req, res) => {
     const startDate = dayjs(targetPeriod).startOf('month').format('YYYY-MM-DD');
     const endDate = dayjs(targetPeriod).endOf('month').format('YYYY-MM-DD');
 
-    const { rows, map } = await getAccounts(bid);
+    const { rows } = await getAccounts(bid);
     const balances = await computeBalances(bid, startDate, endDate);
 
-    // 本期发生额（按方向净值）
-    const periodCredit = (code) => {
-      const acc = map[code];
-      if (!acc || !balances[acc.id]) return 0;
-      return balances[acc.id].pc;
-    };
-    const periodDebit = (code) => {
-      const acc = map[code];
-      if (!acc || !balances[acc.id]) return 0;
-      return balances[acc.id].pd;
+    // 按科目名称包含关键字匹配，汇总本期贷方/借方发生额
+    const sumByName = (keywords, cat, side) => {
+      let total = 0;
+      const matched = [];
+      rows.forEach(acc => {
+        if (cat && acc.category !== cat) return;
+        // 只取一级科目（code不含小数点），避免子科目重复计算
+        if (acc.code.includes('.')) return;
+        if (keywords.some(kw => acc.name.includes(kw))) {
+          const bal = balances[acc.id];
+          if (!bal) return;
+          const amt = side === 'credit' ? bal.pc - bal.pd : bal.pd - bal.pc;
+          if (amt > 0) {
+            total += amt;
+            matched.push(`${acc.code} ${acc.name}`);
+          }
+        }
+      });
+      return { total, matched };
     };
 
-    // 一、营业收入
-    const operatingRevenue = periodCredit('6001') + periodCredit('6051');
-    // 减：营业成本
-    const operatingCost = periodDebit('6401') + periodDebit('6402');
+    // 营业收入 = 主营业务收入 + 其他业务收入
+    const revenue = sumByName(['主营业务收入', '其他业务收入', '营业收入'], 'revenue', 'credit');
+    // 营业成本 = 主营业务成本 + 其他业务成本
+    const cost = sumByName(['主营业务成本', '其他业务成本', '营业成本'], 'expense', 'debit');
     // 税金及附加
-    const taxesSurcharges = periodDebit('6403');
+    const taxes = sumByName(['税金及附加', '营业税金及附加'], 'expense', 'debit');
     // 销售费用
-    const sellingExpenses = periodDebit('6601');
+    const selling = sumByName(['销售费用', '营业费用'], 'expense', 'debit');
     // 管理费用
-    const adminExpenses = periodDebit('6602');
+    const admin = sumByName(['管理费用'], 'expense', 'debit');
     // 财务费用
-    const financeExpenses = periodDebit('6603');
-    // 二、营业利润
-    const operatingProfit = operatingRevenue - operatingCost - taxesSurcharges - sellingExpenses - adminExpenses - financeExpenses;
-    // 加：营业外收入
-    const nonOperatingIncome = periodCredit('6301');
-    // 减：营业外支出
-    const nonOperatingExpense = periodDebit('6711');
-    // 投资收益
-    const investmentIncome = periodCredit('6111');
-    // 三、利润总额
-    const totalProfit = operatingProfit + nonOperatingIncome + investmentIncome - nonOperatingExpense;
-    // 减：所得税费用
-    const incomeTax = periodDebit('6801');
-    // 四、净利润
-    const netProfit = totalProfit - incomeTax;
+    const finance = sumByName(['财务费用'], 'expense', 'debit');
+    // 投资收益（revenue类）
+    const invest = sumByName(['投资收益'], 'revenue', 'credit');
+    // 营业外收入
+    const nonOpIncome = sumByName(['营业外收入'], 'revenue', 'credit');
+    // 营业外支出
+    const nonOpExpense = sumByName(['营业外支出'], 'expense', 'debit');
+    // 所得税
+    const incomeTax = sumByName(['所得税费用', '所得税'], 'expense', 'debit');
+
+    const operatingProfit = revenue.total - cost.total - taxes.total - selling.total - admin.total - finance.total + invest.total;
+    const totalProfit = operatingProfit + nonOpIncome.total - nonOpExpense.total;
+    const netProfit = totalProfit - incomeTax.total;
 
     res.json({
       code: 0,
       data: {
         period: targetPeriod,
         items: [
-          { line: 1, name: '一、营业收入', amount: operatingRevenue, indent: 0, bold: true, accounts: ['6001 主营业务收入', '6051 其他业务收入'] },
-          { line: 2, name: '减：营业成本', amount: operatingCost, indent: 1, accounts: ['6401 主营业务成本', '6402 其他业务成本'] },
-          { line: 3, name: '    税金及附加', amount: taxesSurcharges, indent: 1, accounts: ['6403 税金及附加'] },
-          { line: 4, name: '    销售费用', amount: sellingExpenses, indent: 1, accounts: ['6601 销售费用'] },
-          { line: 5, name: '    管理费用', amount: adminExpenses, indent: 1, accounts: ['6602 管理费用'] },
-          { line: 6, name: '    财务费用', amount: financeExpenses, indent: 1, accounts: ['6603 财务费用'] },
-          { line: 7, name: '加：投资收益', amount: investmentIncome, indent: 1, accounts: ['6111 投资收益'] },
+          { line: 1, name: '一、营业收入', amount: revenue.total, indent: 0, bold: true, accounts: revenue.matched },
+          { line: 2, name: '减：营业成本', amount: cost.total, indent: 1, accounts: cost.matched },
+          { line: 3, name: '    税金及附加', amount: taxes.total, indent: 1, accounts: taxes.matched },
+          { line: 4, name: '    销售费用', amount: selling.total, indent: 1, accounts: selling.matched },
+          { line: 5, name: '    管理费用', amount: admin.total, indent: 1, accounts: admin.matched },
+          { line: 6, name: '    财务费用', amount: finance.total, indent: 1, accounts: finance.matched },
+          { line: 7, name: '加：投资收益', amount: invest.total, indent: 1, accounts: invest.matched },
           { line: 8, name: '二、营业利润', amount: operatingProfit, indent: 0, bold: true },
-          { line: 9, name: '加：营业外收入', amount: nonOperatingIncome, indent: 1, accounts: ['6301 营业外收入'] },
-          { line: 10, name: '减：营业外支出', amount: nonOperatingExpense, indent: 1, accounts: ['6711 营业外支出'] },
+          { line: 9, name: '加：营业外收入', amount: nonOpIncome.total, indent: 1, accounts: nonOpIncome.matched },
+          { line: 10, name: '减：营业外支出', amount: nonOpExpense.total, indent: 1, accounts: nonOpExpense.matched },
           { line: 11, name: '三、利润总额', amount: totalProfit, indent: 0, bold: true },
-          { line: 12, name: '减：所得税费用', amount: incomeTax, indent: 1, accounts: ['6801 所得税费用'] },
+          { line: 12, name: '减：所得税费用', amount: incomeTax.total, indent: 1, accounts: incomeTax.matched },
           { line: 13, name: '四、净利润', amount: netProfit, indent: 0, bold: true, highlight: true },
         ],
         totals: {
-          operatingRevenue,
-          operatingCost,
+          operatingRevenue: revenue.total,
+          operatingCost: cost.total,
           operatingProfit,
           totalProfit,
           netProfit,
@@ -346,11 +356,14 @@ router.get('/cash-flow', async (req, res) => {
       // 按对方科目逐笔分类（避免整单金额重复累加）
       otherLines.forEach(o => {
         const code = o.account_code || '';
+        const cat = o.category || '';
         let activity = 'operating';
-        // 投资活动：固定资产(16xx)、无形资产(17xx)
-        if (code.startsWith('16') || code.startsWith('17')) activity = 'investing';
-        // 筹资活动：借款(2001/2501)、实收资本(4001)、资本公积(4002)
-        else if (code.startsWith('2001') || code.startsWith('2501') || code.startsWith('4001') || code.startsWith('4002')) activity = 'financing';
+        // 投资活动：固定资产/累计折旧(15xx/16xx)、无形资产(17xx)、在建工程(16xx)
+        if (code.startsWith('15') || code.startsWith('16') || code.startsWith('17')) activity = 'investing';
+        // 筹资活动：短期借款(2001)、长期借款(2501)、实收资本(3001/4001)、资本公积(4002)
+        else if (code.startsWith('2001') || code.startsWith('2501') || code.startsWith('3001') || code.startsWith('4001') || code.startsWith('4002')) activity = 'financing';
+        // equity类科目也归筹资
+        else if (cat === 'equity') activity = 'financing';
 
         // 现金流入时，对方科目在贷方；现金流出时，对方科目在借方
         if (cashIn > 0) {
