@@ -8,7 +8,7 @@ import dayjs from 'dayjs';
 import request from '../../api/request';
 
 const { RangePicker } = DatePicker;
-const { Title } = Typography;
+const { Title, Text } = Typography;
 
 const Sales: React.FC = () => {
   const [orders, setOrders] = useState<any[]>([]);
