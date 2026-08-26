@@ -271,7 +271,7 @@ router.get('/profit', async (req, res) => {
     });
   } catch (err) {
     console.error('利润分析失败:', err);
-    res.status(500).json({ message: '查询失败' });
+    res.status(500).json({ message: '查询失败: ' + err.message });
   }
 });
 

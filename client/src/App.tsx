@@ -25,6 +25,9 @@ import StockIn from './pages/Warehouse/StockIn';
 import StockOut from './pages/Warehouse/StockOut';
 import StockTransfer from './pages/Warehouse/StockTransfer';
 import PaymentSettings from './pages/Finance/PaymentSettings';
+import FinancialReports from './pages/Finance/FinancialReports';
+import ReceivablesPage from './pages/Finance/Receivables';
+import PeriodClose from './pages/Finance/PeriodClose';
 import Analytics from './pages/Analytics';
 import Alerts from './pages/Alerts';
 import AICenter from './pages/AI';
@@ -49,6 +52,9 @@ const routePermMap: Record<string, string> = {
   '/trial-balance': 'finance:trial-balance',
   '/seals': 'finance:seals',
   '/payment-settings': 'finance:payment',
+  '/finance-reports': 'finance:reports',
+  '/receivables': 'finance:receivables',
+  '/period-close': 'finance:period-close',
   '/analytics': 'analytics:overview',
   '/reports': 'analytics:reports',
   '/ai': 'ai:chat',
@@ -99,6 +105,9 @@ const App: React.FC = () => {
         <Route path="trial-balance" element={<TrialBalance />} />
         <Route path="seals" element={<SealManagement />} />
         <Route path="payment-settings" element={<PaymentSettings />} />
+        <Route path="finance-reports" element={<FinancialReports />} />
+        <Route path="receivables" element={<ReceivablesPage />} />
+        <Route path="period-close" element={<PeriodClose />} />
         <Route path="warehouses" element={<Warehouses />} />
         <Route path="stock-in" element={<StockIn />} />
         <Route path="stock-out" element={<StockOut />} />

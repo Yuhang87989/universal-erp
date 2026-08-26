@@ -31,6 +31,9 @@ const analyticsRoutes = require('./routes/analytics');
 const alertRoutes = require('./routes/alerts');
 const aiRoutes = require('./routes/ai');
 const systemRoutes = require('./routes/system');
+const financialReportRoutes = require('./routes/financial_reports');
+const receivablesRoutes = require('./routes/receivables');
+const periodCloseRoutes = require('./routes/period_close');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -77,6 +80,9 @@ app.use('/api/analytics', analyticsRoutes);
 app.use('/api/alerts', alertRoutes);
 app.use('/api/ai', aiRoutes);
 app.use('/api/system', systemRoutes);
+app.use('/api/finance/reports', financialReportRoutes);
+app.use('/api/finance', receivablesRoutes);
+app.use('/api/period-close', periodCloseRoutes);
 
 // 健康检查
 app.get('/api/health', (req, res) => {

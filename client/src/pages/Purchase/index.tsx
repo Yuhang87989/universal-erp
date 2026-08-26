@@ -21,10 +21,16 @@ const Purchase: React.FC = () => {
   const [orderItems, setOrderItems] = useState([{ productId: null, quantity: 1, costPrice: 0 }]);
   const [products, setProducts] = useState<any[]>([]);
   const [suppliers, setSuppliers] = useState<any[]>([]);
+  const [warehouses, setWarehouses] = useState<any[]>([]);
+  const [receiveModal, setReceiveModal] = useState<any>(null);
+  const [receiveWarehouse, setReceiveWarehouse] = useState<number|undefined>();
   const [pagination, setPagination] = useState({ current: 1, pageSize: 20, total: 0 });
   const [statusFilter, setStatusFilter] = useState<string | undefined>(undefined);
 
   // 加载供应商
+  const loadWarehouses = async () => {
+    try { const res = await request.get('/warehouses'); setWarehouses(res.data?.data || res.data || []); } catch (e) { /* ignore */ }
+  };
   const loadSuppliers = async () => {
     try {
       const res = await request.get('/suppliers', { params: { pageSize: 200 } });
@@ -60,6 +66,7 @@ const Purchase: React.FC = () => {
     loadSuppliers();
     loadOrders();
     loadProducts();
+    loadWarehouses();
   }, []);
 
   const handleCreateOrder = async () => {
@@ -84,12 +91,19 @@ const Purchase: React.FC = () => {
     }
   };
 
-  const handleReceive = async (id: number) => {
+  const openReceive = (order: any) => {
+    setReceiveModal(order);
+    setReceiveWarehouse(warehouses[0]?.id);
+  };
+  const handleReceive = async () => {
+    if (!receiveModal) return;
+    if (!receiveWarehouse) { message.warning('请选择入库仓库'); return; }
     try {
-      await request.post(`/purchases/orders/${id}/receive`);
-      message.success('入库成功，库存已更新');
+      const res = await request.post(`/purchases/orders/${receiveModal.id}/receive`, { warehouseId: receiveWarehouse });
+      message.success(res.data?.message || '入库成功，库存已更新');
+      setReceiveModal(null);
       loadOrders();
-    } catch (e) {
+    } catch (e: any) {
       message.error(e.response?.data?.message || '入库失败');
     }
   };
@@ -127,10 +141,13 @@ const Purchase: React.FC = () => {
   };
 
   const statusMap: Record<string, { text: string; color: string }> = {
-    pending: { text: '待入库', color: 'orange' },
+    draft: { text: '待入库', color: 'orange' },
+    confirmed: { text: '已确认', color: 'blue' },
+    partial_received: { text: '部分入库', color: 'gold' },
     received: { text: '已入库', color: 'green' },
     cancelled: { text: '已取消', color: 'default' }
   };
+  const receivable = (s: string) => s === 'draft' || s === 'partial_received';
 
   const columns = [
     { title: '采购单号', dataIndex: 'order_no', key: 'order_no', width: 150 },
@@ -148,11 +165,9 @@ const Purchase: React.FC = () => {
       render: (_: any, record: any) => (
         <Space>
           <Button type="link" size="small" icon={<EyeOutlined />} onClick={() => handleViewDetail(record.id)}>详情</Button>
-          {record.status === 'pending' && (
+          {receivable(record.status) && (
             <>
-              <Popconfirm title="确认收货入库？库存将自动增加。" onConfirm={() => handleReceive(record.id)}>
-                <Button type="link" size="small" icon={<CheckOutlined />}>入库</Button>
-              </Popconfirm>
+              <Button type="link" size="small" icon={<CheckOutlined />} onClick={() => openReceive(record)}>入库</Button>
               <Popconfirm title="确定删除该采购单？" onConfirm={() => handleDeleteOrder(record.id)}>
                 <Button type="link" size="small" danger icon={<DeleteOutlined />}>删除</Button>
               </Popconfirm>
@@ -170,7 +185,7 @@ const Purchase: React.FC = () => {
       <Card size="small" style={{ marginBottom: 16 }}>
         <Space wrap>
           <Select placeholder="状态筛选" allowClear style={{ width: 120 }}
-            options={[{ value: 'pending', label: '待入库' }, { value: 'received', label: '已入库' }, { value: 'cancelled', label: '已取消' }]}
+            options={[{ value: 'draft', label: '待入库' }, { value: 'partial_received', label: '部分入库' }, { value: 'received', label: '已入库' }, { value: 'cancelled', label: '已取消' }]}
             onChange={v => setStatusFilter(v)} />
           <Button type="primary" onClick={() => loadOrders(1)}>查询</Button>
           <Button type="primary" icon={<PlusOutlined />} onClick={() => { orderForm.resetFields(); setOrderItems([{ productId: null, quantity: 1, costPrice: 0 }]); setOrderModal(true); }}>
@@ -252,6 +267,20 @@ const Purchase: React.FC = () => {
                 { title: '进价', dataIndex: 'cost_price', render: (v: number) => `¥${Number(v).toFixed(2)}` },
                 { title: '小计', dataIndex: 'subtotal', render: (v: number) => `¥${Number(v).toFixed(2)}` }
               ]} />
+          </>
+        )}
+      </Modal>
+
+      {/* 入库弹窗 */}
+      <Modal title={`采购入库 - ${receiveModal?.order_no || ''}`} open={!!receiveModal} onOk={handleReceive} onCancel={() => setReceiveModal(null)} okText="确认入库" cancelText="取消">
+        {receiveModal && (
+          <>
+            <p><strong>供应商：</strong>{receiveModal.supplier_name || '-'}</p>
+            <p><strong>采购金额：</strong>¥{Number(receiveModal.total_amount || 0).toFixed(2)}</p>
+            <p style={{ marginBottom: 8 }}><strong>入库仓库：</strong></p>
+            <Select style={{ width: '100%' }} placeholder="选择入库仓库" value={receiveWarehouse} onChange={setReceiveWarehouse}
+              options={warehouses.map((w: any) => ({ label: `${w.name} (${w.code || ''})`, value: w.id }))} />
+            <p style={{ marginTop: 12, color: '#999', fontSize: 12 }}>确认后将按采购数量全部入库，库存自动增加，商品成本价更新为本次进价。</p>
           </>
         )}
       </Modal>

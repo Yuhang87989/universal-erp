@@ -20,6 +20,16 @@ async function getDefaultBookId(tenantId, bookId) {
   return books[0].id;
 }
 
+// 检查期间是否已结账
+async function assertPeriodOpen(conn, bookId, voucherDate) {
+  const period = require('dayjs')(voucherDate).format('YYYY-MM');
+  const [rows] = await conn.query(
+    "SELECT id FROM period_closures WHERE book_id = ? AND period = ? AND status = 'closed' LIMIT 1",
+    [bookId, period]
+  );
+  if (rows.length) throw new Error(`会计期间 ${period} 已结账，不能再新增凭证`);
+}
+
 // 辅助：生成凭证编号
 async function generateVoucherNo(conn, bookId, voucherType, voucherDate) {
   const prefix = voucherTypeMap[voucherType] || '记';
@@ -156,6 +166,7 @@ router.post('/', async (req, res) => {
     if (!voucher_date) throw new Error('凭证日期不能为空');
 
     const bid = await getDefaultBookId(req.tenantId, book_id);
+    await assertPeriodOpen(conn, bid, voucher_date);
 
     // 校验借贷平衡
     let totalDebit = 0, totalCredit = 0;
@@ -321,23 +332,24 @@ router.get('/report/trial-balance', async (req, res) => {
     const bid = await getDefaultBookId(req.tenantId, book_id ? parseInt(book_id) : null);
     const targetPeriod = period || dayjs().format('YYYY-MM');
 
-    // 获取所有科目及其在指定期间的发生额
+    // 获取所有科目及其在指定期间的发生额（直接从凭证实时计算，不依赖account_balances期初表）
+    const periodStart = dayjs(targetPeriod).startOf('month').format('YYYY-MM-DD');
+    const periodEnd = dayjs(targetPeriod).endOf('month').format('YYYY-MM-DD');
     const [rows] = await pool.query(
       `SELECT 
-        a.id, a.code, a.name, a.category, a.direction,
-        COALESCE(ab.opening_debit, 0) as opening_debit,
-        COALESCE(ab.opening_credit, 0) as opening_credit,
-        COALESCE(SUM(CASE WHEN vi.debit_amount > 0 THEN vi.debit_amount ELSE 0 END), 0) as current_debit,
-        COALESCE(SUM(CASE WHEN vi.credit_amount > 0 THEN vi.credit_amount ELSE 0 END), 0) as current_credit
+        a.id, a.code, a.name, a.category, a.direction, a.level,
+        COALESCE(SUM(CASE WHEN v.voucher_date < ? AND vi.debit_amount > 0 THEN vi.debit_amount ELSE 0 END), 0) as opening_debit,
+        COALESCE(SUM(CASE WHEN v.voucher_date < ? AND vi.credit_amount > 0 THEN vi.credit_amount ELSE 0 END), 0) as opening_credit,
+        COALESCE(SUM(CASE WHEN v.voucher_date >= ? AND v.voucher_date <= ? AND vi.debit_amount > 0 THEN vi.debit_amount ELSE 0 END), 0) as current_debit,
+        COALESCE(SUM(CASE WHEN v.voucher_date >= ? AND v.voucher_date <= ? AND vi.credit_amount > 0 THEN vi.credit_amount ELSE 0 END), 0) as current_credit
        FROM accounting_accounts a
-       LEFT JOIN account_balances ab ON ab.account_id = a.id AND ab.book_id = a.book_id AND ab.period = ?
-       LEFT JOIN vouchers v ON v.book_id = a.book_id AND v.voucher_date >= ? AND v.voucher_date <= ? AND v.status IN ('audited', 'posted') AND v.is_balanced = TRUE
-       LEFT JOIN voucher_items vi ON vi.voucher_id = v.id AND vi.account_id = a.id
+       LEFT JOIN voucher_items vi ON vi.account_id = a.id
+       LEFT JOIN vouchers v ON v.id = vi.voucher_id AND v.book_id = a.book_id AND v.status IN ('audited','posted') AND v.is_balanced = TRUE
        WHERE a.book_id = ? AND a.is_enabled = TRUE
-       GROUP BY a.id, a.code, a.name, a.category, a.direction, ab.opening_debit, ab.opening_credit
+       GROUP BY a.id, a.code, a.name, a.category, a.direction, a.level
        HAVING (opening_debit + opening_credit + current_debit + current_credit) > 0
        ORDER BY a.code ASC`,
-      [targetPeriod, dayjs(targetPeriod).startOf('month').format('YYYY-MM-DD'), dayjs(targetPeriod).endOf('month').format('YYYY-MM-DD'), bid]
+      [periodStart, periodStart, periodStart, periodEnd, periodStart, periodEnd, bid]
     );
 
     // 计算期末余额

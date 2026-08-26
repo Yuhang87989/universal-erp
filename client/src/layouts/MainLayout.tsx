@@ -8,7 +8,7 @@ import {
   MenuOutlined, TeamOutlined, BankOutlined, SwapOutlined,
   RobotOutlined, WarningOutlined, HomeOutlined, InboxOutlined,
   ImportOutlined, ExportOutlined, ThunderboltOutlined, LineChartOutlined,
-  SafetyCertificateOutlined, WalletOutlined, ShopOutlined,
+  SafetyCertificateOutlined, WalletOutlined, ShopOutlined, LockOutlined,
   FileTextOutlined, AuditOutlined, AppstoreOutlined
 } from '@ant-design/icons';
 import { useAuth } from '../context/AuthContext';
@@ -46,6 +46,9 @@ const guideMap: Record<string, string> = {
   '/accounts': '会计科目表管理，支持多级科目，预置标准会计科目',
   '/trial-balance': '试算平衡表，自动汇总各科目的期初、本期、期末借贷方余额',
   '/seals': '印章管理：真实印章预览，公安备案编号，支持在凭证上盖章',
+  '/finance-reports': '资产负债表、利润表、现金流量表，按月自动生成，可打印导出',
+  '/receivables': '应收账款与应付账款管理，账龄分析（0-30/31-60/61-90/91-180/180天以上），支持收付款登记',
+  '/period-close': '期末结转损益：自动生成结转凭证，将收入费用转入本年利润，结账后锁定期间',
   '/payment-settings': '支付渠道配置：微信支付、支付宝、银行转账（预留接口），配置后可启用',
   '/ai': 'AI智能中心：对话问答、经营诊断、智能补货建议、AI文案生成',
   '/products': '管理商品档案（名称、条码、售价、成本价、预警值）和商品分类',
@@ -75,6 +78,9 @@ const routePermMap: Record<string, string> = {
   '/trial-balance': 'finance:trial-balance',
   '/seals': 'finance:seals',
   '/payment-settings': 'finance:payment',
+  '/finance-reports': 'finance:reports',
+  '/receivables': 'finance:receivables',
+  '/period-close': 'finance:period-close',
   '/analytics': 'analytics:overview',
   '/reports': 'analytics:reports',
   '/ai': 'ai:chat',
@@ -110,6 +116,9 @@ const allMenuItems = [
     { key: '/vouchers', icon: <AuditOutlined />, label: '记账凭证' },
     { key: '/accounts', icon: <BankOutlined />, label: '会计科目' },
     { key: '/trial-balance', icon: <LineChartOutlined />, label: '试算平衡' },
+    { key: '/finance-reports', icon: <BarChartOutlined />, label: '财务报表' },
+    { key: '/receivables', icon: <WalletOutlined />, label: '应收应付' },
+    { key: '/period-close', icon: <LockOutlined />, label: '期末结转' },
     { key: '/seals', icon: <SafetyCertificateOutlined />, label: '印章管理' },
     { key: '/payment-settings', icon: <WalletOutlined />, label: '支付渠道' },
   ]},

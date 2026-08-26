@@ -254,19 +254,28 @@ router.post('/orders', async (req, res) => {
   }
 });
 
-// 确认入库（采购单 -> 库存增加 + 更新成本价）
+// 确认入库（采购单 -> 库存增加 + 更新成本价 + 更新已入库数量）
 router.post('/orders/:id/receive', async (req, res) => {
   const conn = await db.getConnection();
   try {
     const tenantId = req.tenantId;
-    const { actualItems } = req.body; // 可选：实际到货数量（允许部分到货）
+    const { warehouseId, actualItems } = req.body;
 
-    // 查采购单
+    // 查采购单（draft=待入库）
     const [[order]] = await conn.query(
-      `SELECT * FROM purchase_orders WHERE id = ? AND tenant_id = ? AND status = 'draft'`,
+      `SELECT * FROM purchase_orders WHERE id = ? AND tenant_id = ? AND status IN ('draft','partial_received')`,
       [req.params.id, tenantId]
     );
-    if (!order) return res.status(400).json({ message: '采购单不存在或已入库' });
+    if (!order) return res.status(400).json({ message: '采购单不存在或已全部入库' });
+
+    // 确定入库仓库
+    let wid = warehouseId;
+    if (!wid) {
+      // 取该租户第一个仓库
+      const [whs] = await conn.query('SELECT id FROM warehouses WHERE tenant_id = ? ORDER BY id ASC LIMIT 1', [tenantId]);
+      if (!whs.length) return res.status(400).json({ message: '请先在仓库管理中创建仓库' });
+      wid = whs[0].id;
+    }
 
     // 查采购明细
     const [items] = await conn.query(
@@ -276,44 +285,51 @@ router.post('/orders/:id/receive', async (req, res) => {
 
     await conn.beginTransaction();
 
-    // 逐项入库
+    let allReceived = true;
     for (const item of items) {
+      // 实际到货数量（允许部分到货）
       const actualQty = actualItems
-        ? (actualItems.find(a => a.productId === item.product_id) || {}).quantity || item.quantity
-        : item.quantity;
+        ? parseFloat((actualItems.find((a) => a.productId === item.product_id) || {}).quantity) || 0
+        : parseFloat(item.quantity) - parseFloat(item.received_quantity || 0);
 
-      // 增加库存
-      await conn.query(
-        `UPDATE inventory SET quantity = quantity + ? WHERE product_id = ? AND tenant_id = ?`,
-        [actualQty, item.product_id, tenantId]
-      );
+      if (actualQty <= 0) { allReceived = false; continue; }
 
-      // 如果inventory不存在则创建
-      const [invResult] = await conn.query(
-        `SELECT id FROM inventory WHERE product_id = ? AND tenant_id = ?`,
-        [item.product_id, tenantId]
+      // upsert 库存（先查再决定insert/update），带warehouse_id
+      const [invRows] = await conn.query(
+        `SELECT id, quantity FROM inventory WHERE product_id = ? AND tenant_id = ? AND warehouse_id = ?`,
+        [item.product_id, tenantId, wid]
       );
-      if (invResult.length === 0) {
+      let beforeQty = 0;
+      if (invRows.length) {
+        beforeQty = parseFloat(invRows[0].quantity);
         await conn.query(
-          `INSERT INTO inventory (tenant_id, product_id, quantity) VALUES (?, ?, ?)`,
-          [tenantId, item.product_id, actualQty]
+          `UPDATE inventory SET quantity = quantity + ? WHERE id = ?`,
+          [actualQty, invRows[0].id]
+        );
+      } else {
+        await conn.query(
+          `INSERT INTO inventory (tenant_id, product_id, warehouse_id, quantity) VALUES (?, ?, ?, ?)`,
+          [tenantId, item.product_id, wid, actualQty]
         );
       }
+      const afterQty = beforeQty + parseFloat(actualQty);
 
-      // 记录库存流水
-      const [curInv] = await conn.query(
-        `SELECT quantity FROM inventory WHERE product_id = ? AND tenant_id = ?`,
-        [item.product_id, tenantId]
-      );
-      const afterQty = curInv.length ? parseFloat(curInv[0].quantity) : 0;
-      const beforeQty = afterQty - parseFloat(actualQty);
-
+      // 库存流水（带warehouse_id）
       await conn.query(
-        `INSERT INTO inventory_logs (tenant_id, product_id, change_type, quantity, before_quantity, after_quantity, unit_cost, reference_type, reference_id, operator_id, remark) VALUES (?, ?, 'purchase', ?, ?, ?, ?, 'purchase_order', ?, ?, ?)`,
-        [tenantId, item.product_id, actualQty, beforeQty, afterQty, item.unit_cost, order.id, req.user.id, `采购入库 - 单号: ${order.order_no}`]
+        `INSERT INTO inventory_logs (tenant_id, product_id, warehouse_id, change_type, quantity, before_quantity, after_quantity, unit_cost, reference_type, reference_id, operator_id, remark)
+         VALUES (?, ?, ?, 'purchase', ?, ?, ?, ?, 'purchase_order', ?, ?, ?)`,
+        [tenantId, item.product_id, wid, actualQty, beforeQty, afterQty, item.unit_cost, order.id, req.user.id, `采购入库 - 单号: ${order.order_no}`]
       );
 
-      // 更新商品成本价
+      // 更新已入库数量
+      const newReceived = parseFloat(item.received_quantity || 0) + parseFloat(actualQty);
+      await conn.query(
+        `UPDATE purchase_items SET received_quantity = ? WHERE id = ?`,
+        [newReceived, item.id]
+      );
+      if (newReceived < parseFloat(item.quantity) - 0.001) allReceived = false;
+
+      // 更新商品成本价（移动加权：取最新进价）
       await conn.query(
         `UPDATE products SET cost_price = ? WHERE id = ? AND tenant_id = ?`,
         [item.unit_cost, item.product_id, tenantId]
@@ -321,19 +337,14 @@ router.post('/orders/:id/receive', async (req, res) => {
     }
 
     // 更新采购单状态
+    const newStatus = allReceived ? 'received' : 'partial_received';
     await conn.query(
-      `UPDATE purchase_orders SET status = 'received', operator_id = ? WHERE id = ?`,
-      [req.user.id, order.id]
-    );
-
-    // 记录操作日志
-    await conn.query(
-      `INSERT INTO operation_logs (tenant_id, user_id, module, action, target_type, target_id) VALUES (?, ?, ?, ?, ?, ?)`,
-      [tenantId, req.user.id, 'purchase', 'receive', 'purchase_order', order.id]
+      `UPDATE purchase_orders SET status = ?, operator_id = ? WHERE id = ?`,
+      [newStatus, req.user.id, order.id]
     );
 
     await conn.commit();
-    res.json({ message: '入库成功，库存已更新' });
+    res.json({ message: allReceived ? '入库成功，采购单已全部入库' : '部分入库成功', data: { status: newStatus, warehouse_id: wid } });
   } catch (err) {
     await conn.rollback();
     console.error('入库操作失败:', err);
