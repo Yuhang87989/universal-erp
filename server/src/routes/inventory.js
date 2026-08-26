@@ -8,7 +8,7 @@ router.use(authenticate);
 // 获取库存列表
 router.get('/', async (req, res) => {
   try {
-    const { page = 1, pageSize = 20, keyword, lowStock, warehouse_id } = req.query;
+    const { page = 1, pageSize = 20, keyword, lowStock, warehouse_id, category_id, stockStatus, minQty, maxQty } = req.query;
     const offset = (page - 1) * pageSize;
     let where = 'WHERE i.tenant_id = ?';
     const params = [req.tenantId];
@@ -17,13 +17,26 @@ router.get('/', async (req, res) => {
       where += ' AND i.warehouse_id = ?';
       params.push(warehouse_id);
     }
+    if (category_id) {
+      where += ' AND p.category_id = ?';
+      params.push(category_id);
+    }
     if (keyword) {
-      where += ' AND (p.name LIKE ? OR p.barcode LIKE ?)';
-      params.push(`%${keyword}%`, `%${keyword}%`);
+      where += ' AND (p.name LIKE ? OR p.barcode LIKE ? OR p.sku LIKE ?)';
+      params.push(`%${keyword}%`, `%${keyword}%`, `%${keyword}%`);
     }
     if (lowStock === 'true') {
       where += ' AND i.quantity <= p.min_stock AND p.min_stock > 0';
     }
+    if (stockStatus === 'out') {
+      where += ' AND i.quantity <= 0';
+    } else if (stockStatus === 'low') {
+      where += ' AND i.quantity > 0 AND p.min_stock > 0 AND i.quantity <= p.min_stock';
+    } else if (stockStatus === 'normal') {
+      where += ' AND (p.min_stock = 0 OR i.quantity > p.min_stock)';
+    }
+    if (minQty) { where += ' AND i.quantity >= ?'; params.push(parseFloat(minQty)); }
+    if (maxQty) { where += ' AND i.quantity <= ?'; params.push(parseFloat(maxQty)); }
 
     where += " AND p.status != 'deleted'";
 
@@ -32,7 +45,7 @@ router.get('/', async (req, res) => {
     );
 
     const [items] = await pool.query(
-      `SELECT i.*, p.name as product_name, p.unit, p.barcode, p.sell_price, p.cost_price, p.min_stock, c.name as category_name
+      `SELECT i.*, p.name as product_name, p.unit, p.barcode, p.sku, p.sell_price, p.cost_price, p.min_stock, p.category_id, c.name as category_name
        FROM inventory i
        JOIN products p ON i.product_id = p.id
        LEFT JOIN categories c ON p.category_id = c.id
@@ -52,6 +65,7 @@ router.get('/', async (req, res) => {
       }
     });
   } catch (err) {
+    console.error('库存列表错误:', err);
     res.status(500).json({ code: 500, message: '获取库存列表失败' });
   }
 });

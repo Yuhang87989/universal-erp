@@ -3,11 +3,11 @@ import {
   Table, Button, Modal, Form, Input, InputNumber, Select, DatePicker,
   Tag, Space, message, Card, Row, Col, Popconfirm, Descriptions, Typography
 } from 'antd';
-import { PlusOutlined, EyeOutlined } from '@ant-design/icons';
+import { PlusOutlined, EyeOutlined, SearchOutlined, ReloadOutlined, DownloadOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import request from '../../api/request';
 
-const { Option } = Select;
+const { RangePicker } = DatePicker;
 const { Title } = Typography;
 
 const Sales: React.FC = () => {
@@ -21,16 +21,34 @@ const Sales: React.FC = () => {
   const [products, setProducts] = useState<any[]>([]);
   const [customers, setCustomers] = useState<any[]>([]);
   const [pagination, setPagination] = useState({ current: 1, pageSize: 20, total: 0 });
-  const [filters, setFilters] = useState({ status: undefined, orderType: undefined });
 
-  const loadOrders = async (page = 1, extraFilters = {}) => {
+  // 查询条件
+  const [keyword, setKeyword] = useState('');
+  const [statusFilter, setStatusFilter] = useState<string | undefined>();
+  const [typeFilter, setTypeFilter] = useState<string | undefined>();
+  const [payFilter, setPayFilter] = useState<string | undefined>();
+  const [dateRange, setDateRange] = useState<[dayjs.Dayjs, dayjs.Dayjs] | null>(null);
+  const [amountRange, setAmountRange] = useState<[number | null, number | null]>([null, null]);
+
+  const loadOrders = async (page = 1) => {
     setLoading(true);
     try {
-      const params: any = { page, pageSize: 20, ...filters, ...extraFilters };
+      const params: any = { page, pageSize: pagination.pageSize };
+      if (keyword) params.keyword = keyword;
+      if (statusFilter) params.status = statusFilter;
+      if (typeFilter) params.orderType = typeFilter;
+      if (payFilter) params.paymentMethod = payFilter;
+      if (dateRange) {
+        params.startDate = dateRange[0].format('YYYY-MM-DD');
+        params.endDate = dateRange[1].format('YYYY-MM-DD');
+      }
+      if (amountRange[0] != null) params.minAmount = amountRange[0];
+      if (amountRange[1] != null) params.maxAmount = amountRange[1];
+
       const res = await request.get('/sales', { params });
       const payload = res.data?.data || res.data || {};
-      setOrders(payload.list || payload || []);
-      setPagination({ current: page, pageSize: 20, total: payload.total || 0 });
+      setOrders(payload.list || []);
+      setPagination(p => ({ ...p, current: page, total: payload.total || 0 }));
     } catch (e) { /* ignore */ }
     setLoading(false);
   };
@@ -51,11 +69,7 @@ const Sales: React.FC = () => {
     } catch (e) { /* ignore */ }
   };
 
-  useEffect(() => {
-    loadOrders();
-    loadProducts();
-    loadCustomers();
-  }, []);
+  useEffect(() => { loadOrders(); loadProducts(); loadCustomers(); }, []);
 
   const handleCreateOrder = async () => {
     try {
@@ -74,7 +88,7 @@ const Sales: React.FC = () => {
       setOrderModal(false);
       orderForm.resetFields();
       setOrderItems([{ productId: null, quantity: 1, unitPrice: 0 }]);
-      loadOrders();
+      loadOrders(pagination.current);
     } catch (e: any) {
       if (e.errorFields) return;
       message.error(e.response?.data?.message || '创建失败');
@@ -101,6 +115,35 @@ const Sales: React.FC = () => {
     setOrderItems(newItems);
   };
 
+  const resetFilters = () => {
+    setKeyword('');
+    setStatusFilter(undefined);
+    setTypeFilter(undefined);
+    setPayFilter(undefined);
+    setDateRange(null);
+    setAmountRange([null, null]);
+    setTimeout(() => loadOrders(1), 0);
+  };
+
+  const exportCSV = () => {
+    if (!orders.length) { message.warning('没有可导出的数据'); return; }
+    const headers = ['销售单号', '客户', '类型', '总金额', '实收', '支付方式', '状态', '日期'];
+    const rows = orders.map((o: any) => [
+      o.order_no, o.customer_name || '-', typeMap[o.order_type] || o.order_type,
+      Number(o.total_amount || 0).toFixed(2), Number(o.actual_amount || 0).toFixed(2),
+      payMap[o.payment_method] || o.payment_method, statusMap[o.status]?.text || o.status,
+      o.order_date?.slice(0, 10)
+    ]);
+    const csv = [headers, ...rows].map(r => r.join(',')).join('\n');
+    const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `销售订单_${dayjs().format('YYYYMMDD_HHmmss')}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   const statusMap: Record<string, { text: string; color: string }> = {
     pending: { text: '待处理', color: 'orange' },
     completed: { text: '已完成', color: 'green' },
@@ -112,19 +155,26 @@ const Sales: React.FC = () => {
     pos: 'POS', online: '线上', wholesale: '批发', phone: '电话'
   };
 
+  const payMap: Record<string, string> = {
+    cash: '现金', wechat: '微信', alipay: '支付宝', card: '银行卡'
+  };
+
   const columns = [
-    { title: '销售单号', dataIndex: 'order_no', key: 'order_no', width: 150 },
-    { title: '客户', dataIndex: 'customer_name', key: 'customer_name', render: (v: string) => v || '-' },
-    { title: '类型', dataIndex: 'order_type', key: 'order_type', width: 80, render: (v: string) => typeMap[v] || v },
-    { title: '总金额', dataIndex: 'total_amount', key: 'total_amount', width: 100, render: (v: number) => `¥${Number(v || 0).toFixed(2)}` },
-    { title: '实收', dataIndex: 'actual_amount', key: 'actual_amount', width: 100, render: (v: number) => `¥${Number(v || 0).toFixed(2)}` },
+    { title: '销售单号', dataIndex: 'order_no', key: 'order_no', width: 150, fixed: 'left' as const },
+    { title: '客户', dataIndex: 'customer_name', key: 'customer_name', width: 100, render: (v: string) => v || '-' },
+    { title: '类型', dataIndex: 'order_type', key: 'order_type', width: 70, render: (v: string) => <Tag>{typeMap[v] || v}</Tag> },
+    { title: '总金额', dataIndex: 'total_amount', key: 'total_amount', width: 90, align: 'right' as const, render: (v: number) => `¥${Number(v || 0).toFixed(2)}` },
+    { title: '优惠', dataIndex: 'discount_amount', key: 'discount_amount', width: 80, align: 'right' as const, render: (v: number) => v ? `-¥${Number(v).toFixed(2)}` : '-' },
+    { title: '实收', dataIndex: 'actual_amount', key: 'actual_amount', width: 90, align: 'right' as const, render: (v: number) => <Text strong style={{ color: '#ff4d4f' }}>¥{Number(v || 0).toFixed(2)}</Text> },
+    { title: '支付', dataIndex: 'payment_method', key: 'payment_method', width: 70, render: (v: string) => payMap[v] || v || '-' },
     {
-      title: '状态', dataIndex: 'status', key: 'status', width: 90,
+      title: '状态', dataIndex: 'status', key: 'status', width: 80,
       render: (v: string) => <Tag color={statusMap[v]?.color}>{statusMap[v]?.text || v}</Tag>
     },
-    { title: '日期', dataIndex: 'order_date', key: 'order_date', width: 110, render: (v: string) => v?.slice(0, 10) },
+    { title: '日期', dataIndex: 'order_date', key: 'order_date', width: 100, render: (v: string) => v?.slice(0, 10) },
+    { title: '操作员', dataIndex: 'operator_name', key: 'operator_name', width: 80, render: (v: string) => v || '-' },
     {
-      title: '操作', key: 'action', width: 80,
+      title: '操作', key: 'action', width: 70, fixed: 'right' as const,
       render: (_: any, record: any) => (
         <Button type="link" icon={<EyeOutlined />} size="small" onClick={() => handleViewDetail(record.id)}>详情</Button>
       )
@@ -135,23 +185,71 @@ const Sales: React.FC = () => {
     <div>
       <Title level={4} style={{ marginBottom: 16 }}>销售管理</Title>
 
-      <Card size="small" style={{ marginBottom: 16 }}>
-        <Space wrap>
-          <Select placeholder="订单类型" allowClear style={{ width: 120 }}
-            options={[{ value: 'pos', label: 'POS' }, { value: 'online', label: '线上' }, { value: 'wholesale', label: '批发' }]}
-            onChange={v => setFilters(f => ({ ...f, orderType: v }))} />
-          <Select placeholder="状态" allowClear style={{ width: 120 }}
-            options={[{ value: 'pending', label: '待处理' }, { value: 'completed', label: '已完成' }, { value: 'refunded', label: '已退款' }]}
-            onChange={v => setFilters(f => ({ ...f, status: v }))} />
-          <Button type="primary" onClick={() => loadOrders(1)}>查询</Button>
-          <Button type="primary" icon={<PlusOutlined />} onClick={() => { orderForm.resetFields(); setOrderItems([{ productId: null, quantity: 1, unitPrice: 0 }]); setOrderModal(true); }}>
-            新建销售单
-          </Button>
-        </Space>
+      <Card size="small" style={{ marginBottom: 12 }}>
+        <Row gutter={[8, 8]}>
+          <Col xs={24} sm={12} md={6}>
+            <Input
+              placeholder="搜索单号/客户/商品"
+              prefix={<SearchOutlined />}
+              value={keyword}
+              onChange={e => setKeyword(e.target.value)}
+              onPressEnter={() => loadOrders(1)}
+              allowClear
+            />
+          </Col>
+          <Col xs={12} md={4}>
+            <Select placeholder="订单类型" allowClear style={{ width: '100%' }} value={typeFilter} onChange={setTypeFilter}
+              options={[{ value: 'pos', label: 'POS' }, { value: 'online', label: '线上' }, { value: 'wholesale', label: '批发' }, { value: 'phone', label: '电话' }]} />
+          </Col>
+          <Col xs={12} md={4}>
+            <Select placeholder="状态" allowClear style={{ width: '100%' }} value={statusFilter} onChange={setStatusFilter}
+              options={[{ value: 'pending', label: '待处理' }, { value: 'completed', label: '已完成' }, { value: 'refunded', label: '已退款' }, { value: 'cancelled', label: '已取消' }]} />
+          </Col>
+          <Col xs={12} md={4}>
+            <Select placeholder="支付方式" allowClear style={{ width: '100%' }} value={payFilter} onChange={setPayFilter}
+              options={[{ value: 'cash', label: '现金' }, { value: 'wechat', label: '微信' }, { value: 'alipay', label: '支付宝' }, { value: 'card', label: '银行卡' }]} />
+          </Col>
+          <Col xs={24} md={6}>
+            <RangePicker style={{ width: '100%' }} value={dateRange} onChange={v => setDateRange(v as [dayjs.Dayjs, dayjs.Dayjs])} />
+          </Col>
+        </Row>
+        <Row gutter={[8, 8]} style={{ marginTop: 8 }}>
+          <Col xs={12} md={5}>
+            <Input.Group compact>
+              <InputNumber
+                style={{ width: '50%' }} placeholder="最低金额" min={0} prefix="¥"
+                value={amountRange[0]} onChange={v => setAmountRange([v, amountRange[1]])}
+              />
+              <InputNumber
+                style={{ width: '50%' }} placeholder="最高金额" min={0} prefix="¥"
+                value={amountRange[1]} onChange={v => setAmountRange([amountRange[0], v])}
+              />
+            </Input.Group>
+          </Col>
+          <Col xs={24} md={19} style={{ textAlign: 'right' }}>
+            <Space>
+              <Button icon={<ReloadOutlined />} onClick={resetFilters}>重置</Button>
+              <Button type="primary" onClick={() => loadOrders(1)}>查询</Button>
+              <Button icon={<DownloadOutlined />} onClick={exportCSV}>导出</Button>
+              <Button type="primary" icon={<PlusOutlined />} onClick={() => {
+                orderForm.resetFields();
+                setOrderItems([{ productId: null, quantity: 1, unitPrice: 0 }]);
+                setOrderModal(true);
+              }}>新建销售单</Button>
+            </Space>
+          </Col>
+        </Row>
       </Card>
 
-      <Table columns={columns} dataSource={orders} rowKey="id" loading={loading} size="small" scroll={{ x: 800 }}
-        pagination={{ current: pagination.current, pageSize: pagination.pageSize, total: pagination.total, showTotal: t => `共 ${t} 条`, onChange: p => loadOrders(p) }} />
+      <Card size="small">
+        <Table columns={columns} dataSource={orders} rowKey="id" loading={loading} size="small" scroll={{ x: 1100 }}
+          pagination={{
+            current: pagination.current, pageSize: pagination.pageSize, total: pagination.total,
+            showSizeChanger: true, showQuickJumper: true,
+            showTotal: t => `共 ${t} 条`,
+            onChange: (p, ps) => { setPagination(prev => ({ ...prev, current: p, pageSize: ps })); loadOrders(p); }
+          }} />
+      </Card>
 
       {/* 新建销售单 */}
       <Modal title="新建销售单" open={orderModal} onOk={handleCreateOrder} onCancel={() => setOrderModal(false)} width={700} okText="提交" style={{ top: 20 }}>
@@ -224,7 +322,7 @@ const Sales: React.FC = () => {
               <Descriptions.Item label="客户">{currentOrder.customer_name || '-'}</Descriptions.Item>
               <Descriptions.Item label="类型">{typeMap[currentOrder.order_type] || currentOrder.order_type}</Descriptions.Item>
               <Descriptions.Item label="日期">{currentOrder.order_date?.slice(0, 10)}</Descriptions.Item>
-              <Descriptions.Item label="支付方式">{currentOrder.payment_method}</Descriptions.Item>
+              <Descriptions.Item label="支付方式">{payMap[currentOrder.payment_method] || currentOrder.payment_method}</Descriptions.Item>
               <Descriptions.Item label="总金额">¥{Number(currentOrder.total_amount || 0).toFixed(2)}</Descriptions.Item>
               <Descriptions.Item label="实收">¥{Number(currentOrder.actual_amount || 0).toFixed(2)}</Descriptions.Item>
             </Descriptions>
@@ -233,7 +331,7 @@ const Sales: React.FC = () => {
                 { title: '商品', dataIndex: 'product_name' },
                 { title: '数量', dataIndex: 'quantity' },
                 { title: '单价', dataIndex: 'unit_price', render: (v: number) => `¥${Number(v).toFixed(2)}` },
-                { title: '小计', dataIndex: 'subtotal', render: (v: number) => `¥${Number(v).toFixed(2)}` }
+                { title: '小计', render: (_: any, r: any) => `¥${(Number(r.quantity) * Number(r.unit_price)).toFixed(2)}` }
               ]} />
           </>
         )}

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Row, Col, Statistic, Typography, Alert, Tag, Button, Input, Modal, message } from 'antd';
+import { Card, Row, Col, Statistic, Typography, Alert, Tag, Button, Input, Modal, message, Tooltip } from 'antd';
 import {
   DollarOutlined, ShoppingCartOutlined, WarningOutlined,
   RiseOutlined, FallOutlined, AppstoreOutlined,
   ShoppingOutlined, DatabaseOutlined, BarChartOutlined,
   AccountBookOutlined, RobotOutlined,
-  ThunderboltOutlined, InboxOutlined
+  ThunderboltOutlined, InboxOutlined, ArrowRightOutlined,
+  WalletOutlined, AuditOutlined, SettingOutlined, RightOutlined
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import ReactECharts from 'echarts-for-react';
@@ -19,17 +20,26 @@ const tenantIcons: Record<string, string> = {
   supply_coop: '🏘️', market_vendor: '🥬', retail_store: '🏪', ecommerce: '🛒'
 };
 
-// 九宫格功能入口
+// 九宫格功能入口（按电商个体户日常使用频率排序）
 const gridModules = [
-  { key: 'purchase', icon: <AccountBookOutlined />, label: '采购管理', path: '/purchase', color: '#1677ff', bg: '#e6f4ff' },
-  { key: 'sales', icon: <ShoppingCartOutlined />, label: '销售管理', path: '/sales', color: '#52c41a', bg: '#f6ffed' },
-  { key: 'pos', icon: <ThunderboltOutlined />, label: 'POS收银', path: '/pos', color: '#fa8c16', bg: '#fff7e6' },
-  { key: 'products', icon: <ShoppingOutlined />, label: '商品管理', path: '/products', color: '#722ed1', bg: '#f9f0ff' },
-  { key: 'inventory', icon: <DatabaseOutlined />, label: '库存管理', path: '/inventory', color: '#13c2c2', bg: '#e6fffb' },
-  { key: 'finance', icon: <BarChartOutlined />, label: '财务管理', path: '/finance', color: '#eb2f96', bg: '#fff0f6' },
-  { key: 'warehouses', icon: <InboxOutlined />, label: '仓库管理', path: '/warehouses', color: '#fa541c', bg: '#fff2e8' },
-  { key: 'analytics', icon: <RiseOutlined />, label: '数据分析', path: '/analytics', color: '#2f54eb', bg: '#f0f5ff' },
-  { key: 'ai', icon: <RobotOutlined />, label: 'AI助手', path: '/ai', color: '#52c41a', bg: '#f6ffed' },
+  { key: 'pos', icon: <ThunderboltOutlined />, label: 'POS收银', sub: '快速开单收款', path: '/pos', color: '#fa8c16', bg: '#fff7e6' },
+  { key: 'sales', icon: <ShoppingCartOutlined />, label: '销售订单', sub: '订单/查询/对账', path: '/sales', color: '#52c41a', bg: '#f6ffed' },
+  { key: 'purchase', icon: <AccountBookOutlined />, label: '采购入库', sub: '进货/供应商', path: '/purchase', color: '#1677ff', bg: '#e6f4ff' },
+  { key: 'inventory', icon: <DatabaseOutlined />, label: '库存查询', sub: '实时库存/预警', path: '/inventory', color: '#13c2c2', bg: '#e6fffb' },
+  { key: 'finance', icon: <WalletOutlined />, label: '收支记账', sub: '日常收支流水', path: '/finance', color: '#eb2f96', bg: '#fff0f6' },
+  { key: 'vouchers', icon: <AuditOutlined />, label: '记账凭证', sub: '凭证/审核/盖章', path: '/vouchers', color: '#fa541c', bg: '#fff2e8' },
+  { key: 'products', icon: <ShoppingOutlined />, label: '商品管理', sub: '档案/定价/分类', path: '/products', color: '#722ed1', bg: '#f9f0ff' },
+  { key: 'analytics', icon: <BarChartOutlined />, label: '经营分析', sub: '趋势/利润/排行', path: '/analytics', color: '#2f54eb', bg: '#f0f5ff' },
+  { key: 'settings', icon: <SettingOutlined />, label: '系统设置', sub: '账套/员工/印章', path: '/settings', color: '#595959', bg: '#fafafa' },
+];
+
+// 新手操作流程指引（带箭头）
+const flowSteps = [
+  { label: '建商品', path: '/products', tip: '先录入商品档案和售价' },
+  { label: '采购入库', path: '/purchase', tip: '进货后入库增加库存' },
+  { label: '收银/销售', path: '/pos', tip: 'POS开单自动扣库存' },
+  { label: '收支凭证', path: '/finance', tip: '记账并生成凭证' },
+  { label: '看报表', path: '/analytics', tip: '分析利润和经营情况' },
 ];
 
 const Dashboard: React.FC = () => {
@@ -167,24 +177,43 @@ const Dashboard: React.FC = () => {
         </Col>
       </Row>
 
+      {/* 新手操作流程指引 */}
+      <Card size="small" style={{ marginBottom: 16, background: 'linear-gradient(90deg, #e6f4ff 0%, #f6ffed 100%)', border: '1px solid #91caff' }} bodyStyle={{ padding: '10px 12px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 4 }}>
+          <Text type="secondary" style={{ fontSize: 12, marginRight: 4 }}>📍 标准业务流程：</Text>
+          {flowSteps.map((s, i) => (
+            <React.Fragment key={s.label}>
+              <Tooltip title={s.tip}>
+                <a onClick={() => navigate(s.path)} style={{ fontSize: 13, color: '#1677ff', whiteSpace: 'nowrap' }}>{s.label}</a>
+              </Tooltip>
+              {i < flowSteps.length - 1 && <ArrowRightOutlined style={{ color: '#1677ff', fontSize: 12 }} />}
+            </React.Fragment>
+          ))}
+        </div>
+      </Card>
+
       {/* 九宫格功能区 */}
       <Card size="small" style={{ marginBottom: 16 }} bodyStyle={{ padding: 12 }}>
         <Row gutter={[8, 8]}>
           {gridModules.map(m => (
             <Col xs={8} sm={8} md={8} key={m.key}>
-              <div
-                onClick={() => navigate(m.path)}
-                style={{
-                  display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-                  padding: '16px 8px', borderRadius: 10, cursor: 'pointer', transition: 'all 0.2s',
-                  background: m.bg, border: `1px solid ${m.bg}`,
-                }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'; (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)'; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = ''; (e.currentTarget as HTMLElement).style.boxShadow = ''; }}
-              >
-                <div style={{ fontSize: 28, color: m.color, marginBottom: 6 }}>{m.icon}</div>
-                <Text strong style={{ fontSize: 13, color: '#333' }}>{m.label}</Text>
-              </div>
+              <Tooltip title={`${m.label}：${m.sub}`} placement="top">
+                <div
+                  onClick={() => navigate(m.path)}
+                  style={{
+                    display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                    padding: '14px 8px', borderRadius: 10, cursor: 'pointer', transition: 'all 0.2s',
+                    background: m.bg, border: `1px solid ${m.bg}`, position: 'relative',
+                  }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)'; (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)'; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.transform = ''; (e.currentTarget as HTMLElement).style.boxShadow = ''; }}
+                >
+                  <RightOutlined style={{ position: 'absolute', top: 8, right: 8, fontSize: 10, color: m.color, opacity: 0.5 }} />
+                  <div style={{ fontSize: 26, color: m.color, marginBottom: 4 }}>{m.icon}</div>
+                  <Text strong style={{ fontSize: 13, color: '#333' }}>{m.label}</Text>
+                  <Text type="secondary" style={{ fontSize: 11, lineHeight: 1.4 }}>{m.sub}</Text>
+                </div>
+              </Tooltip>
             </Col>
           ))}
         </Row>

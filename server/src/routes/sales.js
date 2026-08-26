@@ -21,34 +21,40 @@ const generateOrderNo = async (tenantId, type = 'S') => {
 // 获取销售单列表
 router.get('/', async (req, res) => {
   try {
-    const { page = 1, pageSize = 20, status, orderType, startDate, endDate } = req.query;
+    const { page = 1, pageSize = 20, status, orderType, paymentMethod, startDate, endDate, keyword, minAmount, maxAmount } = req.query;
     const offset = (page - 1) * pageSize;
     let where = 'WHERE so.tenant_id = ?';
     const params = [req.tenantId];
 
     if (status) { where += ' AND so.status = ?'; params.push(status); }
     if (orderType) { where += ' AND so.order_type = ?'; params.push(orderType); }
+    if (paymentMethod) { where += ' AND so.payment_method = ?'; params.push(paymentMethod); }
     if (startDate) { where += ' AND so.order_date >= ?'; params.push(startDate); }
-    if (endDate) { where += ' AND so.order_date <= ?'; params.push(endDate); }
+    if (endDate) { where += ' AND so.order_date <= ?'; params.push(endDate + ' 23:59:59'); }
+    if (minAmount) { where += ' AND so.actual_amount >= ?'; params.push(parseFloat(minAmount)); }
+    if (maxAmount) { where += ' AND so.actual_amount <= ?'; params.push(parseFloat(maxAmount)); }
+    if (keyword) {
+      where += ' AND (so.order_no LIKE ? OR c.name LIKE ? OR EXISTS (SELECT 1 FROM sale_items si JOIN products p2 ON si.product_id = p2.id WHERE si.sales_order_id = so.id AND p2.name LIKE ?))';
+      params.push(`%${keyword}%`, `%${keyword}%`, `%${keyword}%`);
+    }
 
-    const [countResult] = await pool.query(`SELECT COUNT(*) as total FROM sales_orders so ${where}`, params);
+    const [countResult] = await pool.query(`SELECT COUNT(DISTINCT so.id) as total FROM sales_orders so LEFT JOIN customers c ON so.customer_id = c.id ${where}`, params);
 
-    const [orders] = await pool.query(
-      `SELECT so.*, c.name as customer_name, u.real_name as operator_name
+    let sql = `SELECT so.*, c.name as customer_name, c.phone as customer_phone, u.real_name as operator_name
        FROM sales_orders so
        LEFT JOIN customers c ON so.customer_id = c.id
        LEFT JOIN users u ON so.operator_id = u.id
-       ${where}
-       ORDER BY so.order_date DESC, so.id DESC
-       LIMIT ? OFFSET ?`,
-      [...params, parseInt(pageSize), offset]
-    );
+       ${where}`;
+    sql += ` ORDER BY so.order_date DESC, so.id DESC LIMIT ? OFFSET ?`;
+
+    const [orders] = await pool.query(sql, [...params, parseInt(pageSize), offset]);
 
     res.json({
       code: 0,
       data: { list: orders, total: countResult[0].total, page: parseInt(page), pageSize: parseInt(pageSize) }
     });
   } catch (err) {
+    console.error('销售列表错误:', err);
     res.status(500).json({ code: 500, message: '获取销售单列表失败' });
   }
 });

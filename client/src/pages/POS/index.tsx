@@ -89,8 +89,9 @@ const POS: React.FC = () => {
           unitPrice: item.price
         }))
       });
-      message.success(`收款成功！共 ¥${res.data?.actualAmount.toFixed(2)}`);
-      voiceService.speakSale(res.data?.actualAmount, paymentMethod);
+      const amount = Number(res.data?.data?.actualAmount ?? totalAmount);
+      message.success(`收款成功！共 ¥${amount.toFixed(2)}`);
+      voiceService.speakSale(amount, paymentMethod);
       setCart([]);
       setPaymentVisible(false);
       loadProducts();

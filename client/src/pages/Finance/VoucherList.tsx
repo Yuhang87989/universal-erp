@@ -5,7 +5,7 @@ import {
 } from 'antd';
 import {
   PlusOutlined, DeleteOutlined, CheckOutlined, StopOutlined,
-  FileTextOutlined, AuditOutlined
+  FileTextOutlined, AuditOutlined, SafetyCertificateOutlined
 } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import request from '../../api/request';
@@ -44,6 +44,50 @@ const VoucherList: React.FC = () => {
   const [items, setItems] = useState<any[]>([
     { key: Date.now(), account_id: undefined, summary: '', debit_amount: 0, credit_amount: 0 }
   ]);
+  const [sealList, setSealList] = useState<any[]>([]);
+  const [stamping, setStamping] = useState(false);
+
+  // 加载印章列表
+  const loadSeals = async () => {
+    try {
+      const res = await request.get('/seals');
+      setSealList(res.data?.data || res.data || []);
+    } catch { /* ignore */ }
+  };
+
+  useEffect(() => { loadSeals(); }, []);
+
+  // 给凭证盖章
+  const handleStamp = async (sealId: number) => {
+    if (!detail?.id) return;
+    setStamping(true);
+    try {
+      await request.post(`/seals/${sealId}/stamp`, { voucher_id: detail.id });
+      message.success('盖章成功');
+      // 刷新详情
+      const res = await request.get(`/vouchers/${detail.id}`);
+      setDetail(res.data?.data || res.data);
+      loadVouchers(page);
+    } catch (e: any) {
+      message.error(e.response?.data?.message || e.message || '盖章失败');
+    } finally {
+      setStamping(false);
+    }
+  };
+
+  // 取消盖章
+  const handleUnstamp = async (sealId: number) => {
+    if (!detail?.id) return;
+    try {
+      await request.delete(`/seals/${sealId}/stamp/${detail.id}`);
+      message.success('已取消盖章');
+      const res = await request.get(`/vouchers/${detail.id}`);
+      setDetail(res.data?.data || res.data);
+      loadVouchers(page);
+    } catch (e: any) {
+      message.error(e.response?.data?.message || '取消失败');
+    }
+  };
 
   const loadVouchers = useCallback(async (p = 1) => {
     setLoading(true);
@@ -415,14 +459,61 @@ const VoucherList: React.FC = () => {
                 </tr>
               </tbody>
             </table>
-            {detail.seals?.length > 0 && (
-              <div style={{ marginTop: 16 }}>
-                <Text type="secondary">盖章：</Text>
-                {detail.seals.map((s: any) => (
-                  <Tag key={s.id} color="red">{s.seal_name}{s.seal_code ? ` (${s.seal_code})` : ''}</Tag>
-                ))}
+            {/* 盖章区域 */}
+            <div style={{ marginTop: 16, padding: 12, background: '#fafafa', borderRadius: 6, border: '1px dashed #d9d9d9' }}>
+              <div style={{ marginBottom: 8, display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 8 }}>
+                <Space>
+                  <SafetyCertificateOutlined style={{ color: '#cf1322' }} />
+                  <Text strong>印章</Text>
+                  <Text type="secondary" style={{ fontSize: 12 }}>（可选择加盖公章/财务章/法人章）</Text>
+                </Space>
+                {detail.status !== 'void' && (
+                  <Select
+                    placeholder="选择印章加盖"
+                    size="small"
+                    style={{ width: 180 }}
+                    loading={stamping}
+                    onSelect={handleStamp}
+                    value={undefined}
+                    options={sealList
+                      .filter(s => !(detail.seals || []).some((d: any) => d.seal_id === s.id))
+                      .map((s: any) => ({
+                        label: `${s.seal_name}${s.seal_code ? '（已备案）' : ''}`,
+                        value: s.id,
+                      }))}
+                  />
+                )}
               </div>
-            )}
+              {detail.seals?.length > 0 ? (
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
+                  {detail.seals.map((s: any) => (
+                    <div key={s.id} style={{ textAlign: 'center' }}>
+                      {s.image_url ? (
+                        <img
+                          src={s.image_url}
+                          alt={s.seal_name}
+                          style={{ width: 90, height: 90, objectFit: 'contain', transform: 'rotate(-8deg)' }}
+                        />
+                      ) : (
+                        <div style={{ width: 90, height: 90, border: '2px solid #cf1322', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#cf1322', fontSize: 12, fontWeight: 'bold', padding: 4, transform: 'rotate(-8deg)' }}>
+                          {s.seal_name}
+                        </div>
+                      )}
+                      <div style={{ marginTop: 4 }}>
+                        <Tag color="red" style={{ marginRight: 4 }}>{s.seal_name}</Tag>
+                        {detail.status !== 'void' && (
+                          <Popconfirm title="取消该印章？" onConfirm={() => handleUnstamp(s.seal_id)}>
+                            <Button type="link" size="small" danger style={{ padding: 0, fontSize: 12 }}>取消</Button>
+                          </Popconfirm>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <Text type="secondary" style={{ fontSize: 12 }}>暂未盖章，请从右上方选择需要加盖的印章</Text>
+              )}
+            </div>
             <Row gutter={16} style={{ marginTop: 16 }}>
               <Col span={8}><Text type="secondary">制单人：</Text>{detail.creator_name}</Col>
               <Col span={8}><Text type="secondary">审核人：</Text>{detail.auditor_name || '-'}</Col>
