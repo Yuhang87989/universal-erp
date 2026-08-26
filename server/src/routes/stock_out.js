@@ -112,9 +112,9 @@ router.post('/', requireRole('owner', 'manager', 'warehouse'), async (req, res) 
     const orderNo = await genOrderNo(req.tenantId);
     let totalAmount = 0;
     for (const item of items) {
-      const [prod] = await pool.query('SELECT cost_price FROM products WHERE id = ? AND tenant_id = ?', [item.product_id, req.tenantId]);
-      item._unit_cost = prod[0]?.cost_price || 0;
-      totalAmount += (item.quantity || 0) * (item._unit_cost || 0);
+      const [inv] = await pool.query('SELECT avg_cost FROM inventory WHERE tenant_id = ? AND product_id = ? AND warehouse_id = ?', [req.tenantId, item.product_id, warehouse_id]);
+      item._unit_cost = inv[0] ? parseFloat(inv[0].avg_cost || 0) : 0;
+      totalAmount += (item.quantity || 0) * item._unit_cost;
     }
 
     const conn = await pool.getConnection();
@@ -165,14 +165,19 @@ router.post('/:id/confirm', requireRole('owner', 'manager', 'warehouse'), async 
         return res.status(400).json({ code: 400, message: `商品库存不足，无法出库` });
       }
       const beforeQty = parseFloat(inv[0].quantity);
-      const afterQty = beforeQty - parseFloat(item.quantity);
+      const avgCost = parseFloat(inv[0].avg_cost || 0);
+      const outQty = parseFloat(item.quantity);
+      const afterQty = beforeQty - outQty;
       await conn.query('UPDATE inventory SET quantity = ? WHERE id = ?', [afterQty, inv[0].id]);
+
+      // 更新出库明细的实际成本
+      await conn.query('UPDATE stock_out_items SET unit_cost = ? WHERE id = ?', [avgCost, item.id]);
 
       await conn.query(
         `INSERT INTO inventory_logs (tenant_id, product_id, warehouse_id, change_type, quantity, before_quantity, after_quantity, unit_cost, reference_type, reference_id, operator_id, remark)
          VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'stock_out', ?, ?, ?)`,
-        [req.tenantId, item.product_id, order.warehouse_id, 'stock_out', -item.quantity, beforeQty, afterQty,
-         item.unit_cost, order.id, req.user.id, `${typeMap[order.out_type] || '出库'} - ${order.order_no}`]
+        [req.tenantId, item.product_id, order.warehouse_id, 'stock_out', -outQty, beforeQty, afterQty,
+         avgCost, order.id, req.user.id, `${typeMap[order.out_type] || '出库'} - ${order.order_no}`]
       );
     }
 

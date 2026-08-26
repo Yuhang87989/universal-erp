@@ -294,45 +294,55 @@ router.post('/orders/:id/receive', async (req, res) => {
 
       if (actualQty <= 0) { allReceived = false; continue; }
 
-      // upsert 库存（先查再决定insert/update），带warehouse_id
+      // 移动加权平均成本计算
       const [invRows] = await conn.query(
-        `SELECT id, quantity FROM inventory WHERE product_id = ? AND tenant_id = ? AND warehouse_id = ?`,
+        `SELECT id, quantity, avg_cost FROM inventory WHERE product_id = ? AND tenant_id = ? AND warehouse_id = ?`,
         [item.product_id, tenantId, wid]
       );
-      let beforeQty = 0;
+      let beforeQty = 0, beforeAvgCost = 0;
       if (invRows.length) {
         beforeQty = parseFloat(invRows[0].quantity);
+        beforeAvgCost = parseFloat(invRows[0].avg_cost || 0);
+      }
+      const inQty = parseFloat(actualQty);
+      const inCost = parseFloat(item.unit_cost || 0);
+      const afterQty = beforeQty + inQty;
+      // 加权平均单位成本 = (原库存成本 + 本次入库成本) / (原数量 + 本次数量)
+      const afterAvgCost = afterQty > 0
+        ? (beforeQty * beforeAvgCost + inQty * inCost) / afterQty
+        : inCost;
+
+      if (invRows.length) {
         await conn.query(
-          `UPDATE inventory SET quantity = quantity + ? WHERE id = ?`,
-          [actualQty, invRows[0].id]
+          `UPDATE inventory SET quantity = ?, avg_cost = ? WHERE id = ?`,
+          [afterQty, afterAvgCost.toFixed(4), invRows[0].id]
         );
       } else {
         await conn.query(
-          `INSERT INTO inventory (tenant_id, product_id, warehouse_id, quantity) VALUES (?, ?, ?, ?)`,
-          [tenantId, item.product_id, wid, actualQty]
+          `INSERT INTO inventory (tenant_id, product_id, warehouse_id, quantity, avg_cost) VALUES (?, ?, ?, ?, ?)`,
+          [tenantId, item.product_id, wid, afterQty, afterAvgCost.toFixed(4)]
         );
       }
-      const afterQty = beforeQty + parseFloat(actualQty);
 
-      // 库存流水（带warehouse_id）
+      // 库存流水（带warehouse_id和单位成本）
       await conn.query(
         `INSERT INTO inventory_logs (tenant_id, product_id, warehouse_id, change_type, quantity, before_quantity, after_quantity, unit_cost, reference_type, reference_id, operator_id, remark)
          VALUES (?, ?, ?, 'purchase', ?, ?, ?, ?, 'purchase_order', ?, ?, ?)`,
-        [tenantId, item.product_id, wid, actualQty, beforeQty, afterQty, item.unit_cost, order.id, req.user.id, `采购入库 - 单号: ${order.order_no}`]
+        [tenantId, item.product_id, wid, inQty, beforeQty, afterQty, inCost, order.id, req.user.id, `采购入库 - 单号: ${order.order_no}`]
       );
 
       // 更新已入库数量
-      const newReceived = parseFloat(item.received_quantity || 0) + parseFloat(actualQty);
+      const newReceived = parseFloat(item.received_quantity || 0) + inQty;
       await conn.query(
         `UPDATE purchase_items SET received_quantity = ? WHERE id = ?`,
         [newReceived, item.id]
       );
       if (newReceived < parseFloat(item.quantity) - 0.001) allReceived = false;
 
-      // 更新商品成本价（移动加权：取最新进价）
+      // 同步商品主成本价（取所有仓库加权成本的最新值）
       await conn.query(
         `UPDATE products SET cost_price = ? WHERE id = ? AND tenant_id = ?`,
-        [item.unit_cost, item.product_id, tenantId]
+        [afterAvgCost.toFixed(4), item.product_id, tenantId]
       );
     }
 

@@ -80,37 +80,57 @@ router.post('/', async (req, res) => {
       [req.tenantId, orderNo, orderType, customerId || null, totalAmount, discountAmount, actualAmount, actualAmount, paymentMethod, remark || null, req.user.id]
     );
 
-    // 添加明细 & 扣减库存
+    // 添加明细 & 扣减库存（按加权平均成本结转）
+    let totalCost = 0;
     for (const item of items) {
-      await conn.query(
-        'INSERT INTO sale_items (sales_order_id, product_id, quantity, unit_price, discount) VALUES (?, ?, ?, ?, ?)',
-        [orderResult.insertId, item.productId, item.quantity, item.unitPrice, item.discount || 0]
-      );
-
-      // 扣减库存
-      const [inv] = await conn.query(
-        'SELECT quantity FROM inventory WHERE tenant_id = ? AND product_id = ?',
+      const outQty = parseFloat(item.quantity);
+      // 查库存（取该商品所有仓库合计，优先默认仓库）
+      const [invList] = await conn.query(
+        'SELECT id, quantity, avg_cost, warehouse_id FROM inventory WHERE tenant_id = ? AND product_id = ? AND quantity > 0 ORDER BY warehouse_id ASC',
         [req.tenantId, item.productId]
       );
-      const beforeQty = inv.length ? parseFloat(inv[0].quantity) : 0;
-      const afterQty = beforeQty - parseFloat(item.quantity);
-
-      if (afterQty < 0) {
-        throw new Error(`商品库存不足，无法销售`);
+      const totalStock = invList.reduce((s, r) => s + parseFloat(r.quantity), 0);
+      if (totalStock < outQty) {
+        throw new Error('商品库存不足，无法销售');
       }
 
+      // 加权平均成本（跨仓库加权）
+      const totalStockCost = invList.reduce((s, r) => s + parseFloat(r.quantity) * parseFloat(r.avg_cost || 0), 0);
+      const weightedAvgCost = totalStock > 0 ? totalStockCost / totalStock : 0;
+      const lineCost = weightedAvgCost * outQty;
+      totalCost += lineCost;
+
+      // 插入销售明细（含单位成本和成本小计）
       await conn.query(
-        'UPDATE inventory SET quantity = ? WHERE tenant_id = ? AND product_id = ?',
-        [afterQty, req.tenantId, item.productId]
+        'INSERT INTO sale_items (sales_order_id, product_id, quantity, unit_price, unit_cost, cost_amount, discount) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        [orderResult.insertId, item.productId, outQty, item.unitPrice, weightedAvgCost.toFixed(4), lineCost.toFixed(2), item.discount || 0]
       );
 
-      // 记录库存流水
-      await conn.query(
-        `INSERT INTO inventory_logs (tenant_id, product_id, change_type, quantity, before_quantity, after_quantity, reference_type, reference_id, operator_id)
-         VALUES (?, ?, 'sale', ?, ?, ?, 'sales_order', ?, ?)`,
-        [req.tenantId, item.productId, -parseFloat(item.quantity), beforeQty, afterQty, orderResult.insertId, req.user.id]
-      );
+      // 按仓库依次扣减库存（FIFO跨仓扣减，avg_cost不变）
+      let remaining = outQty;
+      for (const inv of invList) {
+        if (remaining <= 0) break;
+        const qtyInWh = parseFloat(inv.quantity);
+        const deduct = Math.min(qtyInWh, remaining);
+        const afterQty = qtyInWh - deduct;
+        await conn.query(
+          'UPDATE inventory SET quantity = ? WHERE id = ?',
+          [afterQty, inv.id]
+        );
+        await conn.query(
+          `INSERT INTO inventory_logs (tenant_id, product_id, warehouse_id, change_type, quantity, before_quantity, after_quantity, unit_cost, reference_type, reference_id, operator_id, remark)
+           VALUES (?, ?, ?, 'sale', ?, ?, ?, ?, 'sales_order', ?, ?, '销售出库')`,
+          [req.tenantId, item.productId, inv.warehouse_id, -deduct, qtyInWh, afterQty, weightedAvgCost.toFixed(4), orderResult.insertId, req.user.id]
+        );
+        remaining -= deduct;
+      }
     }
+
+    // 更新销售单成本合计
+    await conn.query(
+      'UPDATE sales_orders SET total_cost = ? WHERE id = ?',
+      [totalCost.toFixed(2), orderResult.insertId]
+    );
 
     // 更新客户累计消费
     if (customerId) {

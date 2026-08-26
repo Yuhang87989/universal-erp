@@ -35,6 +35,8 @@ const MODULES = [
     { key: 'finance:reports', name: '财务报表' },
     { key: 'finance:receivables', name: '应收应付' },
     { key: 'finance:period-close', name: '期末结转' },
+    { key: 'finance:assets', name: '固定资产' },
+    { key: 'finance:fund', name: '资金账户' },
   ]},
   { key: 'analytics', name: '数据分析', group: '数据分析', children: [
     { key: 'analytics:overview', name: '数据分析中心' },
@@ -63,7 +65,7 @@ const ROLE_DEFAULTS = {
     'warehouse:stock-out', 'warehouse:transfers', 'warehouse:stocktake', 'warehouse:alerts',
     'finance', 'finance:records', 'finance:vouchers', 'finance:accounts',
     'finance:trial-balance', 'finance:seals', 'finance:payment',
-    'finance:reports', 'finance:receivables', 'finance:period-close',
+    'finance:reports', 'finance:receivables', 'finance:period-close', 'finance:assets', 'finance:fund',
     'analytics', 'analytics:overview', 'analytics:reports',
     'ai', 'ai:chat',
     'data', 'data:products', 'data:customers', 'data:ecommerce',
@@ -82,7 +84,7 @@ const ROLE_DEFAULTS = {
   accountant: [
     'dashboard', 'finance', 'finance:records', 'finance:vouchers',
     'finance:accounts', 'finance:trial-balance', 'finance:seals',
-    'finance:reports', 'finance:receivables', 'finance:period-close',
+    'finance:reports', 'finance:receivables', 'finance:period-close', 'finance:assets', 'finance:fund',
     'analytics:reports', 'purchase:order', 'purchase:suppliers',
   ],
 };

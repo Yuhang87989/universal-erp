@@ -28,6 +28,8 @@ import PaymentSettings from './pages/Finance/PaymentSettings';
 import FinancialReports from './pages/Finance/FinancialReports';
 import ReceivablesPage from './pages/Finance/Receivables';
 import PeriodClose from './pages/Finance/PeriodClose';
+import FixedAssets from './pages/Finance/FixedAssets';
+import FundManagement from './pages/Finance/FundManagement';
 import Analytics from './pages/Analytics';
 import Alerts from './pages/Alerts';
 import AICenter from './pages/AI';
@@ -108,6 +110,8 @@ const App: React.FC = () => {
         <Route path="finance-reports" element={<FinancialReports />} />
         <Route path="receivables" element={<ReceivablesPage />} />
         <Route path="period-close" element={<PeriodClose />} />
+        <Route path="fixed-assets" element={<FixedAssets />} />
+        <Route path="fund" element={<FundManagement />} />
         <Route path="warehouses" element={<Warehouses />} />
         <Route path="stock-in" element={<StockIn />} />
         <Route path="stock-out" element={<StockOut />} />

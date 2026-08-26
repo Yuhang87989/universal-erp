@@ -142,20 +142,25 @@ router.post('/:id/confirm', requireRole('owner', 'manager', 'warehouse'), async 
     const [items] = await conn.query('SELECT * FROM stock_in_items WHERE stock_in_id = ?', [order.id]);
 
     for (const item of items) {
-      // 查当前库存
+      // 查当前库存（带avg_cost）
       const [inv] = await conn.query(
-        'SELECT quantity FROM inventory WHERE tenant_id = ? AND product_id = ? AND warehouse_id = ?',
+        'SELECT id, quantity, avg_cost FROM inventory WHERE tenant_id = ? AND product_id = ? AND warehouse_id = ?',
         [req.tenantId, item.product_id, order.warehouse_id]
       );
       const beforeQty = inv.length ? parseFloat(inv[0].quantity) : 0;
-      const afterQty = beforeQty + parseFloat(item.quantity);
+      const beforeAvg = inv.length ? parseFloat(inv[0].avg_cost || 0) : 0;
+      const inQty = parseFloat(item.quantity);
+      const inCost = parseFloat(item.unit_cost || 0);
+      const afterQty = beforeQty + inQty;
+      // 加权平均成本
+      const afterAvg = afterQty > 0 ? (beforeQty * beforeAvg + inQty * inCost) / afterQty : inCost;
 
       if (inv.length) {
-        await conn.query('UPDATE inventory SET quantity = ? WHERE id = ?', [afterQty, inv[0].id]);
+        await conn.query('UPDATE inventory SET quantity = ?, avg_cost = ? WHERE id = ?', [afterQty, afterAvg.toFixed(4), inv[0].id]);
       } else {
         await conn.query(
-          'INSERT INTO inventory (tenant_id, product_id, warehouse_id, quantity) VALUES (?, ?, ?, ?)',
-          [req.tenantId, item.product_id, order.warehouse_id, afterQty]
+          'INSERT INTO inventory (tenant_id, product_id, warehouse_id, quantity, avg_cost) VALUES (?, ?, ?, ?, ?)',
+          [req.tenantId, item.product_id, order.warehouse_id, afterQty, afterAvg.toFixed(4)]
         );
       }
 
@@ -163,13 +168,13 @@ router.post('/:id/confirm', requireRole('owner', 'manager', 'warehouse'), async 
       await conn.query(
         `INSERT INTO inventory_logs (tenant_id, product_id, warehouse_id, change_type, quantity, before_quantity, after_quantity, unit_cost, reference_type, reference_id, operator_id, remark)
          VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'stock_in', ?, ?, ?)`,
-        [req.tenantId, item.product_id, order.warehouse_id, 'stock_in', item.quantity, beforeQty, afterQty,
-         item.unit_cost, order.id, req.user.id, `${typeMap[order.in_type] || '入库'} - ${order.order_no}`]
+        [req.tenantId, item.product_id, order.warehouse_id, 'stock_in', inQty, beforeQty, afterQty,
+         inCost, order.id, req.user.id, `${typeMap[order.in_type] || '入库'} - ${order.order_no}`]
       );
 
-      // 更新商品成本价（采购入库时）
-      if (order.in_type === 'purchase' && item.unit_cost > 0) {
-        await conn.query('UPDATE products SET cost_price = ? WHERE id = ? AND tenant_id = ?', [item.unit_cost, item.product_id, req.tenantId]);
+      // 更新商品成本价
+      if (item.unit_cost > 0) {
+        await conn.query('UPDATE products SET cost_price = ? WHERE id = ? AND tenant_id = ?', [afterAvg.toFixed(4), item.product_id, req.tenantId]);
       }
     }
 
