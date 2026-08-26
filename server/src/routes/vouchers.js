@@ -62,7 +62,8 @@ router.get('/', async (req, res) => {
 
     const [vouchers] = await pool.query(
       `SELECT v.*, 
-        u1.real_name as creator_name, u2.real_name as auditor_name
+        u1.real_name as creator_name, u2.real_name as auditor_name,
+        (SELECT COUNT(*) FROM voucher_seals vs WHERE vs.voucher_id = v.id) as seal_count
        FROM vouchers v
        LEFT JOIN users u1 ON v.creator_id = u1.id
        LEFT JOIN users u2 ON v.auditor_id = u2.id
@@ -133,6 +134,7 @@ router.get('/:id', async (req, res) => {
       data: {
         ...vouchers[0],
         items,
+        entries: items,
         seals
       }
     });
