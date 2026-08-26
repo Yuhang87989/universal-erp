@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Form, Input, Button, Select, message, Typography, Divider, Row, Col, Tag, Tabs, Table, Space, Modal, Popconfirm, Tree, Checkbox, Tooltip } from 'antd';
-import { SaveOutlined, ShopOutlined, DatabaseOutlined, LockOutlined, UserOutlined, TeamOutlined, FileTextOutlined, SettingOutlined, CloudSyncOutlined, ReloadOutlined, CheckCircleOutlined, ExclamationCircleOutlined, SafetyOutlined } from '@ant-design/icons';
+import { Card, Form, Input, Button, Select, message, Typography, Divider, Row, Col, Tag, Tabs, Table, Space, Modal, Popconfirm, Tree, Checkbox, Tooltip, Alert } from 'antd';
+import { SaveOutlined, ShopOutlined, DatabaseOutlined, LockOutlined, UserOutlined, TeamOutlined, FileTextOutlined, SettingOutlined, CloudSyncOutlined, ReloadOutlined, CheckCircleOutlined, ExclamationCircleOutlined, SafetyOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import request from '../../api/request';
 
 const { Title, Text } = Typography;
@@ -119,6 +119,9 @@ const Settings: React.FC = () => {
   const [updateInfo, setUpdateInfo] = useState<any>(null);
   const [updating, setUpdating] = useState(false);
   const [dbCheck, setDbCheck] = useState<any>(null);
+  const [newTenantModal, setNewTenantModal] = useState(false);
+  const [creatingTenant, setCreatingTenant] = useState(false);
+  const [newTenantForm] = Form.useForm();
 
   const loadSysInfo = async () => {
     try { const res = await request.get('/system/info'); setSysInfo(res.data?.data || res.data); } catch {}
@@ -135,6 +138,20 @@ const Settings: React.FC = () => {
   };
   const loadDbCheck = async () => {
     try { const res = await request.get('/system/db-check'); setDbCheck(res.data?.data || res.data); } catch {}
+  };
+  const handleCreateTenant = async () => {
+    try {
+      const values = await newTenantForm.validateFields();
+      setCreatingTenant(true);
+      const res = await request.post('/tenants', values);
+      message.success(res.data?.message || '帐套创建成功！管理员: admin / admin123');
+      setNewTenantModal(false);
+      newTenantForm.resetFields();
+      loadTenant();
+    } catch (e: any) {
+      if (e.errorFields) return;
+      message.error(e.response?.data?.message || '创建失败');
+    } finally { setCreatingTenant(false); }
   };
 
   const loadTenant = async () => {
@@ -311,6 +328,9 @@ const Settings: React.FC = () => {
                 <Text type="secondary">切换帐套请在左侧边栏顶部操作</Text>
               </div>
             )}
+            <Button type="primary" ghost icon={<PlusCircleOutlined />} onClick={() => { newTenantForm.resetFields(); setNewTenantModal(true); }} style={{ marginBottom: 16 }}>
+              新建帐套
+            </Button>
             <Form form={form} layout="vertical" style={{ maxWidth: 600 }}>
               <Form.Item name="name" label="帐套名称" rules={[{ required: true }]}><Input placeholder="如：宇航智荟电商营业部" /></Form.Item>
               <Form.Item name="ownerName" label="经营者"><Input placeholder="经营者姓名" /></Form.Item>
@@ -464,6 +484,32 @@ const Settings: React.FC = () => {
         <div style={{ marginTop: 12, textAlign: 'right' }}>
           <Button size="small" onClick={handleResetPerm}>重置为角色默认权限</Button>
         </div>
+      </Modal>
+
+      <Modal
+        title={<span><PlusCircleOutlined /> 新建帐套</span>}
+        open={newTenantModal}
+        onOk={handleCreateTenant}
+        onCancel={() => setNewTenantModal(false)}
+        confirmLoading={creatingTenant}
+        okText="创建帐套"
+        cancelText="取消"
+        width={520}
+      >
+        <Alert message="创建后自动生成管理员账号 admin / admin123，以及38个标准会计科目" type="info" showIcon style={{ marginBottom: 16, marginTop: 16 }} />
+        <Form form={newTenantForm} layout="vertical">
+          <Form.Item name="name" label="帐套/店铺名称" rules={[{ required: true, message: '请输入名称' }]}><Input placeholder="如：宇航智荟电商营业部" /></Form.Item>
+          <Row gutter={16}>
+            <Col span={12}><Form.Item name="ownerName" label="经营者姓名"><Input placeholder="经营者" /></Form.Item></Col>
+            <Col span={12}><Form.Item name="phone" label="联系电话"><Input placeholder="手机号" /></Form.Item></Col>
+          </Row>
+          <Form.Item name="creditCode" label="统一社会信用代码"><Input placeholder="18位信用代码（可选）" /></Form.Item>
+          <Form.Item name="address" label="地址"><Input placeholder="详细地址" /></Form.Item>
+          <Form.Item name="businessType" label="行业类型" initialValue="ecommerce">
+            <Select options={[{ value: 'retail', label: '零售门店' },{ value: 'supply_coop', label: '农村供销社' },{ value: 'market', label: '菜市场商户' },{ value: 'ecommerce', label: '电商' },{ value: 'other', label: '其他' }]} />
+          </Form.Item>
+          <Form.Item name="businessDesc" label="业务描述"><Input.TextArea rows={2} placeholder="业务范围（可选）" /></Form.Item>
+        </Form>
       </Modal>
     </div>
   );
