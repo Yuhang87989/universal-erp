@@ -5,6 +5,8 @@ import AIChat from './AIChat';
 import AIDiagnosis from './AIDiagnosis';
 import AIReplenish from './AIReplenish';
 import AICopywriting from './AICopywriting';
+import AIForecast from './AIForecast';
+import OCRReceipt from './OCRReceipt';
 import AISettings from './AISettings';
 
 const { Title } = Typography;
@@ -27,21 +29,19 @@ const AICenter: React.FC = () => {
       children: <AIReplenish />
     },
     {
+      key: 'forecast',
+      label: <span><LineChartOutlined /> 销售预测</span>,
+      children: <AIForecast />
+    },
+    {
       key: 'copywriting',
       label: <span><EditOutlined /> AI文案生成</span>,
       children: <AICopywriting />
     },
     {
-      key: 'forecast',
-      label: <span><LineChartOutlined /> 销售预测</span>,
-      disabled: true,
-      children: <div style={{ padding: 40, textAlign: 'center', color: '#999' }}>销售预测功能开发中，敬请期待</div>
-    },
-    {
       key: 'ocr',
       label: <span><ScanOutlined /> 票据识别</span>,
-      disabled: true,
-      children: <div style={{ padding: 40, textAlign: 'center', color: '#999' }}>OCR票据识别功能开发中，敬请期待</div>
+      children: <OCRReceipt />
     },
     {
       key: 'settings',
