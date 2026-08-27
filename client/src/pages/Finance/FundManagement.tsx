@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Card, Table, Button, Modal, Form, Input, InputNumber, Select, DatePicker, Space, Tag, message, Tabs, Statistic, Row, Col, Popconfirm } from 'antd';
 import { PlusOutlined, WalletOutlined, SwapOutlined, ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 import request from '../../api/request';
+import FundImport from './FundImport';
 import dayjs from 'dayjs';
 
 const { TextArea } = Input;
@@ -160,6 +161,7 @@ const FundManagement: React.FC = () => {
               <Button icon={<SwapOutlined />} onClick={() => { transferForm.resetFields(); transferForm.setFieldsValue({ tx_date: dayjs() }); setTransferModal(true); }}>
                 账户转账
               </Button>
+              <FundImport onSuccess={() => { loadAccounts(); loadTx(); }} />
             </Space>
             <Table rowKey="id" dataSource={accounts} pagination={false}
               columns={[

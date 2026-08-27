@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Card, Table, Button, Input, Space, Modal, Form, Select, InputNumber, message, Tag, Typography, Tabs, Tree, Row, Col } from 'antd';
 import { PlusOutlined, SearchOutlined, EditOutlined, DeleteOutlined, AppstoreOutlined } from '@ant-design/icons';
 import request from '../../api/request';
+import ProductImport from './ProductImport';
 
 const { Title } = Typography;
 
@@ -224,6 +225,7 @@ const Products: React.FC = () => {
                 allowClear
               />
               <Button type="primary" icon={<PlusOutlined />} onClick={handleAdd}>添加商品</Button>
+              <ProductImport onSuccess={loadProducts} />
             </Space>
           </Card>
           <Table
