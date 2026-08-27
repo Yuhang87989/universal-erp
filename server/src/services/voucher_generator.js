@@ -28,17 +28,18 @@ async function getDefaultBookId(conn, tenantId, bookId) {
  * 按科目代码前缀查找科目ID（自动兼容不同会计准则）
  * 优先精确匹配，其次前缀匹配
  */
-async function findAccountId(conn, tenantId, codeCandidates, nameKeyword) {
+async function findAccountId(conn, bookId, codeCandidates, nameKeyword) {
   // codeCandidates 是候选代码数组，如 ['1001','1002']
   // nameKeyword 是科目名称关键字，如 '库存现金'
-  if (!accountCache[tenantId]) {
+  const cacheKey = `book_${bookId}`;
+  if (!accountCache[cacheKey]) {
     const [accounts] = await conn.query(
-      'SELECT id, code, name FROM accounting_accounts WHERE tenant_id = ? AND is_active = 1',
-      [tenantId]
+      'SELECT id, code, name FROM accounting_accounts WHERE book_id = ? AND is_enabled = 1',
+      [bookId]
     );
-    accountCache[tenantId] = accounts;
+    accountCache[cacheKey] = accounts;
   }
-  const accounts = accountCache[tenantId];
+  const accounts = accountCache[cacheKey];
 
   // 1. 精确代码匹配（只匹配一级科目，不含小数点）
   for (const code of codeCandidates) {
@@ -69,7 +70,7 @@ async function findAccountId(conn, tenantId, codeCandidates, nameKeyword) {
  * 清除科目缓存（租户科目变更时调用）
  */
 function clearAccountCache(tenantId) {
-  if (tenantId) delete accountCache[tenantId];
+  if (tenantId) { Object.keys(accountCache).filter(k=>k.startsWith('book_')).forEach(k=>delete accountCache[k]); }
   else Object.keys(accountCache).forEach(k => delete accountCache[k]);
 }
 
@@ -138,7 +139,7 @@ async function createVoucher(conn, params) {
     if (debit > 0 && credit > 0) throw new Error(`摘要"${e.summary}"：借贷不能同时有金额`);
     if (debit === 0 && credit === 0) throw new Error(`摘要"${e.summary}"：借贷不能同时为零`);
 
-    const accountId = await findAccountId(conn, tenantId, e.accountCode, e.accountNameKeyword);
+    const accountId = await findAccountId(conn, bid, e.accountCode, e.accountNameKeyword);
     items.push({ accountId, summary: e.summary, debit, credit });
     totalDebit += debit;
     totalCredit += credit;
