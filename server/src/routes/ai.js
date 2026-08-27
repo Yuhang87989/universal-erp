@@ -531,4 +531,136 @@ router.post('/quick-entry/confirm', async (req, res) => {
   }
 });
 
+// ========== AI 财务报告解读 ==========
+router.get('/finance-insight', async (req, res) => {
+  try {
+    const period = req.query.period || new Date().toISOString().slice(0, 7);
+    const tenantId = req.tenantId;
+
+    // 并发拉取三张报表
+    const [bsRows, isRows, cfRows] = await Promise.all([
+      pool.query(
+        `SELECT ac.id, ac.code, ac.name, ac.category,
+          COALESCE(SUM(CASE WHEN vi.debit>0 THEN vi.debit ELSE 0 END),0) as debit,
+          COALESCE(SUM(CASE WHEN vi.credit>0 THEN vi.credit ELSE 0 END),0) as credit
+         FROM accounting_accounts ac
+         LEFT JOIN voucher_items vi ON vi.account_id=ac.id
+         LEFT JOIN vouchers v ON v.id=vi.voucher_id AND v.status='posted'
+           AND (v.voucher_date BETWEEN ? AND LAST_DAY(?))
+         WHERE ac.book_id=(SELECT id FROM accounting_books WHERE tenant_id=? LIMIT 1)
+           AND ac.is_enabled=1
+         GROUP BY ac.id`,
+        [`${period}-01`, `${period}-01`, tenantId]
+      ).then(([r]) => r).catch(() => []),
+      pool.query(
+        `SELECT ac.code, ac.name, ac.category,
+          COALESCE(SUM(vi.credit),0) as credit,
+          COALESCE(SUM(vi.debit),0) as debit
+         FROM accounting_accounts ac
+         JOIN voucher_items vi ON vi.account_id=ac.id
+         JOIN vouchers v ON v.id=vi.voucher_id AND v.status='posted'
+           AND v.voucher_date BETWEEN ? AND LAST_DAY(?)
+         WHERE ac.book_id=(SELECT id FROM accounting_books WHERE tenant_id=? LIMIT 1)
+           AND ac.is_enabled=1 AND ac.category IN ('income','cost','expense')
+         GROUP BY ac.id`,
+        [`${period}-01`, `${period}-01`, tenantId]
+      ).then(([r]) => r).catch(() => []),
+      pool.query(
+        `SELECT COALESCE(SUM(CASE WHEN ft.direction='in' THEN ft.amount ELSE 0 END),0) as total_in,
+          COALESCE(SUM(CASE WHEN ft.direction='out' THEN ft.amount ELSE 0 END),0) as total_out,
+          ft.business_type
+         FROM fund_transactions ft
+         WHERE ft.tenant_id=? AND ft.tx_date BETWEEN ? AND LAST_DAY(?)
+         GROUP BY ft.business_type`,
+        [tenantId, `${period}-01`, `${period}-01`]
+      ).then(([r]) => r).catch(() => []),
+    ]);
+
+    // 组装简化报表数据供AI分析
+    const bs = { assets: 0, liabilities: 0, equity: 0, details: [] as any[] };
+    bsRows.forEach((r: any) => {
+      const bal = parseFloat(r.debit) - parseFloat(r.credit);
+      if (r.category === 'asset') bs.assets += bal;
+      else if (r.category === 'liability') bs.liabilities += bal;
+      else if (r.category === 'equity') bs.equity += bal;
+      if (Math.abs(bal) > 0.01) bs.details.push({ code: r.code, name: r.name, category: r.category, balance: Number(bal.toFixed(2)) });
+    });
+
+    const ist = { income: 0, cost: 0, expense: 0, details: [] as any[] };
+    isRows.forEach((r: any) => {
+      // 收入：贷方-借方；成本费用：借方-贷方
+      let amount = 0;
+      if (r.category === 'income') amount = parseFloat(r.credit) - parseFloat(r.debit);
+      else amount = parseFloat(r.debit) - parseFloat(r.credit);
+      if (r.category === 'income') ist.income += amount;
+      else if (r.category === 'cost') ist.cost += amount;
+      else if (r.category === 'expense') ist.expense += amount;
+      if (Math.abs(amount) > 0.01) ist.details.push({ name: r.name, category: r.category, amount: Number(amount.toFixed(2)) });
+    });
+    const grossProfit = ist.income - ist.cost;
+    const netProfit = grossProfit - ist.expense;
+
+    const cf: any = { total_in: 0, total_out: 0, net: 0, byType: cfRows };
+    cfRows.forEach((r: any) => {
+      cf.total_in += parseFloat(r.total_in);
+      cf.total_out += parseFloat(r.total_out);
+    });
+    cf.net = cf.total_in - cf.total_out;
+
+    const reportData = {
+      period,
+      balance_sheet: {
+        total_assets: Number(bs.assets.toFixed(2)),
+        total_liabilities: Number(bs.liabilities.toFixed(2)),
+        total_equity: Number(bs.equity.toFixed(2)),
+        key_accounts: bs.details.slice(0, 20),
+      },
+      income_statement: {
+        total_income: Number(ist.income.toFixed(2)),
+        total_cost: Number(ist.cost.toFixed(2)),
+        gross_profit: Number(grossProfit.toFixed(2)),
+        total_expense: Number(ist.expense.toFixed(2)),
+        net_profit: Number(netProfit.toFixed(2)),
+        profit_margin: ist.income > 0 ? Number((netProfit / ist.income * 100).toFixed(1)) : 0,
+        breakdown: ist.details,
+      },
+      cash_flow: {
+        total_inflow: Number(cf.total_in.toFixed(2)),
+        total_outflow: Number(cf.total_out.toFixed(2)),
+        net_cash: Number(cf.net.toFixed(2)),
+        by_business_type: cf.byType,
+      },
+    };
+
+    const prompt = `你是一位资深的小微企业财务顾问。请用老板听得懂的大白话，解读以下${period}的财务数据，给出简明扼要的经营分析。
+
+报表数据（JSON）：
+${JSON.stringify(reportData, null, 2)}
+
+请按以下结构返回，用中文，总字数控制在500字以内：
+1. **一句话总结**：这个月经营整体怎么样
+2. **赚钱能力**：收入、成本、费用、净利润、利润率分析，指出最大的开支项
+3. **财务健康**：资产负债情况，是否有偿债压力，现金是否充裕
+4. **风险提醒**：发现的1-3个需要关注的问题
+5. **行动建议**：下个月最应该做的1-3件具体事情
+
+注意：
+- 不要使用专业术语堆砌，要像跟老板聊天一样
+- 如果数据为0或为空，如实说明"本月暂无相关数据"
+- 数字要引用具体金额
+- 不要返回JSON，直接返回Markdown格式的文字`;
+
+    const reply = await callDeepSeek(
+      [{ role: 'user', content: prompt }],
+      { temperature: 0.6, max_tokens: 1200, config: await getTenantAIConfig(tenantId) }
+    );
+
+    res.json({ code: 0, data: { insight: reply, report: reportData } });
+  } catch (err) {
+    console.error('AI财务解读失败:', err);
+    res.status(500).json({ code: 500, message: err.message });
+  }
+});
+
 module.exports = router;
+

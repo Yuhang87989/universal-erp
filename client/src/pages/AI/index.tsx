@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tabs, Typography } from 'antd';
-import { MessageOutlined, ThunderboltOutlined, ShoppingCartOutlined, EditOutlined, LineChartOutlined, ScanOutlined, SettingOutlined } from '@ant-design/icons';
+import { MessageOutlined, ThunderboltOutlined, ShoppingCartOutlined, EditOutlined, LineChartOutlined, ScanOutlined, SettingOutlined, AccountBookOutlined } from '@ant-design/icons';
 import AIChat from './AIChat';
 import AIDiagnosis from './AIDiagnosis';
 import AIReplenish from './AIReplenish';
@@ -8,6 +8,7 @@ import AICopywriting from './AICopywriting';
 import AIForecast from './AIForecast';
 import OCRReceipt from './OCRReceipt';
 import AISettings from './AISettings';
+import AIFinanceInsight from './AIFinanceInsight';
 
 const { Title } = Typography;
 
@@ -37,6 +38,11 @@ const AICenter: React.FC = () => {
       key: 'copywriting',
       label: <span><EditOutlined /> AI文案生成</span>,
       children: <AICopywriting />
+    },
+    {
+      key: 'finance-insight',
+      label: <span><AccountBookOutlined /> 财务解读</span>,
+      children: <AIFinanceInsight />
     },
     {
       key: 'ocr',
