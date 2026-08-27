@@ -272,15 +272,13 @@ async function generateFundIncomeVoucher(conn, { tenantId, userId, txId, txNo, t
   if (referenceType === 'sales_order') {
     creditAccount = { accountCode: ['1122'], accountNameKeyword: '应收账款' };
     summary = `收回销售款 - ${referenceNo || ''} ${counterpartyName || ''}`;
-  } else if (businessType === 'revenue') {
+  } else if (businessType === 'revenue' || businessType === 'sales_receipt') {
     creditAccount = { accountCode: ['5001'], accountNameKeyword: '主营业务收入' };
     summary = `经营收入${counterpartyName ? ' - ' + counterpartyName : ''}`;
-  } else if (businessType === 'other_income') {
+  } else {
+    // other_income / refund_in / 其他 → 其他业务收入
     creditAccount = { accountCode: ['5051', '5111', '6301'], accountNameKeyword: '其他业务收入' };
     summary = `其他收入${counterpartyName ? ' - ' + counterpartyName : ''}`;
-  } else {
-    creditAccount = { accountCode: ['5051', '5111', '6301'], accountNameKeyword: '其他业务收入' };
-    summary = `收入${counterpartyName ? ' - ' + counterpartyName : ''}`;
   }
 
   return createVoucher(conn, {
@@ -314,18 +312,25 @@ async function generateFundExpenseVoucher(conn, { tenantId, userId, txId, txNo, 
   if (referenceType === 'purchase_order') {
     debitAccount = { accountCode: ['2202'], accountNameKeyword: '应付账款' };
     summary = `支付采购款 - ${referenceNo || ''} ${counterpartyName || ''}`;
-  } else if (businessType === 'admin') {
-    debitAccount = { accountCode: ['6601'], accountNameKeyword: '管理费用' };
-    summary = `管理费用支出${counterpartyName ? ' - ' + counterpartyName : ''}`;
-  } else if (businessType === 'sales') {
-    debitAccount = { accountCode: ['6602', '6401'], accountNameKeyword: '销售费用' };
-    summary = `销售费用支出${counterpartyName ? ' - ' + counterpartyName : ''}`;
-  } else if (businessType === 'finance') {
-    debitAccount = { accountCode: ['6603'], accountNameKeyword: '财务费用' };
-    summary = `财务费用支出${counterpartyName ? ' - ' + counterpartyName : ''}`;
   } else {
-    debitAccount = { accountCode: ['6601'], accountNameKeyword: '管理费用' };
-    summary = `费用支出${counterpartyName ? ' - ' + counterpartyName : ''}`;
+    // 业务类型 → 借方科目映射（小企业会计准则）
+    // 优先匹配明细子科目（如 6601.02 工资），findAccountId 会自动前缀匹配
+    const EXPENSE_MAP = {
+      salary:        { codes: ['6601.02', '6601'], name: '管理费用', label: '工资薪金' },
+      rent:          { codes: ['6601'],        name: '管理费用', label: '房租物业' },
+      utilities:     { codes: ['6601'],        name: '管理费用', label: '水电网费' },
+      travel:        { codes: ['6601'],        name: '管理费用', label: '差旅交通' },
+      office:        { codes: ['6601.01', '6601'], name: '管理费用', label: '办公费' },
+      freight:       { codes: ['6602', '6401'], name: '销售费用', label: '运费物流' },
+      marketing:     { codes: ['6602', '6401'], name: '销售费用', label: '广告推广' },
+      sales:         { codes: ['6602', '6401'], name: '销售费用', label: '销售费用' },
+      finance:       { codes: ['6603'],        name: '财务费用', label: '财务费用' },
+      admin:         { codes: ['6601'],        name: '管理费用', label: '管理费用' },
+      other_expense: { codes: ['6601'],        name: '管理费用', label: '其他支出' }
+    };
+    const m = EXPENSE_MAP[businessType] || EXPENSE_MAP.other_expense;
+    debitAccount = { accountCode: m.codes, accountNameKeyword: m.name };
+    summary = `${m.label}${counterpartyName ? ' - ' + counterpartyName : ''}`;
   }
 
   return createVoucher(conn, {
