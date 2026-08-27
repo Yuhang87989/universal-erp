@@ -4,6 +4,7 @@ const { authenticate } = require('../middleware/auth');
 const dayjs = require('dayjs');
 
 const router = express.Router();
+const voucherGen = require('../services/voucher_generator');
 router.use(authenticate);
 
 // 生成销售单号
@@ -170,8 +171,41 @@ router.post('/', async (req, res) => {
       );
     }
 
+    // 查询客户名称（用于凭证摘要）
+    let customerName = null;
+    if (customerId) {
+      const [custRows] = await conn.query('SELECT name FROM customers WHERE id = ?', [customerId]);
+      if (custRows.length) customerName = custRows[0].name;
+    }
+
+    // 自动生成会计凭证
+    let voucherResult = null;
+    try {
+      const [settingRows] = await conn.query(
+        'SELECT auto_sales FROM voucher_auto_settings WHERE tenant_id = ?',
+        [req.tenantId]
+      );
+      const autoEnabled = settingRows.length ? settingRows[0].auto_sales === 1 : true;
+      if (autoEnabled) {
+        voucherResult = await voucherGen.generateSalesVoucher(conn, {
+          tenantId: req.tenantId,
+          userId: req.user.id,
+          orderId: orderResult.insertId,
+          orderNo,
+          orderDate: new Date(),
+          paymentMethod,
+          customerName,
+          totalAmount: actualAmount,
+          totalCost: totalCost.toFixed(2)
+        });
+      }
+    } catch (vErr) {
+      console.error('销售凭证生成失败:', vErr.message);
+      throw new Error('凭证生成失败: ' + vErr.message);
+    }
+
     await conn.commit();
-    res.json({ code: 0, message: '销售单创建成功', data: { id: orderResult.insertId, orderNo, actualAmount } });
+    res.json({ code: 0, message: '销售单创建成功', data: { id: orderResult.insertId, orderNo, actualAmount, voucherNo: voucherResult?.voucher_no } });
   } catch (err) {
     await conn.rollback();
     res.status(400).json({ code: 400, message: err.message });

@@ -4,6 +4,7 @@ const { authenticate, requireRole } = require('../middleware/auth');
 const dayjs = require('dayjs');
 
 const router = express.Router();
+const voucherGen = require('../services/voucher_generator');
 router.use(authenticate);
 
 // 生成流水号
@@ -223,9 +224,50 @@ router.post('/transactions', requireRole('owner', 'manager'), async (req, res) =
       }
     }
 
+    // 查询资金账户类型
+    const [[accRow]] = await conn.query(
+      'SELECT account_type FROM fund_accounts WHERE id = ? AND tenant_id = ?',
+      [account_id, req.tenantId]
+    );
+    const accountType = accRow ? accRow.account_type : 'bank';
+
+    // 自动生成资金收支凭证
+    let voucherResult = null;
+    try {
+      const [settingRows] = await conn.query(
+        'SELECT auto_fund FROM voucher_auto_settings WHERE tenant_id = ?',
+        [req.tenantId]
+      );
+      const autoEnabled = settingRows.length ? settingRows[0].auto_fund === 1 : true;
+      if (autoEnabled) {
+        const vParams = {
+          tenantId: req.tenantId,
+          userId: req.user.id,
+          txId: r.insertId,
+          txNo,
+          txDate,
+          accountType,
+          amount: parseFloat(amount),
+          counterpartyName: counterparty_name,
+          referenceType: reference_type,
+          referenceNo: reference_no,
+          businessType: business_type,
+          remark
+        };
+        if (direction === 'in') {
+          voucherResult = await voucherGen.generateFundIncomeVoucher(conn, vParams);
+        } else {
+          voucherResult = await voucherGen.generateFundExpenseVoucher(conn, vParams);
+        }
+      }
+    } catch (vErr) {
+      console.error('资金凭证生成失败:', vErr.message);
+      throw new Error('凭证生成失败: ' + vErr.message);
+    }
+
     await conn.commit();
     res.json({ code: 0, message: direction === 'in' ? '收款登记成功' : '付款登记成功',
-      data: { id: r.insertId, tx_no: txNo } });
+      data: { id: r.insertId, tx_no: txNo, voucherNo: voucherResult?.voucher_no } });
   } catch (err) {
     await conn.rollback();
     console.error('登记流水失败:', err);

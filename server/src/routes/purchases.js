@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const voucherGen = require('../services/voucher_generator');
 const db = require('../config/db');
 const { authenticate } = require('../middleware/auth');
 
@@ -353,8 +354,50 @@ router.post('/orders/:id/receive', async (req, res) => {
       [newStatus, req.user.id, order.id]
     );
 
+    // 查询供应商名称
+    let supplierName = null;
+    if (order.supplier_id) {
+      const [supRows] = await conn.query('SELECT name FROM suppliers WHERE id = ?', [order.supplier_id]);
+      if (supRows.length) supplierName = supRows[0].name;
+    }
+
+    // 自动生成采购入库凭证（借：库存商品 / 贷：应付账款）
+    let voucherResult = null;
+    try {
+      const [settingRows] = await conn.query(
+        'SELECT auto_purchase FROM voucher_auto_settings WHERE tenant_id = ?',
+        [tenantId]
+      );
+      const autoEnabled = settingRows.length ? settingRows[0].auto_purchase === 1 : true;
+      if (autoEnabled) {
+        // 计算本次入库金额
+        let receivedAmount = 0;
+        for (const item of items) {
+          const actualQty = actualItems
+            ? parseFloat((actualItems.find((a) => a.productId === item.product_id) || {}).quantity) || 0
+            : parseFloat(item.quantity) - parseFloat(item.received_quantity || 0);
+          receivedAmount += actualQty * parseFloat(item.unit_cost || 0);
+        }
+        if (receivedAmount > 0) {
+          voucherResult = await voucherGen.generatePurchaseVoucher(conn, {
+            tenantId,
+            userId: req.user.id,
+            orderId: order.id,
+            orderNo: order.order_no,
+            orderDate: order.order_date,
+            supplierName,
+            totalAmount: receivedAmount.toFixed(2),
+            paymentMethod: 'credit'  // 采购入库默认挂应付账款，实际付款时通过资金模块核销
+          });
+        }
+      }
+    } catch (vErr) {
+      console.error('采购凭证生成失败:', vErr.message);
+      throw new Error('凭证生成失败: ' + vErr.message);
+    }
+
     await conn.commit();
-    res.json({ message: allReceived ? '入库成功，采购单已全部入库' : '部分入库成功', data: { status: newStatus, warehouse_id: wid } });
+    res.json({ message: allReceived ? '入库成功，采购单已全部入库' : '部分入库成功', data: { status: newStatus, warehouse_id: wid, voucherNo: voucherResult?.voucher_no } });
   } catch (err) {
     await conn.rollback();
     console.error('入库操作失败:', err);
