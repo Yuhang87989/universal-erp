@@ -27,8 +27,8 @@ const Login: React.FC = () => {
   return (
     <div className="login-container">
       <Card className="login-card">
-        <div className="login-logo">📦</div>
-        <div className="login-title">企业ERP管理系统</div>
+        <div className="login-logo"><img src="/erp-logo.png" alt="ERP" style={{width: 64, height: 64, borderRadius: 12, objectFit: "cover"}} /></div>
+        <div className="login-title">宇航智荟 ERP</div>
         <div className="login-subtitle">进销存 · 财务 · AI助手</div>
         <Form onFinish={onFinish} size="large">
           <Form.Item name="username" rules={[{ required: true, message: '请输入账号' }]}>

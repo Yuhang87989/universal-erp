@@ -290,13 +290,10 @@ const MainLayout: React.FC = () => {
         background: 'linear-gradient(135deg, #1677ff 0%, #0958d9 100%)',
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <div style={{
-            width: 28, height: 28, borderRadius: 6,
-            background: 'rgba(255,255,255,0.2)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontSize: 16,
-          }}>📦</div>
-          <Text strong style={{ fontSize: 15, color: '#fff', letterSpacing: 0.5 }}>企业ERP</Text>
+          <img src="/erp-logo.png" alt="ERP" style={{
+            width: 28, height: 28, borderRadius: 6, objectFit: 'cover',
+          }} />
+          <Text strong style={{ fontSize: 15, color: '#fff', letterSpacing: 0.5 }}>宇航智荟 ERP</Text>
         </div>
       </div>
       {tenantSwitcher}
