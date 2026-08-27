@@ -3,7 +3,7 @@ import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { Layout, Menu, Avatar, Dropdown, Space, Typography, Button, Drawer, Tooltip, Alert, Select, Tag } from 'antd';
 import {
   DashboardOutlined, ShoppingCartOutlined, ShoppingOutlined,
-  DatabaseOutlined, UserOutlined, LogoutOutlined, SettingOutlined,
+  DatabaseOutlined, UserOutlined, LogoutOutlined, SettingOutlined, InfoCircleOutlined,
   BarChartOutlined, ApiOutlined, AccountBookOutlined,
   MenuOutlined, TeamOutlined, BankOutlined, SwapOutlined,
   RobotOutlined, WarningOutlined, HomeOutlined, InboxOutlined,
@@ -140,6 +140,7 @@ const allMenuItems = [
   ]},
   { type: 'group' as const, label: '系统', children: [
     { key: '/settings', icon: <SettingOutlined />, label: '系统管理' },
+    { key: '/about', icon: <InfoCircleOutlined />, label: '关于' },
   ]}
 ];
 

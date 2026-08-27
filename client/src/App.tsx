@@ -33,6 +33,7 @@ import FundManagement from './pages/Finance/FundManagement';
 import Analytics from './pages/Analytics';
 import Alerts from './pages/Alerts';
 import AICenter from './pages/AI';
+import About from './pages/About';
 
 // 路由权限映射
 const routePermMap: Record<string, string> = {
@@ -124,6 +125,7 @@ const App: React.FC = () => {
         <Route path="reports" element={<Reports />} />
         <Route path="ecommerce" element={<Ecommerce />} />
         <Route path="settings" element={<Settings />} />
+        <Route path="about" element={<About />} />
       </Route>
     </Routes>
   );
