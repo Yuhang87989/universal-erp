@@ -275,9 +275,12 @@ async function generateFundIncomeVoucher(conn, { tenantId, userId, txId, txNo, t
   } else if (businessType === 'revenue') {
     creditAccount = { accountCode: ['5001'], accountNameKeyword: '主营业务收入' };
     summary = `经营收入${counterpartyName ? ' - ' + counterpartyName : ''}`;
-  } else {
-    creditAccount = { accountCode: ['6601'], accountNameKeyword: '管理费用' };
+  } else if (businessType === 'other_income') {
+    creditAccount = { accountCode: ['5051', '5111', '6301'], accountNameKeyword: '其他业务收入' };
     summary = `其他收入${counterpartyName ? ' - ' + counterpartyName : ''}`;
+  } else {
+    creditAccount = { accountCode: ['5051', '5111', '6301'], accountNameKeyword: '其他业务收入' };
+    summary = `收入${counterpartyName ? ' - ' + counterpartyName : ''}`;
   }
 
   return createVoucher(conn, {
