@@ -300,7 +300,7 @@ const FundImport: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
       >
         <Alert
           type="info" showIcon style={{ marginBottom: 12 }}
-          message="支持微信/支付宝/银行导出的CSV或Excel，自动识别列名和方向。可在各平台"账单/交易记录"中导出。"
+          message="支持微信/支付宝/银行导出的CSV或Excel，自动识别列名和方向。可在各平台「账单/交易记录」中导出。"
         />
         <Space wrap style={{ marginBottom: 12 }}>
           <Upload accept=".csv,.xlsx,.xls" showUploadList={false} beforeUpload={(f) => { parseFile(f); return false; }}>
