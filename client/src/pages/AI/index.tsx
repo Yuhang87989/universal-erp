@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tabs, Typography } from 'antd';
-import { MessageOutlined, ThunderboltOutlined, ShoppingCartOutlined, EditOutlined, LineChartOutlined, ScanOutlined, SettingOutlined, AccountBookOutlined } from '@ant-design/icons';
+import { MessageOutlined, ThunderboltOutlined, ShoppingCartOutlined, EditOutlined, LineChartOutlined, ScanOutlined, SettingOutlined, AccountBookOutlined, FireOutlined } from '@ant-design/icons';
 import AIChat from './AIChat';
 import AIDiagnosis from './AIDiagnosis';
 import AIReplenish from './AIReplenish';
@@ -9,6 +9,7 @@ import AIForecast from './AIForecast';
 import OCRReceipt from './OCRReceipt';
 import AISettings from './AISettings';
 import AIFinanceInsight from './AIFinanceInsight';
+import AIProductInsight from './AIProductInsight';
 
 const { Title } = Typography;
 
@@ -43,6 +44,11 @@ const AICenter: React.FC = () => {
       key: 'finance-insight',
       label: <span><AccountBookOutlined /> 财务解读</span>,
       children: <AIFinanceInsight />
+    },
+    {
+      key: 'product-insight',
+      label: <span><FireOutlined /> 商品洞察</span>,
+      children: <AIProductInsight />
     },
     {
       key: 'ocr',
