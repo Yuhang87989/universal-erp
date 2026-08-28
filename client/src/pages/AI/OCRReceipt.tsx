@@ -5,28 +5,30 @@ import request from '../../api/request';
 
 const { Title, Text, Paragraph } = Typography;
 
-// 动态加载Tesseract
+// 动态加载Tesseract：多CDN回退（jsdelivr国内易挂，unpkg/cdnjs备选）
+const TESSERACT_SRC_LIST = [
+  'https://unpkg.com/tesseract.js@5/dist/tesseract.min.js',
+  'https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/5.0.5/tesseract.min.js',
+  'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'
+];
 const loadTesseract = (): Promise<any> => {
   return new Promise((resolve, reject) => {
-    if ((window as any).Tesseract) {
-      resolve((window as any).Tesseract);
-      return;
-    }
-    const existing = document.getElementById('tesseract-script');
-    if (existing) {
-      const check = setInterval(() => {
-        if ((window as any).Tesseract) { clearInterval(check); resolve((window as any).Tesseract); }
-      }, 200);
-      setTimeout(() => reject(new Error('Tesseract加载超时')), 30000);
-      return;
-    }
-    const script = document.createElement('script');
-    script.id = 'tesseract-script';
-    script.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js';
-    script.async = true;
-    script.onload = () => resolve((window as any).Tesseract);
-    script.onerror = () => reject(new Error('Tesseract脚本加载失败，请检查网络'));
-    document.head.appendChild(script);
+    if ((window as any).Tesseract) { resolve((window as any).Tesseract); return; }
+    let idx = 0;
+    const tryNext = () => {
+      if (idx >= TESSERACT_SRC_LIST.length) { reject(new Error('OCR引擎加载失败，请切换网络后重试')); return; }
+      const src = TESSERACT_SRC_LIST[idx++];
+      const old = document.getElementById('tesseract-script');
+      if (old) old.remove();
+      const script = document.createElement('script');
+      script.id = 'tesseract-script';
+      script.src = src;
+      script.async = true;
+      script.onload = () => { if ((window as any).Tesseract) resolve((window as any).Tesseract); else tryNext(); };
+      script.onerror = () => { script.remove(); tryNext(); };
+      document.head.appendChild(script);
+    };
+    tryNext();
   });
 };
 
@@ -55,6 +57,7 @@ const OCRReceipt: React.FC = () => {
       // 加载Tesseract
       const Tesseract = await loadTesseract();
       const { data } = await Tesseract.recognize(file, 'chi_sim+eng', {
+        corePath: 'https://unpkg.com/tesseract.js-core@5/tesseract-core.wasm.js',
         logger: (m: any) => {
           if (m.status === 'recognizing text') {
             setOcrProgress(Math.round(m.progress * 100));
