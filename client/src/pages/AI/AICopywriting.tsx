@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Card, Input, Button, Typography, Row, Col, Select, Space, message } from 'antd';
 import { EditOutlined, CopyOutlined, BulbOutlined } from '@ant-design/icons';
 import request from '../../api/request';
+import MarkdownText from '../../components/MarkdownText';
 
 const { Title, Text, Paragraph } = Typography;
 const { TextArea } = Input;
@@ -75,8 +76,8 @@ const AICopywriting: React.FC = () => {
           <Card title="生成结果" size="small"
             extra={result && <Button type="text" icon={<CopyOutlined />} onClick={() => { navigator.clipboard.writeText(result); message.success('已复制'); }}>复制</Button>}>
             {result ? (
-              <div style={{ minHeight: 200, padding: 12, background: '#fafafa', borderRadius: 8, whiteSpace: 'pre-wrap', lineHeight: 1.8 }}>
-                {result}
+              <div style={{ minHeight: 200, padding: 12, background: '#fafafa', borderRadius: 8, lineHeight: 1.8 }}>
+                <MarkdownText content={result} />
               </div>
             ) : (
               <div style={{ textAlign: 'center', padding: '60px 0', color: '#999' }}>

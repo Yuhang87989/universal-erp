@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Card, Button, Spin, Typography, Row, Col, Statistic, Empty, Segmented, Space, Alert, Table, Tag } from 'antd';
 import { RobotOutlined, ThunderboltOutlined, FireOutlined, WarningOutlined, RestOutlined, DollarOutlined } from '@ant-design/icons';
 import request from '../../api/request';
+import MarkdownText from '../../components/MarkdownText';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -130,9 +131,7 @@ const AIProductInsight: React.FC = () => {
               title={<span><RobotOutlined style={{ color: '#722ed1' }} /> AI选品与库存建议</span>}
               style={{ marginBottom: 16 }}
             >
-              <div style={{ fontSize: 14, lineHeight: 1.9, whiteSpace: 'pre-wrap' }}>
-                {insight}
-              </div>
+              <MarkdownText content={insight} />
             </Card>
           )}
 

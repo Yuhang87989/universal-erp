@@ -3,6 +3,7 @@ import { Card, Button, Spin, Typography, Row, Col, Statistic, Empty, DatePicker,
 import { RobotOutlined, ThunderboltOutlined, RiseOutlined, FallOutlined, WalletOutlined, AccountBookOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import request from '../../api/request';
+import MarkdownText from '../../components/MarkdownText';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -122,9 +123,7 @@ const AIFinanceInsight: React.FC = () => {
               title={<Space><RobotOutlined style={{ color: '#722ed1' }} /> AI老板视角解读</Space>}
               style={{ marginBottom: 16 }}
             >
-              <div style={{ fontSize: 14, lineHeight: 1.9, whiteSpace: 'pre-wrap' }}>
-                {insight}
-              </div>
+              <MarkdownText content={insight} />
             </Card>
           )}
 

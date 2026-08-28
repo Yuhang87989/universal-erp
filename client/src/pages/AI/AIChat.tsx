@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Card, Input, Button, Avatar, Spin, Typography, Space, Tag, Row, Col, Empty } from 'antd';
 import { SendOutlined, RobotOutlined, UserOutlined, BulbOutlined, BarChartOutlined } from '@ant-design/icons';
 import request from '../../api/request';
+import MarkdownText from '../../components/MarkdownText';
 import { voiceService } from '../../services/voiceService';
 
 const { Text, Paragraph } = Typography;
@@ -107,9 +108,9 @@ const AIChat: React.FC = () => {
               <div style={{
                 background: msg.role === 'user' ? '#e6f4ff' : '#f6f8fa',
                 padding: '8px 14px', borderRadius: msg.role === 'user' ? '14px 14px 4px 14px' : '14px 14px 14px 4px',
-                fontSize: 14, lineHeight: 1.6, whiteSpace: 'pre-wrap', wordBreak: 'break-word'
+                fontSize: 14, lineHeight: 1.6, wordBreak: 'break-word'
               }}>
-                {msg.content}
+                {msg.role === 'user' ? msg.content : <MarkdownText content={msg.content} />}
               </div>
               <Text type="secondary" style={{ fontSize: 11, display: 'block', textAlign: msg.role === 'user' ? 'right' : 'left' }}>{msg.time}</Text>
             </div>
