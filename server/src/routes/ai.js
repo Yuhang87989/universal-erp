@@ -577,8 +577,8 @@ router.get('/finance-insight', async (req, res) => {
     ]);
 
     // 组装简化报表数据供AI分析
-    const bs = { assets: 0, liabilities: 0, equity: 0, details: [] as any[] };
-    bsRows.forEach((r: any) => {
+    const bs = { assets: 0, liabilities: 0, equity: 0, details: [] };
+    bsRows.forEach((r) => {
       const bal = parseFloat(r.debit) - parseFloat(r.credit);
       if (r.category === 'asset') bs.assets += bal;
       else if (r.category === 'liability') bs.liabilities += bal;
@@ -586,8 +586,8 @@ router.get('/finance-insight', async (req, res) => {
       if (Math.abs(bal) > 0.01) bs.details.push({ code: r.code, name: r.name, category: r.category, balance: Number(bal.toFixed(2)) });
     });
 
-    const ist = { income: 0, cost: 0, expense: 0, details: [] as any[] };
-    isRows.forEach((r: any) => {
+    const ist = { income: 0, cost: 0, expense: 0, details: [] };
+    isRows.forEach((r) => {
       // 收入：贷方-借方；成本费用：借方-贷方
       let amount = 0;
       if (r.category === 'income') amount = parseFloat(r.credit) - parseFloat(r.debit);
@@ -600,8 +600,8 @@ router.get('/finance-insight', async (req, res) => {
     const grossProfit = ist.income - ist.cost;
     const netProfit = grossProfit - ist.expense;
 
-    const cf: any = { total_in: 0, total_out: 0, net: 0, byType: cfRows };
-    cfRows.forEach((r: any) => {
+    const cf = { total_in: 0, total_out: 0, net: 0, byType: cfRows };
+    cfRows.forEach((r) => {
       cf.total_in += parseFloat(r.total_in);
       cf.total_out += parseFloat(r.total_out);
     });
