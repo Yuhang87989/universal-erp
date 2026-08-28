@@ -7,16 +7,31 @@ import request from '../../api/request';
 const { Text, Paragraph } = Typography;
 const { RangePicker } = DatePicker;
 
+// 动态加载SheetJS：优先本地同源文件，失败回退多个CDN
+const XLSX_SRC_LIST = [
+  '/vendor/xlsx.full.min.js',
+  'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js',
+  'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js',
+  'https://unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js'
+];
 const loadXLSX = (): Promise<any> => {
   return new Promise((resolve, reject) => {
     if ((window as any).XLSX) { resolve((window as any).XLSX); return; }
-    const s = document.createElement('script');
-    s.id = 'xlsx-script';
-    s.src = 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
-    s.async = true;
-    s.onload = () => resolve((window as any).XLSX);
-    s.onerror = () => reject(new Error('SheetJS加载失败'));
-    document.head.appendChild(s);
+    let idx = 0;
+    const tryNext = () => {
+      if (idx >= XLSX_SRC_LIST.length) { reject(new Error('SheetJS加载失败，请刷新重试')); return; }
+      const src = XLSX_SRC_LIST[idx++];
+      const old = document.getElementById('xlsx-script');
+      if (old) old.remove();
+      const s = document.createElement('script');
+      s.id = 'xlsx-script';
+      s.src = src;
+      s.async = true;
+      s.onload = () => { if ((window as any).XLSX) resolve((window as any).XLSX); else tryNext(); };
+      s.onerror = () => { s.remove(); tryNext(); };
+      document.head.appendChild(s);
+    };
+    tryNext();
   });
 };
 
@@ -202,9 +217,9 @@ const FundImport: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
     setLoading(false);
   }, [skipRefund, skipTransfer]);
 
-  const downloadTemplate = () => {
-    const XLSX = (window as any).XLSX;
-    if (!XLSX) { message.warning('请先选择文件加载解析引擎'); return; }
+  const downloadTemplate = async () => {
+    let XLSX;
+    try { XLSX = await loadXLSX(); } catch { message.warning('解析引擎加载失败，请刷新重试'); return; }
     const data = [
       ['交易时间', '收入金额', '支出金额', '交易对方', '商品/备注', '当前状态'],
       ['2026-08-28 10:30:00', 199.00, '', '张三', '销售订单#SO001', '支付成功'],
