@@ -5,25 +5,31 @@ import request from '../../api/request';
 
 const { Text, Paragraph } = Typography;
 
-// 动态加载SheetJS
+// 动态加载SheetJS：优先本地同源文件，失败回退CDN
+const XLSX_SRC_LIST = [
+  '/vendor/xlsx.full.min.js',
+  'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js',
+  'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js',
+  'https://unpkg.com/xlsx@0.18.5/dist/xlsx.full.min.js'
+];
 const loadXLSX = (): Promise<any> => {
   return new Promise((resolve, reject) => {
     if ((window as any).XLSX) { resolve((window as any).XLSX); return; }
     const existing = document.getElementById('xlsx-script');
-    if (existing) {
-      const iv = setInterval(() => {
-        if ((window as any).XLSX) { clearInterval(iv); resolve((window as any).XLSX); }
-      }, 200);
-      setTimeout(() => reject(new Error('加载超时')), 30000);
-      return;
-    }
-    const s = document.createElement('script');
-    s.id = 'xlsx-script';
-    s.src = 'https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js';
-    s.async = true;
-    s.onload = () => resolve((window as any).XLSX);
-    s.onerror = () => reject(new Error('SheetJS加载失败，请检查网络'));
-    document.head.appendChild(s);
+    if (existing && (window as any).XLSX) { resolve((window as any).XLSX); return; }
+    let idx = 0;
+    const tryNext = () => {
+      if (idx >= XLSX_SRC_LIST.length) { reject(new Error('SheetJS加载失败，请刷新重试')); return; }
+      const src = XLSX_SRC_LIST[idx++];
+      const s = document.createElement('script');
+      s.id = 'xlsx-script';
+      s.src = src;
+      s.async = true;
+      s.onload = () => { if ((window as any).XLSX) resolve((window as any).XLSX); else tryNext(); };
+      s.onerror = () => { s.remove(); tryNext(); };
+      document.head.appendChild(s);
+    };
+    tryNext();
   });
 };
 
@@ -110,9 +116,9 @@ const ProductImport: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
     setLoading(false);
   }, []);
 
-  const downloadTemplate = () => {
-    const XLSX = (window as any).XLSX;
-    if (!XLSX) { message.warning('请先选择文件加载引擎，或刷新后重试'); return; }
+  const downloadTemplate = async () => {
+    let XLSX;
+    try { XLSX = await loadXLSX(); } catch { message.warning('解析引擎加载失败，请刷新重试'); return; }
     const data = [
       ['商品名称', '条码', 'SKU', '分类', '单位', '进价', '售价', '批发价', '预警库存'],
       ['示例商品A', '6901234567890', 'SKU001', '数码配件', '个', 50, 99, 89, 5],
