@@ -662,5 +662,134 @@ ${JSON.stringify(reportData, null, 2)}
   }
 });
 
+// 商品销售洞察：畅销榜/滞销榜/毛利分析 + AI选品补货建议
+router.get('/product-insight', async (req, res) => {
+  try {
+    const tenantId = req.tenantId;
+    const days = parseInt(req.query.days) || 30;
+    const since = dayjs().subtract(days, 'day').format('YYYY-MM-DD');
+
+    // 1. 商品销量排行（近N天，已完成订单）
+    const [topRows] = await pool.query(
+      `SELECT p.id, p.name, p.sku, p.cost_price, p.sell_price,
+              COALESCE(SUM(si.quantity),0) as qty,
+              COALESCE(SUM(si.subtotal),0) as revenue
+       FROM sale_items si
+       JOIN sales_orders so ON so.id = si.sales_order_id
+       JOIN products p ON p.id = si.product_id
+       WHERE so.tenant_id=? AND so.status='completed' AND DATE(so.order_date)>=?
+       GROUP BY p.id
+       ORDER BY qty DESC
+       LIMIT 50`,
+      [tenantId, since]
+    );
+
+    // 2. 滞销商品：近N天无销量的在售商品
+    const [slowRows] = await pool.query(
+      `SELECT p.id, p.name, p.sku, p.sell_price, p.cost_price,
+              COALESCE((SELECT SUM(quantity) FROM inventory WHERE tenant_id=p.tenant_id AND product_id=p.id),0) as stock
+       FROM products p
+       WHERE p.tenant_id=? AND p.status='active'
+         AND p.id NOT IN (
+           SELECT DISTINCT si.product_id FROM sale_items si
+           JOIN sales_orders so ON so.id=si.sales_order_id
+           WHERE so.tenant_id=? AND so.status='completed' AND DATE(so.order_date)>=?
+         )
+       HAVING stock > 0
+       ORDER BY stock DESC
+       LIMIT 30`,
+      [tenantId, tenantId, since]
+    );
+
+    // 3. 当前库存 & 低库存预警
+    const [stockRows] = await pool.query(
+      `SELECT p.id, p.name, p.min_stock,
+              COALESCE((SELECT SUM(quantity) FROM inventory WHERE tenant_id=p.tenant_id AND product_id=p.id),0) as stock
+       FROM products p
+       WHERE p.tenant_id=? AND p.status='active'
+       GROUP BY p.id`,
+      [tenantId]
+    );
+
+    // 组装畅销榜（带毛利）
+    const topProducts = topRows.map(r => {
+      const cost = parseFloat(r.cost_price) || 0;
+      const qty = parseFloat(r.qty) || 0;
+      const revenue = parseFloat(r.revenue) || 0;
+      const gross = revenue - cost * qty;
+      return {
+        name: r.name, sku: r.sku,
+        qty: Number(qty.toFixed(1)),
+        revenue: Number(revenue.toFixed(2)),
+        gross_profit: Number(gross.toFixed(2)),
+        margin: revenue > 0 ? Number((gross / revenue * 100).toFixed(1)) : 0
+      };
+    });
+
+    const slowProducts = slowRows.map(r => ({
+      name: r.name, sku: r.sku,
+      stock: Number((parseFloat(r.stock)||0).toFixed(1)),
+      cost_value: Number(((parseFloat(r.stock)||0) * (parseFloat(r.cost_price)||0)).toFixed(2))
+    }));
+
+    const lowStock = stockRows
+      .filter(r => {
+        const stock = parseFloat(r.stock)||0;
+        const min = parseFloat(r.min_stock)||0;
+        return min > 0 && stock <= min;
+      })
+      .map(r => ({ name: r.name, stock: Number((parseFloat(r.stock)||0).toFixed(1)), min_stock: r.min_stock }));
+
+    // 汇总
+    const totalRevenue = topProducts.reduce((s,r)=>s+r.revenue,0);
+    const totalGross = topProducts.reduce((s,r)=>s+r.gross_profit,0);
+    const slowStockValue = slowProducts.reduce((s,r)=>s+r.cost_value,0);
+
+    const reportData = {
+      period_days: days,
+      summary: {
+        active_products: topProducts.length,
+        total_revenue: Number(totalRevenue.toFixed(2)),
+        total_gross_profit: Number(totalGross.toFixed(2)),
+        gross_margin: totalRevenue > 0 ? Number((totalGross/totalRevenue*100).toFixed(1)) : 0,
+        slow_moving_count: slowProducts.length,
+        slow_stock_value: Number(slowStockValue.toFixed(2)),
+        low_stock_count: lowStock.length
+      },
+      top_products: topProducts.slice(0, 15),
+      slow_products: slowProducts.slice(0, 15),
+      low_stock: lowStock.slice(0, 15)
+    };
+
+    const prompt = `你是一位电商选品和库存管理专家。以下是一家电商店铺近${days}天的商品销售数据，请用老板听得懂的大白话给出经营建议。
+
+数据（JSON）：
+${JSON.stringify(reportData, null, 2)}
+
+请按以下结构返回，中文，500字以内：
+1. **一句话总结**：近${days}天商品销售整体情况
+2. **爆款分析**：哪些商品卖得好、毛利高，建议怎么加大投入（补货/主推/捆绑）
+3. **滞销预警**：哪些商品压库存、占用资金，建议清仓促销还是下架
+4. **补货提醒**：哪些商品库存告急需要尽快补货
+5. **行动建议**：最应该马上做的2-3件具体事
+
+注意：
+- 像跟店主聊天，不要堆砌术语
+- 数字引用具体金额/数量
+- 如果某类数据为空，如实说明，不要编造
+- 直接返回Markdown文字，不要返回JSON`;
+
+    const reply = await callDeepSeek(
+      [{ role: 'user', content: prompt }],
+      { temperature: 0.6, max_tokens: 1200, config: await getTenantAIConfig(tenantId) }
+    );
+
+    res.json({ code: 0, data: { insight: reply, report: reportData } });
+  } catch (err) {
+    console.error('AI商品洞察失败:', err);
+    res.status(500).json({ code: 500, message: err.message });
+  }
+});
+
 module.exports = router;
 
