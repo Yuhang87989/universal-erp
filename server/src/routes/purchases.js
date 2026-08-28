@@ -124,7 +124,7 @@ router.get('/orders', async (req, res) => {
   try {
     const tenantId = req.tenantId;
     const { status, keyword, startDate, endDate, page = 1, pageSize = 20 } = req.query;
-    let sql = `SELECT po.*, s.name as supplier_name, u.real_name as operator_name
+    let sql = `SELECT po.*, COALESCE(s.name, '（供应商已删除）') as supplier_name, u.real_name as operator_name
                FROM purchase_orders po
                LEFT JOIN suppliers s ON po.supplier_id = s.id
                LEFT JOIN users u ON po.operator_id = u.id
@@ -170,7 +170,7 @@ router.get('/orders/:id', async (req, res) => {
   try {
     const tenantId = req.tenantId;
     const [[order]] = await db.query(
-      `SELECT po.*, s.name as supplier_name, s.contact_name as supplier_contact, s.phone as supplier_phone
+      `SELECT po.*, COALESCE(s.name, '（供应商已删除）') as supplier_name, s.contact_name as supplier_contact, s.phone as supplier_phone
        FROM purchase_orders po
        LEFT JOIN suppliers s ON po.supplier_id = s.id
        WHERE po.id = ? AND po.tenant_id = ?`,
