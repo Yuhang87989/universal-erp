@@ -140,7 +140,7 @@ const AIProductInsight: React.FC = () => {
               <Card size="small" title={<span><FireOutlined style={{ color: '#fa541c' }} /> 畅销榜 TOP15</span>}>
                 <Table
                   size="small" rowKey="name" columns={topCols}
-                  dataSource={report?.top_products || []} pagination={false} scroll={{ y: 320 }}
+                  dataSource={report?.top_products || []} pagination={false}
                 />
               </Card>
             </Col>
@@ -148,14 +148,14 @@ const AIProductInsight: React.FC = () => {
               <Card size="small" title={<span><RestOutlined style={{ color: '#faad14' }} /> 滞销预警（近{days}天零销量）</span>} style={{ marginBottom: 12 }}>
                 <Table
                   size="small" rowKey="name" columns={slowCols}
-                  dataSource={report?.slow_products || []} pagination={false} scroll={{ y: 200 }}
+                  dataSource={report?.slow_products || []} pagination={false}
                 />
               </Card>
               <Card size="small" title={<span><WarningOutlined style={{ color: '#ff4d4f' }} /> 库存告急</span>}>
                 {report?.low_stock?.length ? (
                   <Table
                     size="small" rowKey="name" columns={lowCols}
-                    dataSource={report.low_stock} pagination={false} scroll={{ y: 160 }}
+                    dataSource={report.low_stock} pagination={false}
                   />
                 ) : <Text type="secondary">暂无库存告急商品</Text>}
               </Card>
