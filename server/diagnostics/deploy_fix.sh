@@ -21,15 +21,18 @@ LOG "2. 备份并覆盖文件..."
 TS=$(date +%s)
 cp server/src/routes/fund.js server/src/routes/fund.js.bak.$TS 2>/dev/null
 cp server/src/routes/reports.js server/src/routes/reports.js.bak.$TS 2>/dev/null
+cp server/src/routes/finance.js server/src/routes/finance.js.bak.$TS 2>/dev/null
 \cp /tmp/erp_new/server/src/routes/fund.js server/src/routes/fund.js
 \cp /tmp/erp_new/server/src/routes/reports.js server/src/routes/reports.js
+\cp /tmp/erp_new/server/src/routes/finance.js server/src/routes/finance.js
 mkdir -p server/diagnostics
 \cp /tmp/erp_new/server/diagnostics/schema_check.js server/diagnostics/schema_check.js
-LOG "   fund.js / reports.js / schema_check.js 已覆盖"
+LOG "   fund.js / reports.js / finance.js / schema_check.js 已覆盖"
 
 LOG "3. 语法检查..."
 node --check server/src/routes/fund.js && LOG "   fund.js 语法OK" || LOG "   !!! fund.js 语法错误"
 node --check server/src/routes/reports.js && LOG "   reports.js 语法OK" || LOG "   !!! reports.js 语法错误"
+node --check server/src/routes/finance.js && LOG "   finance.js 语法OK" || LOG "   !!! finance.js 语法错误"
 node --check server/diagnostics/schema_check.js && LOG "   schema_check.js 语法OK" || LOG "   !!! schema_check.js 语法错误"
 
 LOG "4. 重启服务..."
@@ -45,7 +48,7 @@ node server/diagnostics/schema_check.js 2>&1
 LOG "===== 7. 接口验证 ====="
 TOKEN=$(curl -s -X POST http://127.0.0.1:3000/api/auth/login -H 'Content-Type: application/json' -d '{"username":"admin","password":"admin123","tenantId":3}' | grep -o '"token":"[^"]*"' | cut -d'"' -f4)
 LOG "流水: $(curl -s "http://127.0.0.1:3000/api/fund/transactions?page=1&pageSize=3" -H "Authorization: Bearer $TOKEN" | head -c 160)"
-LOG "利润: $(curl -s "http://127.0.0.1:3000/api/reports/profit" -H "Authorization: Bearer $TOKEN" | head -c 160)"
-LOG "收支: $(curl -s "http://127.0.0.1:3000/api/finance?page=1&pageSize=3" -H "Authorization: Bearer $TOKEN" | head -c 160)"
+LOG "利润: $(curl -s "http://127.0.0.1:3000/api/reports/profit" -H "Authorization: Bearer $TOKEN" | head -c 200)"
+LOG "收支: $(curl -s "http://127.0.0.1:3000/api/finance?page=1&pageSize=3" -H "Authorization: Bearer $TOKEN" | head -c 200)"
 
 LOG "===== 全部完成 ====="

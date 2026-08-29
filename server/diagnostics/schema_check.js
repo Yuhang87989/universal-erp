@@ -1,6 +1,25 @@
 // ERP 综合结构一致性诊断（只读 + 凭证模拟回滚，不写脏数据）
-// 用法: node schema_check.js
+// 用法: node server/diagnostics/schema_check.js   （在 /opt/universal-erp 目录下运行）
 const path = require('path');
+const fs = require('fs');
+// 手动加载 server/.env（dotenv 默认从进程 cwd 找，诊断脚本从项目根跑，需显式指定）
+(function loadEnv(){
+  const envPath = '/opt/universal-erp/server/.env';
+  try {
+    fs.readFileSync(envPath, 'utf8').split('\n').forEach(line => {
+      line = line.trim();
+      if (!line || line.startsWith('#')) return;
+      const i = line.indexOf('=');
+      if (i < 0) return;
+      const k = line.slice(0, i).trim();
+      const v = line.slice(i+1).trim().replace(/^["']|["']$/g, '');
+      if (k && process.env[k] === undefined) process.env[k] = v;
+    });
+    console.log('[env] 已加载 server/.env: DB_USER=' + process.env.DB_USER + ' DB_NAME=' + process.env.DB_NAME);
+  } catch(e) {
+    console.log('[env] 警告: 未找到 ' + envPath + ' (' + e.message + ')，将用 db.js 默认配置');
+  }
+})();
 const pool = require('/opt/universal-erp/server/src/config/db');
 
 (async () => {

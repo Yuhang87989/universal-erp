@@ -11,16 +11,16 @@ router.get('/', async (req, res) => {
   try {
     const { page = 1, pageSize = 20, type, referenceType, startDate, endDate, category } = req.query;
     const offset = (page - 1) * pageSize;
-    let where = 'WHERE tenant_id = ?';
+    let where = 'WHERE fr.tenant_id = ?';
     const params = [req.tenantId];
 
-    if (type) { where += ' AND type = ?'; params.push(type); }
-    if (referenceType) { where += ' AND reference_type = ?'; params.push(referenceType); }
-    if (category) { where += ' AND category = ?'; params.push(category); }
-    if (startDate) { where += ' AND record_date >= ?'; params.push(startDate); }
-    if (endDate) { where += ' AND record_date <= ?'; params.push(endDate); }
+    if (type) { where += ' AND fr.type = ?'; params.push(type); }
+    if (referenceType) { where += ' AND fr.reference_type = ?'; params.push(referenceType); }
+    if (category) { where += ' AND fr.category = ?'; params.push(category); }
+    if (startDate) { where += ' AND fr.record_date >= ?'; params.push(startDate); }
+    if (endDate) { where += ' AND fr.record_date <= ?'; params.push(endDate); }
 
-    const [countResult] = await pool.query(`SELECT COUNT(*) as total FROM finance_records ${where}`, params);
+    const [countResult] = await pool.query(`SELECT COUNT(*) as total FROM finance_records fr ${where}`, params);
 
     const [records] = await pool.query(
       `SELECT fr.*, u.real_name as operator_name FROM finance_records fr
