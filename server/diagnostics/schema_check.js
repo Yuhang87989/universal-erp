@@ -30,7 +30,7 @@ const pool = require('/opt/universal-erp/server/src/config/db');
   try {
     // ========== 1. 代码引用的表是否存在 + INSERT/UPDATE 列是否存在 ==========
     // 表清单（后端代码引用）
-    const codeTables = ["accounting_accounts","accounting_books","ai_chat_history","auto_sales",
+    const codeTables = ["accounting_accounts","accounting_books","ai_chat_history",
       "categories","customers","depreciation_records","ecommerce_platforms","finance_records",
       "fixed_assets","fund_accounts","fund_settlements","fund_transactions","inventory",
       "inventory_logs","operation_logs","payment_channels","payment_transactions","period_closures",
@@ -109,11 +109,11 @@ const pool = require('/opt/universal-erp/server/src/config/db');
     // ========== 3. fund / voucher 数据真相（跨租户）==========
     const [ftAll] = await pool.query("SELECT tenant_id, COUNT(*) c, MIN(tx_date) mind, MAX(tx_date) maxd FROM fund_transactions GROUP BY tenant_id");
     log('3-数据真相', 'fund_transactions 各租户: ' + JSON.stringify(ftAll));
-    const [vAll] = await pool.query("SELECT tenant_id, book_id, voucher_type, COUNT(*) c, MAX(voucher_date) latest FROM vouchers GROUP BY tenant_id, book_id, voucher_type");
+    const [vAll] = await pool.query("SELECT b.tenant_id, v.book_id, v.voucher_type, COUNT(*) c, MAX(v.voucher_date) latest FROM vouchers v JOIN accounting_books b ON v.book_id=b.id GROUP BY b.tenant_id, v.book_id, v.voucher_type");
     log('3-数据真相', 'vouchers 分组: ' + JSON.stringify(vAll));
     const [ft3] = await pool.query("SELECT id, tx_no, tx_type, direction, amount, business_type, tx_date, account_id FROM fund_transactions WHERE tenant_id=? ORDER BY id", [TENANT]);
     log('3-数据真相', `租户${TENANT} fund_transactions ${ft3.length}条: ` + JSON.stringify(ft3));
-    const [vsrc] = await pool.query("SELECT id, voucher_no, voucher_type, voucher_date, source_type, source_id, source_no, total_debit FROM vouchers WHERE tenant_id=? ORDER BY id DESC LIMIT 15", [TENANT]);
+    const [vsrc] = await pool.query("SELECT v.id, v.voucher_no, v.voucher_type, v.voucher_date, v.source_type, v.source_id, v.source_no, v.total_debit FROM vouchers v JOIN accounting_books b ON v.book_id=b.id WHERE b.tenant_id=? ORDER BY v.id DESC LIMIT 15", [TENANT]);
     log('3-数据真相', `租户${TENANT} 最近凭证: ` + JSON.stringify(vsrc));
 
     // ========== 4. 会计科目配置检查（凭证生成依赖）==========
@@ -173,7 +173,7 @@ const pool = require('/opt/universal-erp/server/src/config/db');
     conn.release();
 
     // ========== 7. 期间结账状态 ==========
-    const [pc] = await pool.query("SELECT * FROM period_closures WHERE tenant_id=? OR book_id IN (SELECT id FROM accounting_books WHERE tenant_id=?)", [TENANT,TENANT]);
+    const [pc] = await pool.query("SELECT pc.* FROM period_closures pc JOIN accounting_books b ON pc.book_id=b.id WHERE b.tenant_id=?", [TENANT]);
     log('7-期间结账', 'period_closures: ' + JSON.stringify(pc));
 
   } catch (e) {
