@@ -138,10 +138,13 @@ const pool = require('/opt/universal-erp/server/src/config/db');
         '1405库存商品(采购凭证)': codes.some(c=>c==='1405'||c.startsWith('1405')),
         '1602/1502累计折旧': codes.some(c=>['1602','1502'].some(k=>c===k||c.startsWith(k))),
       };
-      for (const [k,v] of Object.entries(needed)) {
-        if (!v) log('4-科目', `   ❌ 账套${b.id} 缺少科目类别: ${k}`);
+      const missing = Object.entries(needed).filter(([k,v])=>!v).map(([k])=>k);
+      if (missing.length) {
+        log('4-科目', `   ❌ 账套${b.id}(${b.book_name}) 缺少 ${missing.length} 类科目:`);
+        missing.forEach(k => log('4-科目', `        - ${k}`));
+      } else {
+        log('4-科目', `   ✅ 账套${b.id}(${b.book_name}) 凭证所需12类科目全部齐全（共${accts.length}个启用科目）`);
       }
-      log('4-科目', `   科目代码列表: ${codes.join(', ')}`);
     }
 
     // ========== 5. voucher_auto_settings 开关 ==========
