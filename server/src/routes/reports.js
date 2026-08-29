@@ -235,7 +235,7 @@ router.get('/profit', async (req, res) => {
 
     // 总营收
     const [[revenue]] = await db.query(
-      `SELECT IFNULL(SUM(total_amount), 0) as total FROM sales_orders WHERE tenant_id = ? ${dateFilter}`,
+      `SELECT IFNULL(SUM(so.total_amount), 0) as total FROM sales_orders so WHERE so.tenant_id = ? ${dateFilter}`,
       params
     );
 
