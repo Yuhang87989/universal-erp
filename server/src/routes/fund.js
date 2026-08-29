@@ -97,7 +97,8 @@ router.delete('/accounts/:id', requireRole('owner', 'manager'), async (req, res)
     const [[acc]] = await pool.query('SELECT * FROM fund_accounts WHERE id=? AND tenant_id=?', [req.params.id, req.tenantId]);
     if (!acc) return res.status(404).json({ code: 404, message: '账户不存在' });
     if (acc.is_default) return res.status(400).json({ code: 400, message: '默认账户不能删除' });
-    const [{cnt}] = await pool.query('SELECT COUNT(*) as cnt FROM fund_transactions WHERE account_id=? AND tenant_id=?', [req.params.id, req.tenantId]);
+    const [[cntRow]] = await pool.query('SELECT COUNT(*) as cnt FROM fund_transactions WHERE account_id=? AND tenant_id=?', [req.params.id, req.tenantId]);
+    const cnt = cntRow.cnt;
     if (cnt > 0) return res.status(400).json({ code: 400, message: '该账户有流水记录，不能删除（可禁用）' });
     await pool.query('DELETE FROM fund_accounts WHERE id=? AND tenant_id=?', [req.params.id, req.tenantId]);
     res.json({ code: 0, message: '账户已删除' });
@@ -126,7 +127,8 @@ router.get('/transactions', async (req, res) => {
     if (end_date) { where += ' AND ft.tx_date<=?'; params.push(end_date); }
     if (keyword) { where += ' AND (ft.remark LIKE ? OR ft.tx_no LIKE ? OR ft.reference_no LIKE ?)'; params.push('%'+keyword+'%', '%'+keyword+'%', '%'+keyword+'%'); }
 
-    const [{total}] = await pool.query(`SELECT COUNT(*) as total FROM fund_transactions ft ${where}`, params);
+    const [[totalRow]] = await pool.query(`SELECT COUNT(*) as total FROM fund_transactions ft ${where}`, params);
+    const total = totalRow.total;
     const [rows] = await pool.query(
       `SELECT ft.*, fa.account_name, fa.account_type, u.real_name AS operator_name
        FROM fund_transactions ft
@@ -148,7 +150,7 @@ router.get('/transactions', async (req, res) => {
       code: 0,
       data: {
         list: rows,
-        total: total.total,
+        total: total,
         page: parseInt(page),
         pageSize: parseInt(pageSize),
         summary: {
