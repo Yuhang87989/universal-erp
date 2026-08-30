@@ -30,6 +30,7 @@ const featureGroups = [
     features: [
       { name: '销售订单', desc: '多类型销售（POS/线上/批发/电话），自动扣减库存' },
       { name: 'POS收银', desc: '触屏收银，搜索商品→购物车→选支付方式→结账，快速开单' },
+      { name: '小票打印', desc: '收银结算自动出票，支持58/80mm热敏小票机、手机蓝牙打印，历史单据可补打' },
       { name: '客户管理', desc: '客户档案、联系方式、累计消费、应收余额' },
     ]
   },
@@ -57,6 +58,7 @@ const featureGroups = [
       { name: '试算平衡', desc: '自动汇总各科目的期初、本期、期末借贷方余额' },
       { name: '应收应付', desc: '往来账款管理，账龄分析（0-30/31-60/61-90/91-180/180+天）' },
       { name: '资金账户', desc: '现金/微信/支付宝/银行多账户管理，收支流水登记' },
+      { name: '账单智能导入', desc: '微信/支付宝/银行账单一键导入，自动识别表头与收支方向，编码乱码自适应，流水秒级落库并生成凭证' },
       { name: '固定资产', desc: '资产卡片、折旧方法设置、月度自动计提折旧' },
       { name: '期末结转', desc: '自动生成结转凭证，收入费用转入本年利润，结账后锁定' },
       { name: '印章管理', desc: '公章/财务章/法人章管理，公安备案编号，凭证盖章' },
@@ -98,7 +100,8 @@ const featureGroups = [
     icon: <SettingOutlined />,
     color: '#595959',
     features: [
-      { name: '多租户', desc: '一套系统支持多个独立账套，数据隔离' },
+      { name: '多账套隔离', desc: '一套系统多个独立账套，分公司/分行业各用各的，数据完全隔离，老板一键切换' },
+      { name: '随手记', desc: '内置个人日常收支账套，收入消费随手记一笔，与公司经营账完全分开' },
       { name: '角色权限', desc: '老板/店长/收银员/仓管四种角色，精细权限控制' },
       { name: '员工管理', desc: '员工账号创建、角色分配、状态管理' },
       { name: '电商管理', desc: '多平台电商店铺管理，汇总订单和销售额' },
@@ -197,15 +200,35 @@ const About: React.FC = () => {
 
       {/* 版本信息 */}
       <Divider />
-      <div style={{ textAlign: 'center', padding: '16px 0' }}>
+      <Card style={{ textAlign: 'center', background: '#fafafa', border: 'none' }}>
+        <div style={{ marginBottom: 12 }}>
+          <img src="/erp-logo.png" alt="宇航智荟" style={{ width: 40, height: 40, borderRadius: 10, verticalAlign: 'middle', marginRight: 10 }} />
+          <Text strong style={{ fontSize: 18, color: '#1677ff', verticalAlign: 'middle' }}>宇航智荟 ERP v2.1</Text>
+        </div>
+        <Paragraph style={{ marginBottom: 4, fontSize: 13 }}>
+          <Text strong>武汉市江岸区宇航智荟电商营业部</Text>
+        </Paragraph>
+        <Paragraph type="secondary" style={{ marginBottom: 4, fontSize: 12 }}>
+          统一社会信用代码：92420102MAKJME5F3R
+        </Paragraph>
+        <Paragraph type="secondary" style={{ marginBottom: 8, fontSize: 12 }}>
+          技术支持：18667887138@163.com · QQ 392430818
+        </Paragraph>
+        <Space size={16} wrap style={{ justifyContent: 'center' }}>
+          <Tag color="blue">React + Ant Design</Tag>
+          <Tag color="green">Node.js</Tag>
+          <Tag color="orange">MySQL</Tag>
+          <Tag color="purple">手机 / 电脑多端通用</Tag>
+        </Space>
+        <Divider style={{ margin: '12px 0' }} />
         <Text type="secondary" style={{ fontSize: 12 }}>
-          宇航智荟 ERP v2.0 · 武汉市江岸区宇航智荟电商营业部
+          © 2026 武汉市江岸区宇航智荟电商营业部 · 保留所有权利
         </Text>
         <br />
         <Text type="secondary" style={{ fontSize: 12 }}>
-          技术栈：React + Ant Design + Node.js + MySQL
+          v2.1 更新：微信/支付宝账单智能导入 · 小票打印 · 多行业账套 · 随手记个人记账
         </Text>
-      </div>
+      </Card>
     </div>
   );
 };
