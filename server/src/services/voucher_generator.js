@@ -41,6 +41,14 @@ async function findAccountId(conn, bookId, codeCandidates, nameKeyword) {
   }
   const accounts = accountCache[cacheKey];
 
+  // 0. 优先按科目名称【精确】匹配 —— 跨会计准则兼容的关键：
+  // 同一科目在不同准则下代码不同（如"主营业务收入"小企业准则5001/企业准则6001、
+  // "管理费用"小企业6601/企业6602、"销售费用"小企业6602/企业6601），名称则一致。
+  if (nameKeyword) {
+    const exact = accounts.find(a => a.name && a.name === nameKeyword);
+    if (exact) return exact.id;
+  }
+
   // 1. 精确代码匹配（只匹配一级科目，不含小数点）
   for (const code of codeCandidates) {
     const found = accounts.find(a => a.code === code);
@@ -57,9 +65,9 @@ async function findAccountId(conn, bookId, codeCandidates, nameKeyword) {
     if (found) return found.id;
   }
 
-  // 3. 按名称模糊匹配
+  // 3. 按名称模糊匹配（双向包含，兜底）
   if (nameKeyword) {
-    const found = accounts.find(a => a.name && a.name.includes(nameKeyword));
+    const found = accounts.find(a => a.name && (a.name.includes(nameKeyword) || (a.name.length >= 2 && nameKeyword.includes(a.name))));
     if (found) return found.id;
   }
 

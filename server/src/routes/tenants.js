@@ -86,6 +86,27 @@ router.post('/', async (req, res) => {
       );
     }
 
+    // 5. 默认资金账户（现金/微信/支付宝）——资金模块开箱即用
+    await conn.query(
+      `INSERT INTO fund_accounts (tenant_id, account_name, account_type, balance, is_enabled, is_default, sort_order)
+       VALUES (?, '现金账户', 'cash', 0, 1, 1, 1),
+              (?, '微信收款', 'wechat', 0, 1, 0, 2),
+              (?, '支付宝收款', 'alipay', 0, 1, 0, 3)`,
+      [tenantId, tenantId, tenantId]
+    );
+
+    // 6. 默认仓库——入库/库存模块开箱即用
+    await conn.query(
+      `INSERT INTO warehouses (tenant_id, code, name, is_default, remark) VALUES (?, 'WH001', '主仓库', 1, '默认仓库')`,
+      [tenantId]
+    );
+
+    // 7. 自动凭证开关（全开）——销售/采购/资金/折旧自动生成凭证
+    await conn.query(
+      `INSERT INTO voucher_auto_settings (tenant_id, auto_sales, auto_purchase, auto_fund, auto_depreciation) VALUES (?,1,1,1,1)`,
+      [tenantId]
+    );
+
     await conn.commit();
     res.json({ code: 0, data: { tenantId, bookId, userId: uResult.insertId }, message: '帐套创建成功！管理员账号: ' + (username||'admin') + ' / ' + (password||'admin123') });
   } catch (err) {
