@@ -48,11 +48,11 @@ interface TxnRow {
 }
 
 const HEADER_ALIASES: Record<string, string[]> = {
-  date: ['交易时间', '交易创建时间', '记账日期', '交易日期', '付款时间', '入账时间', '完成时间', 'date'],
+  date: ['交易时间', '交易创建时间', '记账日期', '交易日期', '付款时间', '入账时间', '完成时间', '日期', 'date'],
   amountIn: ['收入金额', '收入(元)', '收入（元）', '贷方金额', '收款金额', '收入'],
   amountOut: ['支出金额', '支出(元)', '支出（元）', '借方金额', '付款金额', '支出'],
   amount: ['交易金额', '金额(元)', '金额（元）', '发生额', '金额(人民币)', '金额（人民币）', 'amount', '金额'],
-  direction: ['收/支', '收支方向', '资金方向', '收支类型', '交易类型', '资金动向', '收支', 'direction'],
+  direction: ['收/支', '收支方向', '资金方向', '收支类型', '资金动向', '收支', 'direction'],
   counterparty: ['交易对方', '对方户名', '对方名称', '商户名称', '对方账号名称', '对方姓名', '交易对象', 'counterparty'],
   remark: ['商品说明', '商品名称', '交易摘要', '交易说明', '备注信息', '附言', '摘要', '说明', '备注', '商品', 'remark'],
   status: ['当前状态', '交易状态', '状态'],
@@ -64,13 +64,14 @@ const normHeader = (v: any): string =>
     .replace(/[（]/g, '(').replace(/[）]/g, ')')
     .replace(/[\s*]/g, '').toLowerCase();
 
-// 列匹配：先归一化精确匹配，再按别名包含匹配（别名>=2字）
+// 列匹配：归一化后精确匹配；表头包含别名（如表头"交易创建时间"类）放行；
+// 别名包含表头仅当表头>=3字（防"金额/类型"等2字短表头被"收入金额/收支类型"误中）
 const matchColName = (header: any, aliases: string[]): boolean => {
   const h = normHeader(header);
-  if (!h) return false;
-  const normed = aliases.map(normHeader).filter(Boolean);
+  if (h.length < 2) return false;
+  const normed = aliases.map(normHeader).filter(a => a.length >= 2);
   if (normed.includes(h)) return true;
-  return normed.some(a => a.length >= 2 && h.includes(a));
+  return normed.some(a => h.includes(a) || (h.length >= 3 && a.includes(h)));
 };
 
 // 金额解析：去￥¥逗号空格；括号或负号表示负数
@@ -140,16 +141,27 @@ const FundImport: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
     for (let i = 0; i < scanLimit; i++) {
       const row = aoa[i] || [];
       const cols: Record<string, number> = {};
-      const seen = new Set<string>();
+      const occupied = new Set<number>(); // 列互斥：一列只归一个字段
       let score = 0;
       row.forEach((cell, ci) => {
+        if (occupied.has(ci)) return;
         for (const field of Object.keys(HEADER_ALIASES)) {
-          if (cols[field] !== undefined || seen.has(field)) continue;
-          if (matchColName(cell, HEADER_ALIASES[field])) {
-            cols[field] = ci;
-            seen.add(field);
-            score += weights[field] || 1;
+          if (cols[field] !== undefined) continue;
+          if (!matchColName(cell, HEADER_ALIASES[field])) continue;
+          // 方向列双保险：下方数据单元格必须真的是"收入/支出/收/支"类值
+          if (field === 'direction') {
+            const vals = [];
+            for (let k = i + 1; k < Math.min(i + 7, aoa.length); k++) {
+              const v = String((aoa[k] || [])[ci] || '').trim();
+              if (v) vals.push(v);
+            }
+            const ok = vals.some(v => v.length <= 6 && /^(收|支)/.test(v));
+            if (!ok) continue;
           }
+          cols[field] = ci;
+          occupied.add(ci);
+          score += weights[field] || 1;
+          break;
         }
       });
       if (score > best.score) best = { rowIdx: i, score, cols };
@@ -245,8 +257,10 @@ const FundImport: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
 
         const remark = String(cell(r, iRemark) || '').trim();
         const party = String(cell(r, iParty) || '').trim();
-        // 跳过转账/提现（微信/支付宝提现到银行卡不算收支）
-        if (skipTransfer && /提现|转账|零钱通|余额宝|银行卡/.test(remark + party) && !/货款|订单|收款/.test(remark + party)) continue;
+        // 跳过内部划转：零钱提现/零钱通/余额宝（钱在自己账户间搬，不算收支）；
+        // 用整行文本判断，因为微信"零钱提现"字样在交易类型列。注意"转账"不跳——收到转账是收入
+        const rowText = r.map(x => String(x == null ? '' : x)).join(' ');
+        if (skipTransfer && /提现|零钱通|余额宝|信用卡还款|余额转入|余额转出/.test(rowText)) continue;
 
         const dv = cell(r, iDate);
         if (!dv || !String(dv).trim()) continue; // 说明行/汇总行跳过
