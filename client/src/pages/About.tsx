@@ -203,7 +203,7 @@ const About: React.FC = () => {
       <Card style={{ textAlign: 'center', background: '#fafafa', border: 'none' }}>
         <div style={{ marginBottom: 12 }}>
           <img src="/erp-logo.png" alt="宇航智荟" style={{ width: 40, height: 40, borderRadius: 10, verticalAlign: 'middle', marginRight: 10 }} />
-          <Text strong style={{ fontSize: 18, color: '#1677ff', verticalAlign: 'middle' }}>宇航智荟 ERP v2.1</Text>
+          <Text strong style={{ fontSize: 18, color: '#1677ff', verticalAlign: 'middle' }}>宇航智荟 ERP v2.2</Text>
         </div>
         <Paragraph style={{ marginBottom: 4, fontSize: 13 }}>
           <Text strong>武汉市江岸区宇航智荟电商营业部</Text>
@@ -226,7 +226,7 @@ const About: React.FC = () => {
         </Text>
         <br />
         <Text type="secondary" style={{ fontSize: 12 }}>
-          v2.1 更新：微信/支付宝账单智能导入 · 小票打印 · 多行业账套 · 随手记个人记账
+          v2.2 更新：随手记个人账本（专属菜单/记账工作台/收支趋势） · v2.1：账单智能导入 · 小票打印 · 多行业账套
         </Text>
       </Card>
     </div>

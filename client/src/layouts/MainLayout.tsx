@@ -144,6 +144,21 @@ const allMenuItems = [
   ]}
 ];
 
+// 个人记账账套（随手记）精简菜单：纯流水记账，无进销存/复式记账
+const personalMenuItems = [
+  { type: 'group' as const, label: '记账', children: [
+    { key: '/dashboard', icon: <DashboardOutlined />, label: '我的账本' },
+    { key: '/fund', icon: <WalletOutlined />, label: '收支流水' },
+  ] },
+  { type: 'group' as const, label: 'AI助手', children: [
+    { key: '/ai', icon: <RobotOutlined />, label: 'AI智能记账' },
+  ] },
+  { type: 'group' as const, label: '系统', children: [
+    { key: '/settings', icon: <SettingOutlined />, label: '设置' },
+    { key: '/about', icon: <InfoCircleOutlined />, label: '关于' },
+  ] },
+];
+
 // 权限过滤：根据用户权限过滤菜单项
 const filterMenuByPerm = (items: any[], perms: string[] | null | undefined): any[] => {
   if (perms === null || perms === undefined) return items; // owner全部
@@ -200,7 +215,11 @@ const MainLayout: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { user, logout, tenants, switchTenant, loadTenants } = useAuth();
-  const menuItems = useMemo(() => filterMenuByPerm(allMenuItems, user?.permissions), [user?.permissions]);
+  const isPersonalBook = user?.business_type === 'personal' || user?.business_type === 'other';
+  const menuItems = useMemo(
+    () => isPersonalBook ? personalMenuItems : filterMenuByPerm(allMenuItems, user?.permissions),
+    [user?.permissions, isPersonalBook]
+  );
   const [isMobile, setIsMobile] = useState(false);
   const [drawerVisible, setDrawerVisible] = useState(false);
 

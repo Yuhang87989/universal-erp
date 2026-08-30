@@ -6,7 +6,8 @@ import {
   ShoppingOutlined, DatabaseOutlined, BarChartOutlined,
   AccountBookOutlined, RobotOutlined,
   ThunderboltOutlined, InboxOutlined, ArrowRightOutlined,
-  WalletOutlined, AuditOutlined, SettingOutlined, RightOutlined
+  WalletOutlined, AuditOutlined, SettingOutlined, RightOutlined,
+  ArrowUpOutlined, ArrowDownOutlined, ImportOutlined, SwapOutlined
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import ReactECharts from 'echarts-for-react';
@@ -117,6 +118,9 @@ const Dashboard: React.FC = () => {
       setAiLoading(false);
     }
   };
+
+  const isPersonalBook = user?.business_type === 'personal' || user?.business_type === 'other';
+  if (isPersonalBook) return <PersonalDashboard />;
 
   return (
     <div>
@@ -309,5 +313,180 @@ const Dashboard: React.FC = () => {
     </div>
   );
 };
+
+
+// ============ 个人记账版工作台（随手记账套） ============
+const personalActions = [
+  { key: 'expense', icon: <ArrowUpOutlined />, label: '记支出', color: '#f5222d', bg: '#fff1f0', path: '/fund' },
+  { key: 'income', icon: <ArrowDownOutlined />, label: '记收入', color: '#52c41a', bg: '#f6ffed', path: '/fund' },
+  { key: 'import', icon: <ImportOutlined />, label: '导入账单', color: '#1677ff', bg: '#e6f4ff', path: '/fund' },
+  { key: 'transfer', icon: <SwapOutlined />, label: '账户转账', color: '#722ed1', bg: '#f9f0ff', path: '/fund' },
+];
+
+const PersonalDashboard: React.FC = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [accounts, setAccounts] = useState<any[]>([]);
+  const [monthIn, setMonthIn] = useState(0);
+  const [monthOut, setMonthOut] = useState(0);
+  const [todayIn, setTodayIn] = useState(0);
+  const [todayOut, setTodayOut] = useState(0);
+  const [recent, setRecent] = useState<any[]>([]);
+  const [trend, setTrend] = useState<Record<string, { in: number; out: number }>>({});
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const monthStart = new Date();
+        monthStart.setDate(1);
+        const ms = monthStart.toISOString().slice(0, 10);
+        const today = new Date().toISOString().slice(0, 10);
+        const trendStart = new Date(Date.now() - 29 * 86400000).toISOString().slice(0, 10);
+
+        const [accRes, monthRes, todayRes, recentRes] = await Promise.all([
+          request.get('/fund/accounts'),
+          request.get('/fund/transactions', { params: { page: 1, pageSize: 1, start_date: ms } }),
+          request.get('/fund/transactions', { params: { page: 1, pageSize: 1, start_date: today, end_date: today } }),
+          request.get('/fund/transactions', { params: { page: 1, pageSize: 8, start_date: trendStart } }),
+        ]);
+        const accData = accRes.data?.data || {};
+        setAccounts(accData.list || []);
+        const ms2 = monthRes.data?.data?.summary;
+        if (ms2) { setMonthIn(ms2.total_in); setMonthOut(ms2.total_out); }
+        const ts = todayRes.data?.data?.summary;
+        if (ts) { setTodayIn(ts.total_in); setTodayOut(ts.total_out); }
+        const list = recentRes.data?.data?.list || [];
+        setRecent(list);
+        const t: Record<string, { in: number; out: number }> = {};
+        list.forEach((r: any) => {
+          const d = (r.tx_date || '').slice(0, 10);
+          if (!d) return;
+          if (!t[d]) t[d] = { in: 0, out: 0 };
+          if (r.direction === 'in') t[d].in += parseFloat(r.amount);
+          else t[d].out += parseFloat(r.amount);
+        });
+        setTrend(t);
+      } catch (e) { console.error(e); }
+      finally { setLoading(false); }
+    })();
+  }, []);
+
+  const totalBalance = accounts.reduce((s, a) => s + parseFloat(a.balance || 0), 0);
+
+  // 近30天趋势（按有流水的日期）
+  const days = Object.keys(trend).sort().slice(-14);
+  const trendOption = {
+    tooltip: { trigger: 'axis' as const },
+    legend: { data: ['收入', '支出'], top: 0, textStyle: { fontSize: 11 } },
+    grid: { left: 8, right: 8, top: 28, bottom: 4, containLabel: true },
+    xAxis: { type: 'category' as const, data: days.map(d => d.slice(5)), axisLabel: { fontSize: 10 } },
+    yAxis: { type: 'value' as const, axisLabel: { fontSize: 10 } },
+    series: [
+      { name: '收入', type: 'bar', data: days.map(d => Number(trend[d].in.toFixed(2))), itemStyle: { color: '#52c41a' }, barMaxWidth: 14 },
+      { name: '支出', type: 'bar', data: days.map(d => Number(trend[d].out.toFixed(2))), itemStyle: { color: '#f5222d' }, barMaxWidth: 14 },
+    ],
+  };
+
+  const fmt = (n: number) => Number(n || 0).toFixed(2);
+
+  return (
+    <div>
+      <Title level={4} style={{ marginBottom: 16, display: 'flex', alignItems: 'center' }}>
+        我的账本
+        <Tag color="orange" style={{ marginLeft: 8, fontSize: 12 }}>📒 {user?.tenantName || '随手记'}</Tag>
+      </Title>
+
+      {/* 总览卡片 */}
+      <Card size="small" style={{ marginBottom: 16, background: 'linear-gradient(135deg, #fff7e6 0%, #fffbe6 100%)', border: '1px solid #ffd591' }}>
+        <Row gutter={16}>
+          <Col xs={24} sm={8}>
+            <Statistic title="账户总余额" value={fmt(totalBalance)} prefix="¥" valueStyle={{ color: '#fa8c16', fontSize: 24 }} />
+          </Col>
+          <Col xs={12} sm={8}>
+            <Statistic title="本月收入" value={fmt(monthIn)} prefix="¥" valueStyle={{ color: '#52c41a', fontSize: 20 }} />
+            <div style={{ fontSize: 12, color: '#999' }}>今日收入 ¥{fmt(todayIn)}</div>
+          </Col>
+          <Col xs={12} sm={8}>
+            <Statistic title="本月支出" value={fmt(monthOut)} prefix="¥" valueStyle={{ color: '#f5222d', fontSize: 20 }} />
+            <div style={{ fontSize: 12, color: '#999' }}>今日支出 ¥{fmt(todayOut)}</div>
+          </Col>
+        </Row>
+        <div style={{ marginTop: 8, fontSize: 13, color: '#fa8c16' }}>
+          本月结余：<b>¥{fmt(monthIn - monthOut)}</b>
+        </div>
+      </Card>
+
+      {/* 快捷操作 */}
+      <Card size="small" title="快捷记账" style={{ marginBottom: 16 }}>
+        <Row gutter={[12, 12]}>
+          {personalActions.map(a => (
+            <Col xs={6} sm={6} key={a.key}>
+              <div onClick={() => navigate(a.path)}
+                style={{ textAlign: 'center', cursor: 'pointer', padding: '12px 4px', borderRadius: 8, background: a.bg }}>
+                <div style={{ fontSize: 22, color: a.color }}>{a.icon}</div>
+                <div style={{ marginTop: 6, fontSize: 13, color: '#333' }}>{a.label}</div>
+              </div>
+            </Col>
+          ))}
+        </Row>
+      </Card>
+
+      <Row gutter={16}>
+        {/* 近14天收支 */}
+        <Col xs={24} md={14}>
+          <Card size="small" title="近期收支" style={{ marginBottom: 16 }}>
+            {days.length > 0
+              ? <ReactECharts option={trendOption} style={{ height: 220 }} />
+              : <div style={{ textAlign: 'center', color: '#999', padding: '40px 0' }}>
+                  还没有流水，点上方「导入账单」把微信/支付宝账单导进来
+                </div>}
+          </Card>
+        </Col>
+        {/* 账户余额 */}
+        <Col xs={24} md={10}>
+          <Card size="small" title="我的账户" style={{ marginBottom: 16 }}
+            extra={<Button type="link" size="small" onClick={() => navigate('/fund')}>管理</Button>}>
+            {accounts.length === 0 && <div style={{ color: '#999', textAlign: 'center', padding: 16 }}>暂无账户</div>}
+            {accounts.map(a => (
+              <div key={a.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '8px 0', borderBottom: '1px solid #f5f5f5' }}>
+                <div>
+                  <Tag color="blue">{a.account_type === 'cash' ? '现金' : a.account_type === 'wechat' ? '微信' : a.account_type === 'alipay' ? '支付宝' : a.account_type === 'bank' ? '银行卡' : '其他'}</Tag>
+                  <b>{a.account_name}</b>
+                </div>
+                <b style={{ color: parseFloat(a.balance) < 0 ? '#f5222d' : '#333' }}>¥{fmt(a.balance)}</b>
+              </div>
+            ))}
+          </Card>
+        </Col>
+      </Row>
+
+      {/* 最近流水 */}
+      <Card size="small" title="最近流水" extra={<Button type="link" size="small" onClick={() => navigate('/fund')}>查看全部</Button>}>
+        {recent.length === 0 && !loading && <div style={{ color: '#999', textAlign: 'center', padding: 24 }}>暂无记录</div>}
+        {recent.map(r => (
+          <div key={r.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '10px 0', borderBottom: '1px solid #f5f5f5' }}>
+            <div style={{ minWidth: 0, flex: 1 }}>
+              <div style={{ fontSize: 14 }}>
+                <Tag color={r.direction === 'in' ? 'green' : 'red'} style={{ marginRight: 6 }}>
+                  {r.direction === 'in' ? '收入' : '支出'}
+                </Tag>
+                <b>{r.counterparty_name || r.remark || (r.direction === 'in' ? '收入' : '支出')}</b>
+              </div>
+              <div style={{ fontSize: 12, color: '#999', marginTop: 2 }}>
+                {(r.tx_date || '').slice(0, 10)} · {r.account_name || '现金'}
+                {r.remark && r.remark !== r.counterparty_name ? ` · ${r.remark}` : ''}
+              </div>
+            </div>
+            <b style={{ color: r.direction === 'in' ? '#52c41a' : '#f5222d', marginLeft: 12, whiteSpace: 'nowrap' }}>
+              {r.direction === 'in' ? '+' : '-'}¥{fmt(r.amount)}
+            </b>
+          </div>
+        ))}
+      </Card>
+    </div>
+  );
+};
+
 
 export default Dashboard;

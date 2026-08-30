@@ -3,6 +3,7 @@ import { Card, Table, Button, Modal, Form, Input, InputNumber, Select, DatePicke
 import { PlusOutlined, WalletOutlined, SwapOutlined, ArrowUpOutlined, ArrowDownOutlined } from '@ant-design/icons';
 import request from '../../api/request';
 import FundImport from './FundImport';
+import { useAuth } from '../../context/AuthContext';
 import dayjs from 'dayjs';
 
 const { TextArea } = Input;
@@ -22,6 +23,9 @@ const businessTypeMap: Record<string, string> = {
 };
 
 const FundManagement: React.FC = () => {
+  const { user } = useAuth();
+  const isPersonalBook = user?.business_type === 'personal' || user?.business_type === 'other';
+  const [activeTab, setActiveTab] = useState<string>('accounts');
   const [accounts, setAccounts] = useState<any[]>([]);
   const [txList, setTxList] = useState<any[]>([]);
   const [total, setTotal] = useState(0);
@@ -36,6 +40,8 @@ const FundManagement: React.FC = () => {
   const [txForm] = Form.useForm();
   const [transferForm] = Form.useForm();
   const [editingAcc, setEditingAcc] = useState<any>(null);
+
+  useEffect(() => { if (isPersonalBook) setActiveTab('transactions'); }, [isPersonalBook]);
 
   const loadAccounts = useCallback(async () => {
     try {
@@ -130,7 +136,7 @@ const FundManagement: React.FC = () => {
 
   return (
     <Card>
-      <Tabs items={[
+      <Tabs activeKey={activeTab} onChange={setActiveTab} items={[
         { key: 'accounts', label: '资金账户', children: (
           <>
             <Row gutter={16} style={{ marginBottom: 16 }}>
@@ -193,6 +199,7 @@ const FundManagement: React.FC = () => {
               }} allowClear={false} placeholder="月份" />
               <Button icon={<ArrowDownOutlined />} type="primary" onClick={() => { setTxDirection('in'); txForm.resetFields(); txForm.setFieldsValue({ account_id: accounts[0]?.id, tx_date: dayjs() }); setTxModal(true); }}>收款</Button>
               <Button icon={<ArrowUpOutlined />} onClick={() => { setTxDirection('out'); txForm.resetFields(); txForm.setFieldsValue({ account_id: accounts[0]?.id, tx_date: dayjs() }); setTxModal(true); }}>付款</Button>
+              <FundImport onSuccess={() => { loadAccounts(); loadTx(); }} />
             </Space>
             <Table rowKey="id" columns={txColumns} dataSource={txList} loading={loading} scroll={{ x: 1200 }}
               pagination={{ current: page, total, pageSize: 20, onChange: p => { setPage(p); loadTx(p); } }} />
