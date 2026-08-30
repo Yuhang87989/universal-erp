@@ -2,7 +2,7 @@
 # 全量部署：按 commit SHA 拉完整仓库tarball（SHA每次不同，gh-proxy无法缓存），
 # 前端/后端源码全量同步后再构建。比"只拉改动文件"可靠（避免漏传依赖文件）。
 set -e
-SHA="3794cadc5e5271520185471c1f0482d426ad3225"   # 代码更新后改这里
+SHA="d75862d569ae65a221f641b258506745bb6ea465"   # 代码更新后改这里
 APP=/opt/universal-erp
 URL="https://gh-proxy.com/https://github.com/Yuhang87989/universal-erp/archive/${SHA}.tar.gz"
 
