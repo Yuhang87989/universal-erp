@@ -18,10 +18,12 @@ echo "========== 1. 后端：凭证跨会计准则 + 建账初始化 =========="
 fetch "server/src/services/voucher_generator.js" "$APP/server/src/services/voucher_generator.js"
 fetch "server/src/routes/tenants.js"            "$APP/server/src/routes/tenants.js"
 fetch "server/diagnostics/seed_tenant_basics.js"  "$APP/server/diagnostics/seed_tenant_basics.js"
+fetch "server/diagnostics/create_personal_book.js" "$APP/server/diagnostics/create_personal_book.js"
 echo "后端语法检查:"
 node --check "$APP/server/src/services/voucher_generator.js" && echo "  voucher_generator ✅"
 node --check "$APP/server/src/routes/tenants.js" && echo "  tenants ✅"
 node --check "$APP/server/diagnostics/seed_tenant_basics.js" && echo "  seed脚本 ✅"
+node --check "$APP/server/diagnostics/create_personal_book.js" && echo "  建账脚本 ✅"
 
 echo "========== 2. 重启后端 =========="
 systemctl restart erp-server
@@ -31,6 +33,9 @@ curl -s -o /dev/null -w "健康检查 HTTP: %{http_code}\n" https://erp.qiuyhang
 
 echo "========== 3. 老账套补齐基础数据（幂等）=========="
 node "$APP/server/diagnostics/seed_tenant_basics.js"
+
+echo "========== 3.5 创建「随手记」个人账套（幂等）=========="
+node "$APP/server/diagnostics/create_personal_book.js" || true
 
 echo "========== 4. 前端：流水导入解析器 + 小票打印 =========="
 fetch "client/src/pages/Finance/FundImport.tsx" "$APP/client/src/pages/Finance/FundImport.tsx"
