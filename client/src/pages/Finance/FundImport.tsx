@@ -48,14 +48,41 @@ interface TxnRow {
 }
 
 const HEADER_ALIASES: Record<string, string[]> = {
-  date: ['交易时间', '交易创建时间', '记账日期', '交易日期', '时间', 'date', '付款时间'],
-  amountIn: ['收入金额', '收入', '收入(元)', '贷方金额', '收款金额'],
-  amountOut: ['支出金额', '支出', '支出(元)', '借方金额', '付款金额'],
-  amount: ['金额', '交易金额', 'amount', '发生额', '金额(元)'],
-  direction: ['收/支', '收支方向', '资金方向', '收支类型', 'direction', '交易类型'],
-  counterparty: ['交易对方', '对方户名', '对方名称', '商户名称', '对方账号名称', 'counterparty'],
-  remark: ['商品', '商品说明', '备注', '交易摘要', '摘要', '交易说明', 'remark', '附言'],
+  date: ['交易时间', '交易创建时间', '记账日期', '交易日期', '付款时间', '入账时间', '完成时间', 'date'],
+  amountIn: ['收入金额', '收入(元)', '收入（元）', '贷方金额', '收款金额', '收入'],
+  amountOut: ['支出金额', '支出(元)', '支出（元）', '借方金额', '付款金额', '支出'],
+  amount: ['交易金额', '金额(元)', '金额（元）', '发生额', '金额(人民币)', '金额（人民币）', 'amount', '金额'],
+  direction: ['收/支', '收支方向', '资金方向', '收支类型', '交易类型', '资金动向', '收支', 'direction'],
+  counterparty: ['交易对方', '对方户名', '对方名称', '商户名称', '对方账号名称', '对方姓名', '交易对象', 'counterparty'],
+  remark: ['商品说明', '商品名称', '交易摘要', '交易说明', '备注信息', '附言', '摘要', '说明', '备注', '商品', 'remark'],
   status: ['当前状态', '交易状态', '状态'],
+};
+
+// 列名归一化：去空格和星号、全角括号转半角、转小写
+const normHeader = (v: any): string =>
+  String(v == null ? '' : v)
+    .replace(/[（]/g, '(').replace(/[）]/g, ')')
+    .replace(/[\s*]/g, '').toLowerCase();
+
+// 列匹配：先归一化精确匹配，再按别名包含匹配（别名>=2字）
+const matchColName = (header: any, aliases: string[]): boolean => {
+  const h = normHeader(header);
+  if (!h) return false;
+  const normed = aliases.map(normHeader).filter(Boolean);
+  if (normed.includes(h)) return true;
+  return normed.some(a => a.length >= 2 && h.includes(a));
+};
+
+// 金额解析：去￥¥逗号空格；括号或负号表示负数
+const parseAmountVal = (v: any): number => {
+  if (v == null || v === '') return 0;
+  if (typeof v === 'number') return v;
+  let s = String(v).replace(/[￥¥,，\s]/g, '');
+  let neg = false;
+  if (/^\(.*\)$/.test(s)) { neg = true; s = s.slice(1, -1); }
+  const n = parseFloat(s);
+  if (isNaN(n)) return 0;
+  return neg ? -n : n;
 };
 
 const INCOME_KEYWORDS = ['收入', '收款', '退款', '还款', '工资', '分红', '利息', '收'];
@@ -104,14 +131,30 @@ const FundImport: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
     } catch {}
   };
 
-  const findCol = (keys: string[], row: Record<string, any>): string | null => {
-    const lower = {};
-    Object.keys(row).forEach(k => { lower[String(k).trim().toLowerCase()] = k; });
-    for (const alias of keys) {
-      const k = lower[alias.toLowerCase()];
-      if (k !== undefined && row[k] !== '' && row[k] !== null) return k;
+  // 在 aoa 二维数组里探测表头行：官方账单（微信/支付宝/银行）前面有多行说明，
+  // 真正的表头行含"日期/时间"+金额/收支关键词，得分最高
+  const findHeaderRow = (aoa: any[][]): { rowIdx: number; cols: Record<string, number> } => {
+    const weights: Record<string, number> = { date: 3, amountIn: 2, amountOut: 2, amount: 2, direction: 2, counterparty: 1, remark: 1, status: 1 };
+    let best = { rowIdx: -1, score: 0, cols: {} as Record<string, number> };
+    const scanLimit = Math.min(aoa.length, 30);
+    for (let i = 0; i < scanLimit; i++) {
+      const row = aoa[i] || [];
+      const cols: Record<string, number> = {};
+      const seen = new Set<string>();
+      let score = 0;
+      row.forEach((cell, ci) => {
+        for (const field of Object.keys(HEADER_ALIASES)) {
+          if (cols[field] !== undefined || seen.has(field)) continue;
+          if (matchColName(cell, HEADER_ALIASES[field])) {
+            cols[field] = ci;
+            seen.add(field);
+            score += weights[field] || 1;
+          }
+        }
+      });
+      if (score > best.score) best = { rowIdx: i, score, cols };
     }
-    return null;
+    return { rowIdx: best.rowIdx, cols: best.cols };
   };
 
   const parseDate = (v: any): string => {
@@ -148,58 +191,69 @@ const FundImport: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
       const buf = await file.arrayBuffer();
       const wb = XLSX.read(buf, { type: 'array', cellDates: true });
       const ws = wb.Sheets[wb.SheetNames[0]];
-      const json = XLSX.utils.sheet_to_json(ws, { defval: '', raw: true });
-      if (!json.length) { message.warning('文件为空'); setLoading(false); return; }
+      // 用二维数组读取：官方账单表头前有多行说明，sheet_to_json 会错把说明行当表头
+      const aoa: any[][] = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '', raw: true }) || [];
+      if (!aoa.length) { message.warning('文件为空'); setLoading(false); return; }
 
-      const sample = json[0] as any;
-      const cDate = findCol(HEADER_ALIASES.date, sample);
-      const cIn = findCol(HEADER_ALIASES.amountIn, sample);
-      const cOut = findCol(HEADER_ALIASES.amountOut, sample);
-      const cAmt = findCol(HEADER_ALIASES.amount, sample);
-      const cDir = findCol(HEADER_ALIASES.direction, sample);
-      const cParty = findCol(HEADER_ALIASES.counterparty, sample);
-      const cRemark = findCol(HEADER_ALIASES.remark, sample);
-      const cStatus = findCol(HEADER_ALIASES.status, sample);
+      const { rowIdx: headerIdx, cols } = findHeaderRow(aoa);
+      const iDate = cols.date;
+      const iIn = cols.amountIn;
+      const iOut = cols.amountOut;
+      const iAmt = cols.amount;
+      const iDir = cols.direction;
+      const iParty = cols.counterparty;
+      const iRemark = cols.remark;
+      const iStatus = cols.status;
 
-      if (!cDate) {
-        message.error('未识别到日期列，请确认CSV包含"交易时间/日期"等列');
+      if (headerIdx < 0 || iDate === undefined) {
+        message.error('未识别到日期列，请确认文件包含"交易时间/日期"列；也可点"下载模板"按模板填写');
         setLoading(false);
         return;
       }
 
+      const cell = (r: any[], i: number) => (i === undefined ? '' : r[i]);
       const parsed: TxnRow[] = [];
-      json.forEach((r: any, idx: number) => {
-        const status = cStatus ? String(r[cStatus] || '') : '';
-        if (/关闭|失败|退款中/.test(status)) return; // 跳过异常交易
-        if (skipRefund && /退款/.test(status)) return;
+      for (let idx = headerIdx + 1; idx < aoa.length; idx++) {
+        const r = aoa[idx] || [];
+        const status = String(cell(r, iStatus) || '');
+        if (/关闭|失败|退款中|交易关闭/.test(status)) continue; // 跳过异常交易
+        if (skipRefund && /退款/.test(status)) continue;
 
         let amount = 0;
-        let direction: 'in' | 'out';
-        if (cIn && cOut) {
-          amount = Number(r[cIn]) || Number(r[cOut]);
-          direction = Number(r[cIn]) > 0 ? 'in' : 'out';
-        } else if (cAmt) {
-          amount = Math.abs(Number(r[cAmt]));
-          if (cDir) {
-            const ds = String(r[cDir]);
+        let direction: 'in' | 'out' = 'in';
+        const inAmt = parseAmountVal(cell(r, iIn));
+        const outAmt = parseAmountVal(cell(r, iOut));
+        const amtVal = parseAmountVal(cell(r, iAmt));
+        if (iIn !== undefined || iOut !== undefined) {
+          // 微信/支付宝/银行账单：收入、支出两列
+          amount = Math.abs(inAmt) || Math.abs(outAmt);
+          direction = Math.abs(inAmt) > 0 ? 'in' : 'out';
+        } else if (iAmt !== undefined) {
+          // 单列金额 + 收支方向（模板格式）
+          amount = Math.abs(amtVal);
+          if (iDir !== undefined) {
+            const ds = String(cell(r, iDir) || '');
             direction = INCOME_KEYWORDS.some(k => ds.includes(k)) && !EXPENSE_KEYWORDS.some(k => ds.includes(k)) ? 'in' : 'out';
           } else {
-            direction = Number(r[cAmt]) >= 0 ? 'in' : 'out';
+            direction = amtVal >= 0 ? 'in' : 'out';
           }
         } else {
-          return;
+          continue;
         }
 
-        if (!amount || amount <= 0) return;
+        if (!amount || amount <= 0) continue;
 
-        const remark = cRemark ? String(r[cRemark] || '').trim() : '';
-        const party = cParty ? String(r[cParty] || '').trim() : '';
-        // 跳过转账（微信/支付宝提现到银行卡不算收支）
-        if (skipTransfer && /提现|转账|零钱通|余额宝/.test(remark + party)) return;
+        const remark = String(cell(r, iRemark) || '').trim();
+        const party = String(cell(r, iParty) || '').trim();
+        // 跳过转账/提现（微信/支付宝提现到银行卡不算收支）
+        if (skipTransfer && /提现|转账|零钱通|余额宝|银行卡/.test(remark + party) && !/货款|订单|收款/.test(remark + party)) continue;
+
+        const dv = cell(r, iDate);
+        if (!dv || !String(dv).trim()) continue; // 说明行/汇总行跳过
 
         parsed.push({
-          _row: idx + 2,
-          txDate: parseDate(r[cDate]),
+          _row: idx + 1,
+          txDate: parseDate(dv),
           direction,
           amount: Math.round(amount * 100) / 100,
           counterpartyName: party,
@@ -207,10 +261,10 @@ const FundImport: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
           businessType: guessBusinessType(remark + party, direction),
           _status: 'pending',
         });
-      });
+      }
 
       setRows(parsed);
-      if (!parsed.length) message.warning('未解析到有效交易记录，请检查文件格式');
+      if (!parsed.length) message.warning(`未解析到有效交易记录（识别到表头在第${headerIdx + 1}行但数据行为空/均被过滤），请检查文件内容`);
     } catch (e: any) {
       message.error(e.message || '解析失败');
     }
