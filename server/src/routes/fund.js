@@ -181,6 +181,10 @@ router.post('/transactions', requireRole('owner', 'manager'), async (req, res) =
     const txNo = await genTxNo(conn, req.tenantId);
     const txType = direction === 'in' ? 'income' : 'expense';
     const txDate = tx_date || dayjs().format('YYYY-MM-DD');
+    // business_type 白名单兜底：非法值归入其他收支，避免 ENUM Data truncated
+    const BT_ENUM = ['sale_receipt','purchase_payment','salary','rent','utility','other_income','other_expense','transfer'];
+    const safeBt = BT_ENUM.includes(business_type) ? business_type
+      : (direction === 'in' ? 'other_income' : 'other_expense');
 
     const [r] = await conn.query(
       `INSERT INTO fund_transactions
@@ -189,7 +193,7 @@ router.post('/transactions', requireRole('owner', 'manager'), async (req, res) =
        VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,NOW(),?)`,
       [req.tenantId, account_id, txNo, txType, amount, direction,
        counterparty_type || 'other', counterparty_id || null, counterparty_name || null,
-       business_type || (direction === 'in' ? 'other_income' : 'other_expense'),
+       safeBt,
        reference_type || null, reference_id || null, reference_no || null,
        remark || null, txDate, req.user.id]
     );

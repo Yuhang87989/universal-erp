@@ -89,21 +89,19 @@ const parseAmountVal = (v: any): number => {
 const INCOME_KEYWORDS = ['收入', '收款', '退款', '还款', '工资', '分红', '利息', '收'];
 const EXPENSE_KEYWORDS = ['支出', '付款', '消费', '转账', '扣费', '缴费', '提现', '采购', '付'];
 
+// 业务类型必须与 fund_transactions.business_type 的 ENUM 严格一致：
+// sale_receipt/purchase_payment/salary/rent/utility/other_income/other_expense/transfer
 const guessBusinessType = (text: string, direction: 'in' | 'out'): string => {
   const t = text || '';
   if (direction === 'in') {
-    if (/销售|货款|收款|订单|商品/.test(t)) return 'sales_receipt';
-    if (/退款/.test(t)) return 'refund_in';
-    return 'other_income';
+    if (/销售|货款|收款|订单|商品|收入/.test(t)) return 'sale_receipt';
+    return 'other_income';   // 退款等暂无对应ENUM，归入其他收入
   } else {
-    if (/采购|进货|供应商|货款/.test(t)) return 'purchase_pay';
+    if (/采购|进货|供应商|货款/.test(t)) return 'purchase_payment';
     if (/工资|薪/.test(t)) return 'salary';
     if (/房租|租金|物业/.test(t)) return 'rent';
-    if (/水电|电费|水费|燃气|网费|话费/.test(t)) return 'utilities';
-    if (/运费|快递|物流/.test(t)) return 'freight';
-    if (/差旅|交通|打车|加油/.test(t)) return 'travel';
-    if (/手续费|利息/.test(t)) return 'finance';
-    if (/广告|推广/.test(t)) return 'marketing';
+    if (/水电|电费|水费|燃气|网费|话费/.test(t)) return 'utility';
+    // 运费/差旅/手续费/广告等ENUM无明细类，统一归入其他支出
     return 'other_expense';
   }
 };
@@ -201,7 +199,16 @@ const FundImport: React.FC<{ onSuccess: () => void }> = ({ onSuccess }) => {
     try {
       const XLSX = await loadXLSX();
       const buf = await file.arrayBuffer();
-      const wb = XLSX.read(buf, { type: 'array', cellDates: true });
+      let wb;
+      if (/\.csv$/i.test(file.name)) {
+        // 支付宝导出CSV为GBK编码、微信为UTF-8；按UTF-8解码若出现大量乱码替换符(�)则改GBK
+        const u8 = new TextDecoder('utf-8').decode(buf);
+        const bad = (u8.match(/\uFFFD/g) || []).length;
+        const text = bad > u8.length * 0.001 ? new TextDecoder('gbk').decode(buf) : u8;
+        wb = XLSX.read(text, { type: 'string', cellDates: true });
+      } else {
+        wb = XLSX.read(buf, { type: 'array', cellDates: true });
+      }
       const ws = wb.Sheets[wb.SheetNames[0]];
       // 用二维数组读取：官方账单表头前有多行说明，sheet_to_json 会错把说明行当表头
       const aoa: any[][] = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '', raw: true }) || [];
