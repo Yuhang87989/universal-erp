@@ -2,7 +2,7 @@
 # 全量部署：按 commit SHA 拉完整仓库tarball（SHA每次不同，gh-proxy无法缓存），
 # 前端/后端源码全量同步后再构建。比"只拉改动文件"可靠（避免漏传依赖文件）。
 set -e
-SHA="d75862d569ae65a221f641b258506745bb6ea465"   # 代码更新后改这里
+SHA="5f34dd3f62fb8310e6f8a6b18429893f1a028327"   # 代码更新后改这里
 APP=/opt/universal-erp
 URL="https://gh-proxy.com/https://github.com/Yuhang87989/universal-erp/archive/${SHA}.tar.gz"
 
@@ -65,6 +65,7 @@ echo "最新主JS: $NEWJS"
 curl -s "https://erp.qiuyhang1688.com.cn/$NEWJS" -o /tmp/_chk.js
 grep -q "零钱通" /tmp/_chk.js && echo "✅ 流水导入新解析器已上线" || echo "⚠️ 流水解析器未进产物"
 grep -q "感谢惠顾" /tmp/_chk.js && echo "✅ 小票打印模块已上线" || echo "⚠️ 小票模块未进产物"
+grep -q "我的账本" /tmp/_chk.js && echo "✅ 随手记个人账本已上线" || echo "⚠️ 个人账本未进产物"
 echo ""
 echo "🎉 完成。手机强刷（微信···→刷新/清缓存）后验证："
 echo "  ① 资金管理→导入微信账单 ② POS结算出小票 ③ 顶栏账套切换→随手记"
