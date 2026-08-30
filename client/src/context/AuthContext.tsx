@@ -71,6 +71,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setToken(savedToken);
       try {
         setUser(JSON.parse(savedUser));
+        // 拉取最新用户信息，补齐服务端新增字段（如账套类型 business_type）
+        request.get('/auth/me').then((res: any) => {
+          const fresh = res.data?.data;
+          if (fresh) {
+            setUser(fresh);
+            localStorage.setItem('user', JSON.stringify(fresh));
+          }
+        }).catch(() => {});
       } catch {
         localStorage.removeItem('user');
       }

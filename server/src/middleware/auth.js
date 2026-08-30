@@ -14,7 +14,7 @@ const authenticate = async (req, res, next) => {
 
     // 查询用户信息
     const [users] = await pool.query(
-      'SELECT u.id, u.tenant_id, u.username, u.real_name, u.role, u.status, t.name as tenant_name FROM users u LEFT JOIN tenants t ON u.tenant_id = t.id WHERE u.id = ?',
+      'SELECT u.id, u.tenant_id, u.username, u.real_name, u.role, u.status, t.name as tenant_name, t.business_type FROM users u LEFT JOIN tenants t ON u.tenant_id = t.id WHERE u.id = ?',
       [decoded.userId]
     );
 

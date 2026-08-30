@@ -127,7 +127,7 @@ router.post('/switch', async (req, res) => {
     const newToken = jwt.sign({ userId: req.user.id, tenantId: tenantId, role: req.user.role }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN || '7d' });
     const [targetUser] = await pool.query('SELECT role FROM users WHERE id = ?', [req.user.id]);
     const permissions = await getUserPermissions(req.user.id, targetUser[0].role);
-    res.json({ code: 0, data: { token: newToken, tenantId, tenantName: tenants[0].name, user: { id: req.user.id, username: req.user.username, realName: req.user.real_name, role: targetUser[0].role, tenantId, tenantName: tenants[0].name, permissions }}});
+    res.json({ code: 0, data: { token: newToken, tenantId, tenantName: tenants[0].name, user: { id: req.user.id, username: req.user.username, realName: req.user.real_name, role: targetUser[0].role, tenantId, tenantName: tenants[0].name, business_type: tenants[0].business_type, permissions }}});
   } catch (err) { console.error(err); res.status(500).json({ code: 500, message: '切换帐套失败' }); }
 });
 
@@ -137,12 +137,12 @@ router.post('/demo-switch', async (req, res) => {
     if (!tenantId) return res.status(400).json({ code: 400, message: '请选择账套' });
     const [users] = await pool.query('SELECT id, username, real_name, role FROM users WHERE tenant_id=? AND username=? LIMIT 1', [tenantId, 'admin']);
     if (!users.length) return res.status(404).json({ code: 404, message: '目标账套未找到admin账号' });
-    const [tenants] = await pool.query('SELECT id, name FROM tenants WHERE id=?', [tenantId]);
+    const [tenants] = await pool.query('SELECT id, name, business_type FROM tenants WHERE id=?', [tenantId]);
     if (!tenants.length) return res.status(404).json({ code: 404, message: '账套不存在' });
     const u = users[0];
     const token = jwt.sign({ userId: u.id, tenantId, role: u.role }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN || '7d' });
     const permissions = await getUserPermissions(u.id, u.role);
-    res.json({ code: 0, data: { token, tenantId, tenantName: tenants[0].name, user: { id: u.id, username: u.username, realName: u.real_name, role: u.role, tenantId, tenantName: tenants[0].name, permissions }}});
+    res.json({ code: 0, data: { token, tenantId, tenantName: tenants[0].name, user: { id: u.id, username: u.username, realName: u.real_name, role: u.role, tenantId, tenantName: tenants[0].name, business_type: tenants[0].business_type, permissions }}});
   } catch (err) { console.error('演示切换失败:', err); res.status(500).json({ code: 500, message: '切换失败' }); }
 });
 

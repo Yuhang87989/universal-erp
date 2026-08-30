@@ -16,7 +16,7 @@ router.post('/login', async (req, res) => {
     }
 
     // 按账套过滤用户（同一账号可能在多个账套存在）
-    let sql = 'SELECT u.*, t.name as tenant_name FROM users u LEFT JOIN tenants t ON u.tenant_id = t.id WHERE u.username = ?';
+    let sql = 'SELECT u.*, t.name as tenant_name, t.business_type FROM users u LEFT JOIN tenants t ON u.tenant_id = t.id WHERE u.username = ?';
     const params = [username];
     if (tenantId) {
       sql += ' AND u.tenant_id = ?';
@@ -64,6 +64,7 @@ router.post('/login', async (req, res) => {
           role: user.role,
           tenantId: user.tenant_id,
           tenantName: user.tenant_name,
+          business_type: user.business_type,
           permissions
         }
       }
@@ -87,6 +88,7 @@ router.get('/me', authenticate, async (req, res) => {
         role: req.user.role,
         tenantId: req.user.tenant_id,
         tenantName: req.user.tenant_name,
+        business_type: req.user.business_type,
         permissions
       }
     });
