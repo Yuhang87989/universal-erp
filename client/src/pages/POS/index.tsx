@@ -3,6 +3,7 @@ import { Card, Input, Button, List, Tag, Space, Typography, InputNumber, message
 import { SearchOutlined, PlusOutlined, MinusOutlined, DeleteOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import request from '../../api/request';
 import { voiceService } from '../../services/voiceService';
+import ReceiptPreviewModal, { printReceipt, ReceiptData } from '../../components/ReceiptPrinter';
 
 const { Title, Text } = Typography;
 
@@ -21,6 +22,7 @@ const POS: React.FC = () => {
   const [keyword, setKeyword] = useState('');
   const [paymentVisible, setPaymentVisible] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState('cash');
+  const [receipt, setReceipt] = useState<ReceiptData | null>(null);
 
   useEffect(() => { loadProducts(); }, []);
 
@@ -90,11 +92,29 @@ const POS: React.FC = () => {
         }))
       });
       const amount = Number(res.data?.data?.actualAmount ?? totalAmount);
+      const orderNo = res.data?.data?.orderNo || '';
       message.success(`收款成功！共 ¥${amount.toFixed(2)}`);
       voiceService.speakSale(amount, paymentMethod);
+      // 构造小票
+      let shopName = '宇航智荟';
+      try { const u = JSON.parse(localStorage.getItem('user') || '{}'); shopName = u.tenantName || shopName; } catch {}
+      const receiptData: ReceiptData = {
+        shopName,
+        orderNo: String(orderNo || '-'),
+        orderDate: new Date().toISOString(),
+        items: cart.map(item => ({ name: item.name, quantity: item.quantity, unit: item.unit, unitPrice: item.price })),
+        totalAmount,
+        actualAmount: amount,
+        paymentMethod,
+      };
+      const savedCart = cart;
       setCart([]);
       setPaymentVisible(false);
+      setReceipt(receiptData);
       loadProducts();
+      // 语音播报后自动调起打印窗口
+      setTimeout(() => printReceipt(receiptData), 800);
+      void savedCart;
     } catch (err: any) {
       message.error(err.message || '收款失败');
     }
@@ -188,6 +208,8 @@ const POS: React.FC = () => {
           </Select>
         </div>
       </Modal>
+
+      <ReceiptPreviewModal open={!!receipt} data={receipt} onClose={() => setReceipt(null)} />
     </div>
   );
 };

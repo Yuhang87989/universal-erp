@@ -3,9 +3,10 @@ import {
   Table, Button, Modal, Form, Input, InputNumber, Select, DatePicker,
   Tag, Space, message, Card, Row, Col, Popconfirm, Descriptions, Typography
 } from 'antd';
-import { PlusOutlined, EyeOutlined, SearchOutlined, ReloadOutlined, DownloadOutlined } from '@ant-design/icons';
+import { PlusOutlined, EyeOutlined, SearchOutlined, ReloadOutlined, DownloadOutlined, PrinterOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import request from '../../api/request';
+import { printReceipt, ReceiptData } from '../../components/ReceiptPrinter';
 
 const { RangePicker } = DatePicker;
 const { Title, Text } = Typography;
@@ -101,6 +102,30 @@ const Sales: React.FC = () => {
       setCurrentOrder(res.data?.data || res.data);
       setDetailModal(true);
     } catch (e) { message.error('获取详情失败'); }
+  };
+
+  const handlePrintReceipt = (order: any) => {
+    let shopName = '宇航智荟';
+    try { const u = JSON.parse(localStorage.getItem('user') || '{}'); shopName = u.tenantName || shopName; } catch {}
+    const items = (order.items || []).map((it: any) => ({
+      name: it.product_name || it.name || '商品',
+      quantity: Number(it.quantity),
+      unit: it.unit || '',
+      unitPrice: Number(it.unit_price ?? it.unitPrice ?? 0),
+    }));
+    const data: ReceiptData = {
+      shopName,
+      orderNo: order.order_no,
+      orderDate: order.order_date,
+      items,
+      totalAmount: Number(order.total_amount || 0),
+      discountAmount: Number(order.discount_amount || 0),
+      actualAmount: Number(order.actual_amount || order.total_amount || 0),
+      paymentMethod: order.payment_method,
+      customerName: order.customer_name || '',
+      operator: order.operator_name || '',
+    };
+    printReceipt(data);
   };
 
   const addItem = () => setOrderItems([...orderItems, { productId: null, quantity: 1, unitPrice: 0 }]);
@@ -313,7 +338,13 @@ const Sales: React.FC = () => {
       </Modal>
 
       {/* 详情弹窗 */}
-      <Modal title={`销售单详情 - ${currentOrder?.order_no || ''}`} open={detailModal} onCancel={() => setDetailModal(false)} footer={null} width={650}>
+      <Modal title={`销售单详情 - ${currentOrder?.order_no || ''}`} open={detailModal} onCancel={() => setDetailModal(false)}
+        footer={
+          <Space>
+            <Button type="primary" icon={<PrinterOutlined />} onClick={() => currentOrder && handlePrintReceipt(currentOrder)}>打印小票</Button>
+            <Button onClick={() => setDetailModal(false)}>关闭</Button>
+          </Space>
+        } width={650}>
         {currentOrder && (
           <>
             <Descriptions bordered size="small" column={2} style={{ marginBottom: 16 }}>
