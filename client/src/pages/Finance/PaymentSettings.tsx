@@ -115,6 +115,7 @@ const PaymentSettings: React.FC = () => {
 
   const renderWechatForm = (ch: any) => (
     <Form key={`wechat-${ch.id}-${refreshKey}`} layout="vertical" initialValues={ch} onFinish={(v) => handleSave(ch.id, v)}>
+      <Form.Item name="channel_name" hidden><input type="hidden" /></Form.Item>
       <QrCodeSection channel={ch} color="#07c160" />
       <Divider orientation="left">API对接（商户号专用，可选）</Divider>
       <Row gutter={16}>
@@ -151,6 +152,7 @@ const PaymentSettings: React.FC = () => {
 
   const renderAlipayForm = (ch: any) => (
     <Form key={`alipay-${ch.id}-${refreshKey}`} layout="vertical" initialValues={ch} onFinish={(v) => handleSave(ch.id, v)}>
+      <Form.Item name="channel_name" hidden><input type="hidden" /></Form.Item>
       <QrCodeSection channel={ch} color="#1677ff" />
       <Divider orientation="left">API对接（商户号专用，可选）</Divider>
       <Row gutter={16}>
