@@ -1,11 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Input, Button, List, Tag, Space, Typography, InputNumber, message, Modal, Select } from 'antd';
-import { SearchOutlined, PlusOutlined, MinusOutlined, DeleteOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import { Card, Input, Button, List, Tag, Space, Typography, InputNumber, message, Modal, Select, Divider } from 'antd';
+import { SearchOutlined, PlusOutlined, MinusOutlined, DeleteOutlined, ShoppingCartOutlined, QrcodeOutlined } from '@ant-design/icons';
 import request from '../../api/request';
 import { voiceService } from '../../services/voiceService';
-import ReceiptPreviewModal, { printReceipt, ReceiptData } from '../../components/ReceiptPrinter';
 
 const { Title, Text } = Typography;
+
+// POS支付方式 → payment_channels channel_code 映射
+const METHOD_TO_CHANNEL: Record<string, string> = {
+  wechat: 'wechat_pay',
+  alipay: 'alipay',
+};
+
+const CHANNEL_LABEL: Record<string, string> = {
+  wechat: '微信支付',
+  alipay: '支付宝',
+};
+
+const CHANNEL_COLOR: Record<string, string> = {
+  wechat: '#07c160',
+  alipay: '#1677ff',
+};
 
 interface CartItem {
   productId: number;
@@ -22,9 +37,12 @@ const POS: React.FC = () => {
   const [keyword, setKeyword] = useState('');
   const [paymentVisible, setPaymentVisible] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState('cash');
-  const [receipt, setReceipt] = useState<ReceiptData | null>(null);
+  const [channels, setChannels] = useState<any[]>([]);
 
-  useEffect(() => { loadProducts(); }, []);
+  useEffect(() => {
+    loadProducts();
+    loadChannels();
+  }, []);
 
   const loadProducts = async () => {
     try {
@@ -35,6 +53,24 @@ const POS: React.FC = () => {
     } catch (err) {
       console.error(err);
     }
+  };
+
+  const loadChannels = async () => {
+    try {
+      const res = await request.get('/payment/channels');
+      const list = Array.isArray(res.data) ? res.data : (res.data?.data || res.data?.list || []);
+      setChannels(list);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // 获取当前支付方式的收款码URL
+  const getQrUrl = (): string | null => {
+    const channelCode = METHOD_TO_CHANNEL[paymentMethod];
+    if (!channelCode) return null;
+    const ch = channels.find(c => c.channel_code === channelCode && c.is_enabled);
+    return ch?.qrcode_url || null;
   };
 
   const addToCart = (product: any) => {
@@ -92,33 +128,18 @@ const POS: React.FC = () => {
         }))
       });
       const amount = Number(res.data?.data?.actualAmount ?? totalAmount);
-      const orderNo = res.data?.data?.orderNo || '';
       message.success(`收款成功！共 ¥${amount.toFixed(2)}`);
       voiceService.speakSale(amount, paymentMethod);
-      // 构造小票
-      let shopName = '宇航智荟';
-      try { const u = JSON.parse(localStorage.getItem('user') || '{}'); shopName = u.tenantName || shopName; } catch {}
-      const receiptData: ReceiptData = {
-        shopName,
-        orderNo: String(orderNo || '-'),
-        orderDate: new Date().toISOString(),
-        items: cart.map(item => ({ name: item.name, quantity: item.quantity, unit: item.unit, unitPrice: item.price })),
-        totalAmount,
-        actualAmount: amount,
-        paymentMethod,
-      };
-      const savedCart = cart;
       setCart([]);
       setPaymentVisible(false);
-      setReceipt(receiptData);
       loadProducts();
-      // 语音播报后自动调起打印窗口
-      setTimeout(() => printReceipt(receiptData), 800);
-      void savedCart;
     } catch (err: any) {
       message.error(err.message || '收款失败');
     }
   };
+
+  const qrUrl = getQrUrl();
+  const isQrPayment = (paymentMethod === 'wechat' || paymentMethod === 'alipay') && qrUrl;
 
   return (
     <div>
@@ -194,9 +215,16 @@ const POS: React.FC = () => {
         </div>
       </div>
 
-      <Modal title="确认收款" open={paymentVisible} onOk={handleCheckout} onCancel={() => setPaymentVisible(false)} okText="确认收款">
+      <Modal
+        title={isQrPayment ? `${CHANNEL_LABEL[paymentMethod]} - 扫码收款` : '确认收款'}
+        open={paymentVisible}
+        onOk={handleCheckout}
+        onCancel={() => setPaymentVisible(false)}
+        okText={isQrPayment ? '✅ 确认已到账' : '确认收款'}
+        width={isQrPayment ? 480 : 420}
+      >
         <div style={{ margin: '16px 0' }}>
-          <Text style={{ fontSize: 20 }}>应收金额：<strong style={{ color: '#ff4d4f' }}>¥{totalAmount.toFixed(2)}</strong></Text>
+          <Text style={{ fontSize: 20 }}>应收金额：<strong style={{ color: '#ff4d4f', fontSize: 28 }}>¥{totalAmount.toFixed(2)}</strong></Text>
         </div>
         <div>
           <Text>支付方式：</Text>
@@ -207,9 +235,57 @@ const POS: React.FC = () => {
             <Select.Option value="card">银行卡</Select.Option>
           </Select>
         </div>
-      </Modal>
 
-      <ReceiptPreviewModal open={!!receipt} data={receipt} onClose={() => setReceipt(null)} />
+        {/* 二维码展示区域 */}
+        {isQrPayment && (
+          <div style={{
+            marginTop: 20,
+            textAlign: 'center',
+            padding: 16,
+            background: '#fafafa',
+            borderRadius: 12,
+            border: `2px solid ${CHANNEL_COLOR[paymentMethod]}`
+          }}>
+            <div style={{ marginBottom: 8 }}>
+              <QrcodeOutlined style={{ fontSize: 20, color: CHANNEL_COLOR[paymentMethod] }} />
+              <Text strong style={{ fontSize: 16, marginLeft: 8 }}>请顾客扫码支付</Text>
+            </div>
+            <img
+              src={qrUrl!}
+              alt={`${CHANNEL_LABEL[paymentMethod]}收款码`}
+              style={{
+                width: 280,
+                height: 280,
+                objectFit: 'contain',
+                border: '1px solid #e8e8e8',
+                borderRadius: 8,
+                padding: 8,
+                background: '#fff'
+              }}
+            />
+            <div style={{ marginTop: 12, color: '#666', fontSize: 13 }}>
+              请让顾客扫描上方二维码完成支付
+            </div>
+            <div style={{
+              marginTop: 8,
+              padding: '8px 16px',
+              background: CHANNEL_COLOR[paymentMethod],
+              color: '#fff',
+              borderRadius: 6,
+              fontSize: 14,
+              display: 'inline-block'
+            }}>
+              🔔 听到手机到账播报后，点击下方「确认已到账」
+            </div>
+          </div>
+        )}
+
+        {(paymentMethod === 'wechat' || paymentMethod === 'alipay') && !qrUrl && (
+          <div style={{ marginTop: 16, padding: 12, background: '#fff7e6', borderRadius: 8, border: '1px solid #ffd591' }}>
+            <Text type="warning">⚠️ 尚未上传{CHANNEL_LABEL[paymentMethod]}收款码，请先到「财务 → 支付设置」上传</Text>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 };
