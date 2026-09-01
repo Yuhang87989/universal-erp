@@ -1,10 +1,18 @@
 const express = require('express');
+const fs = require('fs');
+const path = require('path');
 const pool = require('../config/db');
 const { authenticate, requireRole } = require('../middleware/auth');
 const dayjs = require('dayjs');
 
 const router = express.Router();
 router.use(authenticate);
+
+// 收款码上传目录
+const QR_UPLOAD_DIR = path.join(__dirname, '../../uploads/payment_qr');
+if (!fs.existsSync(QR_UPLOAD_DIR)) {
+  fs.mkdirSync(QR_UPLOAD_DIR, { recursive: true });
+}
 
 // 渠道列表
 router.get('/channels', async (req, res) => {
@@ -14,7 +22,8 @@ router.get('/channels', async (req, res) => {
               is_enabled, is_default, sort_order, remark,
               wechat_appid, wechat_mch_id, wechat_notify_url,
               alipay_app_id, alipay_notify_url, alipay_sandbox,
-              bank_name, bank_account_name, bank_account_no, bank_branch
+              bank_name, bank_account_name, bank_account_no, bank_branch,
+              qrcode_url
        FROM payment_channels WHERE tenant_id = ? ORDER BY sort_order ASC, id ASC`,
       [req.tenantId]
     );
@@ -32,7 +41,7 @@ router.put('/channels/:id', requireRole('owner', 'manager'), async (req, res) =>
     const { channel_name, is_enabled, is_default, fee_rate, fee_fixed, sort_order, remark,
       wechat_appid, wechat_mch_id, wechat_api_key, wechat_cert_path, wechat_notify_url,
       alipay_app_id, alipay_private_key, alipay_public_key, alipay_notify_url, alipay_sandbox,
-      bank_name, bank_account_name, bank_account_no, bank_branch } = req.body;
+      bank_name, bank_account_name, bank_account_no, bank_branch, qrcode_url } = req.body;
 
     if (is_default) {
       await pool.query('UPDATE payment_channels SET is_default = FALSE WHERE tenant_id = ?', [req.tenantId]);
@@ -67,6 +76,8 @@ router.put('/channels/:id', requireRole('owner', 'manager'), async (req, res) =>
     if (bank_account_name !== undefined) addField('bank_account_name', bank_account_name);
     if (bank_account_no !== undefined) addField('bank_account_no', bank_account_no);
     if (bank_branch !== undefined) addField('bank_branch', bank_branch);
+    // 收款码
+    if (qrcode_url !== undefined) addField('qrcode_url', qrcode_url);
 
     values.push(req.params.id, req.tenantId);
     await pool.query(`UPDATE payment_channels SET ${fields.join(', ')} WHERE id = ? AND tenant_id = ?`, values);
@@ -125,6 +136,49 @@ router.post('/channels/:id/test', requireRole('owner', 'manager'), async (req, r
     });
   } catch (err) {
     res.status(500).json({ code: 500, message: err.message });
+  }
+});
+
+// ========== 收款码上传 ==========
+
+// 上传收款码图片（接收二进制文件数据）
+router.post('/qrcode/upload', requireRole('owner', 'manager'), express.raw({
+  type: ['image/png', 'image/jpeg', 'image/webp', 'image/gif', 'image/svg+xml'],
+  limit: '5mb'
+}), async (req, res) => {
+  try {
+    if (!req.body || req.body.length === 0) {
+      return res.status(400).json({ code: 400, message: '未收到图片数据' });
+    }
+    const contentType = req.headers['content-type'] || 'image/png';
+    const extMap = {
+      'image/png': 'png',
+      'image/jpeg': 'jpg',
+      'image/webp': 'webp',
+      'image/gif': 'gif',
+      'image/svg+xml': 'svg',
+    };
+    const ext = extMap[contentType] || 'png';
+    const channelCode = req.query.channel || 'default';
+    const fileName = `qr_${channelCode}_${req.tenantId}_${Date.now()}.${ext}`;
+    const filePath = path.join(QR_UPLOAD_DIR, fileName);
+    fs.writeFileSync(filePath, req.body);
+
+    const url = `/api/uploads/payment_qr/${fileName}`;
+    
+    // 如果提供了channel_id，自动更新对应渠道的qrcode_url
+    const channelId = req.query.channel_id;
+    if (channelId) {
+      await pool.query(
+        'UPDATE payment_channels SET qrcode_url = ? WHERE id = ? AND tenant_id = ?',
+        [url, parseInt(channelId), req.tenantId]
+      );
+    }
+
+    res.json({ code: 0, data: { url, fileName } });
+  } catch (err) {
+    console.error('上传收款码失败:', err);
+    res.status(500).json({ code: 500, message: '上传失败: ' + err.message });
   }
 });
 
