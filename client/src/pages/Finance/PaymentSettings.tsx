@@ -18,6 +18,7 @@ const PaymentSettings: React.FC = () => {
   const [saving, setSaving] = useState(false);
   const [testing, setTesting] = useState<number | null>(null);
   const [testResults, setTestResults] = useState<Record<number, any>>({});
+  const [refreshKey, setRefreshKey] = useState(0);
   const [forms] = [Form.useForm()]; // placeholder
 
   const load = async () => {
@@ -67,7 +68,8 @@ const PaymentSettings: React.FC = () => {
         { headers: { 'Content-Type': file.type || 'image/png' } }
       );
       message.success('收款码上传成功');
-      load(); // 刷新数据
+      await load();
+      setRefreshKey(k => k + 1);
     } catch (e: any) {
       message.error('上传失败: ' + (e.message || '未知错误'));
     }
@@ -79,7 +81,8 @@ const PaymentSettings: React.FC = () => {
     try {
       await request.put(`/payment/channels/${channel.id}`, { qrcode_url: null });
       message.success('收款码已删除');
-      load();
+      await load();
+      setRefreshKey(k => k + 1);
     } catch (e: any) {
       message.error('删除失败');
     }
@@ -111,7 +114,7 @@ const PaymentSettings: React.FC = () => {
   );
 
   const renderWechatForm = (ch: any) => (
-    <Form layout="vertical" initialValues={ch} onFinish={(v) => handleSave(ch.id, v)}>
+    <Form key={`wechat-${ch.id}-${refreshKey}`} layout="vertical" initialValues={ch} onFinish={(v) => handleSave(ch.id, v)}>
       <QrCodeSection channel={ch} color="#07c160" />
       <Divider orientation="left">API对接（商户号专用，可选）</Divider>
       <Row gutter={16}>
@@ -147,7 +150,7 @@ const PaymentSettings: React.FC = () => {
   );
 
   const renderAlipayForm = (ch: any) => (
-    <Form layout="vertical" initialValues={ch} onFinish={(v) => handleSave(ch.id, v)}>
+    <Form key={`alipay-${ch.id}-${refreshKey}`} layout="vertical" initialValues={ch} onFinish={(v) => handleSave(ch.id, v)}>
       <QrCodeSection channel={ch} color="#1677ff" />
       <Divider orientation="left">API对接（商户号专用，可选）</Divider>
       <Row gutter={16}>
@@ -246,3 +249,4 @@ const PaymentSettings: React.FC = () => {
 };
 
 export default PaymentSettings;
+
