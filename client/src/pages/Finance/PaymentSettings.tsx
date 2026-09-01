@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Button, Form, Input, InputNumber, Switch, Space, message, Tabs, Tag, Descriptions, Spin, Typography, Row, Col, Divider, Alert } from 'antd';
-import { SaveOutlined, ApiOutlined, CheckCircleOutlined, WarningOutlined } from '@ant-design/icons';
+import { Card, Button, Form, Input, InputNumber, Switch, Space, message, Tabs, Tag, Descriptions, Spin, Typography, Row, Col, Divider, Alert, Upload } from 'antd';
+import { SaveOutlined, ApiOutlined, CheckCircleOutlined, WarningOutlined, UploadOutlined, DeleteOutlined } from '@ant-design/icons';
 import request from '../../api/request';
 
 const { Title, Text } = Typography;
@@ -57,8 +57,63 @@ const PaymentSettings: React.FC = () => {
     setTesting(null);
   };
 
+  // 收款码上传处理
+  const handleQrUpload = async (file: File, channel: any) => {
+    try {
+      const buffer = await file.arrayBuffer();
+      await request.post(
+        `/payment/qrcode/upload?channel=${channel.channel_code}&channel_id=${channel.id}`,
+        buffer,
+        { headers: { 'Content-Type': file.type || 'image/png' } }
+      );
+      message.success('收款码上传成功');
+      load(); // 刷新数据
+    } catch (e: any) {
+      message.error('上传失败: ' + (e.message || '未知错误'));
+    }
+    return false; // 阻止antd默认上传行为
+  };
+
+  // 删除收款码
+  const handleDeleteQr = async (channel: any) => {
+    try {
+      await request.put(`/payment/channels/${channel.id}`, { qrcode_url: null });
+      message.success('收款码已删除');
+      load();
+    } catch (e: any) {
+      message.error('删除失败');
+    }
+  };
+
+  // 收款码上传区域组件
+  const QrCodeSection = ({ channel, color }: { channel: any; color: string }) => (
+    <Card size="small" title={<span style={{ color }}>💳 收款码图片（固定码）</span>} style={{ marginBottom: 16, borderColor: color }}>
+      <Alert type="info" showIcon style={{ marginBottom: 12 }}
+        message="无商户号时使用"
+        description="上传微信/支付宝个人收款码图片后，POS收银选择对应支付方式时会展示该二维码。顾客扫码付款后，收银员听到手机到账播报，点击确认即可记账。" />
+      {channel.qrcode_url ? (
+        <div style={{ textAlign: 'center' }}>
+          <img src={channel.qrcode_url} alt="收款码" style={{ maxWidth: 200, maxHeight: 200, border: '1px solid #d9d9d9', borderRadius: 8, padding: 8 }} />
+          <div style={{ marginTop: 8 }}>
+            <Button danger size="small" icon={<DeleteOutlined />} onClick={() => handleDeleteQr(channel)}>删除收款码</Button>
+          </div>
+        </div>
+      ) : (
+        <Upload
+          accept="image/png,image/jpeg,image/webp"
+          showUploadList={false}
+          beforeUpload={(file) => { handleQrUpload(file, channel); return false; }}
+        >
+          <Button icon={<UploadOutlined />} type="primary" style={{ backgroundColor: color }}>点击上传收款码</Button>
+        </Upload>
+      )}
+    </Card>
+  );
+
   const renderWechatForm = (ch: any) => (
     <Form layout="vertical" initialValues={ch} onFinish={(v) => handleSave(ch.id, v)}>
+      <QrCodeSection channel={ch} color="#07c160" />
+      <Divider orientation="left">API对接（商户号专用，可选）</Divider>
       <Row gutter={16}>
         <Col span={12}><Form.Item name="wechat_appid" label="AppID（公众号/小程序/APP）"><Input placeholder="wx开头的应用ID" /></Form.Item></Col>
         <Col span={12}><Form.Item name="wechat_mch_id" label="微信商户号"><Input placeholder="如 1600000000" /></Form.Item></Col>
@@ -93,6 +148,8 @@ const PaymentSettings: React.FC = () => {
 
   const renderAlipayForm = (ch: any) => (
     <Form layout="vertical" initialValues={ch} onFinish={(v) => handleSave(ch.id, v)}>
+      <QrCodeSection channel={ch} color="#1677ff" />
+      <Divider orientation="left">API对接（商户号专用，可选）</Divider>
       <Row gutter={16}>
         <Col span={12}><Form.Item name="alipay_app_id" label="支付宝应用ID (APPID)"><Input placeholder="如 2021000000000000" /></Form.Item></Col>
         <Col span={12}><Form.Item name="alipay_sandbox" label="沙箱环境" valuePropName="checked"><Switch checkedChildren="沙箱" unCheckedChildren="正式" /></Form.Item></Col>
