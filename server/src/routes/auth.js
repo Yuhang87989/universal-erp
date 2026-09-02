@@ -7,6 +7,19 @@ const { getUserPermissions } = require('./permissions');
 
 const router = express.Router();
 
+// 公开接口：获取帐套列表（登录页下拉选择用，无需认证）
+router.get('/tenants', async (req, res) => {
+  try {
+    const [tenants] = await pool.query(
+      "SELECT id, name, business_type FROM tenants WHERE status = 'active' ORDER BY id"
+    );
+    res.json({ code: 0, data: tenants });
+  } catch (err) {
+    console.error('获取帐套列表失败:', err);
+    res.status(500).json({ code: 500, message: '获取帐套列表失败' });
+  }
+});
+
 // 登录
 router.post('/login', async (req, res) => {
   try {
