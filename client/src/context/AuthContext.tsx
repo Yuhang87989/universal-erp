@@ -24,7 +24,7 @@ interface AuthContextType {
   user: User | null;
   token: string | null;
   tenants: Tenant[];
-  login: (username: string, password: string) => Promise<void>;
+  login: (username: string, password: string, tenantId?: number) => Promise<void>;
   logout: () => void;
   switchTenant: (tenantId: number) => Promise<void>;
   loadTenants: () => Promise<void>;
@@ -96,8 +96,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   }, []);
 
-  const login = async (username: string, password: string) => {
-    const res = await request.post('/auth/login', { username, password });
+  const login = async (username: string, password: string, tenantId?: number) => {
+    const res = await request.post('/auth/login', { username, password, tenantId });
     const data = res.data?.data || res.data;
     const newToken = data.token;
     const newUser = data.user;
