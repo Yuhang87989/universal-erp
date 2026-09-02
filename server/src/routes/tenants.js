@@ -133,32 +133,27 @@ router.post('/switch', async (req, res) => {
 
 router.post('/demo-switch', async (req, res) => {
   try {
-    const { tenantId } = req.body;
+    const { tenantId, password, username } = req.body;
     if (!tenantId) return res.status(400).json({ code: 400, message: '请选择账套' });
     const targetId = Number(tenantId);
-    // 切换权限严格由 switchable_tenants 白名单控制：
-    // 只有当前账号被显式授予目标账套（白名单包含该账套ID）才放行；
-    // 老板(owner)角色同样受此限制，不再仅凭角色自动放行；员工白名单为空即无法切换。
-    let allowed = [];
-    const st = req.user.switchable_tenants;
-    if (st) {
-      try { allowed = typeof st === 'string' ? JSON.parse(st) : st; } catch (e) { allowed = []; }
-    }
-    if (!Array.isArray(allowed) || allowed.length === 0 || !allowed.map(Number).includes(targetId)) {
-      return res.status(403).json({ code: 403, message: '当前账号无权切换到该账套，需管理员在白名单中授权' });
-    }
     // 目标账套必须存在且启用
     const [tenants] = await pool.query('SELECT id, name, business_type FROM tenants WHERE id = ? AND status = ?', [targetId, 'active']);
     if (!tenants.length) return res.status(404).json({ code: 404, message: '目标账套不存在或已停用' });
-    const [users] = await pool.query('SELECT id, username, real_name, role FROM users WHERE tenant_id=? AND username=? LIMIT 1', [targetId, 'admin']);
-    if (!users.length) return res.status(404).json({ code: 404, message: '目标账套未找到admin账号' });
-    const [tenants] = await pool.query('SELECT id, name, business_type FROM tenants WHERE id=?', [tenantId]);
-    if (!tenants.length) return res.status(404).json({ code: 404, message: '账套不存在' });
+    // 密码即通行证：切换账套=用目标账套的账号密码重新认证
+    // 演示账套默认 admin/admin123 可进；账套改密码后必须输入新密码才能切换进入
+    const loginName = username || 'admin';
+    if (!password) return res.status(400).json({ code: 400, message: '请输入目标账套的密码' });
+    const [users] = await pool.query('SELECT id, username, password_hash, real_name, role, status FROM users WHERE tenant_id = ? AND username = ? LIMIT 1', [targetId, loginName]);
+    if (!users.length) return res.status(404).json({ code: 404, message: '目标账套未找到该账号' });
     const u = users[0];
-    const token = jwt.sign({ userId: u.id, tenantId, role: u.role }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN || '7d' });
+    if (u.status !== 'active') return res.status(403).json({ code: 403, message: '该账号已被禁用' });
+    const bcrypt = require('bcryptjs');
+    const valid = await bcrypt.compare(password, u.password_hash);
+    if (!valid) return res.status(401).json({ code: 401, message: '密码错误，无法切换到该账套' });
+    const tk = jwt.sign({ userId: u.id, tenantId: targetId, role: u.role }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN || '7d' });
     const permissions = await getUserPermissions(u.id, u.role);
-    res.json({ code: 0, data: { token, tenantId, tenantName: tenants[0].name, user: { id: u.id, username: u.username, realName: u.real_name, role: u.role, tenantId, tenantName: tenants[0].name, business_type: tenants[0].business_type, permissions }}});
-  } catch (err) { console.error('演示切换失败:', err); res.status(500).json({ code: 500, message: '切换失败' }); }
+    res.json({ code: 0, data: { token: tk, tenantId: targetId, tenantName: tenants[0].name, user: { id: u.id, username: u.username, realName: u.real_name, role: u.role, tenantId: targetId, tenantName: tenants[0].name, business_type: tenants[0].business_type, permissions } } });
+  } catch (err) { console.error('切换账套失败:', err); res.status(500).json({ code: 500, message: '切换失败' }); }
 });
 
 router.get('/users', async (req, res) => {
