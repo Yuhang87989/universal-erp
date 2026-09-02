@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
-import { Layout, Menu, Avatar, Dropdown, Space, Typography, Button, Drawer, Tooltip, Alert, Select, Tag } from 'antd';
+import { Layout, Menu, Avatar, Dropdown, Space, Typography, Button, Drawer, Tooltip, Alert, Select, Tag, Modal, Input, message } from 'antd';
 import {
   DashboardOutlined, ShoppingCartOutlined, ShoppingOutlined,
   DatabaseOutlined, UserOutlined, LogoutOutlined, SettingOutlined, InfoCircleOutlined,
@@ -243,13 +243,31 @@ const MainLayout: React.FC = () => {
     }
   };
 
-  const handleSwitchTenant = async (tenantId: number) => {
+  const [switchTarget, setSwitchTarget] = useState<{ id: number; name: string } | null>(null);
+  const [switchPwd, setSwitchPwd] = useState('');
+  const [switching, setSwitching] = useState(false);
+
+  const handleSwitchTenant = (tenantId: number) => {
     if (tenantId === user?.tenantId) return;
+    const t = tenants.find(x => x.id === tenantId);
+    setSwitchTarget({ id: tenantId, name: t?.name || `帐套${tenantId}` });
+    setSwitchPwd('');
+  };
+
+  const doSwitchTenant = async () => {
+    if (!switchTarget) return;
+    if (!switchPwd) { message.warning('请输入目标帐套的密码'); return; }
+    setSwitching(true);
     try {
-      await switchTenant(tenantId);
+      await switchTenant(switchTarget.id, switchPwd);
+      message.success(`已切换到「${switchTarget.name}」`);
+      setSwitchTarget(null);
+      setSwitchPwd('');
       navigate('/dashboard');
-    } catch (err) {
-      console.error('切换帐套失败:', err);
+    } catch (err: any) {
+      message.error(err?.response?.data?.message || err?.message || '切换失败，请检查密码');
+    } finally {
+      setSwitching(false);
     }
   };
 
@@ -399,6 +417,35 @@ const MainLayout: React.FC = () => {
           <HelpGuide />
         </Content>
       </Layout>
+      <Modal
+        title={<>切换到帐套：<b>{switchTarget?.name}</b></>}
+        open={!!switchTarget}
+        onOk={doSwitchTenant}
+        confirmLoading={switching}
+        okText="确认切换"
+        cancelText="取消"
+        onCancel={() => { setSwitchTarget(null); setSwitchPwd(''); }}
+        destroyOnClose
+      >
+        <div style={{ marginBottom: 8 }}>
+          <Alert
+            type="info"
+            showIcon
+            message="切换帐套需验证目标帐套的密码"
+            description="演示帐套默认密码 admin123；正式帐套若已修改密码，请输入新密码。"
+            style={{ marginBottom: 12 }}
+          />
+          <Input.Password
+            autoFocus
+            prefix={<LockOutlined style={{ color: '#bfbfbf' }} />}
+            placeholder="请输入目标帐套 admin 密码"
+            value={switchPwd}
+            onChange={e => setSwitchPwd(e.target.value)}
+            onPressEnter={doSwitchTenant}
+            size="large"
+          />
+        </div>
+      </Modal>
     </Layout>
   );
 };
