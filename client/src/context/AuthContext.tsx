@@ -26,7 +26,7 @@ interface AuthContextType {
   tenants: Tenant[];
   login: (username: string, password: string, tenantId?: number) => Promise<void>;
   logout: () => void;
-  switchTenant: (tenantId: number) => Promise<void>;
+  switchTenant: (tenantId: number, password?: string) => Promise<void>;
   loadTenants: () => Promise<void>;
   loading: boolean;
 }
@@ -109,8 +109,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setTimeout(() => loadTenants(), 100);
   };
 
-  const switchTenant = async (tenantId: number) => {
-    const res = await request.post('/tenants/demo-switch', { tenantId });
+  const switchTenant = async (tenantId: number, password?: string) => {
+    const res = await request.post('/tenants/demo-switch', { tenantId, password });
     const data = res.data?.data || res.data;
     const newToken = data.token;
     const newUser = data.user;
