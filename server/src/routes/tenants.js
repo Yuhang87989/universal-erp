@@ -135,6 +135,18 @@ router.post('/demo-switch', async (req, res) => {
   try {
     const { tenantId } = req.body;
     if (!tenantId) return res.status(400).json({ code: 400, message: '请选择账套' });
+    // 权限校验：仅老板(owner)可跨账套切换；普通员工锁定在本账套
+    if (req.user.role !== 'owner') {
+      return res.status(403).json({ code: 403, message: '仅管理员可切换账套' });
+    }
+    // 若该用户配置了可切换账套白名单(switchable_tenants)，目标账套必须在白名单内
+    if (req.user.switchable_tenants) {
+      let allowed = [];
+      try { allowed = typeof req.user.switchable_tenants === 'string' ? JSON.parse(req.user.switchable_tenants) : req.user.switchable_tenants; } catch (e) { allowed = []; }
+      if (Array.isArray(allowed) && allowed.length > 0 && !allowed.map(Number).includes(Number(tenantId))) {
+        return res.status(403).json({ code: 403, message: '无权切换到该账套' });
+      }
+    }
     const [users] = await pool.query('SELECT id, username, real_name, role FROM users WHERE tenant_id=? AND username=? LIMIT 1', [tenantId, 'admin']);
     if (!users.length) return res.status(404).json({ code: 404, message: '目标账套未找到admin账号' });
     const [tenants] = await pool.query('SELECT id, name, business_type FROM tenants WHERE id=?', [tenantId]);
