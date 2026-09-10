@@ -5,7 +5,7 @@ const { authenticate, requireRole } = require('../middleware/auth');
 const router = express.Router();
 router.use(authenticate);
 
-// 仓库列表
+// 仓库列表（含集团共享总仓）
 router.get('/', async (req, res) => {
   try {
     const { keyword, status } = req.query;
@@ -13,15 +13,32 @@ router.get('/', async (req, res) => {
     const params = [req.tenantId];
     if (keyword) { where += ' AND (name LIKE ? OR code LIKE ?)'; params.push(`%${keyword}%`, `%${keyword}%`); }
     if (status) { where += ' AND status = ?'; params.push(status); }
-    const [rows] = await pool.query(`SELECT * FROM warehouses ${where} ORDER BY is_default DESC, sort_order ASC, id ASC`, params);
+    const [my] = await pool.query(`SELECT * FROM warehouses ${where} ORDER BY is_default DESC, sort_order ASC, id ASC`, params);
 
-    // 统计每个仓库的库存品种数和总价值
+    // 集团共享总仓：若当前账套属于集团一员（总店或子店），则可见集团内所有共享总仓
+    const rows = [...my];
+    try {
+      const [[tn]] = await pool.query('SELECT parent_id, is_group_root FROM tenants WHERE id = ?', [req.tenantId]);
+      const inGroup = tn && (tn.is_group_root === 1 || tn.parent_id !== null);
+      if (inGroup) {
+        const [shared] = await pool.query(
+          `SELECT w.*, t.name AS owner_tenant_name FROM warehouses w
+           LEFT JOIN tenants t ON w.tenant_id = t.id
+           WHERE w.is_shared = 1 AND w.status = 'active' ORDER BY w.id`
+        );
+        for (const s of shared) {
+          if (!rows.find(r => r.id === s.id)) rows.push({ ...s, __is_shared: true });
+        }
+      }
+    } catch (e) { /* 非集团环境忽略 */ }
+
+    // 统计每个仓库的库存品种数和总价值（按仓库归属账套统计）
     for (const w of rows) {
       const [stats] = await pool.query(
         `SELECT COUNT(*) as sku_count, COALESCE(SUM(i.quantity * p.cost_price), 0) as total_value
          FROM inventory i JOIN products p ON i.product_id = p.id
          WHERE i.tenant_id = ? AND i.warehouse_id = ?`,
-        [req.tenantId, w.id]
+        [w.tenant_id, w.id]
       );
       w.sku_count = stats[0].sku_count;
       w.total_value = stats[0].total_value;
@@ -38,7 +55,7 @@ router.get('/', async (req, res) => {
 router.post('/', requireRole('owner', 'manager'), async (req, res) => {
   const conn = await pool.getConnection();
   try {
-    const { code, name, address, manager, phone, is_default, remark } = req.body;
+    const { code, name, address, manager, phone, is_default, is_shared, remark } = req.body;
     if (!code || !name) return res.status(400).json({ code: 400, message: '仓库编码和名称不能为空' });
 
     await conn.beginTransaction();
@@ -46,9 +63,9 @@ router.post('/', requireRole('owner', 'manager'), async (req, res) => {
       await conn.query('UPDATE warehouses SET is_default = FALSE WHERE tenant_id = ?', [req.tenantId]);
     }
     const [result] = await conn.query(
-      `INSERT INTO warehouses (tenant_id, code, name, address, manager, phone, is_default, remark)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-      [req.tenantId, code, name, address || null, manager || null, phone || null, is_default || false, remark || null]
+      `INSERT INTO warehouses (tenant_id, code, name, address, manager, phone, is_default, is_shared, remark)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [req.tenantId, code, name, address || null, manager || null, phone || null, is_default || false, is_shared || false, remark || null]
     );
     await conn.commit();
     res.json({ code: 0, message: '仓库创建成功', data: { id: result.insertId } });
