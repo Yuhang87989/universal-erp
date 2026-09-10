@@ -122,6 +122,14 @@ const Settings: React.FC = () => {
   const [newTenantModal, setNewTenantModal] = useState(false);
   const [creatingTenant, setCreatingTenant] = useState(false);
   const [newTenantForm] = Form.useForm();
+  const [parentOptions, setParentOptions] = useState<any[]>([]);
+  const loadParentOptions = async () => {
+    try {
+      const res = await request.get('/tenants');
+      const list = res.data?.data || res.data || [];
+      setParentOptions(list.map((t: any) => ({ value: t.id, label: `${t.name} (ID ${t.id})` })));
+    } catch {}
+  };
 
   const loadSysInfo = async () => {
     try { const res = await request.get('/system/info'); setSysInfo(res.data?.data || res.data); } catch {}
@@ -328,7 +336,7 @@ const Settings: React.FC = () => {
                 <Text type="secondary">切换帐套请在左侧边栏顶部操作</Text>
               </div>
             )}
-            <Button type="primary" ghost icon={<PlusCircleOutlined />} onClick={() => { newTenantForm.resetFields(); setNewTenantModal(true); }} style={{ marginBottom: 16 }}>
+            <Button type="primary" ghost icon={<PlusCircleOutlined />} onClick={() => { newTenantForm.resetFields(); loadParentOptions(); setNewTenantModal(true); }} style={{ marginBottom: 16 }}>
               新建帐套
             </Button>
             <Form form={form} layout="vertical" style={{ maxWidth: 600 }}>
@@ -507,6 +515,9 @@ const Settings: React.FC = () => {
           <Form.Item name="address" label="地址"><Input placeholder="详细地址" /></Form.Item>
           <Form.Item name="businessType" label="行业类型" initialValue="ecommerce">
             <Select options={[{ value: 'retail', label: '零售门店' },{ value: 'supply_coop', label: '农村供销社' },{ value: 'market', label: '菜市场商户' },{ value: 'ecommerce', label: '电商' },{ value: 'other', label: '其他' }]} />
+          </Form.Item>
+          <Form.Item name="parentId" label="上级账套（父账套）" tooltip="选择要挂靠的总店/上级账套，创建后即成为其子电商店，共享总仓、可互相调拨；留空则为独立账套">
+            <Select allowClear showSearch optionFilterProp="label" placeholder="选择上级账套(总店)，留空为独立账套" options={parentOptions} />
           </Form.Item>
           <Form.Item name="businessDesc" label="业务描述"><Input.TextArea rows={2} placeholder="业务范围（可选）" /></Form.Item>
         </Form>
