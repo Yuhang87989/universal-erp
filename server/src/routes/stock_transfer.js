@@ -17,6 +17,26 @@ const genTransferNo = async (tenantId) => {
   return `${prefix}${String(seq).padStart(3, '0')}`;
 };
 
+// 确保调拨目标账套存在该商品档案（跨账套调拨自动复制，保持各店独立账套）
+async function ensureProductInTenant(conn, productId, destTenantId) {
+  const [[src]] = await conn.query('SELECT * FROM products WHERE id = ?', [productId]);
+  if (!src) throw new Error('商品不存在');
+  // 目标账套优先按条码匹配，其次按名称匹配，避免重复建档
+  let q = 'SELECT id FROM products WHERE tenant_id = ? AND status != ?';
+  const p = [destTenantId, 'deleted'];
+  if (src.barcode) { q += ' AND barcode = ?'; p.push(src.barcode); }
+  else { q += ' AND name = ?'; p.push(src.name); }
+  const [ex] = await conn.query(q + ' LIMIT 1', p);
+  if (ex.length) return ex[0].id;
+  const [ins] = await conn.query(
+    `INSERT INTO products (tenant_id, category_id, name, barcode, sku, unit, cost_price, sell_price, wholesale_price, image_url, description, is_weigh, is_batch, min_stock, status)
+     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 'active')`,
+    [destTenantId, src.category_id, src.name, src.barcode, src.sku ? `${src.sku}-${destTenantId}` : null, src.unit,
+     src.cost_price, src.sell_price, src.wholesale_price, src.image_url, src.description, src.is_weigh, src.is_batch, src.min_stock]
+  );
+  return ins.insertId;
+}
+
 // 列表
 router.get('/', async (req, res) => {
   try {
@@ -89,11 +109,18 @@ router.post('/', requireRole('owner', 'manager', 'warehouse'), async (req, res) 
     if (from_warehouse_id === to_warehouse_id) return res.status(400).json({ code: 400, message: '调出和调入仓库不能相同' });
     if (!items?.length) return res.status(400).json({ code: 400, message: '请添加调拨商品' });
 
-    // 校验调出仓库库存
+    // 解析调出/调入仓库所属账套（支持跨账套调拨：子店↔总仓、子店↔子店）
+    const [fwRows] = await pool.query('SELECT id, tenant_id, name FROM warehouses WHERE id = ?', [from_warehouse_id]);
+    const [twRows] = await pool.query('SELECT id, tenant_id, name FROM warehouses WHERE id = ?', [to_warehouse_id]);
+    if (!fwRows.length || !twRows.length) return res.status(400).json({ code: 400, message: '仓库不存在' });
+    const fromTenant = fwRows[0].tenant_id;
+    const toTenant = twRows[0].tenant_id;
+
+    // 校验调出仓库库存（按调出账套）
     for (const item of items) {
       const [inv] = await pool.query(
         'SELECT quantity FROM inventory WHERE tenant_id = ? AND product_id = ? AND warehouse_id = ?',
-        [req.tenantId, item.product_id, from_warehouse_id]
+        [fromTenant, item.product_id, from_warehouse_id]
       );
       const available = inv.length ? parseFloat(inv[0].quantity) : 0;
       if (available < parseFloat(item.quantity)) {
@@ -114,9 +141,9 @@ router.post('/', requireRole('owner', 'manager', 'warehouse'), async (req, res) 
     await conn.beginTransaction();
     try {
       const [result] = await conn.query(
-        `INSERT INTO stock_transfers (tenant_id, transfer_no, from_warehouse_id, to_warehouse_id, status, total_amount, operator_id, remark)
-         VALUES (?, ?, ?, ?, 'draft', ?, ?, ?)`,
-        [req.tenantId, transferNo, from_warehouse_id, to_warehouse_id, totalAmount, req.user.id, remark || null]
+        `INSERT INTO stock_transfers (tenant_id, from_tenant_id, to_tenant_id, transfer_no, from_warehouse_id, to_warehouse_id, status, total_amount, operator_id, remark)
+         VALUES (?, ?, ?, ?, ?, ?, 'draft', ?, ?, ?)`,
+        [req.tenantId, fromTenant, toTenant, transferNo, from_warehouse_id, to_warehouse_id, totalAmount, req.user.id, remark || null]
       );
       for (const item of items) {
         await conn.query(
@@ -147,11 +174,20 @@ router.post('/:id/confirm', requireRole('owner', 'manager', 'warehouse'), async 
 
     const [items] = await conn.query('SELECT * FROM stock_transfer_items WHERE transfer_id = ?', [transfer.id]);
 
+    const fromTenant = transfer.from_tenant_id || transfer.tenant_id;
+    const toTenant = transfer.to_tenant_id || transfer.tenant_id;
+
     for (const item of items) {
-      // 调出仓扣减
+      // 跨账套调拨时，确保调入账套存在该商品档案（保持各店独立账套）
+      let destProductId = item.product_id;
+      if (fromTenant !== toTenant) {
+        destProductId = await ensureProductInTenant(conn, item.product_id, toTenant);
+      }
+
+      // 调出仓扣减（按调出账套）
       const [fromInv] = await conn.query(
         'SELECT * FROM inventory WHERE tenant_id = ? AND product_id = ? AND warehouse_id = ? FOR UPDATE',
-        [req.tenantId, item.product_id, transfer.from_warehouse_id]
+        [fromTenant, item.product_id, transfer.from_warehouse_id]
       );
       if (!fromInv.length || parseFloat(fromInv[0].quantity) < parseFloat(item.quantity)) {
         await conn.rollback();
@@ -164,14 +200,14 @@ router.post('/:id/confirm', requireRole('owner', 'manager', 'warehouse'), async 
       await conn.query(
         `INSERT INTO inventory_logs (tenant_id, product_id, warehouse_id, change_type, quantity, before_quantity, after_quantity, unit_cost, reference_type, reference_id, operator_id, remark)
          VALUES (?, ?, ?, 'transfer_out', ?, ?, ?, ?, 'transfer', ?, ?, ?)`,
-        [req.tenantId, item.product_id, transfer.from_warehouse_id, -item.quantity, fromBefore, fromAfter,
+        [fromTenant, item.product_id, transfer.from_warehouse_id, -item.quantity, fromBefore, fromAfter,
          item.unit_cost, transfer.id, req.user.id, `调拨出库 - ${transfer.transfer_no}`]
       );
 
-      // 调入仓增加
+      // 调入仓增加（按调入账套）
       const [toInv] = await conn.query(
         'SELECT * FROM inventory WHERE tenant_id = ? AND product_id = ? AND warehouse_id = ? FOR UPDATE',
-        [req.tenantId, item.product_id, transfer.to_warehouse_id]
+        [toTenant, destProductId, transfer.to_warehouse_id]
       );
       const toBefore = toInv.length ? parseFloat(toInv[0].quantity) : 0;
       const toAfter = toBefore + parseFloat(item.quantity);
@@ -180,14 +216,14 @@ router.post('/:id/confirm', requireRole('owner', 'manager', 'warehouse'), async 
       } else {
         await conn.query(
           'INSERT INTO inventory (tenant_id, product_id, warehouse_id, quantity) VALUES (?, ?, ?, ?)',
-          [req.tenantId, item.product_id, transfer.to_warehouse_id, toAfter]
+          [toTenant, destProductId, transfer.to_warehouse_id, toAfter]
         );
       }
 
       await conn.query(
         `INSERT INTO inventory_logs (tenant_id, product_id, warehouse_id, change_type, quantity, before_quantity, after_quantity, unit_cost, reference_type, reference_id, operator_id, remark)
          VALUES (?, ?, ?, 'transfer_in', ?, ?, ?, ?, 'transfer', ?, ?, ?)`,
-        [req.tenantId, item.product_id, transfer.to_warehouse_id, item.quantity, toBefore, toAfter,
+        [toTenant, destProductId, transfer.to_warehouse_id, item.quantity, toBefore, toAfter,
          item.unit_cost, transfer.id, req.user.id, `调拨入库 - ${transfer.transfer_no}`]
       );
     }
