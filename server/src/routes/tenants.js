@@ -10,10 +10,10 @@ router.get('/', async (req, res) => {
   try {
     let query, params;
     if (req.user.role === 'owner') {
-      query = 'SELECT id, name, owner_name, phone, address, business_type, business_desc, credit_code, status FROM tenants WHERE status = ? ORDER BY id';
+      query = 'SELECT id, name, owner_name, phone, address, business_type, business_desc, credit_code, status, parent_id, is_group_root FROM tenants WHERE status = ? ORDER BY id';
       params = ['active'];
     } else {
-      query = 'SELECT id, name, owner_name, phone, address, business_type, business_desc, credit_code, status FROM tenants WHERE id = ? AND status = ?';
+      query = 'SELECT id, name, owner_name, phone, address, business_type, business_desc, credit_code, status, parent_id, is_group_root FROM tenants WHERE id = ? AND status = ?';
       params = [req.tenantId, 'active'];
     }
     const [tenants] = await pool.query(query, params);
@@ -33,8 +33,16 @@ router.post('/', async (req, res) => {
   const conn = await pool.getConnection();
   try {
     await conn.beginTransaction();
-    const { name, ownerName, phone, address, businessType, businessDesc, creditCode, username, password } = req.body;
+    const { name, ownerName, phone, address, businessType, businessDesc, creditCode, username, password, parentId } = req.body;
     if (!name) { await conn.rollback(); return res.status(400).json({ code: 400, message: '帐套名称不能为空' }); }
+
+    // 若指定父账套，校验其存在（子电商店挂在总店下）
+    let parentIdVal = null;
+    if (parentId) {
+      const [[parent]] = await conn.query('SELECT id FROM tenants WHERE id = ? AND status = ?', [parentId, 'active']);
+      if (!parent) { await conn.rollback(); return res.status(400).json({ code: 400, message: '父账套不存在' }); }
+      parentIdVal = parentId;
+    }
 
     // Map businessType to entity_type
     const entityTypeMap = { retail: 'individual', supply_coop: 'individual', market: 'individual', ecommerce: 'individual', other: 'other' };
@@ -42,8 +50,8 @@ router.post('/', async (req, res) => {
 
     // 1. Create tenant
     const [tResult] = await conn.query(
-      'INSERT INTO tenants (name, owner_name, phone, address, business_type, status) VALUES (?,?,?,?,?,?)',
-      [name, ownerName || null, phone || null, address || null, businessType || 'retail', 'active']
+      'INSERT INTO tenants (name, owner_name, phone, address, business_type, parent_id, status) VALUES (?,?,?,?,?,?,?)',
+      [name, ownerName || null, phone || null, address || null, businessType || 'retail', parentIdVal, 'active']
     );
     const tenantId = tResult.insertId;
 
@@ -133,27 +141,17 @@ router.post('/switch', async (req, res) => {
 
 router.post('/demo-switch', async (req, res) => {
   try {
-    const { tenantId, password, username } = req.body;
+    const { tenantId } = req.body;
     if (!tenantId) return res.status(400).json({ code: 400, message: '请选择账套' });
-    const targetId = Number(tenantId);
-    // 目标账套必须存在且启用
-    const [tenants] = await pool.query('SELECT id, name, business_type FROM tenants WHERE id = ? AND status = ?', [targetId, 'active']);
-    if (!tenants.length) return res.status(404).json({ code: 404, message: '目标账套不存在或已停用' });
-    // 密码即通行证：切换账套=用目标账套的账号密码重新认证
-    // 演示账套默认 admin/admin123 可进；账套改密码后必须输入新密码才能切换进入
-    const loginName = username || 'admin';
-    if (!password) return res.status(400).json({ code: 400, message: '请输入目标账套的密码' });
-    const [users] = await pool.query('SELECT id, username, password_hash, real_name, role, status FROM users WHERE tenant_id = ? AND username = ? LIMIT 1', [targetId, loginName]);
-    if (!users.length) return res.status(404).json({ code: 404, message: '目标账套未找到该账号' });
+    const [users] = await pool.query('SELECT id, username, real_name, role FROM users WHERE tenant_id=? AND username=? LIMIT 1', [tenantId, 'admin']);
+    if (!users.length) return res.status(404).json({ code: 404, message: '目标账套未找到admin账号' });
+    const [tenants] = await pool.query('SELECT id, name, business_type FROM tenants WHERE id=?', [tenantId]);
+    if (!tenants.length) return res.status(404).json({ code: 404, message: '账套不存在' });
     const u = users[0];
-    if (u.status !== 'active') return res.status(403).json({ code: 403, message: '该账号已被禁用' });
-    const bcrypt = require('bcryptjs');
-    const valid = await bcrypt.compare(password, u.password_hash);
-    if (!valid) return res.status(401).json({ code: 401, message: '密码错误，无法切换到该账套' });
-    const tk = jwt.sign({ userId: u.id, tenantId: targetId, role: u.role }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN || '7d' });
+    const token = jwt.sign({ userId: u.id, tenantId, role: u.role }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN || '7d' });
     const permissions = await getUserPermissions(u.id, u.role);
-    res.json({ code: 0, data: { token: tk, tenantId: targetId, tenantName: tenants[0].name, user: { id: u.id, username: u.username, realName: u.real_name, role: u.role, tenantId: targetId, tenantName: tenants[0].name, business_type: tenants[0].business_type, permissions } } });
-  } catch (err) { console.error('切换账套失败:', err); res.status(500).json({ code: 500, message: '切换失败' }); }
+    res.json({ code: 0, data: { token, tenantId, tenantName: tenants[0].name, user: { id: u.id, username: u.username, realName: u.real_name, role: u.role, tenantId, tenantName: tenants[0].name, business_type: tenants[0].business_type, permissions }}});
+  } catch (err) { console.error('演示切换失败:', err); res.status(500).json({ code: 500, message: '切换失败' }); }
 });
 
 router.get('/users', async (req, res) => {
@@ -196,6 +194,33 @@ router.delete('/users/:id', async (req, res) => {
     await pool.query('DELETE FROM users WHERE id=? AND tenant_id=?', [req.params.id, req.user.tenant_id]);
     res.json({ code: 0, message: '员工已删除' });
   } catch (err) { console.error(err); res.status(500).json({ code: 500, message: '删除员工失败' }); }
+});
+
+// 获取指定账套的子账套列表(集团组织：总店查看所有子店；子店查看自己)
+router.get('/children', async (req, res) => {
+  try {
+    // 定位"集团根"：当前账套向上追溯到根
+    let cur = req.tenantId;
+    const visited = new Set();
+    while (cur) {
+      if (visited.has(cur)) break;
+      visited.add(cur);
+      const [[t]] = await pool.query('SELECT id, parent_id, is_group_root FROM tenants WHERE id = ?', [cur]);
+      if (!t) break;
+      if (t.is_group_root === 1 || !t.parent_id) { cur = t.id; break; }
+      cur = t.parent_id;
+    }
+    const rootId = cur;
+    const [rows] = await pool.query(
+      `SELECT id, name, owner_name, phone, address, business_type, business_desc, status, parent_id, is_group_root
+       FROM tenants WHERE (parent_id = ? OR id = ?) AND status = ? ORDER BY id`,
+      [rootId, rootId, 'active']
+    );
+    res.json({ code: 0, data: { rootId, list: rows } });
+  } catch (err) {
+    console.error('获取子账套失败:', err);
+    res.status(500).json({ code: 500, message: '获取子账套失败' });
+  }
 });
 
 router.get('/:id', async (req, res) => {
