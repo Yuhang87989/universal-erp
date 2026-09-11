@@ -213,8 +213,8 @@ router.get('/children', async (req, res) => {
     const rootId = cur;
     const [rows] = await pool.query(
       `SELECT id, name, owner_name, phone, address, business_type, business_desc, status, parent_id, is_group_root
-       FROM tenants WHERE (parent_id = ? OR id = ?) AND status = ? ORDER BY id`,
-      [rootId, rootId, 'active']
+       FROM tenants WHERE (parent_id = ? OR id = ?) AND status IN ('active','suspended') ORDER BY id`,
+      [rootId, rootId]
     );
     res.json({ code: 0, data: { rootId, list: rows } });
   } catch (err) {
@@ -251,6 +251,75 @@ router.put('/:id', async (req, res) => {
     await pool.query(`UPDATE tenants SET ${updates.join(', ')} WHERE id=?`, params);
     res.json({ code: 0, message: '租户信息更新成功' });
   } catch (err) { console.error('更新租户失败:', err); res.status(400).json({ code: 400, message: err.message }); }
+});
+
+// 总店对子账套：启用/暂停（suspend）/恢复（active）——仅集团根（总店）可操作子账套
+router.put('/:id/status', async (req, res) => {
+  try {
+    const { status } = req.body;
+    if (!['active', 'suspended'].includes(status)) return res.status(400).json({ code: 400, message: '状态不合法' });
+    const targetId = parseInt(req.params.id);
+    if (targetId === req.tenantId) return res.status(400).json({ code: 400, message: '不能暂停总店自身' });
+
+    // 校验目标账套确属当前总店名下（子账套）
+    const [[root]] = await pool.query('SELECT id, parent_id, is_group_root FROM tenants WHERE id = ?', [req.tenantId]);
+    const isRoot = root && (root.is_group_root === 1 || !root.parent_id);
+    if (!isRoot) return res.status(403).json({ code: 403, message: '仅总店可启停子账套' });
+
+    const [[child]] = await pool.query('SELECT id, parent_id FROM tenants WHERE id = ? AND status != ?', [targetId, 'cancelled']);
+    if (!child) return res.status(404).json({ code: 404, message: '子账套不存在' });
+    // 目标必须是直接子账套（parent_id = 总店）或集团内子账套
+    let lineage = [];
+    let cur = child.parent_id;
+    while (cur) {
+      if (cur === req.tenantId) break;
+      const [[p]] = await pool.query('SELECT parent_id FROM tenants WHERE id = ?', [cur]);
+      if (!p) { cur = null; break; }
+      lineage.push(cur); cur = p.parent_id;
+    }
+    if (cur !== req.tenantId) return res.status(403).json({ code: 403, message: '目标账套不在本总店名下' });
+
+    await pool.query('UPDATE tenants SET status = ? WHERE id = ?', [status, targetId]);
+    // 暂停时同步停用该账套下所有用户
+    if (status === 'suspended') await pool.query("UPDATE users SET status='disabled' WHERE tenant_id=?", [targetId]);
+    else await pool.query("UPDATE users SET status='active' WHERE tenant_id=?", [targetId]);
+    res.json({ code: 0, message: status === 'suspended' ? '子账套已暂停' : '子账套已启用', data: { id: targetId, status } });
+  } catch (err) {
+    console.error('更新子账套状态失败:', err);
+    res.status(500).json({ code: 500, message: '操作失败' });
+  }
+});
+
+// 总店删除子账套（软删除：置 cancelled，仅无在途单据的停用子账套可删）
+router.delete('/:id', async (req, res) => {
+  try {
+    const targetId = parseInt(req.params.id);
+    if (targetId === req.tenantId) return res.status(400).json({ code: 400, message: '不能删除总店自身' });
+    const [[root]] = await pool.query('SELECT id, parent_id, is_group_root FROM tenants WHERE id = ?', [req.tenantId]);
+    const isRoot = root && (root.is_group_root === 1 || !root.parent_id);
+    if (!isRoot) return res.status(403).json({ code: 403, message: '仅总店可删除子账套' });
+
+    const [[child]] = await pool.query('SELECT id, parent_id, name, status FROM tenants WHERE id = ? AND status != ?', [targetId, 'cancelled']);
+    if (!child) return res.status(404).json({ code: 404, message: '子账套不存在' });
+    let cur = child.parent_id, ok = false;
+    while (cur) {
+      if (cur === req.tenantId) { ok = true; break; }
+      const [[p]] = await pool.query('SELECT parent_id FROM tenants WHERE id = ?', [cur]);
+      if (!p) { cur = null; break; } cur = p.parent_id;
+    }
+    if (!ok) return res.status(403).json({ code: 403, message: '目标账套不在本总店名下' });
+
+    // 有在途/草稿单据不允许删除
+    const [[transferCnt]] = await pool.query("SELECT COUNT(*) c FROM stock_transfers WHERE (from_tenant_id=? OR to_tenant_id=?) AND status IN ('draft','in_transit')", [targetId, targetId]);
+    if (transferCnt.c > 0) return res.status(400).json({ code: 400, message: '该子账套存在在途调拨单，无法删除' });
+
+    await pool.query("UPDATE tenants SET status='cancelled' WHERE id=?", [targetId]);
+    await pool.query("UPDATE users SET status='disabled' WHERE tenant_id=?", [targetId]);
+    res.json({ code: 0, message: `子账套「${child.name}」已删除`, data: { id: targetId } });
+  } catch (err) {
+    console.error('删除子账套失败:', err);
+    res.status(500).json({ code: 500, message: '删除失败' });
+  }
 });
 
 module.exports = router;
