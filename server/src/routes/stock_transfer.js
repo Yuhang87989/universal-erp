@@ -21,7 +21,6 @@ const genTransferNo = async (tenantId) => {
 async function ensureProductInTenant(conn, productId, destTenantId) {
   const [[src]] = await conn.query('SELECT * FROM products WHERE id = ?', [productId]);
   if (!src) throw new Error('商品不存在');
-  // 目标账套优先按条码匹配，其次按名称匹配，避免重复建档
   let q = 'SELECT id FROM products WHERE tenant_id = ? AND status != ?';
   const p = [destTenantId, 'deleted'];
   if (src.barcode) { q += ' AND barcode = ?'; p.push(src.barcode); }
@@ -56,10 +55,13 @@ router.get('/', async (req, res) => {
 
     const [rows] = await pool.query(
       `SELECT st.*, fw.name as from_warehouse_name, tw.name as to_warehouse_name,
+              ft.name as from_tenant_name, tt.name as to_tenant_name,
               u.real_name as operator_name, c.real_name as confirmer_name
        FROM stock_transfers st
        LEFT JOIN warehouses fw ON st.from_warehouse_id = fw.id
        LEFT JOIN warehouses tw ON st.to_warehouse_id = tw.id
+       LEFT JOIN tenants ft ON st.from_tenant_id = ft.id
+       LEFT JOIN tenants tt ON st.to_tenant_id = tt.id
        LEFT JOIN users u ON st.operator_id = u.id
        LEFT JOIN users c ON st.confirmer_id = c.id
        ${where} ORDER BY st.id DESC LIMIT ? OFFSET ?`,
@@ -85,10 +87,13 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const [[row]] = await pool.query(
-      `SELECT st.*, fw.name as from_warehouse_name, tw.name as to_warehouse_name
+      `SELECT st.*, fw.name as from_warehouse_name, tw.name as to_warehouse_name,
+              ft.name as from_tenant_name, tt.name as to_tenant_name
        FROM stock_transfers st
        LEFT JOIN warehouses fw ON st.from_warehouse_id = fw.id
        LEFT JOIN warehouses tw ON st.to_warehouse_id = tw.id
+       LEFT JOIN tenants ft ON st.from_tenant_id = ft.id
+       LEFT JOIN tenants tt ON st.to_tenant_id = tt.id
        WHERE st.id = ? AND st.tenant_id = ?`, [req.params.id, req.tenantId]);
     if (!row) return res.status(404).json({ code: 404, message: '调拨单不存在' });
     const [items] = await pool.query(
@@ -101,7 +106,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// 新建调拨单
+// 新建调拨单（调出方发起：总店↔分店 或 分店↔分店）
 router.post('/', requireRole('owner', 'manager', 'warehouse'), async (req, res) => {
   try {
     const { from_warehouse_id, to_warehouse_id, items, remark } = req.body;
@@ -109,14 +114,13 @@ router.post('/', requireRole('owner', 'manager', 'warehouse'), async (req, res) 
     if (from_warehouse_id === to_warehouse_id) return res.status(400).json({ code: 400, message: '调出和调入仓库不能相同' });
     if (!items?.length) return res.status(400).json({ code: 400, message: '请添加调拨商品' });
 
-    // 解析调出/调入仓库所属账套（支持跨账套调拨：子店↔总仓、子店↔子店）
     const [fwRows] = await pool.query('SELECT id, tenant_id, name FROM warehouses WHERE id = ?', [from_warehouse_id]);
     const [twRows] = await pool.query('SELECT id, tenant_id, name FROM warehouses WHERE id = ?', [to_warehouse_id]);
     if (!fwRows.length || !twRows.length) return res.status(400).json({ code: 400, message: '仓库不存在' });
     const fromTenant = fwRows[0].tenant_id;
     const toTenant = twRows[0].tenant_id;
 
-    // 校验调出仓库库存（按调出账套）
+    // 校验调出仓库存（按调出账套）
     for (const item of items) {
       const [inv] = await pool.query(
         'SELECT quantity FROM inventory WHERE tenant_id = ? AND product_id = ? AND warehouse_id = ?',
@@ -161,7 +165,8 @@ router.post('/', requireRole('owner', 'manager', 'warehouse'), async (req, res) 
   }
 });
 
-// 确认调拨（一步完成：调出仓扣减 + 调入仓增加 + 写流水）
+// 确认调拨（调出方确认出库）：调出仓扣减库存 → 在真正入库方账套生成"调拨入库"草稿单（自动建档），
+// 真正入库方在其入库单里确认后才加库存。权责分开，入库由真正入库方入。
 router.post('/:id/confirm', requireRole('owner', 'manager', 'warehouse'), async (req, res) => {
   const conn = await pool.getConnection();
   try {
@@ -173,18 +178,11 @@ router.post('/:id/confirm', requireRole('owner', 'manager', 'warehouse'), async 
     if (!transfer) { await conn.rollback(); return res.status(400).json({ code: 400, message: '调拨单不存在或已确认' }); }
 
     const [items] = await conn.query('SELECT * FROM stock_transfer_items WHERE transfer_id = ?', [transfer.id]);
-
     const fromTenant = transfer.from_tenant_id || transfer.tenant_id;
     const toTenant = transfer.to_tenant_id || transfer.tenant_id;
 
+    // 1) 调出仓扣减（按调出账套）+ 写调拨出库流水
     for (const item of items) {
-      // 跨账套调拨时，确保调入账套存在该商品档案（保持各店独立账套）
-      let destProductId = item.product_id;
-      if (fromTenant !== toTenant) {
-        destProductId = await ensureProductInTenant(conn, item.product_id, toTenant);
-      }
-
-      // 调出仓扣减（按调出账套）
       const [fromInv] = await conn.query(
         'SELECT * FROM inventory WHERE tenant_id = ? AND product_id = ? AND warehouse_id = ? FOR UPDATE',
         [fromTenant, item.product_id, transfer.from_warehouse_id]
@@ -196,50 +194,60 @@ router.post('/:id/confirm', requireRole('owner', 'manager', 'warehouse'), async 
       const fromBefore = parseFloat(fromInv[0].quantity);
       const fromAfter = fromBefore - parseFloat(item.quantity);
       await conn.query('UPDATE inventory SET quantity = ? WHERE id = ?', [fromAfter, fromInv[0].id]);
-
       await conn.query(
         `INSERT INTO inventory_logs (tenant_id, product_id, warehouse_id, change_type, quantity, before_quantity, after_quantity, unit_cost, reference_type, reference_id, operator_id, remark)
          VALUES (?, ?, ?, 'transfer_out', ?, ?, ?, ?, 'transfer', ?, ?, ?)`,
         [fromTenant, item.product_id, transfer.from_warehouse_id, -item.quantity, fromBefore, fromAfter,
          item.unit_cost, transfer.id, req.user.id, `调拨出库 - ${transfer.transfer_no}`]
       );
+    }
 
-      // 调入仓增加（按调入账套）
-      const [toInv] = await conn.query(
-        'SELECT * FROM inventory WHERE tenant_id = ? AND product_id = ? AND warehouse_id = ? FOR UPDATE',
-        [toTenant, destProductId, transfer.to_warehouse_id]
-      );
-      const toBefore = toInv.length ? parseFloat(toInv[0].quantity) : 0;
-      const toAfter = toBefore + parseFloat(item.quantity);
-      if (toInv.length) {
-        await conn.query('UPDATE inventory SET quantity = ? WHERE id = ?', [toAfter, toInv[0].id]);
-      } else {
-        await conn.query(
-          'INSERT INTO inventory (tenant_id, product_id, warehouse_id, quantity) VALUES (?, ?, ?, ?)',
-          [toTenant, destProductId, transfer.to_warehouse_id, toAfter]
-        );
+    // 2) 在真正入库方账套生成一张"调拨入库"草稿单（含明细；商品自动建档到入库方）
+    //    真正入库方在自己的"入库单"里确认后才加库存
+    const orderNo = await genInOrderNo(conn, toTenant);
+    const [insRes] = await conn.query(
+      `INSERT INTO stock_in_orders (tenant_id, order_no, warehouse_id, in_type, from_tenant_id, from_warehouse_id, source_order_type, source_order_id, total_amount, status, operator_id, remark)
+       VALUES (?, ?, ?, 'transfer_in', ?, ?, 'stock_transfer', ?, ?, 'draft', ?, ?)`,
+      [toTenant, orderNo, transfer.to_warehouse_id, fromTenant, transfer.from_warehouse_id,
+       transfer.id, transfer.total_amount || 0, req.user.id, `调拨入库(待确认) - ${transfer.transfer_no}`]
+    );
+    const destStockInId = insRes.insertId;
+    for (const item of items) {
+      // 跨账套时先确保入库方商品档案存在
+      let destProductId = item.product_id;
+      if (fromTenant !== toTenant) {
+        destProductId = await ensureProductInTenant(conn, item.product_id, toTenant);
       }
-
       await conn.query(
-        `INSERT INTO inventory_logs (tenant_id, product_id, warehouse_id, change_type, quantity, before_quantity, after_quantity, unit_cost, reference_type, reference_id, operator_id, remark)
-         VALUES (?, ?, ?, 'transfer_in', ?, ?, ?, ?, 'transfer', ?, ?, ?)`,
-        [toTenant, destProductId, transfer.to_warehouse_id, item.quantity, toBefore, toAfter,
-         item.unit_cost, transfer.id, req.user.id, `调拨入库 - ${transfer.transfer_no}`]
+        'INSERT INTO stock_in_items (stock_in_id, product_id, quantity, unit_cost, remark) VALUES (?, ?, ?, ?, ?)',
+        [destStockInId, destProductId, item.quantity, item.unit_cost, item.remark || null]
       );
     }
 
+    // 3) 调拨单状态：in_transit（在途，等待真正入库方确认入库）
     await conn.query(
-      "UPDATE stock_transfers SET status = 'completed', confirmer_id = ?, confirm_time = NOW() WHERE id = ?",
+      "UPDATE stock_transfers SET status = 'in_transit', confirmer_id = ?, confirm_time = NOW() WHERE id = ?",
       [req.user.id, transfer.id]
     );
     await conn.commit();
-    res.json({ code: 0, message: '调拨完成，库存已同步' });
+    res.json({ code: 0, message: '调拨已出库，待调入方在入库单确认后入库', data: { transfer_id: transfer.id, stock_in_id: destStockInId, wait_in: true } });
   } catch (err) {
     await conn.rollback();
     console.error('确认调拨失败:', err);
     res.status(500).json({ code: 500, message: err.message });
   } finally { conn.release(); }
 });
+
+async function genInOrderNo(conn, tenantId) {
+  const today = dayjs().format('YYYYMMDD');
+  const prefix = `RK${today}`;
+  const [rows] = await conn.query(
+    "SELECT order_no FROM stock_in_orders WHERE tenant_id = ? AND order_no LIKE ? ORDER BY id DESC LIMIT 1",
+    [tenantId, `${prefix}%`]
+  );
+  const seq = rows.length ? parseInt(rows[0].order_no.slice(-3)) + 1 : 1;
+  return `${prefix}${String(seq).padStart(3, '0')}`;
+}
 
 // 删除（仅草稿）
 router.delete('/:id', requireRole('owner', 'manager'), async (req, res) => {
