@@ -131,6 +131,34 @@ const Settings: React.FC = () => {
     } catch {}
   };
 
+  // 集团分店管理（总店查看子账套 + 启用/暂停/删除）
+  const [branchTenants, setBranchTenants] = useState<any[]>([]);
+  const [branchLoading, setBranchLoading] = useState(false);
+  const loadBranches = async () => {
+    setBranchLoading(true);
+    try {
+      const res = await request.get('/tenants/children');
+      const d = res.data?.data || {};
+      const list = d.list || [];
+      setBranchTenants(list.map((t: any) => ({ ...t, isSelf: t.id === d.rootId })));
+    } catch { setBranchTenants([]); }
+    setBranchLoading(false);
+  };
+  const handleTenantStatus = async (id: number, status: string) => {
+    try {
+      await request.put(`/tenants/${id}/status`, { status });
+      message.success(status === 'suspended' ? '已暂停该子账套' : '已启用该子账套');
+      loadBranches();
+    } catch (e: any) { message.error(e.response?.data?.message || '操作失败'); }
+  };
+  const handleTenantDelete = async (id: number) => {
+    try {
+      await request.delete(`/tenants/${id}`);
+      message.success('子账套已删除');
+      loadBranches();
+    } catch (e: any) { message.error(e.response?.data?.message || '删除失败'); }
+  };
+
   const loadSysInfo = async () => {
     try { const res = await request.get('/system/info'); setSysInfo(res.data?.data || res.data); } catch {}
   };
@@ -184,7 +212,7 @@ const Settings: React.FC = () => {
     } catch {}
   };
 
-  useEffect(() => { loadTenant(); loadUsers(); loadSysInfo(); }, []);
+  useEffect(() => { loadTenant(); loadUsers(); loadSysInfo(); loadBranches(); }, []);
 
   const handleSaveStore = async () => {
     if (!tenant?.id) { message.error('未找到当前帐套'); return; }
@@ -356,6 +384,37 @@ const Settings: React.FC = () => {
               <Form.Item name="businessDesc" label="业务描述"><Input.TextArea rows={3} placeholder="描述该帐套的业务范围" /></Form.Item>
               <Button type="primary" icon={<SaveOutlined />} onClick={handleSaveStore} loading={loading}>保存设置</Button>
             </Form>
+          </Card>
+        </Tabs.TabPane>
+
+        <Tabs.TabPane tab={<span><ShopOutlined />集团分店</span>} key="branches">
+          <Card>
+            <Space style={{ marginBottom: 16 }}>
+              <Text strong>集团分店账套管理</Text>
+              <Button size="small" icon={<ReloadOutlined />} onClick={loadBranches}>刷新</Button>
+              <Button size="small" type="primary" ghost icon={<PlusCircleOutlined />} onClick={() => { newTenantForm.resetFields(); loadParentOptions(); setNewTenantModal(true); }}>新建分店</Button>
+            </Space>
+            <Alert type="info" showIcon style={{ marginBottom: 16 }} message="总店可对分店账套执行启用/暂停/删除；暂停后该分店员工无法登录，删除会移除分店及其账号。" />
+            <Table rowKey="id" size="small" loading={branchLoading} dataSource={branchTenants}
+              columns={[
+                { title: '账套名称', dataIndex: 'name', render: (v: string, r: any) => r.isSelf ? <Tag color="blue">{v}（本店/总店）</Tag> : v },
+                { title: '经营者', dataIndex: 'owner_name', width: 120 },
+                { title: '电话', dataIndex: 'phone', width: 140 },
+                { title: '类型', dataIndex: 'business_type', width: 90, render: (v: string) => ({ retail: '零售', supply_coop: '供销社', market: '市场', ecommerce: '电商', other: '其他' } as any)[v] || v },
+                { title: '状态', dataIndex: 'status', width: 90, render: (v: string) => <Tag color={v === 'active' ? 'green' : 'red'}>{v === 'active' ? '启用' : '暂停'}</Tag> },
+                { title: '操作', width: 200, render: (_: any, r: any) => r.isSelf ? <Tag>总店</Tag> : (
+                  <Space>
+                    {r.status === 'active'
+                      ? <Popconfirm title="确认暂停该子账套？其员工将无法登录" onConfirm={() => handleTenantStatus(r.id, 'suspended')}><Button type="link" danger size="small">暂停</Button></Popconfirm>
+                      : <Popconfirm title="确认启用该子账套？" onConfirm={() => handleTenantStatus(r.id, 'active')}><Button type="link" size="small" style={{ color: '#52c41a' }}>启用</Button></Popconfirm>}
+                    <Popconfirm title="确认删除该子账套？此操作不可恢复" onConfirm={() => handleTenantDelete(r.id)}>
+                      <Button type="link" danger icon={<DatabaseOutlined />} size="small">删除</Button>
+                    </Popconfirm>
+                  </Space>
+                )}
+              ]}
+              pagination={false}
+            />
           </Card>
         </Tabs.TabPane>
 
