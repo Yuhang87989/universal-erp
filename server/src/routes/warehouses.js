@@ -15,19 +15,34 @@ router.get('/', async (req, res) => {
     if (status) { where += ' AND status = ?'; params.push(status); }
     const [my] = await pool.query(`SELECT * FROM warehouses ${where} ORDER BY is_default DESC, sort_order ASC, id ASC`, params);
 
-    // 集团共享总仓：若当前账套属于集团一员（总店或子店），则可见集团内所有共享总仓
+    // 集团共享总仓与跨店仓库可见性：
+    //  - 总店（集团根，is_group_root=1）：可见 自己的仓库 + 全部共享仓 + 所有子账套的 active 仓库，
+    //    便于总店从总仓统一调拨发货到各分店
+    //  - 子店：可见 自己的仓库 + 集团内全部共享总仓
     const rows = [...my];
     try {
       const [[tn]] = await pool.query('SELECT parent_id, is_group_root FROM tenants WHERE id = ?', [req.tenantId]);
-      const inGroup = tn && (tn.is_group_root === 1 || tn.parent_id !== null);
-      if (inGroup) {
+      const isRoot = tn && tn.is_group_root === 1;
+      const inGroup = tn && (isRoot || tn.parent_id !== null);
+      if (isRoot) {
+        const [groupWhs] = await pool.query(
+          `SELECT w.*, t.name AS tenant_name FROM warehouses w
+           LEFT JOIN tenants t ON w.tenant_id = t.id
+           WHERE w.status = 'active' AND (w.is_shared = 1 OR w.tenant_id IN (SELECT id FROM tenants WHERE parent_id = ?))
+           ORDER BY w.id`,
+          [req.tenantId]
+        );
+        for (const g of groupWhs) {
+          if (!rows.find(r => r.id === g.id)) rows.push({ ...g, __is_shared: g.is_shared === 1, __tenant_name: g.tenant_name });
+        }
+      } else if (inGroup) {
         const [shared] = await pool.query(
           `SELECT w.*, t.name AS owner_tenant_name FROM warehouses w
            LEFT JOIN tenants t ON w.tenant_id = t.id
            WHERE w.is_shared = 1 AND w.status = 'active' ORDER BY w.id`
         );
         for (const s of shared) {
-          if (!rows.find(r => r.id === s.id)) rows.push({ ...s, __is_shared: true });
+          if (!rows.find(r => r.id === s.id)) rows.push({ ...s, __is_shared: true, __tenant_name: s.owner_tenant_name });
         }
       }
     } catch (e) { /* 非集团环境忽略 */ }
