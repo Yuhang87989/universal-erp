@@ -70,8 +70,10 @@ const StockTransfer: React.FC = () => {
 
   const handleConfirm = async (record: any) => {
     try {
-      await request.post(`/transfers/${record.id}/confirm`);
-      message.success('调拨完成，库存已同步');
+      const res = await request.post(`/transfers/${record.id}/confirm`);
+      const data = res.data?.data || res.data || {};
+      if (data.wait_in) message.success('调拨已出库，请在调入方账套的「入库单」里确认入库');
+      else message.success('调拨完成，库存已同步');
       voiceService.speakTransfer(record.from_warehouse_name || '', record.to_warehouse_name || '');
       load(pagination.current);
     }
