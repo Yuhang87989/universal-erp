@@ -183,6 +183,14 @@ router.post('/:id/confirm', requireRole('owner', 'manager', 'warehouse'), async 
       [req.user.id, order.id]
     );
 
+    // 若是调拨入库：确认后回写关联调拨单为 completed（真正入库方已入库，调拨闭环）
+    if (order.in_type === 'transfer_in' && order.source_order_type === 'stock_transfer' && order.source_order_id) {
+      await conn.query(
+        "UPDATE stock_transfers SET status = 'completed' WHERE id = ? AND status = 'in_transit'",
+        [order.source_order_id]
+      );
+    }
+
     await conn.commit();
     res.json({ code: 0, message: '入库确认成功，库存已更新' });
   } catch (err) {
