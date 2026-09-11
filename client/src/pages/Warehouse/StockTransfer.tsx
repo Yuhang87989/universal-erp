@@ -19,9 +19,8 @@ const StockTransfer: React.FC = () => {
   const [current, setCurrent] = useState<any>(null);
   const [form] = Form.useForm();
   const [items, setItems] = useState([{ productId: null, quantity: 1 }]);
-  const [products, setProducts] = useState<any[]>([]);
   const [warehouses, setWarehouses] = useState<any[]>([]);
-  const [inventoryMap, setInventoryMap] = useState<Record<string, number>>({});
+  const [fromWhInventory, setFromWhInventory] = useState<any[]>([]);
 
   const load = async (page = 1) => {
     setLoading(true);
@@ -33,18 +32,18 @@ const StockTransfer: React.FC = () => {
     setLoading(false);
   };
 
-  const loadInventory = async (warehouseId: number) => {
+  // 按调出仓加载该仓实际商品库存（支持共享总仓跨账套：商品来自所选仓库归属账套）
+  const loadWhProducts = async (warehouseId: number) => {
+    if (!warehouseId) { setFromWhInventory([]); return; }
     try {
-      const res = await request.get('/inventory', { params: { pageSize: 1000, warehouse_id: warehouseId } });
-      const map: Record<string, number> = {};
-      (res.data?.list || res.data || []).forEach((i: any) => { map[i.product_id] = parseFloat(i.quantity); });
-      setInventoryMap(map);
+      const res = await request.get('/inventory', { params: { pageSize: 2000, warehouse_id: warehouseId } });
+      const d = res.data?.data || res.data || {};
+      setFromWhInventory(d.list || []);
     } catch (e) { /* ignore */ }
   };
 
   useEffect(() => {
     load(1);
-    request.get('/products', { params: { pageSize: 500 } }).then(r => setProducts((r.data?.data || r.data || {}).list || r.data?.data || r.data || []));
     request.get('/warehouses').then(r => setWarehouses((r.data?.data || r.data || {}).list || r.data?.data || r.data || []));
   }, []);
 
@@ -121,7 +120,7 @@ const StockTransfer: React.FC = () => {
     <div>
       <Title level={4} style={{ marginBottom: 16 }}>库存调拨</Title>
       <Card size="small" style={{ marginBottom: 16 }}>
-        <Button type="primary" icon={<PlusOutlined />} onClick={() => { form.resetFields(); setItems([{ productId: null, quantity: 1 }]); setInventoryMap({}); setModalOpen(true); }}>新建调拨单</Button>
+        <Button type="primary" icon={<PlusOutlined />} onClick={() => { form.resetFields(); setItems([{ productId: null, quantity: 1 }]); setFromWhInventory([]); setModalOpen(true); }}>新建调拨单</Button>
       </Card>
       <Table columns={columns} dataSource={list} rowKey="id" loading={loading} size="small" scroll={{ x: 900 }}
         pagination={{ current: pagination.current, pageSize: pagination.pageSize, total: pagination.total, showTotal: t => `共 ${t} 条`, onChange: p => load(p) }} />
@@ -130,11 +129,11 @@ const StockTransfer: React.FC = () => {
         <Form form={form} layout="vertical">
           <Row gutter={16}>
             <Col span={12}><Form.Item name="from_warehouse_id" label="调出仓库" rules={[{ required: true }]}>
-              <Select placeholder="选择调出仓库" options={warehouses.map((w: any) => ({ label: (w.__is_shared ? '[总仓] ' : '') + w.name, value: w.id }))}
-                onChange={(v) => loadInventory(v)} />
+              <Select placeholder="选择调出仓库" options={warehouses.map((w: any) => ({ label: ((w.__is_shared ? '[共享] ' : '') + (w.__tenant_name ? w.__tenant_name + '·' : '')) + w.name, value: w.id }))}
+                onChange={(v) => loadWhProducts(v)} />
             </Form.Item></Col>
             <Col span={12}><Form.Item name="to_warehouse_id" label="调入仓库" rules={[{ required: true }]}>
-              <Select placeholder="选择调入仓库" options={warehouses.map((w: any) => ({ label: (w.__is_shared ? '[总仓] ' : '') + w.name, value: w.id }))} />
+              <Select placeholder="选择调入仓库" options={warehouses.map((w: any) => ({ label: ((w.__is_shared ? '[共享] ' : '') + (w.__tenant_name ? w.__tenant_name + '·' : '')) + w.name, value: w.id }))} />
             </Form.Item></Col>
           </Row>
           <div style={{ border: '1px solid #f0f0f0', borderRadius: 8, padding: 12, marginBottom: 16 }}>
@@ -144,7 +143,7 @@ const StockTransfer: React.FC = () => {
                 <Row gutter={[8, 8]} align="middle">
                   <Col xs={24} md={12}><Select style={{ width: '100%' }} placeholder="选择商品" showSearch optionFilterProp="label" value={item.productId}
                     onChange={v => updateItem(idx, 'productId', v)}
-                    options={products.map((p: any) => ({ label: `${p.name} (调出仓库存${inventoryMap[p.id] ?? 0}${p.unit || ''})`, value: p.id }))} /></Col>
+                    options={fromWhInventory.map((p: any) => ({ label: `${p.product_name || p.name} (库存${Number(p.quantity ?? 0)}${p.unit || ''})`, value: p.product_id || p.id }))} /></Col>
                   <Col xs={12} md={8}><InputNumber style={{ width: '100%' }} min={0.01} placeholder="调拨数量" value={item.quantity} onChange={v => updateItem(idx, 'quantity', v)} /></Col>
                   <Col xs={24} md={4} style={{ textAlign: 'center' }}>{items.length > 1 && <Button danger size="small" onClick={() => removeItem(idx)}>删除</Button>}</Col>
                 </Row>
