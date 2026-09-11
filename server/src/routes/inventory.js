@@ -5,13 +5,24 @@ const { authenticate, requireRole } = require('../middleware/auth');
 const router = express.Router();
 router.use(authenticate);
 
-// 获取库存列表
+// 获取库存列表（支持共享总仓跨账套查询：若选定仓库是 is_shared=1，则按其归属账套查，供子店/总店看共享仓实时库存）
 router.get('/', async (req, res) => {
   try {
-    const { page = 1, pageSize = 20, keyword, lowStock, warehouse_id, category_id, stockStatus, minQty, maxQty } = req.query;
+    const { page = 1, pageSize = 20, keyword, lowStock, warehouse_id, category_id, stockStatus, minQty, maxQty, tenant_id } = req.query;
     const offset = (page - 1) * pageSize;
+    // 解析实际库存归属账套
+    let effTenantId = req.tenantId;
+    if (warehouse_id) {
+      const [[wh]] = await pool.query('SELECT tenant_id, is_shared FROM warehouses WHERE id = ?', [warehouse_id]);
+      if (wh) {
+        // 共享总仓：按仓库归属账套查；或在集团语义下允许显式指定账套
+        if (wh.is_shared === 1) effTenantId = wh.tenant_id;
+        // 管理员指定 tenant_id 时（跨账套盘点/调拨可用）
+        if (tenant_id && parseInt(tenant_id) > 0) effTenantId = tenant_id;
+      }
+    }
     let where = 'WHERE i.tenant_id = ?';
-    const params = [req.tenantId];
+    const params = [effTenantId];
 
     if (warehouse_id) {
       where += ' AND i.warehouse_id = ?';
