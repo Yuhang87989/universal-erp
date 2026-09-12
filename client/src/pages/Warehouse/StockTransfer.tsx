@@ -21,11 +21,13 @@ const StockTransfer: React.FC = () => {
   const [items, setItems] = useState([{ productId: null, quantity: 1 }]);
   const [warehouses, setWarehouses] = useState<any[]>([]);
   const [fromWhInventory, setFromWhInventory] = useState<any[]>([]);
+  const [filter, setFilter] = useState('');
 
-  const load = async (page = 1) => {
+  const load = async (page = 1, st?: string) => {
     setLoading(true);
     try {
-      const res = await request.get('/transfers', { params: { page, pageSize: 20 } });
+      const status = st !== undefined ? st : filter;
+      const res = await request.get('/transfers', { params: { page, pageSize: 20, ...(status ? { status } : {}) } });
       const d = res.data?.data || res.data || {}; setList(d.list || []);
       setPagination(p => ({ ...p, current: page, total: (res.data?.data || res.data || {}).total || 0 }));
     } catch (e) { /* ignore */ }
@@ -95,8 +97,8 @@ const StockTransfer: React.FC = () => {
 
   const columns = [
     { title: '调拨单号', dataIndex: 'transfer_no', width: 160 },
-    { title: '调出仓库', dataIndex: 'from_warehouse_name', width: 110 },
-    { title: '调入仓库', dataIndex: 'to_warehouse_name', width: 110, render: (v: string) => <span><SwapOutlined style={{ color: '#1677ff', marginRight: 4 }} />{v}</span> },
+    { title: '调出仓库', dataIndex: 'from_warehouse_name', width: 150, render: (v: string, r: any) => r.from_tenant_name ? `${r.from_tenant_name}·${v}` : v },
+    { title: '调入仓库', dataIndex: 'to_warehouse_name', width: 150, render: (v: string, r: any) => <span><SwapOutlined style={{ color: '#1677ff', marginRight: 4 }} />{(r.to_tenant_name ? `${r.to_tenant_name}·` : '') + v}</span> },
     { title: '商品数', dataIndex: 'item_count', width: 70, align: 'center' as const, render: (v: number) => `${v}种` },
     { title: '总金额', dataIndex: 'total_amount', width: 100, align: 'right' as const, render: (v: number) => `¥${Number(v || 0).toFixed(2)}` },
     { title: '状态', dataIndex: 'status', width: 90, render: (v: string) => <Tag color={statusMap[v]?.color}>{statusMap[v]?.text || v}</Tag> },
@@ -120,7 +122,16 @@ const StockTransfer: React.FC = () => {
     <div>
       <Title level={4} style={{ marginBottom: 16 }}>库存调拨</Title>
       <Card size="small" style={{ marginBottom: 16 }}>
-        <Button type="primary" icon={<PlusOutlined />} onClick={() => { form.resetFields(); setItems([{ productId: null, quantity: 1 }]); setFromWhInventory([]); setModalOpen(true); }}>新建调拨单</Button>
+        <Space wrap>
+          <Button type="primary" icon={<PlusOutlined />} onClick={() => { form.resetFields(); setItems([{ productId: null, quantity: 1 }]); setFromWhInventory([]); setModalOpen(true); }}>新建调拨单</Button>
+          <Select style={{ width: 130 }} placeholder="全部状态" allowClear value={filter}
+            onChange={(v: any) => { setFilter(v || ''); load(1, v || ''); }}
+            options={[
+              { value: '', label: '全部状态' }, { value: 'draft', label: '草稿' },
+              { value: 'in_transit', label: '在途' }, { value: 'completed', label: '已完成' },
+              { value: 'cancelled', label: '已取消' }
+            ]} />
+        </Space>
       </Card>
       <Table columns={columns} dataSource={list} rowKey="id" loading={loading} size="small" scroll={{ x: 900 }}
         pagination={{ current: pagination.current, pageSize: pagination.pageSize, total: pagination.total, showTotal: t => `共 ${t} 条`, onChange: p => load(p) }} />
