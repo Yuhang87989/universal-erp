@@ -146,7 +146,7 @@ const StockIn: React.FC = () => {
         <Form form={form} layout="vertical">
           <Row gutter={16}>
             <Col span={8}><Form.Item name="warehouse_id" label="入库仓库" rules={[{ required: true, message: '请选择仓库' }]}>
-              <Select placeholder="选择仓库" options={warehouses.map((w: any) => ({ label: w.name, value: w.id }))} />
+              <Select placeholder="选择仓库" options={warehouses.filter((w: any) => w.status === 'active').map((w: any) => ({ label: w.name, value: w.id }))} />
             </Form.Item></Col>
             <Col span={8}><Form.Item name="in_type" label="入库类型" initialValue="purchase">
               <Select options={inTypeOptions} />
