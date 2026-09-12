@@ -104,6 +104,8 @@ router.post('/', requireRole('owner', 'manager', 'warehouse'), async (req, res) 
   try {
     const { warehouse_id, in_type, supplier_id, items, remark } = req.body;
     if (!warehouse_id || !items?.length) return res.status(400).json({ code: 400, message: '请选择仓库并添加商品' });
+    const [[wh]] = await pool.query('SELECT status FROM warehouses WHERE id = ?', [warehouse_id]);
+    if (!wh || wh.status !== 'active') return res.status(400).json({ code: 400, message: '该仓库已暂停，无法入库' });
 
     const orderNo = await genOrderNo(req.tenantId);
     let totalAmount = 0;
