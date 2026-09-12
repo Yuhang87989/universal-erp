@@ -116,9 +116,11 @@ router.post('/', requireRole('owner', 'manager', 'warehouse'), async (req, res) 
     if (from_warehouse_id === to_warehouse_id) return res.status(400).json({ code: 400, message: '调出和调入仓库不能相同' });
     if (!items?.length) return res.status(400).json({ code: 400, message: '请添加调拨商品' });
 
-    const [fwRows] = await pool.query('SELECT id, tenant_id, name FROM warehouses WHERE id = ?', [from_warehouse_id]);
-    const [twRows] = await pool.query('SELECT id, tenant_id, name FROM warehouses WHERE id = ?', [to_warehouse_id]);
+    const [fwRows] = await pool.query('SELECT id, tenant_id, name, status FROM warehouses WHERE id = ?', [from_warehouse_id]);
+    const [twRows] = await pool.query('SELECT id, tenant_id, name, status FROM warehouses WHERE id = ?', [to_warehouse_id]);
     if (!fwRows.length || !twRows.length) return res.status(400).json({ code: 400, message: '仓库不存在' });
+    if (fwRows[0].status !== 'active') return res.status(400).json({ code: 400, message: '调出仓库已暂停，无法调拨' });
+    if (twRows[0].status !== 'active') return res.status(400).json({ code: 400, message: '调入仓库已暂停，无法调拨' });
     const fromTenant = fwRows[0].tenant_id;
     const toTenant = twRows[0].tenant_id;
 
