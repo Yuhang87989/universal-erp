@@ -45,6 +45,11 @@ const Warehouses: React.FC = () => {
     catch (e: any) { message.error(e.response?.data?.message || '删除失败'); }
   };
 
+  const toggleStatus = async (r: any, status: string) => {
+    try { await request.put(`/warehouses/${r.id}/status`, { status }); message.success(status === 'active' ? '已启用' : '已暂停'); load(); }
+    catch (e: any) { message.error(e.response?.data?.message || '操作失败'); }
+  };
+
   const grouped = useMemo(() => {
     const map: any = {};
     for (const w of list) {
@@ -66,8 +71,11 @@ const Warehouses: React.FC = () => {
     { title: 'SKU数', dataIndex: 'sku_count', width: 80, align: 'center' as const },
     { title: '库存价值', dataIndex: 'total_value', width: 120, render: (v: number) => `¥${Number(v || 0).toFixed(2)}`, align: 'right' as const },
     { title: '状态', dataIndex: 'status', width: 80, render: (v: string) => <Tag color={v === 'active' ? 'green' : 'default'}>{v === 'active' ? '启用' : '停用'}</Tag> },
-    { title: '操作', width: 120, render: (_: any, r: any) => (
+    { title: '操作', width: 200, render: (_: any, r: any) => (
       <Space>
+        {r.status === 'active'
+          ? <Button type="link" size="small" onClick={() => toggleStatus(r, 'disabled')}>暂停</Button>
+          : <Button type="link" size="small" onClick={() => toggleStatus(r, 'active')}>启用</Button>}
         <Button type="link" size="small" icon={<EditOutlined />} onClick={() => { setEditing(r); form.setFieldsValue(r); setModalOpen(true); }}>编辑</Button>
         {!r.is_default && <Popconfirm title="确认删除？" onConfirm={() => handleDelete(r.id)}><Button type="link" size="small" danger icon={<DeleteOutlined />}>删除</Button></Popconfirm>}
       </Space>
