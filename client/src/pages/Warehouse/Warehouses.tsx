@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Table, Button, Modal, Form, Input, Switch, Space, message, Card, Tag, Popconfirm, Typography, Row, Col, Statistic } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined, HomeOutlined } from '@ant-design/icons';
 import request from '../../api/request';
@@ -45,8 +45,18 @@ const Warehouses: React.FC = () => {
     catch (e: any) { message.error(e.response?.data?.message || '删除失败'); }
   };
 
+  const grouped = useMemo(() => {
+    const map: any = {};
+    for (const w of list) {
+      const t = w.__tenant_name || '本账套';
+      if (!map[t]) { map[t] = { key: 'grp-' + t, title: t, children: [] }; }
+      map[t].children.push(w);
+    }
+    return Object.values(map);
+  }, [list]);
+
   const columns = [
-    { title: '编码', dataIndex: 'code', width: 100 },
+    { title: '编码', dataIndex: 'code', width: 140, render: (v: string, r: any) => r.children ? <strong style={{ color: '#1677ff' }}>{r.title}（{r.children.length} 仓）</strong> : v },
     { title: '仓库名称', dataIndex: 'name', render: (v: string, r: any) => (
       <Space>{r.is_default && <Tag color="blue">默认</Tag>}{v}</Space>
     )},
@@ -73,7 +83,7 @@ const Warehouses: React.FC = () => {
         <Col span={8}><Card size="small"><Statistic title="库存总价值" prefix="¥" value={list.reduce((s, w) => s + Number(w.total_value || 0), 0).toFixed(2)} /></Card></Col>
       </Row>
       <Card size="small" extra={<Button type="primary" icon={<PlusOutlined />} onClick={() => { setEditing(null); form.resetFields(); setModalOpen(true); }}>新增仓库</Button>}>
-        <Table columns={columns} dataSource={list} rowKey="id" loading={loading} size="small" pagination={false} />
+        <Table columns={columns} dataSource={grouped} rowKey={(r: any) => r.key || r.id} childrenColumnName="children" defaultExpandAllRows loading={loading} size="small" pagination={false} />
       </Card>
 
       <Modal title={editing ? '编辑仓库' : '新增仓库'} open={modalOpen} onOk={handleSubmit} onCancel={() => { setModalOpen(false); setEditing(null); }} width={560}>
