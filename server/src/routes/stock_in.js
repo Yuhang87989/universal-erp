@@ -31,21 +31,27 @@ router.get('/', async (req, res) => {
     const offset = (page - 1) * pageSize;
     let where = 'WHERE sio.tenant_id = ?';
     const params = [req.tenantId];
-    if (status) { where += ' AND sio.status = ?'; params.push(status); }
+    if (status) {
+      if (status === 'in_transit') { where += " AND sio.in_type = 'transfer_in' AND st.status = 'in_transit'"; }
+      else { where += ' AND sio.status = ?'; params.push(status); }
+    }
     if (in_type) { where += ' AND sio.in_type = ?'; params.push(in_type); }
     if (warehouse_id) { where += ' AND sio.warehouse_id = ?'; params.push(warehouse_id); }
     if (keyword) { where += ' AND (sio.order_no LIKE ? OR sup.name LIKE ?)'; params.push(`%${keyword}%`, `%${keyword}%`); }
     if (startDate) { where += ' AND sio.created_at >= ?'; params.push(startDate); }
     if (endDate) { where += ' AND sio.created_at <= ?'; params.push(endDate + ' 23:59:59'); }
 
-    const [[{ total }]] = await pool.query(`SELECT COUNT(*) as total FROM stock_in_orders sio LEFT JOIN suppliers sup ON sio.supplier_id = sup.id ${where}`, params);
+    const [[{ total }]] = await pool.query(`SELECT COUNT(*) as total FROM stock_in_orders sio LEFT JOIN suppliers sup ON sio.supplier_id = sup.id LEFT JOIN stock_transfers st ON sio.source_order_type = 'stock_transfer' AND sio.source_order_id = st.id ${where}`, params);
     const [orders] = await pool.query(
-      `SELECT sio.*, w.name as warehouse_name, sup.name as supplier_name, u.real_name as operator_name, c.real_name as confirmer_name
+      `SELECT sio.*, w.name as warehouse_name, wf.name as from_warehouse_name, sup.name as supplier_name, u.real_name as operator_name, c.real_name as confirmer_name,
+              st.status as transfer_status, st.transfer_no as transfer_no
        FROM stock_in_orders sio
        LEFT JOIN warehouses w ON sio.warehouse_id = w.id
+       LEFT JOIN warehouses wf ON sio.from_warehouse_id = wf.id
        LEFT JOIN suppliers sup ON sio.supplier_id = sup.id
        LEFT JOIN users u ON sio.operator_id = u.id
        LEFT JOIN users c ON sio.confirmer_id = c.id
+       LEFT JOIN stock_transfers st ON sio.source_order_type = 'stock_transfer' AND sio.source_order_id = st.id
        ${where} ORDER BY sio.id DESC LIMIT ? OFFSET ?`,
       [...params, parseInt(pageSize), offset]
     );
