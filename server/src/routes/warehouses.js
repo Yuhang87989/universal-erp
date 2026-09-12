@@ -5,6 +5,30 @@ const { authenticate, requireRole } = require('../middleware/auth');
 const router = express.Router();
 router.use(authenticate);
 
+// 判断某仓库是否在当前登录账套的可管理范围内：
+//  - 子店只能管理自己的仓库
+//  - 集团根（is_group_root=1）可管理 自己 + 其所有子账套 + 共享仓 的仓库（供总店统一启停/删除分店仓库）
+async function canManageWarehouse(tenantId, whId) {
+  const [[wh]] = await pool.query('SELECT tenant_id, is_shared FROM warehouses WHERE id = ?', [whId]);
+  if (!wh) return false;
+  const [[tn]] = await pool.query('SELECT parent_id, is_group_root FROM tenants WHERE id = ?', [tenantId]);
+  if (!tn) return false;
+  if (tn.is_group_root === 1) {
+    if (wh.tenant_id === tenantId || wh.is_shared) return true;
+    let cursor = wh.tenant_id;
+    const seen = new Set();
+    while (cursor && !seen.has(cursor)) {
+      seen.add(cursor);
+      if (cursor === tenantId) return true;
+      const [[p]] = await pool.query('SELECT id, parent_id FROM tenants WHERE id = ?', [cursor]);
+      if (!p || !p.parent_id) break;
+      cursor = p.parent_id;
+    }
+    return false;
+  }
+  return wh.tenant_id === tenantId;
+}
+
 // 仓库列表（含集团共享总仓）
 router.get('/', async (req, res) => {
   try {
@@ -115,15 +139,19 @@ router.post('/', requireRole('owner', 'manager'), async (req, res) => {
 router.put('/:id', requireRole('owner', 'manager'), async (req, res) => {
   const conn = await pool.getConnection();
   try {
+    if (!await canManageWarehouse(req.tenantId, req.params.id)) {
+      conn.release(); return res.status(404).json({ code: 404, message: '仓库不存在或无权限' });
+    }
+    const [[wh]] = await pool.query('SELECT tenant_id FROM warehouses WHERE id = ?', [req.params.id]);
     const { code, name, address, manager, phone, is_default, status, remark } = req.body;
     await conn.beginTransaction();
     if (is_default) {
-      await conn.query('UPDATE warehouses SET is_default = FALSE WHERE tenant_id = ? AND id != ?', [req.tenantId, req.params.id]);
+      await conn.query('UPDATE warehouses SET is_default = FALSE WHERE tenant_id = ? AND id != ?', [wh.tenant_id, req.params.id]);
     }
     await conn.query(
       `UPDATE warehouses SET code=?, name=?, address=?, manager=?, phone=?, is_default=?, status=?, remark=?
-       WHERE id=? AND tenant_id=?`,
-      [code, name, address || null, manager || null, phone || null, is_default || false, status || 'active', remark || null, req.params.id, req.tenantId]
+       WHERE id=?`,
+      [code, name, address || null, manager || null, phone || null, is_default || false, status || 'active', remark || null, req.params.id]
     );
     await conn.commit();
     res.json({ code: 0, message: '仓库更新成功' });
@@ -133,15 +161,28 @@ router.put('/:id', requireRole('owner', 'manager'), async (req, res) => {
   } finally { conn.release(); }
 });
 
+// 启用/暂停仓库（子店管自己的；总店可管集团内的）
+router.put('/:id/status', requireRole('owner', 'manager'), async (req, res) => {
+  try {
+    if (!await canManageWarehouse(req.tenantId, req.params.id)) return res.status(404).json({ code: 404, message: '仓库不存在或无权限' });
+    const st = req.body.status === 'active' ? 'active' : 'disabled';
+    await pool.query('UPDATE warehouses SET status = ? WHERE id = ?', [st, req.params.id]);
+    res.json({ code: 0, message: st === 'active' ? '已启用' : '已暂停' });
+  } catch (err) {
+    res.status(500).json({ code: 500, message: '操作失败' });
+  }
+});
+
 // 删除仓库（需无库存）
 router.delete('/:id', requireRole('owner'), async (req, res) => {
   try {
+    if (!await canManageWarehouse(req.tenantId, req.params.id)) return res.status(404).json({ code: 404, message: '仓库不存在或无权限' });
     const [inv] = await pool.query(
-      'SELECT COUNT(*) as cnt FROM inventory WHERE tenant_id = ? AND warehouse_id = ? AND quantity > 0',
-      [req.tenantId, req.params.id]
+      'SELECT COUNT(*) as cnt FROM inventory WHERE warehouse_id = ? AND quantity > 0',
+      [req.params.id]
     );
     if (inv[0].cnt > 0) return res.status(400).json({ code: 400, message: '该仓库还有库存，无法删除' });
-    await pool.query('DELETE FROM warehouses WHERE id = ? AND tenant_id = ? AND is_default = FALSE', [req.params.id, req.tenantId]);
+    await pool.query('DELETE FROM warehouses WHERE id = ? AND is_default = FALSE', [req.params.id]);
     res.json({ code: 0, message: '仓库已删除' });
   } catch (err) {
     res.status(500).json({ code: 500, message: err.message });
