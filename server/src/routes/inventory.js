@@ -57,12 +57,15 @@ router.get('/', async (req, res) => {
     );
 
     const [items] = await pool.query(
-      `SELECT i.*, p.name as product_name, p.unit, p.barcode, p.sku, p.sell_price, p.cost_price, p.min_stock, p.category_id, c.name as category_name
+      `SELECT i.*, p.name as product_name, p.unit, p.barcode, p.sku, p.sell_price, p.cost_price, p.min_stock, p.category_id, c.name as category_name,
+              w.name as warehouse_name, tt.name as tenant_name
        FROM inventory i
        JOIN products p ON i.product_id = p.id
        LEFT JOIN categories c ON p.category_id = c.id
+       LEFT JOIN warehouses w ON i.warehouse_id = w.id
+       LEFT JOIN tenants tt ON i.tenant_id = tt.id
        ${where}
-       ORDER BY p.name ASC
+       ORDER BY w.id, p.name ASC
        LIMIT ? OFFSET ?`,
       [...params, parseInt(pageSize), offset]
     );
