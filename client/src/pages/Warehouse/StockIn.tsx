@@ -106,9 +106,10 @@ const StockIn: React.FC = () => {
     { title: '入库单号', dataIndex: 'order_no', width: 160 },
     { title: '类型', dataIndex: 'in_type', width: 100, render: (v: string) => inTypeOptions.find(o => o.value === v)?.label || v },
     { title: '仓库', dataIndex: 'warehouse_name', width: 100 },
+    { title: '调拨单', dataIndex: 'transfer_no', width: 180, render: (v: string, r: any) => r.in_type === 'transfer_in' ? `${v || ''}（来自 ${r.from_warehouse_name || ''}）` : '-' },
     { title: '供应商', dataIndex: 'supplier_name', render: (v: string) => v || '-' },
     { title: '金额', dataIndex: 'total_amount', width: 100, align: 'right' as const, render: (v: number) => `¥${Number(v || 0).toFixed(2)}` },
-    { title: '状态', dataIndex: 'status', width: 80, render: (v: string) => <Tag color={statusMap[v]?.color}>{statusMap[v]?.text || v}</Tag> },
+    { title: '状态', dataIndex: 'status', width: 90, render: (v: string, r: any) => (r.in_type === 'transfer_in' && r.transfer_status === 'in_transit') ? <Tag color="orange">在途</Tag> : <Tag color={statusMap[v]?.color}>{statusMap[v]?.text || v}</Tag> },
     { title: '日期', dataIndex: 'created_at', width: 110, render: (v: string) => v?.slice(0, 10) },
     { title: '操作', width: 200, render: (_: any, r: any) => (
       <Space>
@@ -132,7 +133,7 @@ const StockIn: React.FC = () => {
         <Space wrap>
           <Select placeholder="入库类型" allowClear style={{ width: 120 }} options={inTypeOptions} onChange={v => setFilters(f => ({ ...f, in_type: v }))} />
           <Select placeholder="状态" allowClear style={{ width: 100 }}
-            options={[{ value: 'draft', label: '草稿' }, { value: 'confirmed', label: '已入库' }]}
+            options={[{ value: 'draft', label: '草稿' }, { value: 'in_transit', label: '在途' }, { value: 'confirmed', label: '已入库' }]}
             onChange={v => setFilters(f => ({ ...f, status: v }))} />
           <Button type="primary" onClick={() => load(1)}>查询</Button>
           <Button type="primary" icon={<PlusOutlined />} onClick={() => { form.resetFields(); setItems([{ productId: null, quantity: 1, unit_cost: 0 }]); setModalOpen(true); }}>新建入库单</Button>
