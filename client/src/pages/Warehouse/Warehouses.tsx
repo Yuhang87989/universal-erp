@@ -1,9 +1,17 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Table, Button, Modal, Form, Input, Switch, Space, message, Card, Tag, Popconfirm, Typography, Row, Col, Statistic } from 'antd';
 import { PlusOutlined, EditOutlined, DeleteOutlined, HomeOutlined } from '@ant-design/icons';
 import request from '../../api/request';
 
 const { Title } = Typography;
+
+const shopColors: Record<string, string> = {
+  '本账套': 'blue',
+  '淘宝店': 'orange',
+  '抖音电商': 'purple',
+  '小红店': 'magenta',
+  '拼多多店': 'green'
+};
 
 const Warehouses: React.FC = () => {
   const [list, setList] = useState<any[]>([]);
@@ -50,28 +58,21 @@ const Warehouses: React.FC = () => {
     catch (e: any) { message.error(e.response?.data?.message || '操作失败'); }
   };
 
-  const grouped = useMemo(() => {
-    const map: any = {};
-    for (const w of list) {
-      const t = w.__tenant_name || '本账套';
-      if (!map[t]) { map[t] = { key: 'grp-' + t, title: t, children: [] }; }
-      map[t].children.push(w);
-    }
-    return Object.values(map);
-  }, [list]);
-
   const columns = [
-    { title: '编码', dataIndex: 'code', width: 140, render: (v: string, r: any) => r.children ? <strong style={{ color: '#1677ff' }}>{r.title}（{r.children.length} 仓）</strong> : v },
+    { title: '编码', dataIndex: 'code', width: 120 },
     { title: '仓库名称', dataIndex: 'name', render: (v: string, r: any) => (
       <Space>{r.is_default && <Tag color="blue">默认</Tag>}{v}</Space>
     )},
-    { title: '归属店', dataIndex: '__tenant_name', width: 130, render: (v: string, r: any) => <Space>{v ? <Tag color="geekblue">{v}</Tag> : <span style={{ color: '#999' }}>本账套</span>}{r.is_shared ? <Tag color="gold">共享</Tag> : null}</Space> },
+    { title: '归属店', dataIndex: '__tenant_name', width: 130, render: (v: string, r: any) => {
+      const shop = v || '本账套';
+      return <Space><Tag color={shopColors[shop] || 'geekblue'}>{shop}</Tag>{r.is_shared ? <Tag color="gold">共享</Tag> : null}</Space>;
+    }},
     { title: '管理员', dataIndex: 'manager', width: 100, render: (v: string) => v || '-' },
     { title: '电话', dataIndex: 'phone', width: 130, render: (v: string) => v || '-' },
     { title: 'SKU数', dataIndex: 'sku_count', width: 80, align: 'center' as const },
     { title: '库存价值', dataIndex: 'total_value', width: 120, render: (v: number) => `¥${Number(v || 0).toFixed(2)}`, align: 'right' as const },
-    { title: '状态', dataIndex: 'status', width: 80, render: (v: string, r: any) => r.children ? '-' : <Tag color={v === 'active' ? 'green' : 'default'}>{v === 'active' ? '启用' : '停用'}</Tag> },
-    { title: '操作', width: 200, render: (_: any, r: any) => r.children ? null : (
+    { title: '状态', dataIndex: 'status', width: 80, render: (v: string) => <Tag color={v === 'active' ? 'green' : 'default'}>{v === 'active' ? '启用' : '停用'}</Tag> },
+    { title: '操作', width: 200, render: (_: any, r: any) => (
       <Space>
         {r.status === 'active'
           ? <Button type="link" size="small" onClick={() => toggleStatus(r, 'disabled')}>暂停</Button>
@@ -91,7 +92,7 @@ const Warehouses: React.FC = () => {
         <Col span={8}><Card size="small"><Statistic title="库存总价值" prefix="¥" value={list.reduce((s, w) => s + Number(w.total_value || 0), 0).toFixed(2)} /></Card></Col>
       </Row>
       <Card size="small" extra={<Button type="primary" icon={<PlusOutlined />} onClick={() => { setEditing(null); form.resetFields(); setModalOpen(true); }}>新增仓库</Button>}>
-        <Table columns={columns} dataSource={grouped} rowKey={(r: any) => r.key || r.id} childrenColumnName="children" defaultExpandAllRows loading={loading} size="small" pagination={false} />
+        <Table columns={columns} dataSource={list} rowKey={(r: any) => r.id} loading={loading} size="small" pagination={{ pageSize: 20, showSizeChanger: false }} />
       </Card>
 
       <Modal title={editing ? '编辑仓库' : '新增仓库'} open={modalOpen} onOk={handleSubmit} onCancel={() => { setModalOpen(false); setEditing(null); }} width={560}>
