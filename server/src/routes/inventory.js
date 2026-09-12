@@ -15,9 +15,10 @@ router.get('/', async (req, res) => {
     if (warehouse_id) {
       const [[wh]] = await pool.query('SELECT tenant_id, is_shared FROM warehouses WHERE id = ?', [warehouse_id]);
       if (wh) {
-        // 共享总仓：按仓库归属账套查；或在集团语义下允许显式指定账套
-        if (wh.is_shared === 1) effTenantId = wh.tenant_id;
-        // 管理员指定 tenant_id 时（跨账套盘点/调拨可用）
+        // 指定仓库时一律按其归属账套查库存：共享总仓、跨店调出方的兄弟店私有仓都按实际归属账套拉货，
+        // 保证"调出仓是哪个账套的，看到的就是哪个账套的实时库存"
+        if (wh.tenant_id) effTenantId = wh.tenant_id;
+        // 管理员显式指定 tenant_id 时（跨账套盘点/调拨可用）优先级最高
         if (tenant_id && parseInt(tenant_id) > 0) effTenantId = tenant_id;
       }
     }
