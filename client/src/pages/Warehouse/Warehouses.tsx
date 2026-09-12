@@ -70,8 +70,8 @@ const Warehouses: React.FC = () => {
     { title: '电话', dataIndex: 'phone', width: 130, render: (v: string) => v || '-' },
     { title: 'SKU数', dataIndex: 'sku_count', width: 80, align: 'center' as const },
     { title: '库存价值', dataIndex: 'total_value', width: 120, render: (v: number) => `¥${Number(v || 0).toFixed(2)}`, align: 'right' as const },
-    { title: '状态', dataIndex: 'status', width: 80, render: (v: string) => <Tag color={v === 'active' ? 'green' : 'default'}>{v === 'active' ? '启用' : '停用'}</Tag> },
-    { title: '操作', width: 200, render: (_: any, r: any) => (
+    { title: '状态', dataIndex: 'status', width: 80, render: (v: string, r: any) => r.children ? '-' : <Tag color={v === 'active' ? 'green' : 'default'}>{v === 'active' ? '启用' : '停用'}</Tag> },
+    { title: '操作', width: 200, render: (_: any, r: any) => r.children ? null : (
       <Space>
         {r.status === 'active'
           ? <Button type="link" size="small" onClick={() => toggleStatus(r, 'disabled')}>暂停</Button>
