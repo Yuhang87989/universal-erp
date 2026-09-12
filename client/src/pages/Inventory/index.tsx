@@ -164,6 +164,7 @@ const Inventory: React.FC = () => {
   const columns = [
     { title: '商品名称', dataIndex: 'product_name', width: 160, fixed: 'left' as const },
     { title: '分类', dataIndex: 'category_name', width: 90 },
+    { title: '仓库', dataIndex: 'warehouse_name', width: 140, render: (v: string, r: any) => r.tenant_name ? `${r.tenant_name}·${v}` : v },
     { title: 'SKU', dataIndex: 'sku', width: 110, ellipsis: true },
     { title: '条码', dataIndex: 'barcode', width: 120, ellipsis: true },
     { title: '单位', dataIndex: 'unit', width: 60 },
@@ -201,7 +202,7 @@ const Inventory: React.FC = () => {
               style={{ width: '100%' }}
               value={warehouseId}
               onChange={setWarehouseId}
-              options={warehouses.map((w: any) => ({ label: w.name, value: w.id }))}
+              options={warehouses.map((w: any) => ({ label: ((w.__is_shared ? '[共享] ' : '') + (w.__tenant_name ? w.__tenant_name + '·' : '')) + w.name, value: w.id }))}
             />
           </Col>
           <Col xs={12} sm={6} md={4}>
