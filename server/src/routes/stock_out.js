@@ -95,6 +95,8 @@ router.post('/', requireRole('owner', 'manager', 'warehouse'), async (req, res) 
   try {
     const { warehouse_id, out_type, customer_id, items, remark } = req.body;
     if (!warehouse_id || !items?.length) return res.status(400).json({ code: 400, message: '请选择仓库并添加商品' });
+    const [[wh]] = await pool.query('SELECT status FROM warehouses WHERE id = ?', [warehouse_id]);
+    if (!wh || wh.status !== 'active') return res.status(400).json({ code: 400, message: '该仓库已暂停，无法出库' });
 
     // 校验库存是否充足
     for (const item of items) {
