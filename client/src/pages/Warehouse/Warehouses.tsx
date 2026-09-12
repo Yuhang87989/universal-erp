@@ -50,6 +50,7 @@ const Warehouses: React.FC = () => {
     { title: '仓库名称', dataIndex: 'name', render: (v: string, r: any) => (
       <Space>{r.is_default && <Tag color="blue">默认</Tag>}{v}</Space>
     )},
+    { title: '归属店', dataIndex: '__tenant_name', width: 130, render: (v: string, r: any) => <Space>{v ? <Tag color="geekblue">{v}</Tag> : <span style={{ color: '#999' }}>本账套</span>}{r.is_shared ? <Tag color="gold">共享</Tag> : null}</Space> },
     { title: '管理员', dataIndex: 'manager', width: 100, render: (v: string) => v || '-' },
     { title: '电话', dataIndex: 'phone', width: 130, render: (v: string) => v || '-' },
     { title: 'SKU数', dataIndex: 'sku_count', width: 80, align: 'center' as const },
