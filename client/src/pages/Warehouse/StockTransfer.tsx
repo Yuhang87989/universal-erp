@@ -140,11 +140,11 @@ const StockTransfer: React.FC = () => {
         <Form form={form} layout="vertical">
           <Row gutter={16}>
             <Col span={12}><Form.Item name="from_warehouse_id" label="调出仓库" rules={[{ required: true }]}>
-              <Select placeholder="选择调出仓库" options={warehouses.map((w: any) => ({ label: ((w.__is_shared ? '[共享] ' : '') + (w.__tenant_name ? w.__tenant_name + '·' : '')) + w.name, value: w.id }))}
+              <Select placeholder="选择调出仓库" options={warehouses.filter((w: any) => w.status === 'active').map((w: any) => ({ label: ((w.__is_shared ? '[共享] ' : '') + (w.__tenant_name ? w.__tenant_name + '·' : '')) + w.name, value: w.id }))}
                 onChange={(v) => loadWhProducts(v)} />
             </Form.Item></Col>
             <Col span={12}><Form.Item name="to_warehouse_id" label="调入仓库" rules={[{ required: true }]}>
-              <Select placeholder="选择调入仓库" options={warehouses.map((w: any) => ({ label: ((w.__is_shared ? '[共享] ' : '') + (w.__tenant_name ? w.__tenant_name + '·' : '')) + w.name, value: w.id }))} />
+              <Select placeholder="选择调入仓库" options={warehouses.filter((w: any) => w.status === 'active').map((w: any) => ({ label: ((w.__is_shared ? '[共享] ' : '') + (w.__tenant_name ? w.__tenant_name + '·' : '')) + w.name, value: w.id }))} />
             </Form.Item></Col>
           </Row>
           <div style={{ border: '1px solid #f0f0f0', borderRadius: 8, padding: 12, marginBottom: 16 }}>
