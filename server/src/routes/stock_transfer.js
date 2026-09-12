@@ -41,8 +41,10 @@ router.get('/', async (req, res) => {
   try {
     const { page = 1, pageSize = 20, status, keyword, startDate, endDate } = req.query;
     const offset = (page - 1) * pageSize;
-    let where = 'WHERE st.tenant_id = ?';
-    const params = [req.tenantId];
+    // 集团内可见性：调拨单对该单的 发起账套 / 调出账套 / 调入账套 三方都可见
+    // （总店发的单，相关分店作为调入方能够查到；分店发的单总店也能看到）
+    let where = 'WHERE (st.tenant_id = ? OR st.from_tenant_id = ? OR st.to_tenant_id = ?)';
+    const params = [req.tenantId, req.tenantId, req.tenantId];
     if (status) { where += ' AND st.status = ?'; params.push(status); }
     if (keyword) { where += ' AND (st.transfer_no LIKE ? OR fw.name LIKE ? OR tw.name LIKE ?)'; params.push(`%${keyword}%`, `%${keyword}%`, `%${keyword}%`); }
     if (startDate) { where += ' AND st.created_at >= ?'; params.push(startDate); }
