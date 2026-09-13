@@ -52,7 +52,7 @@ router.get('/', async (req, res) => {
         const [groupWhs] = await pool.query(
           `SELECT w.*, t.name AS tenant_name FROM warehouses w
            LEFT JOIN tenants t ON w.tenant_id = t.id
-           WHERE w.status = 'active' AND (w.is_shared = 1 OR w.tenant_id IN (SELECT id FROM tenants WHERE parent_id = ?))
+           WHERE (w.is_shared = 1 OR w.tenant_id IN (SELECT id FROM tenants WHERE parent_id = ?))
            ORDER BY w.id`,
           [req.tenantId]
         );
@@ -78,7 +78,7 @@ router.get('/', async (req, res) => {
         const [groupWhs] = await pool.query(
           `SELECT w.*, t.name AS tenant_name FROM warehouses w
            LEFT JOIN tenants t ON w.tenant_id = t.id
-           WHERE w.status = 'active' AND (
+           WHERE (
              w.tenant_id = ?
              OR w.tenant_id IN (SELECT id FROM tenants WHERE parent_id = ? OR id = ?)
              OR w.is_shared = 1
