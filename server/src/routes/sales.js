@@ -113,6 +113,7 @@ router.post('/', async (req, res) => {
 
     // 添加明细 & 扣减库存（按加权平均成本结转）
     let totalCost = 0;
+    const outByWh = {}; // 按仓库汇集销售出库量，用于自动生成销售出库单
     for (const item of items) {
       const outQty = parseFloat(item.quantity);
       // 查库存（取该商品所有仓库合计，优先默认仓库）
@@ -153,6 +154,11 @@ router.post('/', async (req, res) => {
            VALUES (?, ?, ?, 'sale', ?, ?, ?, ?, 'sales_order', ?, ?, '销售出库')`,
           [req.tenantId, item.productId, inv.warehouse_id, -deduct, qtyInWh, afterQty, weightedAvgCost.toFixed(4), orderResult.insertId, req.user.id]
         );
+        // 汇集销售出库（按仓库分组，用于自动生成销售出库单）
+        if (!outByWh[inv.warehouse_id]) outByWh[inv.warehouse_id] = {};
+        if (!outByWh[inv.warehouse_id][item.productId]) outByWh[inv.warehouse_id][item.productId] = { qty: 0, cost: 0 };
+        outByWh[inv.warehouse_id][item.productId].qty += deduct;
+        outByWh[inv.warehouse_id][item.productId].cost += deduct * weightedAvgCost;
         remaining -= deduct;
       }
     }
@@ -176,6 +182,28 @@ router.post('/', async (req, res) => {
     if (customerId) {
       const [custRows] = await conn.query('SELECT name FROM customers WHERE id = ?', [customerId]);
       if (custRows.length) customerName = custRows[0].name;
+    }
+
+    // 自动生成"销售出库"已确认出库单（按仓库各一张，作为销售出库追溯单据，不重复扣库存）
+    for (const whId of Object.keys(outByWh)) {
+      const oItems = outByWh[Number(whId)];
+      if (!oItems || !Object.keys(oItems).length || (whId === '__cost')) continue;
+      const outNo = await genStockOutNo(conn, req.tenantId);
+      let whTotal = 0;
+      Object.keys(oItems).forEach(pid => { whTotal += oItems[pid].cost; });
+      const [oRes] = await conn.query(
+        `INSERT INTO stock_out_orders (tenant_id, order_no, warehouse_id, out_type, customer_id, total_amount, status, operator_id, remark)
+         VALUES (?, ?, ?, 'sale', ?, ?, 'confirmed', ?, ?)`,
+        [req.tenantId, outNo, Number(whId), customerId || null, whTotal.toFixed(2), req.user.id, `销售出库(自动) - ${orderNo}`]
+      );
+      for (const pid of Object.keys(oItems)) {
+        const d = oItems[pid];
+        if (!d || typeof d === 'number') continue;
+        await conn.query(
+          'INSERT INTO stock_out_items (stock_out_id, product_id, quantity, unit_cost, remark) VALUES (?, ?, ?, ?, ?)',
+          [oRes.insertId, Number(pid), d.qty, (d.qty > 0 ? (d.cost / d.qty) : 0).toFixed(4), `销售单 ${orderNo}`]
+        );
+      }
     }
 
     // 自动生成会计凭证
@@ -215,3 +243,15 @@ router.post('/', async (req, res) => {
 });
 
 module.exports = router;
+
+// 生成自动出库单号（销售出库等自动落账） CK 前缀
+async function genStockOutNo(conn, tenantId) {
+  const today = dayjs().format('YYYYMMDD');
+  const prefix = `CK${today}`;
+  const [rows] = await conn.query(
+    "SELECT order_no FROM stock_out_orders WHERE tenant_id = ? AND order_no LIKE ? ORDER BY id DESC LIMIT 1",
+    [tenantId, `${prefix}%`]
+  );
+  const seq = rows.length ? parseInt(rows[0].order_no.slice(-3)) + 1 : 1;
+  return `${prefix}${String(seq).padStart(3, '0')}`;
+}
