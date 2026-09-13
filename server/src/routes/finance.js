@@ -2,17 +2,46 @@ const express = require('express');
 const pool = require('../config/db');
 const { authenticate } = require('../middleware/auth');
 const dayjs = require('dayjs');
+const { resolveRoot, getGroupTenantIds, isChildInGroup } = require('../services/groupScope');
 
 const router = express.Router();
 router.use(authenticate);
+
+// 集团范围解析：scope=group(全部子店合并) / tenantId(总店看指定子店)，返回 { whereSql, params }
+async function resolveScope(req) {
+  const { scope, tenantId } = req.query;
+  // 默认本店
+  if (scope !== 'group' && !tenantId) {
+    return { whereSql: 'fr.tenant_id = ?', params: [req.tenantId], needStore: false };
+  }
+  const { rootId, isRoot } = await resolveRoot(req.tenantId);
+  if (!isRoot) {
+    const e = new Error('仅集团总店可查看分店账或合并账');
+    e.status = 403;
+    throw e;
+  }
+  if (scope === 'group') {
+    const tenantIds = await getGroupTenantIds(rootId);
+    const ph = tenantIds.map(() => '?').join(',');
+    return { whereSql: `fr.tenant_id IN (${ph})`, params: tenantIds, needStore: true };
+  }
+  const target = parseInt(tenantId, 10);
+  if (!(await isChildInGroup(rootId, target))) {
+    const e = new Error('无权查看该分店账');
+    e.status = 403;
+    throw e;
+  }
+  return { whereSql: 'fr.tenant_id = ?', params: [target], needStore: true };
+}
 
 // 获取收支记录列表
 router.get('/', async (req, res) => {
   try {
     const { page = 1, pageSize = 20, type, referenceType, startDate, endDate, category } = req.query;
     const offset = (page - 1) * pageSize;
-    let where = 'WHERE fr.tenant_id = ?';
-    const params = [req.tenantId];
+    const scope = await resolveScope(req);
+    let where = 'WHERE ' + scope.whereSql;
+    const params = [...scope.params];
 
     if (type) { where += ' AND fr.type = ?'; params.push(type); }
     if (referenceType) { where += ' AND fr.reference_type = ?'; params.push(referenceType); }
@@ -20,18 +49,21 @@ router.get('/', async (req, res) => {
     if (startDate) { where += ' AND fr.record_date >= ?'; params.push(startDate); }
     if (endDate) { where += ' AND fr.record_date <= ?'; params.push(endDate); }
 
+    const storeSelect = scope.needStore ? ', t.name AS store_name' : '';
+    const storeJoin = scope.needStore ? ' LEFT JOIN tenants t ON t.id = fr.tenant_id' : '';
+
     const [countResult] = await pool.query(`SELECT COUNT(*) as total FROM finance_records fr ${where}`, params);
 
     const [records] = await pool.query(
-      `SELECT fr.*, u.real_name as operator_name FROM finance_records fr
-       LEFT JOIN users u ON fr.operator_id = u.id
+      `SELECT fr.*, u.real_name as operator_name${storeSelect} FROM finance_records fr
+       LEFT JOIN users u ON fr.operator_id = u.id${storeJoin}
        ${where} ORDER BY fr.record_date DESC, fr.id DESC LIMIT ? OFFSET ?`,
       [...params, parseInt(pageSize), offset]
     );
 
-    // 汇总
-    let sumWhere = 'WHERE tenant_id = ?';
-    const sumParams = [req.tenantId];
+    // 汇总（按 scope 同口径）
+    let sumWhere = 'WHERE ' + scope.whereSql.replace('fr.tenant_id', 'tenant_id');
+    const sumParams = [...scope.params];
     if (referenceType) { sumWhere += ' AND reference_type = ?'; sumParams.push(referenceType); }
     if (type) { sumWhere += ' AND type = ?'; sumParams.push(type); }
 
@@ -51,6 +83,7 @@ router.get('/', async (req, res) => {
         total: countResult[0].total,
         page: parseInt(page),
         pageSize: parseInt(pageSize),
+        storeMode: scope.needStore,
         summary: {
           income: parseFloat(incomeSum[0].total),
           expense: parseFloat(expenseSum[0].total)
@@ -58,6 +91,7 @@ router.get('/', async (req, res) => {
       }
     });
   } catch (err) {
+    if (err.status === 403) return res.status(403).json({ code: 403, message: err.message });
     console.error(err);
     res.status(500).json({ code: 500, message: '获取收支记录失败' });
   }
@@ -108,20 +142,23 @@ router.delete('/:id', async (req, res) => {
 // 各来源收支汇总（用于总帐目页面）
 router.get('/platform-summary', async (req, res) => {
   try {
-    const [rows] = await pool.query(
+    const scope = await resolveScope(req);
+    const groupWhere = 'WHERE ' + scope.whereSql.replace('fr.tenant_id', 'tenant_id');
+    const rows = await pool.query(
       `SELECT
         COALESCE(reference_type, 'other') as source,
         COALESCE(SUM(CASE WHEN type='income' THEN amount ELSE 0 END), 0) as income,
         COALESCE(SUM(CASE WHEN type='expense' THEN amount ELSE 0 END), 0) as expense,
         COUNT(*) as record_count
        FROM finance_records
-       WHERE tenant_id = ?
+       ${groupWhere}
        GROUP BY reference_type
        ORDER BY income DESC`,
-      [req.tenantId]
-    );
+      scope.params
+    ).then(r => r[0]);
     res.json({ code: 0, data: rows });
   } catch (err) {
+    if (err.status === 403) return res.status(403).json({ code: 403, message: err.message });
     console.error(err);
     res.status(500).json({ code: 500, message: '获取汇总失败' });
   }
@@ -131,8 +168,9 @@ router.get('/platform-summary', async (req, res) => {
 router.get('/summary', async (req, res) => {
   try {
     const { groupBy = 'category', referenceType } = req.query;
-    let baseWhere = 'WHERE tenant_id = ?';
-    const baseParams = [req.tenantId];
+    const scope = await resolveScope(req);
+    let baseWhere = 'WHERE ' + scope.whereSql.replace('fr.tenant_id', 'tenant_id');
+    const baseParams = [...scope.params];
     if (referenceType) { baseWhere += ' AND reference_type = ?'; baseParams.push(referenceType); }
 
     let sql;
@@ -152,6 +190,7 @@ router.get('/summary', async (req, res) => {
     const [rows] = await pool.query(sql, baseParams);
     res.json({ code: 0, data: rows });
   } catch (err) {
+    if (err.status === 403) return res.status(403).json({ code: 403, message: err.message });
     res.status(500).json({ code: 500, message: '获取汇总失败' });
   }
 });
