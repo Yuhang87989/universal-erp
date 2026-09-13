@@ -63,10 +63,33 @@ const Finance: React.FC = () => {
   const [typeFilter, setTypeFilter] = useState<string | undefined>(undefined);
   const [form] = Form.useForm();
 
+  // 集团范围（总店查看分店/合并）：scopeCtx=''本店 | 'group'集团合并 | `${tenantId}`指定分店
+  const [scopeCtx, setScopeCtx] = useState('');
+  const [isGroupRoot, setIsGroupRoot] = useState(false);
+  const [storeList, setStoreList] = useState<any[]>([]);
+  const [storeMode, setStoreMode] = useState(false);
+
   // 汇总数据
   const [summary, setSummary] = useState({ income: 0, expense: 0 });
   // 各平台汇总
   const [platformSummary, setPlatformSummary] = useState<any[]>([]);
+
+  // 解析当前是否为集团总店，及分店列表
+  useEffect(() => {
+    (async () => {
+      try {
+        const [meRes, childrenRes] = await Promise.all([
+          request.get('/tenants/me'),
+          request.get('/tenants/children')
+        ]);
+        const me = meRes.data?.data || meRes.data || {};
+        const isRoot = me.is_group_root === 1 || !me.parent_id;
+        const cl = childrenRes.data?.data?.list || childrenRes.data?.list || [];
+        setStoreList(cl.filter((t: any) => t.id !== me.id));
+        setIsGroupRoot(!!isRoot);
+      } catch (e) { /* 非集团环境忽略 */ }
+    })();
+  }, []);
 
   const loadData = useCallback(async (p = 1) => {
     setLoading(true);
@@ -74,10 +97,13 @@ const Finance: React.FC = () => {
       const params: any = { page: p, pageSize: 20 };
       if (typeFilter) params.type = typeFilter;
       if (currentPlatform) params.platform = currentPlatform;
+      if (scopeCtx === 'group') params.scope = 'group';
+      else if (scopeCtx) params.tenantId = scopeCtx;
       const res = await request.get('/finance', { params });
       const data = res.data?.data || res.data || {};
       setRecords(data?.list || data?.records || []);
       setTotal(data?.total || 0);
+      setStoreMode(!!data?.storeMode);
       if (data?.summary) {
         setSummary(data.summary);
       }
@@ -86,17 +112,20 @@ const Finance: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  }, [typeFilter, currentPlatform]);
+  }, [typeFilter, currentPlatform, scopeCtx]);
 
-  // 加载各平台汇总（用于总帐目视图）
+  // 加载各平台汇总（用于总帐目视图，支持集团范围）
   const loadPlatformSummary = useCallback(async () => {
     try {
-      const res = await request.get('/finance/platform-summary');
+      const params: any = {};
+      if (scopeCtx === 'group') params.scope = 'group';
+      else if (scopeCtx) params.tenantId = scopeCtx;
+      const res = await request.get('/finance/platform-summary', { params });
       setPlatformSummary(res.data?.data || []);
     } catch (err) {
       console.error(err);
     }
-  }, []);
+  }, [scopeCtx]);
 
   useEffect(() => { loadData(); }, [loadData]);
   useEffect(() => { loadPlatformSummary(); }, [loadPlatformSummary]);
@@ -147,6 +176,8 @@ const Finance: React.FC = () => {
   const getPlatformInfo = (val: string) => platformList.find(p => p.value === val) || { label: val || '未分类', color: '#888' };
 
   const netProfit = (summary.income || 0) - (summary.expense || 0);
+  const scopeStoreName = storeList.find((s: any) => String(s.id) === scopeCtx)?.name || '';
+  const scopePrefix = scopeCtx === 'group' ? '集团·' : (scopeStoreName ? `${scopeStoreName}·` : '');
   const viewLabel = currentPlatform ? getPlatformInfo(currentPlatform).label : '总帐目';
 
   const columns = [
@@ -158,6 +189,7 @@ const Finance: React.FC = () => {
       }
     },
     { title: '类别', dataIndex: 'category', key: 'category', width: 90 },
+    ...(storeMode ? [{ title: '门店', dataIndex: 'store_name', key: 'store_name', width: 120, render: (v: string) => v || '-' }] : []),
     {
       title: '金额', dataIndex: 'amount', key: 'amount', width: 110,
       render: (v: number, r: any) => (
@@ -233,18 +265,18 @@ const Finance: React.FC = () => {
       <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
         <Col xs={8}>
           <Card size="small">
-            <Statistic title={`${viewLabel} · 总收入`} value={summary.income || 0} precision={2} prefix="¥" valueStyle={{ color: '#3f8600' }} />
+            <Statistic title={`${scopePrefix}${viewLabel} · 总收入`} value={summary.income || 0} precision={2} prefix="¥" valueStyle={{ color: '#3f8600' }} />
           </Card>
         </Col>
         <Col xs={8}>
           <Card size="small">
-            <Statistic title={`${viewLabel} · 总支出`} value={summary.expense || 0} precision={2} prefix="¥" valueStyle={{ color: '#cf1322' }} />
+            <Statistic title={`${scopePrefix}${viewLabel} · 总支出`} value={summary.expense || 0} precision={2} prefix="¥" valueStyle={{ color: '#cf1322' }} />
           </Card>
         </Col>
         <Col xs={8}>
           <Card size="small">
             <Statistic
-              title={`${viewLabel} · 净利润`}
+              title={`${scopePrefix}${viewLabel} · 净利润`}
               value={netProfit}
               precision={2}
               prefix="¥"
@@ -264,6 +296,19 @@ const Finance: React.FC = () => {
       {/* 操作栏 */}
       <Card size="small" style={{ marginBottom: 16 }}>
         <Space wrap>
+          {isGroupRoot && storeList.length > 0 && (
+            <Select
+              placeholder="账套范围"
+              style={{ width: 150 }}
+              value={scopeCtx || undefined}
+              onChange={(v) => { setScopeCtx(v || ''); setPage(1); setCurrentPlatform(''); }}
+              options={[
+                { value: '', label: '本店' },
+                ...storeList.map((s: any) => ({ value: String(s.id), label: `${s.name}（分店）` })),
+                { value: 'group', label: '集团合并' }
+              ]}
+            />
+          )}
           {currentPlatform && (
             <Tag
               color="blue"
