@@ -199,6 +199,25 @@ router.post('/:id/confirm', requireRole('owner', 'manager', 'warehouse'), async 
       );
     }
 
+    // 若是采购入库：确认后回写采购单已到货数量与状态（采购只记采购，入库走入库单）
+    if (order.in_type === 'purchase' && order.source_order_type === 'purchase' && order.source_order_id) {
+      for (const item of items) {
+        await conn.query(
+          'UPDATE purchase_items SET received_quantity = received_quantity + ? WHERE purchase_order_id = ? AND product_id = ?',
+          [item.quantity, order.source_order_id, item.product_id]
+        );
+      }
+      const [rem] = await conn.query(
+        'SELECT COUNT(*) AS cnt FROM purchase_items WHERE purchase_order_id = ? AND (received_quantity IS NULL OR received_quantity < quantity)',
+        [order.source_order_id]
+      );
+      const finalSt = rem[0].cnt > 0 ? 'partial_received' : 'received';
+      await conn.query(
+        "UPDATE purchase_orders SET status = ? WHERE id = ? AND status IN ('draft','partial_received')",
+        [finalSt, order.source_order_id]
+      );
+    }
+
     await conn.commit();
     res.json({ code: 0, message: '入库确认成功，库存已更新' });
   } catch (err) {
@@ -224,6 +243,86 @@ router.delete('/:id', requireRole('owner', 'manager'), async (req, res) => {
     res.json({ code: 0, message: '入库单已删除' });
   } catch (err) {
     await conn.rollback();
+    res.status(500).json({ code: 500, message: err.message });
+  } finally { conn.release(); }
+});
+
+// 采购在途列表（待入库采购单：draft / 部分入库）
+router.get('/purchase-transit', async (req, res) => {
+  try {
+    const [orders] = await pool.query(
+      `SELECT po.*, s.name AS supplier_name FROM purchase_orders po
+       LEFT JOIN suppliers s ON po.supplier_id = s.id
+       WHERE po.tenant_id = ? AND po.status IN ('draft','partial_received')
+       ORDER BY po.id DESC`,
+      [req.tenantId]
+    );
+    for (const o of orders) {
+      const [items] = await pool.query(
+        `SELECT pi.*, p.name AS product_name FROM purchase_items pi
+         LEFT JOIN products p ON pi.product_id = p.id
+         WHERE pi.purchase_order_id = ?`,
+        [o.id]
+      );
+      let remainAmt = 0;
+      o.items = items.map(it => {
+        const remain = parseFloat(it.quantity) - parseFloat(it.received_quantity || 0);
+        remainAmt += remain * parseFloat(it.unit_cost || 0);
+        return { ...it, remain };
+      });
+      o.remain_items = items.filter(it => (parseFloat(it.quantity) - parseFloat(it.received_quantity || 0)) > 0).length;
+      o.remain_amount = remainAmt;
+    }
+    res.json({ code: 0, data: orders });
+  } catch (err) {
+    console.error('获取采购在途失败:', err);
+    res.status(500).json({ code: 500, message: err.message });
+  }
+});
+
+// 从采购单生成采购入库单（草稿，待确认入库）
+router.post('/from-purchase', requireRole('owner', 'manager', 'warehouse'), async (req, res) => {
+  const { purchaseOrderId, warehouseId } = req.body;
+  if (!purchaseOrderId || !warehouseId) return res.status(400).json({ code: 400, message: '缺少采购单或仓库' });
+  const conn = await pool.getConnection();
+  try {
+    await conn.beginTransaction();
+    const [[po]] = await conn.query(
+      "SELECT * FROM purchase_orders WHERE id = ? AND tenant_id = ? AND status IN ('draft','partial_received') FOR UPDATE",
+      [purchaseOrderId, req.tenantId]
+    );
+    if (!po) { await conn.rollback(); return res.status(400).json({ code: 400, message: '采购单不存在或已全部入库' }); }
+
+    const [[wh]] = await conn.query('SELECT status FROM warehouses WHERE id = ?', [warehouseId]);
+    if (!wh || wh.status !== 'active') { await conn.rollback(); return res.status(400).json({ code: 400, message: '该仓库已暂停，无法入库' }); }
+
+    const [items] = await conn.query('SELECT * FROM purchase_items WHERE purchase_order_id = ?', [po.id]);
+    const remainItems = items.filter(it => (parseFloat(it.quantity) - parseFloat(it.received_quantity || 0)) > 0);
+    if (!remainItems.length) { await conn.rollback(); return res.status(400).json({ code: 400, message: '该采购单没有待入库商品' }); }
+
+    const orderNo = await genOrderNo(req.tenantId);
+    let totalAmount = 0;
+    remainItems.forEach(it => { totalAmount += (parseFloat(it.quantity) - parseFloat(it.received_quantity || 0)) * parseFloat(it.unit_cost || 0); });
+
+    // 插入采购类型入库单，关联采购单
+    const [result] = await conn.query(
+      `INSERT INTO stock_in_orders (tenant_id, order_no, warehouse_id, in_type, supplier_id, total_amount, status, operator_id, remark, source_order_type, source_order_id)
+       VALUES (?, ?, ?, 'purchase', ?, ?, 'draft', ?, ?, 'purchase', ?)`,
+      [req.tenantId, orderNo, warehouseId, po.supplier_id, totalAmount, req.user.id, `采购单 ${po.order_no}`, po.id]
+    );
+
+    for (const it of remainItems) {
+      const remain = parseFloat(it.quantity) - parseFloat(it.received_quantity || 0);
+      await conn.query(
+        'INSERT INTO stock_in_items (stock_in_id, product_id, quantity, unit_cost, remark) VALUES (?, ?, ?, ?, ?)',
+        [result.insertId, it.product_id, remain, it.unit_cost || 0, `采购单 ${po.order_no}`]
+      );
+    }
+    await conn.commit();
+    res.json({ code: 0, message: '采购入库单已生成，请到入库管理确认入库', data: { id: result.insertId, order_no: orderNo } });
+  } catch (err) {
+    await conn.rollback();
+    console.error('生成采购入库单失败:', err);
     res.status(500).json({ code: 500, message: err.message });
   } finally { conn.release(); }
 });
