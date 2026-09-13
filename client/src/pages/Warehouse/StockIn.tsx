@@ -124,11 +124,11 @@ const StockIn: React.FC = () => {
   };
 
   const columns = [
-    { title: '入库单号', dataIndex: 'order_no', width: 160 },
-    { title: '类型', dataIndex: 'in_type', width: 100, render: (v: string) => inTypeOptions.find(o => o.value === v)?.label || v },
-    { title: '仓库', dataIndex: 'warehouse_name', width: 100 },
-    { title: '调拨单', dataIndex: 'transfer_no', width: 180, render: (v: string, r: any) => r.in_type === 'transfer_in' ? `${v || ''}（来自 ${r.from_warehouse_name || ''}）` : '-' },
-    { title: '供应商', dataIndex: 'supplier_name', render: (v: string) => v || '-' },
+    { title: '入库单号', dataIndex: 'order_no', width: 160, ellipsis: true },
+    { title: '类型', dataIndex: 'in_type', width: 100, ellipsis: true, render: (v: string) => inTypeOptions.find(o => o.value === v)?.label || v },
+    { title: '仓库', dataIndex: 'warehouse_name', width: 100, ellipsis: true },
+    { title: '调拨单', dataIndex: 'transfer_no', width: 180, ellipsis: true, render: (v: string, r: any) => r.in_type === 'transfer_in' ? `${v || ''}（来自 ${r.from_warehouse_name || ''}）` : '-' },
+    { title: '供应商', dataIndex: 'supplier_name', width: 140, ellipsis: true, render: (v: string) => v || '-' },
     { title: '金额', dataIndex: 'total_amount', width: 100, align: 'right' as const, render: (v: number) => `¥${Number(v || 0).toFixed(2)}` },
     { title: '状态', dataIndex: 'status', width: 90, render: (v: string, r: any) => (r.in_type === 'transfer_in' && r.transfer_status === 'in_transit') ? <Tag color="orange">在途</Tag> : <Tag color={statusMap[v]?.color}>{statusMap[v]?.text || v}</Tag> },
     { title: '日期', dataIndex: 'created_at', width: 110, render: (v: string) => v?.slice(0, 10) },
