@@ -96,7 +96,7 @@ router.post('/', async (req, res) => {
   try {
     await conn.beginTransaction();
 
-    const { customerId, items, orderType = 'pos', paymentMethod = 'cash', discountAmount = 0, remark } = req.body;
+    const { customerId, items, orderType = 'pos', paymentMethod = 'cash', discountAmount = 0, remark, platform } = req.body;
     if (!items || !items.length) throw new Error('销售明细不能为空');
 
     const orderNo = await generateOrderNo(req.tenantId);
@@ -106,9 +106,9 @@ router.post('/', async (req, res) => {
 
     // 创建销售单
     const [orderResult] = await conn.query(
-      `INSERT INTO sales_orders (tenant_id, order_no, order_type, customer_id, total_amount, discount_amount, actual_amount, paid_amount, payment_method, status, remark, operator_id, order_date)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'completed', ?, ?, NOW())`,
-      [req.tenantId, orderNo, orderType, customerId || null, totalAmount, discountAmount, actualAmount, actualAmount, paymentMethod, remark || null, req.user.id]
+      `INSERT INTO sales_orders (tenant_id, order_no, order_type, customer_id, total_amount, discount_amount, actual_amount, paid_amount, payment_method, status, platform, remark, operator_id, order_date)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 'completed', ?, ?, ?, NOW())`,
+      [req.tenantId, orderNo, orderType, customerId || null, totalAmount, discountAmount, actualAmount, actualAmount, paymentMethod, platform || null, remark || null, req.user.id]
     );
 
     // 添加明细 & 扣减库存（按加权平均成本结转）
@@ -230,6 +230,27 @@ router.post('/', async (req, res) => {
     } catch (vErr) {
       console.error('销售凭证生成失败:', vErr.message);
       throw new Error('凭证生成失败: ' + vErr.message);
+    }
+
+    // 方案1：销售自动同步财务流水（解决总账目/各平台账目为空）
+    // 收入流水=实际销售额；若发生成本结转，同写一条成本支出流水
+    const flowSource = platform || orderType || 'sale';
+    try {
+      await conn.query(
+        `INSERT INTO finance_records (tenant_id, type, category, amount, reference_type, payment_method, remark, record_date, operator_id)
+         VALUES (?, 'income', '主营业务收入', ?, ?, ?, ?, ?, ?)`,
+        [req.tenantId, actualAmount, flowSource, paymentMethod, `销售收入 - ${orderNo}`, dayjs().format('YYYY-MM-DD'), req.user.id]
+      );
+      if (parseFloat(totalCost) > 0) {
+        await conn.query(
+          `INSERT INTO finance_records (tenant_id, type, category, amount, reference_type, payment_method, remark, record_date, operator_id)
+           VALUES (?, 'expense', '主营业务成本', ?, ?, ?, ?, ?, ?)`,
+          [req.tenantId, parseFloat(totalCost).toFixed(2), flowSource, paymentMethod, `结转销售成本 - ${orderNo}`, dayjs().format('YYYY-MM-DD'), req.user.id]
+        );
+      }
+    } catch (flowErr) {
+      console.error('销售流水同步失败:', flowErr.message);
+      throw new Error('流水同步失败: ' + flowErr.message);
     }
 
     await conn.commit();
