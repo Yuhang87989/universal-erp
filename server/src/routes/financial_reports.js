@@ -42,31 +42,33 @@ async function resolveScopedBids(req) {
   return [await getDefaultBookId(req.tenantId, book_id ? parseInt(book_id) : null)];
 }
 
-// 取账套科目（bookIds: 数组→跨账套按科目code去重合并；单值→单账套）
+// 取账套科目（按"科目名称"跨账套去重合并，兼容各账套科目编码不一致）
+// 因总店老账套(5001/1501)与分店新账套(6001/1601)编码体系不同，用名称归一才能正确合并
 async function getAccounts(bookIds) {
   const ids = Array.isArray(bookIds) ? bookIds : [bookIds];
   if (!ids.length) return { rows: [], map: {} };
   const ph = ids.map(() => '?').join(',');
   const [rows] = await pool.query(
     `SELECT id, code, name, category, direction FROM accounting_accounts
-     WHERE book_id IN (${ph}) AND is_enabled = TRUE ORDER BY code ASC`,
+     WHERE book_id IN (${ph}) AND is_enabled = TRUE ORDER BY name ASC`,
     ids
   );
   const map = {};
-  rows.forEach(r => { if (!(r.code in map)) map[r.code] = r; });
-  return { rows: Object.keys(map).map(c => map[c]), map };
+  rows.forEach(r => { if (!(r.name in map)) map[r.name] = r; });
+  return { rows: Object.keys(map).map(n => map[n]), map };
 }
 
-// 计算各科目在 [start, end] 期间的净发生额及期初余额（跨账套按科目code合并加总）
-// 返回 { code: { od, oc, pd, pc } }
+// 计算各科目在 [start, end] 期间的净发生额及期初余额
+// 跨账套按"科目名称"合并加总（同名科目不同编码也一并汇总）
+// 返回 { name: { od, oc, pd, pc } }
 async function computeBalances(bookIds, startDate, endDate) {
   const ids = Array.isArray(bookIds) ? bookIds : [bookIds];
   if (!ids.length) return {};
   const result = {};
   for (const bid of ids) {
-    const [accs] = await pool.query('SELECT id, code FROM accounting_accounts WHERE book_id = ?', [bid]);
-    const codeById = {};
-    accs.forEach(a => { codeById[a.id] = a.code; });
+    const [accs] = await pool.query('SELECT id, name FROM accounting_accounts WHERE book_id = ?', [bid]);
+    const nameById = {};
+    accs.forEach(a => { nameById[a.id] = a.name; });
     // 期初：期初之前（不含start）已过账凭证累计
     const [opening] = await pool.query(
       `SELECT vi.account_id,
@@ -92,10 +94,10 @@ async function computeBalances(bookIds, startDate, endDate) {
       [bid, startDate, endDate]
     );
     const add = (r, field, val) => {
-      const code = codeById[r.account_id];
-      if (!code) return;
-      if (!result[code]) result[code] = { od: 0, oc: 0, pd: 0, pc: 0 };
-      result[code][field] += parseFloat(val);
+      const name = nameById[r.account_id];
+      if (!name) return;
+      if (!result[name]) result[name] = { od: 0, oc: 0, pd: 0, pc: 0 };
+      result[name][field] += parseFloat(val);
     };
     opening.forEach(r => { add(r, 'od', r.d); add(r, 'oc', r.c); });
     period.forEach(r => { add(r, 'pd', r.d); add(r, 'pc', r.c); });
@@ -115,6 +117,7 @@ function closingNet(acc, bal) {
 
 // =================== 资产负债表 ===================
 // 公式：资产 = 负债 + 所有者权益
+// 所有行均按"科目名称"取值，跨准则/跨账套自动归一
 router.get('/balance-sheet', async (req, res) => {
   try {
     const { period } = req.query;
@@ -126,61 +129,48 @@ router.get('/balance-sheet', async (req, res) => {
     const { rows, map } = await getAccounts(bids);
     const balances = await computeBalances(bids, startDate, endDate);
 
-    const val = (code) => {
-      const acc = map[code];
+    const val = (name) => {
+      const acc = map[name];
       if (!acc) return 0;
-      return closingNet(acc, balances[acc.code]);
-    };
-
-    // 按科目编码前缀汇总
-    const sumByPrefix = (prefixes) => {
-      let total = 0;
-      rows.forEach(acc => {
-        if (prefixes.some(p => acc.code.startsWith(p))) {
-          const v = closingNet(acc, balances[acc.code]);
-          // 资产/费用方向为debit取正；负债/权益/收入方向为credit
-          total += v; // closingNet 已按方向带正负
-        }
-      });
-      return total;
+      return closingNet(acc, balances[name]);
     };
 
     // 资产类
-    const monetary = val('1001') + val('1002') + val('1012'); // 货币资金
-    const receivables = val('1122'); // 应收账款
-    const otherReceivables = val('1221'); // 其他应收款
-    const inventory = val('1403') + val('1405') + val('1411'); // 原材料+库存商品+周转材料
-    const inTransit = val('1402'); // 在途物资
-    // 固定资产：兼容1501/1502（小企业准则）和1601/1602（企业准则）
-    const fixedCost = val('1501') || val('1601');
-    const accumDep = val('1502') || val('1602');
+    const monetary = val('库存现金') + val('银行存款') + val('其他货币资金'); // 货币资金
+    const receivables = val('应收账款'); // 应收账款
+    const otherReceivables = val('其他应收款'); // 其他应收款
+    const inventory = val('原材料') + val('库存商品') + val('周转材料'); // 原材料+库存商品+周转材料
+    const inTransit = val('在途物资'); // 在途物资
+    // 固定资产（名称统一为"固定资产"/"累计折旧"，兼容所有准则编码）
+    const fixedCost = val('固定资产');
+    const accumDep = val('累计折旧');
     const fixedAssets = fixedCost - accumDep;
-    const intangible = val('1701') || val('1511'); // 无形资产
+    const intangible = val('无形资产');
     const currentAssetsTotal = monetary + receivables + otherReceivables + inventory + inTransit;
     const nonCurrentAssetsTotal = fixedAssets + intangible;
     const totalAssets = currentAssetsTotal + nonCurrentAssetsTotal;
 
     // 负债类
-    const shortTermLoan = val('2001');
-    const payables = val('2202'); // 应付账款
-    const salariesPayable = val('2211');
-    const taxPayable = val('2221');
-    const interestPayable = val('2231');
-    const otherPayables = val('2241');
-    const longTermLoan = val('2501');
+    const shortTermLoan = val('短期借款');
+    const payables = val('应付账款'); // 应付账款
+    const salariesPayable = val('应付职工薪酬');
+    const taxPayable = val('应交税费');
+    const interestPayable = val('应付利息');
+    const otherPayables = val('其他应付款');
+    const longTermLoan = val('长期借款');
     const currentLiabilitiesTotal = shortTermLoan + payables + salariesPayable + taxPayable + interestPayable + otherPayables;
     const nonCurrentLiabilitiesTotal = longTermLoan;
     const totalLiabilities = currentLiabilitiesTotal + nonCurrentLiabilitiesTotal;
 
-    // 所有者权益：兼容小企业准则(3001实收/3101盈余/3104本年利润)和企业准则(4001/4101/4103/4104)
-    const paidInCapital = val('4001') + val('4002') + val('3001'); // 实收资本+资本公积
-    const surplusReserve = val('4101') + val('3101'); // 盈余公积
-    const currentYearProfit = val('4103') + val('3104'); // 本年利润
-    const retainedProfit = val('4104'); // 利润分配-未分配利润
+    // 所有者权益（名称统一，兼容所有准则编码）
+    const paidInCapital = val('实收资本') + val('资本公积'); // 实收资本+资本公积
+    const surplusReserve = val('盈余公积'); // 盈余公积
+    const currentYearProfit = val('本年利润'); // 本年利润
+    const retainedProfit = val('利润分配'); // 利润分配-未分配利润
     // 当期损益净额（收入类贷方-费用类借方），用于未结转时显示
     let revenueTotal = 0, expenseTotal = 0;
     rows.forEach(acc => {
-      const v = closingNet(acc, balances[acc.code]);
+      const v = closingNet(acc, balances[acc.name]);
       if (acc.category === 'revenue') revenueTotal += v;
       if (acc.category === 'expense') expenseTotal += v;
     });
@@ -197,15 +187,15 @@ router.get('/balance-sheet', async (req, res) => {
         endDate,
         assets: {
           currentAssets: [
-            { name: '货币资金', amount: monetary, accounts: ['1001 库存现金', '1002 银行存款', '1012 其他货币资金'] },
+            { name: '货币资金', amount: monetary, accounts: ['库存现金', '银行存款', '其他货币资金'] },
             { name: '应收账款', amount: receivables },
             { name: '其他应收款', amount: otherReceivables },
-            { name: '存货', amount: inventory, accounts: ['1403 原材料', '1405 库存商品', '1411 周转材料'] },
+            { name: '存货', amount: inventory, accounts: ['原材料', '库存商品', '周转材料'] },
             { name: '在途物资', amount: inTransit },
           ],
           currentAssetsTotal,
           nonCurrentAssets: [
-            { name: '固定资产', amount: fixedAssets, accounts: ['1601 固定资产 - 1602 累计折旧'] },
+            { name: '固定资产', amount: fixedAssets, accounts: ['固定资产 - 累计折旧'] },
             { name: '无形资产', amount: intangible },
           ],
           nonCurrentAssetsTotal,
@@ -229,7 +219,7 @@ router.get('/balance-sheet', async (req, res) => {
         },
         equity: {
           items: [
-            { name: '实收资本（或股本）', amount: paidInCapital, accounts: ['4001 实收资本', '4002 资本公积'] },
+            { name: '实收资本（或股本）', amount: paidInCapital, accounts: ['实收资本', '资本公积'] },
             { name: '盈余公积', amount: surplusReserve },
             { name: '未分配利润', amount: undistributedProfit, note: '含本年利润' },
           ],
@@ -246,7 +236,7 @@ router.get('/balance-sheet', async (req, res) => {
 });
 
 // =================== 利润表 ===================
-// 按科目名称智能匹配，兼容小企业准则(5001/6001/6401/6601)和企业准则(6001/6401/6601/6602)
+// 按科目名称智能匹配，兼容小企业准则和企业准则
 router.get('/income-statement', async (req, res) => {
   try {
     const { period } = req.query;
@@ -267,7 +257,7 @@ router.get('/income-statement', async (req, res) => {
         // 只取一级科目（code不含小数点），避免子科目重复计算
         if (acc.code.includes('.')) return;
         if (keywords.some(kw => acc.name.includes(kw))) {
-          const bal = balances[acc.code];
+          const bal = balances[acc.name];
           if (!bal) return;
           const amt = side === 'credit' ? bal.pc - bal.pd : bal.pd - bal.pc;
           if (amt > 0) {
@@ -347,7 +337,7 @@ router.get('/cash-flow', async (req, res) => {
     const startDate = dayjs(targetPeriod).startOf('month').format('YYYY-MM-DD');
     const endDate = dayjs(targetPeriod).endOf('month').format('YYYY-MM-DD');
 
-    // 集团合并：按每个账套分别计算后累加（现金科目 id 按账套分别映射）
+    // 集团合并：按每个账套分别计算后累加
     const totals = {
       inflowOperating: 0, outflowOperating: 0,
       inflowInvesting: 0, outflowInvesting: 0,
@@ -357,7 +347,8 @@ router.get('/cash-flow', async (req, res) => {
 
     for (const bid of bids) {
       const { map } = await getAccounts(bid);
-      const cashAccountIds = [map['1001'], map['1002'], map['1012']].filter(Boolean).map(a => a.id);
+      // 现金类科目按名称定位（库存现金/银行存款/其他货币资金），兼容各准则
+      const cashAccountIds = [map['库存现金'], map['银行存款'], map['其他货币资金']].filter(Boolean).map(a => a.id);
       if (!cashAccountIds.length) continue;
       hasCash = true;
 
@@ -396,12 +387,15 @@ router.get('/cash-flow', async (req, res) => {
         // 按对方科目逐笔分类（避免整单金额重复累加）
         otherLines.forEach(o => {
           const code = o.account_code || '';
+          const name = o.account_name || '';
           const cat = o.category || '';
           let activity = 'operating';
-          // 投资活动：固定资产/累计折旧(15xx/16xx)、无形资产(17xx)、在建工程(16xx)
-          if (code.startsWith('15') || code.startsWith('16') || code.startsWith('17')) activity = 'investing';
-          // 筹资活动：短期借款(2001)、长期借款(2501)、实收资本(3001/4001)、资本公积(4002)
-          else if (code.startsWith('2001') || code.startsWith('2501') || code.startsWith('3001') || code.startsWith('4001') || code.startsWith('4002')) activity = 'financing';
+          // 投资活动：固定资产/无形资产等长期资产（按名称识别，兼容15xx/16xx/17xx）
+          if (name.includes('固定资产') || name.includes('累计折旧') || name.includes('无形资产') ||
+              name.includes('在建工程') || name.includes('长期股权投资') || name.includes('长期待摊')) activity = 'investing';
+          // 筹资活动：借款/实收资本/资本公积（按名称识别，兼容所有准则）
+          else if (name.includes('短期借款') || name.includes('长期借款') || name.includes('实收资本') ||
+                   name.includes('资本公积') || name.includes('股本')) activity = 'financing';
           // equity类科目也归筹资
           else if (cat === 'equity') activity = 'financing';
 
