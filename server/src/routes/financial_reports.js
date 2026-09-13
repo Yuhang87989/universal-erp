@@ -2,6 +2,7 @@ const express = require('express');
 const pool = require('../config/db');
 const { authenticate } = require('../middleware/auth');
 const dayjs = require('dayjs');
+const { resolveRoot, getGroupBookIds, isChildInGroup } = require('../services/groupScope');
 
 const router = express.Router();
 router.use(authenticate);
@@ -17,53 +18,88 @@ async function getDefaultBookId(tenantId, bookId) {
   return books[0].id;
 }
 
-// 取某账套所有科目（code -> row）
-async function getAccounts(bid) {
-  const [rows] = await pool.query(
-    'SELECT id, code, name, category, direction FROM accounting_accounts WHERE book_id = ? AND is_enabled = TRUE ORDER BY code ASC',
-    [bid]
-  );
-  const map = {};
-  rows.forEach(r => { map[r.code] = r; });
-  return { rows, map };
+// 解析报表范围 → 返回账套id数组 bids
+// scope=group: 集团全部子店默认账套(仅总店)  tenantId: 总店看指定子店默认账套
+async function resolveScopedBids(req) {
+  const { book_id, tenantId, scope } = req.query;
+  if (scope === 'group' || tenantId) {
+    const { rootId, isRoot } = await resolveRoot(req.tenantId);
+    if (!isRoot) {
+      const e = new Error('仅集团总店可查看分店账或合并报表');
+      e.status = 403; throw e;
+    }
+    if (scope === 'group') {
+      const bids = await getGroupBookIds(rootId);
+      if (!bids.length) throw new Error('集团暂无可合并账套');
+      return bids;
+    }
+    const target = parseInt(tenantId, 10);
+    if (!(await isChildInGroup(rootId, target))) {
+      const e = new Error('无权查看该分店账'); e.status = 403; throw e;
+    }
+    return [await getDefaultBookId(target, book_id ? parseInt(book_id) : null)];
+  }
+  return [await getDefaultBookId(req.tenantId, book_id ? parseInt(book_id) : null)];
 }
 
-// 计算各科目在 [start, end] 期间的净发生额及期初余额
-// 返回 { code: { openingDebit, openingCredit, periodDebit, periodCredit, closingDebit, closingCredit, net } }
-async function computeBalances(bid, startDate, endDate) {
-  // 期初：期初之前（不含start）已过账凭证累计
-  const [opening] = await pool.query(
-    `SELECT vi.account_id,
-       COALESCE(SUM(vi.debit_amount),0) AS d,
-       COALESCE(SUM(vi.credit_amount),0) AS c
-     FROM voucher_items vi
-     JOIN vouchers v ON v.id = vi.voucher_id
-     WHERE v.book_id = ? AND v.status IN ('audited','posted') AND v.is_balanced = TRUE
-       AND v.voucher_date < ?
-     GROUP BY vi.account_id`,
-    [bid, startDate]
+// 取账套科目（bookIds: 数组→跨账套按科目code去重合并；单值→单账套）
+async function getAccounts(bookIds) {
+  const ids = Array.isArray(bookIds) ? bookIds : [bookIds];
+  if (!ids.length) return { rows: [], map: {} };
+  const ph = ids.map(() => '?').join(',');
+  const [rows] = await pool.query(
+    `SELECT id, code, name, category, direction FROM accounting_accounts
+     WHERE book_id IN (${ph}) AND is_enabled = TRUE ORDER BY code ASC`,
+    ids
   );
-  // 本期发生
-  const [period] = await pool.query(
-    `SELECT vi.account_id,
-       COALESCE(SUM(vi.debit_amount),0) AS d,
-       COALESCE(SUM(vi.credit_amount),0) AS c
-     FROM voucher_items vi
-     JOIN vouchers v ON v.id = vi.voucher_id
-     WHERE v.book_id = ? AND v.status IN ('audited','posted') AND v.is_balanced = TRUE
-       AND v.voucher_date >= ? AND v.voucher_date <= ?
-     GROUP BY vi.account_id`,
-    [bid, startDate, endDate]
-  );
+  const map = {};
+  rows.forEach(r => { if (!(r.code in map)) map[r.code] = r; });
+  return { rows: Object.keys(map).map(c => map[c]), map };
+}
+
+// 计算各科目在 [start, end] 期间的净发生额及期初余额（跨账套按科目code合并加总）
+// 返回 { code: { od, oc, pd, pc } }
+async function computeBalances(bookIds, startDate, endDate) {
+  const ids = Array.isArray(bookIds) ? bookIds : [bookIds];
+  if (!ids.length) return {};
   const result = {};
-  opening.forEach(r => {
-    result[r.account_id] = { od: parseFloat(r.d), oc: parseFloat(r.c), pd: 0, pc: 0 };
-  });
-  period.forEach(r => {
-    if (!result[r.account_id]) result[r.account_id] = { od: 0, oc: 0, pd: 0, pc: 0 };
-    result[r.account_id].pd = parseFloat(r.d);
-    result[r.account_id].pc = parseFloat(r.c);
-  });
+  for (const bid of ids) {
+    const [accs] = await pool.query('SELECT id, code FROM accounting_accounts WHERE book_id = ?', [bid]);
+    const codeById = {};
+    accs.forEach(a => { codeById[a.id] = a.code; });
+    // 期初：期初之前（不含start）已过账凭证累计
+    const [opening] = await pool.query(
+      `SELECT vi.account_id,
+         COALESCE(SUM(vi.debit_amount),0) AS d,
+         COALESCE(SUM(vi.credit_amount),0) AS c
+       FROM voucher_items vi
+       JOIN vouchers v ON v.id = vi.voucher_id
+       WHERE v.book_id = ? AND v.status IN ('audited','posted') AND v.is_balanced = TRUE
+         AND v.voucher_date < ?
+       GROUP BY vi.account_id`,
+      [bid, startDate]
+    );
+    // 本期发生
+    const [period] = await pool.query(
+      `SELECT vi.account_id,
+         COALESCE(SUM(vi.debit_amount),0) AS d,
+         COALESCE(SUM(vi.credit_amount),0) AS c
+       FROM voucher_items vi
+       JOIN vouchers v ON v.id = vi.voucher_id
+       WHERE v.book_id = ? AND v.status IN ('audited','posted') AND v.is_balanced = TRUE
+         AND v.voucher_date >= ? AND v.voucher_date <= ?
+       GROUP BY vi.account_id`,
+      [bid, startDate, endDate]
+    );
+    const add = (r, field, val) => {
+      const code = codeById[r.account_id];
+      if (!code) return;
+      if (!result[code]) result[code] = { od: 0, oc: 0, pd: 0, pc: 0 };
+      result[code][field] += parseFloat(val);
+    };
+    opening.forEach(r => { add(r, 'od', r.d); add(r, 'oc', r.c); });
+    period.forEach(r => { add(r, 'pd', r.d); add(r, 'pc', r.c); });
+  }
   return result;
 }
 
@@ -81,19 +117,19 @@ function closingNet(acc, bal) {
 // 公式：资产 = 负债 + 所有者权益
 router.get('/balance-sheet', async (req, res) => {
   try {
-    const { book_id, period } = req.query;
-    const bid = await getDefaultBookId(req.tenantId, book_id ? parseInt(book_id) : null);
+    const { period } = req.query;
+    const bids = await resolveScopedBids(req);
     const targetPeriod = period || dayjs().format('YYYY-MM');
     const startDate = dayjs(targetPeriod).startOf('month').format('YYYY-MM-DD');
     const endDate = dayjs(targetPeriod).endOf('month').format('YYYY-MM-DD');
 
-    const { rows, map } = await getAccounts(bid);
-    const balances = await computeBalances(bid, startDate, endDate);
+    const { rows, map } = await getAccounts(bids);
+    const balances = await computeBalances(bids, startDate, endDate);
 
     const val = (code) => {
       const acc = map[code];
       if (!acc) return 0;
-      return closingNet(acc, balances[acc.id]);
+      return closingNet(acc, balances[acc.code]);
     };
 
     // 按科目编码前缀汇总
@@ -101,7 +137,7 @@ router.get('/balance-sheet', async (req, res) => {
       let total = 0;
       rows.forEach(acc => {
         if (prefixes.some(p => acc.code.startsWith(p))) {
-          const v = closingNet(acc, balances[acc.id]);
+          const v = closingNet(acc, balances[acc.code]);
           // 资产/费用方向为debit取正；负债/权益/收入方向为credit
           total += v; // closingNet 已按方向带正负
         }
@@ -144,7 +180,7 @@ router.get('/balance-sheet', async (req, res) => {
     // 当期损益净额（收入类贷方-费用类借方），用于未结转时显示
     let revenueTotal = 0, expenseTotal = 0;
     rows.forEach(acc => {
-      const v = closingNet(acc, balances[acc.id]);
+      const v = closingNet(acc, balances[acc.code]);
       if (acc.category === 'revenue') revenueTotal += v;
       if (acc.category === 'expense') expenseTotal += v;
     });
@@ -213,14 +249,14 @@ router.get('/balance-sheet', async (req, res) => {
 // 按科目名称智能匹配，兼容小企业准则(5001/6001/6401/6601)和企业准则(6001/6401/6601/6602)
 router.get('/income-statement', async (req, res) => {
   try {
-    const { book_id, period } = req.query;
-    const bid = await getDefaultBookId(req.tenantId, book_id ? parseInt(book_id) : null);
+    const { period } = req.query;
+    const bids = await resolveScopedBids(req);
     const targetPeriod = period || dayjs().format('YYYY-MM');
     const startDate = dayjs(targetPeriod).startOf('month').format('YYYY-MM-DD');
     const endDate = dayjs(targetPeriod).endOf('month').format('YYYY-MM-DD');
 
-    const { rows } = await getAccounts(bid);
-    const balances = await computeBalances(bid, startDate, endDate);
+    const { rows } = await getAccounts(bids);
+    const balances = await computeBalances(bids, startDate, endDate);
 
     // 按科目名称包含关键字匹配，汇总本期贷方/借方发生额
     const sumByName = (keywords, cat, side) => {
@@ -231,7 +267,7 @@ router.get('/income-statement', async (req, res) => {
         // 只取一级科目（code不含小数点），避免子科目重复计算
         if (acc.code.includes('.')) return;
         if (keywords.some(kw => acc.name.includes(kw))) {
-          const bal = balances[acc.id];
+          const bal = balances[acc.code];
           if (!bal) return;
           const amt = side === 'credit' ? bal.pc - bal.pd : bal.pd - bal.pc;
           if (amt > 0) {
@@ -305,82 +341,102 @@ router.get('/income-statement', async (req, res) => {
 // =================== 现金流量表（简化版，基于货币资金科目的对方科目分析） ===================
 router.get('/cash-flow', async (req, res) => {
   try {
-    const { book_id, period } = req.query;
-    const bid = await getDefaultBookId(req.tenantId, book_id ? parseInt(book_id) : null);
+    const { period } = req.query;
+    const bids = await resolveScopedBids(req);
     const targetPeriod = period || dayjs().format('YYYY-MM');
     const startDate = dayjs(targetPeriod).startOf('month').format('YYYY-MM-DD');
     const endDate = dayjs(targetPeriod).endOf('month').format('YYYY-MM-DD');
 
-    const { map } = await getAccounts(bid);
-    const cashAccountIds = [map['1001'], map['1002'], map['1012']].filter(Boolean).map(a => a.id);
+    // 集团合并：按每个账套分别计算后累加（现金科目 id 按账套分别映射）
+    const totals = {
+      inflowOperating: 0, outflowOperating: 0,
+      inflowInvesting: 0, outflowInvesting: 0,
+      inflowFinancing: 0, outflowFinancing: 0,
+    };
+    let hasCash = false;
 
-    if (!cashAccountIds.length) {
+    for (const bid of bids) {
+      const { map } = await getAccounts(bid);
+      const cashAccountIds = [map['1001'], map['1002'], map['1012']].filter(Boolean).map(a => a.id);
+      if (!cashAccountIds.length) continue;
+      hasCash = true;
+
+      // 找出涉及现金科目的所有分录行，按凭证分组，分析对方科目
+      const [lines] = await pool.query(
+        `SELECT v.id AS voucher_id, vi.account_id, vi.debit_amount, vi.credit_amount, vi.summary,
+                a.code AS account_code, a.name AS account_name, a.category
+         FROM voucher_items vi
+         JOIN vouchers v ON v.id = vi.voucher_id
+         JOIN accounting_accounts a ON a.id = vi.account_id
+         WHERE v.book_id = ? AND v.status IN ('audited','posted') AND v.is_balanced = TRUE
+           AND v.voucher_date >= ? AND v.voucher_date <= ?
+         ORDER BY v.id, vi.line_no`,
+        [bid, startDate, endDate]
+      );
+
+      // 按凭证分组
+      const byVoucher = {};
+      lines.forEach(l => {
+        if (!byVoucher[l.voucher_id]) byVoucher[l.voucher_id] = [];
+        byVoucher[l.voucher_id].push(l);
+      });
+
+      let inflowOperating = 0, outflowOperating = 0;
+      let inflowInvesting = 0, outflowInvesting = 0;
+      let inflowFinancing = 0, outflowFinancing = 0;
+
+      Object.values(byVoucher).forEach(entries => {
+        const cashLines = entries.filter(e => cashAccountIds.includes(e.account_id));
+        const otherLines = entries.filter(e => !cashAccountIds.includes(e.account_id));
+        if (!cashLines.length) return;
+
+        const cashIn = cashLines.reduce((s, e) => s + parseFloat(e.debit_amount || 0), 0);
+        const cashOut = cashLines.reduce((s, e) => s + parseFloat(e.credit_amount || 0), 0);
+
+        // 按对方科目逐笔分类（避免整单金额重复累加）
+        otherLines.forEach(o => {
+          const code = o.account_code || '';
+          const cat = o.category || '';
+          let activity = 'operating';
+          // 投资活动：固定资产/累计折旧(15xx/16xx)、无形资产(17xx)、在建工程(16xx)
+          if (code.startsWith('15') || code.startsWith('16') || code.startsWith('17')) activity = 'investing';
+          // 筹资活动：短期借款(2001)、长期借款(2501)、实收资本(3001/4001)、资本公积(4002)
+          else if (code.startsWith('2001') || code.startsWith('2501') || code.startsWith('3001') || code.startsWith('4001') || code.startsWith('4002')) activity = 'financing';
+          // equity类科目也归筹资
+          else if (cat === 'equity') activity = 'financing';
+
+          if (cashIn > 0) {
+            const amt = parseFloat(o.credit_amount || 0) || 0;
+            if (activity === 'operating') inflowOperating += amt;
+            else if (activity === 'investing') inflowInvesting += amt;
+            else inflowFinancing += amt;
+          }
+          if (cashOut > 0) {
+            const amt = parseFloat(o.debit_amount || 0) || 0;
+            if (activity === 'operating') outflowOperating += amt;
+            else if (activity === 'investing') outflowInvesting += amt;
+            else outflowFinancing += amt;
+          }
+        });
+      });
+
+      totals.inflowOperating += inflowOperating;
+      totals.outflowOperating += outflowOperating;
+      totals.inflowInvesting += inflowInvesting;
+      totals.outflowInvesting += outflowInvesting;
+      totals.inflowFinancing += inflowFinancing;
+      totals.outflowFinancing += outflowFinancing;
+    }
+
+    if (!hasCash) {
       return res.json({ code: 0, data: { period: targetPeriod, items: [], totals: {} } });
     }
 
-    // 找出涉及现金科目的所有分录行，按凭证分组，分析对方科目
-    const [lines] = await pool.query(
-      `SELECT v.id AS voucher_id, vi.account_id, vi.debit_amount, vi.credit_amount, vi.summary,
-              a.code AS account_code, a.name AS account_name, a.category
-       FROM voucher_items vi
-       JOIN vouchers v ON v.id = vi.voucher_id
-       JOIN accounting_accounts a ON a.id = vi.account_id
-       WHERE v.book_id = ? AND v.status IN ('audited','posted') AND v.is_balanced = TRUE
-         AND v.voucher_date >= ? AND v.voucher_date <= ?
-       ORDER BY v.id, vi.line_no`,
-      [bid, startDate, endDate]
-    );
-
-    // 按凭证分组
-    const byVoucher = {};
-    lines.forEach(l => {
-      if (!byVoucher[l.voucher_id]) byVoucher[l.voucher_id] = [];
-      byVoucher[l.voucher_id].push(l);
-    });
-
-    let inflowOperating = 0, outflowOperating = 0;
-    let inflowInvesting = 0, outflowInvesting = 0;
-    let inflowFinancing = 0, outflowFinancing = 0;
-
-    Object.values(byVoucher).forEach(entries => {
-      const cashLines = entries.filter(e => cashAccountIds.includes(e.account_id));
-      const otherLines = entries.filter(e => !cashAccountIds.includes(e.account_id));
-      if (!cashLines.length) return;
-
-      const cashIn = cashLines.reduce((s, e) => s + parseFloat(e.debit_amount || 0), 0);
-      const cashOut = cashLines.reduce((s, e) => s + parseFloat(e.credit_amount || 0), 0);
-      // 对方科目金额合计（用于判断收支；复式记账下对方合计应等于现金金额）
-      const otherDebit = otherLines.reduce((s, e) => s + parseFloat(e.debit_amount || 0), 0);
-      const otherCredit = otherLines.reduce((s, e) => s + parseFloat(e.credit_amount || 0), 0);
-
-      // 按对方科目逐笔分类（避免整单金额重复累加）
-      otherLines.forEach(o => {
-        const code = o.account_code || '';
-        const cat = o.category || '';
-        let activity = 'operating';
-        // 投资活动：固定资产/累计折旧(15xx/16xx)、无形资产(17xx)、在建工程(16xx)
-        if (code.startsWith('15') || code.startsWith('16') || code.startsWith('17')) activity = 'investing';
-        // 筹资活动：短期借款(2001)、长期借款(2501)、实收资本(3001/4001)、资本公积(4002)
-        else if (code.startsWith('2001') || code.startsWith('2501') || code.startsWith('3001') || code.startsWith('4001') || code.startsWith('4002')) activity = 'financing';
-        // equity类科目也归筹资
-        else if (cat === 'equity') activity = 'financing';
-
-        // 现金流入时，对方科目在贷方；现金流出时，对方科目在借方
-        if (cashIn > 0) {
-          const amt = parseFloat(o.credit_amount || 0) || 0;
-          if (activity === 'operating') inflowOperating += amt;
-          else if (activity === 'investing') inflowInvesting += amt;
-          else inflowFinancing += amt;
-        }
-        if (cashOut > 0) {
-          const amt = parseFloat(o.debit_amount || 0) || 0;
-          if (activity === 'operating') outflowOperating += amt;
-          else if (activity === 'investing') outflowInvesting += amt;
-          else outflowFinancing += amt;
-        }
-      });
-    });
-
+    const {
+      inflowOperating, outflowOperating,
+      inflowInvesting, outflowInvesting,
+      inflowFinancing, outflowFinancing,
+    } = totals;
     const netOperating = inflowOperating - outflowOperating;
     const netInvesting = inflowInvesting - outflowInvesting;
     const netFinancing = inflowFinancing - outflowFinancing;
@@ -407,6 +463,7 @@ router.get('/cash-flow', async (req, res) => {
       }
     });
   } catch (err) {
+    if (err.status === 403) return res.status(403).json({ code: 403, message: err.message });
     console.error('现金流量表错误:', err);
     res.status(500).json({ code: 500, message: '获取现金流量表失败: ' + err.message });
   }
