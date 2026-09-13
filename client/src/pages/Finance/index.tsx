@@ -96,7 +96,7 @@ const Finance: React.FC = () => {
     try {
       const params: any = { page: p, pageSize: 20 };
       if (typeFilter) params.type = typeFilter;
-      if (currentPlatform) params.platform = currentPlatform;
+      if (currentPlatform) params.referenceType = currentPlatform;
       if (scopeCtx === 'group') params.scope = 'group';
       else if (scopeCtx) params.tenantId = scopeCtx;
       const res = await request.get('/finance', { params });
@@ -145,6 +145,7 @@ const Finance: React.FC = () => {
     setEditing(record);
     form.setFieldsValue({
       ...record,
+      platform: record.reference_type || record.platform || 'offline',
       recordDate: record.record_date ? dayjs(record.record_date) : dayjs()
     });
     setModalOpen(true);
@@ -156,6 +157,7 @@ const Finance: React.FC = () => {
       const payload = {
         ...values,
         recordDate: values.recordDate?.format('YYYY-MM-DD'),
+        referenceType: values.platform,
       };
       if (editing) {
         await request.put(`/finance/${editing.id}`, payload);
@@ -200,7 +202,7 @@ const Finance: React.FC = () => {
     },
     // 总帐目视图下显示平台列
     ...(!currentPlatform ? [{
-      title: '平台', dataIndex: 'platform', key: 'platform', width: 100,
+      title: '平台', dataIndex: 'reference_type', key: 'reference_type', width: 100,
       render: (v: string) => {
         const info = getPlatformInfo(v);
         return <Tag color={info.color}>{info.label}</Tag>;
@@ -225,17 +227,17 @@ const Finance: React.FC = () => {
     return (
       <Row gutter={[12, 12]} style={{ marginBottom: 16 }}>
         {platformSummary.map((item: any) => {
-          const info = getPlatformInfo(item.platform);
+          const info = getPlatformInfo(item.source);
           const inc = parseFloat(item.income || 0);
           const exp = parseFloat(item.expense || 0);
           const profit = inc - exp;
           return (
-            <Col xs={12} sm={8} md={6} key={item.platform}>
+            <Col xs={12} sm={8} md={6} key={item.source}>
               <Card
                 size="small"
                 hoverable
                 style={{ borderLeft: `3px solid ${info.color}`, cursor: 'pointer' }}
-                onClick={() => { setCurrentPlatform(item.platform); setPage(1); }}
+                onClick={() => { setCurrentPlatform(item.source); setPage(1); }}
               >
                 <Text strong style={{ fontSize: 13 }}>{info.label}</Text>
                 <div style={{ marginTop: 4 }}>
