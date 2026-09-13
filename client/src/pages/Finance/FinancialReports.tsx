@@ -11,10 +11,11 @@ const fmt = (v: any) => {
   return n.toLocaleString('zh-CN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 };
 
-const amountStyle = (v: any, highlight?: boolean, negative = false) => {
+const amountStyle = (v: any, highlight?: boolean, negative = false, keepSign = false) => {
   const n = Number(v || 0);
   const color = negative && n < 0 ? '#cf1322' : (highlight ? '#1677ff' : 'inherit');
-  return <span style={{ color, fontWeight: highlight || (negative && n < 0) ? 600 : 400 }}>¥{fmt(Math.abs(n))}{negative && n < 0 ? '（亏）' : ''}</span>;
+  const show = keepSign ? n : Math.abs(n);
+  return <span style={{ color, fontWeight: highlight || (negative && n < 0) ? 600 : 400 }}>¥{fmt(show)}{negative && n < 0 ? '（亏）' : ''}</span>;
 };
 
 // ============== 资产负债表 ==============
@@ -46,7 +47,7 @@ const BalanceSheet: React.FC<{ period: dayjs.Dayjs; scope: string }> = ({ period
       {(items || []).map((it: any, i: number) => (
         <div key={i} style={{ display: 'flex', justifyContent: 'space-between', padding: '6px 12px 6px 24px', borderBottom: '1px solid #f5f5f5' }}>
           <Text>{it.name}</Text>
-          <Text>{amountStyle(it.amount, it.bold)}</Text>
+          <Text>{amountStyle(it.amount, it.bold, false, true)}</Text>
         </div>
       ))}
       <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 12px', background: '#f0f5ff', fontWeight: 600 }}>
