@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Card, Table, DatePicker, Tabs, Tag, Typography, Row, Col, Statistic, Button, Space, Empty, Spin } from 'antd';
+import { Card, Table, DatePicker, Tabs, Tag, Typography, Row, Col, Statistic, Button, Space, Empty, Spin, Select } from 'antd';
 import { FileTextOutlined, FundOutlined, AccountBookOutlined, ReloadOutlined, PrinterOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 import request from '../../api/request';
@@ -18,16 +18,19 @@ const amountStyle = (v: any, highlight?: boolean, negative = false) => {
 };
 
 // ============== 资产负债表 ==============
-const BalanceSheet: React.FC<{ period: dayjs.Dayjs }> = ({ period }) => {
+const BalanceSheet: React.FC<{ period: dayjs.Dayjs; scope: string }> = ({ period, scope }) => {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await request.get('/finance/reports/balance-sheet', { params: { period: period.format('YYYY-MM') } });
+      const params: any = { period: period.format('YYYY-MM') };
+      if (scope === 'group') params.scope = 'group';
+      else if (scope) params.tenantId = scope;
+      const res = await request.get('/finance/reports/balance-sheet', { params });
       setData(res.data?.data || {});
     } catch (e) { console.error(e); } finally { setLoading(false); }
-  }, [period]);
+  }, [period, scope]);
   useEffect(() => { load(); }, [load]);
 
   if (loading) return <Spin style={{ display: 'block', margin: '60px auto' }} />;
@@ -99,16 +102,19 @@ const BalanceSheet: React.FC<{ period: dayjs.Dayjs }> = ({ period }) => {
 };
 
 // ============== 利润表 ==============
-const IncomeStatement: React.FC<{ period: dayjs.Dayjs }> = ({ period }) => {
+const IncomeStatement: React.FC<{ period: dayjs.Dayjs; scope: string }> = ({ period, scope }) => {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await request.get('/finance/reports/income-statement', { params: { period: period.format('YYYY-MM') } });
+      const params: any = { period: period.format('YYYY-MM') };
+      if (scope === 'group') params.scope = 'group';
+      else if (scope) params.tenantId = scope;
+      const res = await request.get('/finance/reports/income-statement', { params });
       setData(res.data?.data || {});
     } catch (e) { console.error(e); } finally { setLoading(false); }
-  }, [period]);
+  }, [period, scope]);
   useEffect(() => { load(); }, [load]);
 
   if (loading) return <Spin style={{ display: 'block', margin: '60px auto' }} />;
@@ -144,16 +150,19 @@ const IncomeStatement: React.FC<{ period: dayjs.Dayjs }> = ({ period }) => {
 };
 
 // ============== 现金流量表 ==============
-const CashFlow: React.FC<{ period: dayjs.Dayjs }> = ({ period }) => {
+const CashFlow: React.FC<{ period: dayjs.Dayjs; scope: string }> = ({ period, scope }) => {
   const [data, setData] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const load = useCallback(async () => {
     setLoading(true);
     try {
-      const res = await request.get('/finance/reports/cash-flow', { params: { period: period.format('YYYY-MM') } });
+      const params: any = { period: period.format('YYYY-MM') };
+      if (scope === 'group') params.scope = 'group';
+      else if (scope) params.tenantId = scope;
+      const res = await request.get('/finance/reports/cash-flow', { params });
       setData(res.data?.data || {});
     } catch (e) { console.error(e); } finally { setLoading(false); }
-  }, [period]);
+  }, [period, scope]);
   useEffect(() => { load(); }, [load]);
 
   if (loading) return <Spin style={{ display: 'block', margin: '60px auto' }} />;
@@ -196,6 +205,27 @@ const FinancialReports: React.FC = () => {
   const [tab, setTab] = useState('balance');
   const [refreshKey, setRefreshKey] = useState(0);
 
+  // 集团范围（总店查看分店/合并）
+  const [scopeCtx, setScopeCtx] = useState('');
+  const [isGroupRoot, setIsGroupRoot] = useState(false);
+  const [storeList, setStoreList] = useState<any[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const [meRes, childrenRes] = await Promise.all([
+          request.get('/tenants/me'),
+          request.get('/tenants/children')
+        ]);
+        const me = meRes.data?.data || meRes.data || {};
+        const isRoot = me.is_group_root === 1 || !me.parent_id;
+        const cl = childrenRes.data?.data?.list || childrenRes.data?.list || [];
+        setStoreList(cl.filter((t: any) => t.id !== me.id));
+        setIsGroupRoot(!!isRoot);
+      } catch (e) { /* 非集团环境忽略 */ }
+    })();
+  }, []);
+
   const handlePrint = () => window.print();
 
   return (
@@ -205,6 +235,19 @@ const FinancialReports: React.FC = () => {
           <FundOutlined style={{ marginRight: 8 }} />财务报表
         </Title>
         <Space>
+          {isGroupRoot && storeList.length > 0 && (
+            <Select
+              placeholder="账套范围"
+              style={{ width: 150 }}
+              value={scopeCtx || undefined}
+              onChange={(v) => setScopeCtx(v || '')}
+              options={[
+                { value: '', label: '本店' },
+                ...storeList.map((s: any) => ({ value: String(s.id), label: `${s.name}（分店）` })),
+                { value: 'group', label: '集团合并' }
+              ]}
+            />
+          )}
           <DatePicker picker="month" value={period} onChange={(d) => d && setPeriod(d)} allowClear={false} />
           <Button icon={<ReloadOutlined />} onClick={() => setRefreshKey(k => k + 1)}>刷新</Button>
           <Button icon={<PrinterOutlined />} onClick={handlePrint}>打印</Button>
@@ -214,9 +257,9 @@ const FinancialReports: React.FC = () => {
         activeKey={tab}
         onChange={setTab}
         items={[
-          { key: 'balance', label: <span><AccountBookOutlined /> 资产负债表</span>, children: <BalanceSheet key={`b-${refreshKey}-${period.format('YYYYMM')}`} period={period} /> },
-          { key: 'income', label: <span><FileTextOutlined /> 利润表</span>, children: <IncomeStatement key={`i-${refreshKey}-${period.format('YYYYMM')}`} period={period} /> },
-          { key: 'cashflow', label: <span><FundOutlined /> 现金流量表</span>, children: <CashFlow key={`c-${refreshKey}-${period.format('YYYYMM')}`} period={period} /> },
+          { key: 'balance', label: <span><AccountBookOutlined /> 资产负债表</span>, children: <BalanceSheet key={`b-${refreshKey}-${period.format('YYYYMM')}-${scopeCtx}`} period={period} scope={scopeCtx} /> },
+          { key: 'income', label: <span><FileTextOutlined /> 利润表</span>, children: <IncomeStatement key={`i-${refreshKey}-${period.format('YYYYMM')}-${scopeCtx}`} period={period} scope={scopeCtx} /> },
+          { key: 'cashflow', label: <span><FundOutlined /> 现金流量表</span>, children: <CashFlow key={`c-${refreshKey}-${period.format('YYYYMM')}-${scopeCtx}`} period={period} scope={scopeCtx} /> },
         ]}
       />
     </div>
