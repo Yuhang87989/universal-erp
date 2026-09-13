@@ -186,6 +186,14 @@ router.post('/:id/confirm', requireRole('owner', 'manager', 'warehouse'), async 
     const toTenant = transfer.to_tenant_id || transfer.tenant_id;
 
     // 1) 调出仓扣减（按调出账套）+ 写调拨出库流水
+    //    同时自动生成一张"调拨出库"已确认出库单（作为调出追溯单据，不重复扣库存）
+    const outNo = await genOutNo(conn, fromTenant);
+    const [outRes] = await conn.query(
+      `INSERT INTO stock_out_orders (tenant_id, order_no, warehouse_id, out_type, total_amount, status, operator_id, remark)
+       VALUES (?, ?, ?, 'transfer_out', ?, 'confirmed', ?, ?)`,
+      [fromTenant, outNo, transfer.from_warehouse_id, transfer.total_amount || 0, req.user.id, `调拨出库(自动) - ${transfer.transfer_no}`]
+    );
+    const transferOutId = outRes.insertId;
     for (const item of items) {
       const [fromInv] = await conn.query(
         'SELECT * FROM inventory WHERE tenant_id = ? AND product_id = ? AND warehouse_id = ? FOR UPDATE',
@@ -203,6 +211,10 @@ router.post('/:id/confirm', requireRole('owner', 'manager', 'warehouse'), async 
          VALUES (?, ?, ?, 'transfer_out', ?, ?, ?, ?, 'transfer', ?, ?, ?)`,
         [fromTenant, item.product_id, transfer.from_warehouse_id, -item.quantity, fromBefore, fromAfter,
          item.unit_cost, transfer.id, req.user.id, `调拨出库 - ${transfer.transfer_no}`]
+      );
+      await conn.query(
+        'INSERT INTO stock_out_items (stock_out_id, product_id, quantity, unit_cost, remark) VALUES (?, ?, ?, ?, ?)',
+        [transferOutId, item.product_id, item.quantity, item.unit_cost, item.remark || null]
       );
     }
 
@@ -247,6 +259,18 @@ async function genInOrderNo(conn, tenantId) {
   const prefix = `RK${today}`;
   const [rows] = await conn.query(
     "SELECT order_no FROM stock_in_orders WHERE tenant_id = ? AND order_no LIKE ? ORDER BY id DESC LIMIT 1",
+    [tenantId, `${prefix}%`]
+  );
+  const seq = rows.length ? parseInt(rows[0].order_no.slice(-3)) + 1 : 1;
+  return `${prefix}${String(seq).padStart(3, '0')}`;
+}
+
+// 生成自动出库单号（调拨出库等自动落账） CK 前缀
+async function genOutNo(conn, tenantId) {
+  const today = dayjs().format('YYYYMMDD');
+  const prefix = `CK${today}`;
+  const [rows] = await conn.query(
+    "SELECT order_no FROM stock_out_orders WHERE tenant_id = ? AND order_no LIKE ? ORDER BY id DESC LIMIT 1",
     [tenantId, `${prefix}%`]
   );
   const seq = rows.length ? parseInt(rows[0].order_no.slice(-3)) + 1 : 1;
