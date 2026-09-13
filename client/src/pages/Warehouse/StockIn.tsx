@@ -28,6 +28,26 @@ const StockIn: React.FC = () => {
   const [warehouses, setWarehouses] = useState<any[]>([]);
   const [suppliers, setSuppliers] = useState<any[]>([]);
   const [filters, setFilters] = useState<any>({ status: undefined, in_type: undefined });
+  const [purchaseTransit, setPurchaseTransit] = useState<any[]>([]);
+  const [transitPicker, setTransitPicker] = useState<any>(null);
+  const [transitWarehouse, setTransitWarehouse] = useState<number | undefined>();
+
+  const loadTransit = async () => {
+    try {
+      const res = await request.get('/stock-in/purchase-transit');
+      setPurchaseTransit((res.data?.data || res.data || []) as any[]);
+    } catch (e) { /* ignore */ }
+  };
+
+  const genFromPurchase = async () => {
+    if (!transitPicker || !transitWarehouse) { message.warning('请选择入库仓库'); return; }
+    try {
+      await request.post('/stock-in/from-purchase', { purchaseOrderId: transitPicker.id, warehouseId: transitWarehouse });
+      message.success('采购入库单已生成，请在下方草稿中确认入库');
+      setTransitPicker(null); setTransitWarehouse(undefined);
+      load(); loadTransit();
+    } catch (e: any) { message.error(e.response?.data?.message || '生成失败'); }
+  };
 
   const load = async (page = 1) => {
     setLoading(true);
@@ -41,6 +61,7 @@ const StockIn: React.FC = () => {
 
   useEffect(() => {
     load(1);
+    loadTransit();
     request.get('/products', { params: { pageSize: 500 } }).then(r => setProducts((r.data?.data || r.data || {}).list || r.data?.data || r.data || []));
     request.get('/warehouses').then(r => setWarehouses((r.data?.data || r.data || {}).list || r.data?.data || r.data || []));
     request.get('/suppliers', { params: { pageSize: 200 } }).then(r => setSuppliers((r.data?.data || r.data || {}).list || r.data?.data || r.data || []));
@@ -129,6 +150,18 @@ const StockIn: React.FC = () => {
   return (
     <div>
       <Title level={4} style={{ marginBottom: 16 }}>入库管理</Title>
+      <Card size="small" title="采购在途（待入库）" style={{ marginBottom: 16 }} extra={purchaseTransit.length ? `${purchaseTransit.length} 单` : ''}>
+        {purchaseTransit.length === 0
+          ? <span style={{ color: '#999' }}>无待入库的采购单</span>
+          : <Table size="small" rowKey="id" pagination={false} dataSource={purchaseTransit} scroll={{ x: 800 }} columns={[
+              { title: '采购单号', dataIndex: 'order_no', width: 170 },
+              { title: '供应商', dataIndex: 'supplier_name', render: (v: string) => v || '-' },
+              { title: '采购金额', dataIndex: 'total_amount', width: 110, render: (v: number) => `¥${Number(v || 0).toFixed(2)}` },
+              { title: '待入库金额', dataIndex: 'remain_amount', width: 110, render: (v: number) => `¥${Number(v || 0).toFixed(2)}` },
+              { title: '待收项', dataIndex: 'remain_items', width: 70, align: 'center' as const },
+              { title: '操作', width: 130, render: (_: any, r: any) => <Button type="link" size="small" icon={<CheckOutlined />} onClick={() => { setTransitPicker(r); setTransitWarehouse(undefined); }}>生成入库单</Button> }
+            ]} />}
+      </Card>
       <Card size="small" style={{ marginBottom: 16 }}>
         <Space wrap>
           <Select placeholder="入库类型" allowClear style={{ width: 120 }} options={inTypeOptions} onChange={v => setFilters(f => ({ ...f, in_type: v }))} />
@@ -141,6 +174,13 @@ const StockIn: React.FC = () => {
       </Card>
       <Table columns={columns} dataSource={list} rowKey="id" loading={loading} size="small" scroll={{ x: 1000 }}
         pagination={{ current: pagination.current, pageSize: pagination.pageSize, total: pagination.total, showTotal: t => `共 ${t} 条`, onChange: p => load(p) }} />
+
+      <Modal title={`生成入库单 - ${transitPicker?.order_no || ''}`} open={!!transitPicker} onOk={genFromPurchase} onCancel={() => setTransitPicker(null)} okText="生成" width={420}>
+        <p style={{ marginBottom: 8 }}><strong>待入库金额：</strong>¥{Number(transitPicker?.remain_amount || 0).toFixed(2)}（{transitPicker?.remain_items || 0} 项商品）</p>
+        <p style={{ marginBottom: 8 }}><strong>入库仓库：</strong></p>
+        <Select style={{ width: '100%' }} placeholder="选择入库仓库" value={transitWarehouse} onChange={setTransitWarehouse}
+          options={warehouses.filter((w: any) => w.status === 'active').map((w: any) => ({ label: w.name, value: w.id }))} />
+      </Modal>
 
       <Modal title="新建入库单" open={modalOpen} onOk={handleCreate} onCancel={() => setModalOpen(false)} width={720} okText="提交" style={{ top: 20 }}>
         <Form form={form} layout="vertical">
