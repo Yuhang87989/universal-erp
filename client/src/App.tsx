@@ -30,6 +30,7 @@ import ReceivablesPage from './pages/Finance/Receivables';
 import PeriodClose from './pages/Finance/PeriodClose';
 import FixedAssets from './pages/Finance/FixedAssets';
 import FundManagement from './pages/Finance/FundManagement';
+import GroupPricing from './pages/Pricing';
 import Analytics from './pages/Analytics';
 import Alerts from './pages/Alerts';
 import AICenter from './pages/AI';
@@ -62,6 +63,7 @@ const routePermMap: Record<string, string> = {
   '/reports': 'analytics:reports',
   '/ai': 'ai:chat',
   '/products': 'data:products',
+  '/pricing': 'data:products',
   '/customers': 'data:customers',
   '/ecommerce': 'data:ecommerce',
   '/settings': 'system:settings',
@@ -121,6 +123,7 @@ const App: React.FC = () => {
         <Route path="alerts" element={<Alerts />} />
         <Route path="ai" element={<AICenter />} />
         <Route path="products" element={<Products />} />
+        <Route path="pricing" element={<GroupPricing />} />
         <Route path="customers" element={<Customers />} />
         <Route path="reports" element={<Reports />} />
         <Route path="ecommerce" element={<Ecommerce />} />
