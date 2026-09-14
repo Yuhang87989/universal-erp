@@ -176,8 +176,8 @@ router.post('/:id/confirm', requireRole('owner', 'manager', 'warehouse'), async 
   try {
     await conn.beginTransaction();
     const [[transfer]] = await conn.query(
-      'SELECT * FROM stock_transfers WHERE id = ? AND tenant_id = ? AND status = "draft" FOR UPDATE',
-      [req.params.id, req.tenantId]
+      'SELECT * FROM stock_transfers WHERE id = ? AND (tenant_id = ? OR from_tenant_id = ? OR to_tenant_id = ?) AND status = "draft" FOR UPDATE',
+      [req.params.id, req.tenantId, req.tenantId, req.tenantId]
     );
     if (!transfer) { await conn.rollback(); return res.status(400).json({ code: 400, message: '调拨单不存在或已确认' }); }
 
