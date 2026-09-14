@@ -96,7 +96,7 @@ router.get('/:id', async (req, res) => {
        LEFT JOIN warehouses tw ON st.to_warehouse_id = tw.id
        LEFT JOIN tenants ft ON st.from_tenant_id = ft.id
        LEFT JOIN tenants tt ON st.to_tenant_id = tt.id
-       WHERE st.id = ? AND st.tenant_id = ?`, [req.params.id, req.tenantId]);
+       WHERE st.id = ? AND (st.tenant_id = ? OR st.from_tenant_id = ? OR st.to_tenant_id = ?)`, [req.params.id, req.tenantId, req.tenantId, req.tenantId]);
     if (!row) return res.status(404).json({ code: 404, message: '调拨单不存在' });
     const [items] = await pool.query(
       `SELECT sti.*, p.name as product_name, p.unit, p.barcode FROM stock_transfer_items sti
@@ -283,8 +283,8 @@ router.delete('/:id', requireRole('owner', 'manager'), async (req, res) => {
   try {
     await conn.beginTransaction();
     const [[row]] = await conn.query(
-      "SELECT * FROM stock_transfers WHERE id = ? AND tenant_id = ? AND status = 'draft'",
-      [req.params.id, req.tenantId]
+      "SELECT * FROM stock_transfers WHERE id = ? AND (tenant_id = ? OR from_tenant_id = ? OR to_tenant_id = ?) AND status = 'draft'",
+      [req.params.id, req.tenantId, req.tenantId, req.tenantId]
     );
     if (!row) { await conn.rollback(); return res.status(400).json({ code: 400, message: '调拨单不存在或无法删除' }); }
     await conn.query('DELETE FROM stock_transfer_items WHERE transfer_id = ?', [row.id]);
