@@ -37,6 +37,7 @@ const receivablesRoutes = require('./routes/receivables');
 const periodCloseRoutes = require('./routes/period_close');
 const assetRoutes = require('./routes/assets');
 const fundRoutes = require('./routes/fund');
+const pricingRoutes = require('./routes/pricing');
 const portalRoutes = require('./routes/portal');
 
 const app = express();
@@ -90,6 +91,7 @@ app.use('/api/finance', receivablesRoutes);
 app.use('/api/period-close', periodCloseRoutes);
 app.use('/api/assets', assetRoutes);
 app.use('/api/fund', fundRoutes);
+app.use('/api/pricing', pricingRoutes);
 app.use('/api/portal', portalRoutes);
 
 // 健康检查
