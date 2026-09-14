@@ -135,6 +135,7 @@ const allMenuItems = [
   ]},
   { type: 'group' as const, label: '基础数据', children: [
     { key: '/products', icon: <ShoppingOutlined />, label: '商品管理' },
+    { key: '/pricing', icon: <AppstoreOutlined />, label: '集团定价' },
     { key: '/customers', icon: <TeamOutlined />, label: '往来单位' },
     { key: '/ecommerce', icon: <ShopOutlined />, label: '电商管理' },
   ]},
